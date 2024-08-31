@@ -1,0 +1,7 @@
+// Commons
+player: player
+fadeIn: fade_id
+fadeout: fade_out
+
+// Level 1 ( Dream )
+wakeUpCutScene: cut_1_1

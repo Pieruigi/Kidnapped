@@ -7,6 +7,9 @@ namespace Kidnapped.SaveSystem
     [System.Serializable]
     public class Data
     {
-        public string Code { get; set; }
+        [SerializeField]
+        string code;
+
+        public string Code { get { return code; } set {  code = value; } }
     }
 }

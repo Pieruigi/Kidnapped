@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819e61119756b2742956e018d7c3e4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  code: FadeIn
+  code: fade_in
   controller: {fileID: 0}

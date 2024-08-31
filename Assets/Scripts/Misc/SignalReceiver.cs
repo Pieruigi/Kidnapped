@@ -1,4 +1,5 @@
 using EvolveGames;
+using Kidnapped.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace Kidnapped
         public void SetWideScreenOff()
         {
             Camera.main.GetComponent<WideScreenController>().SetWideScreenOff();
+        }
+
+        public void SetGameData(GameDataSetter setter)
+        {
+            setter.SetData();
         }
     }
 
