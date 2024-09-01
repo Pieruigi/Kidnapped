@@ -86,6 +86,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: SingleRendererBurningController (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3439200347741964152, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burnOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burningDuration
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: lights.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: lights.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: startBurningDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: audioSources.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -148,6 +176,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: SingleRendererBurningController (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3439200347741964152, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burnOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burningDuration
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: lights.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: lights.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: startBurningDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: audioSources.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -206,15 +262,52 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -37.57
       objectReference: {fileID: 0}
+    - target: {fileID: 2196293237287853042, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196293237287853042, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196293237287853042, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3271720276980077043, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
       propertyPath: m_Name
       value: SingleRendererBurningController
+      objectReference: {fileID: 0}
+    - target: {fileID: 3439200347741964152, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burnOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: burningDuration
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: lights.Array.data[0]
+      value: 
+      objectReference: {fileID: 760746178387939703}
+    - target: {fileID: 8618862507753047616, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+      propertyPath: startBurningDuration
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+--- !u!108 &760746178387939703 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7752769625741815915, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}
+  m_PrefabInstance: {fileID: 6996879099546034460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7528336236952704465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 676645588435973325, guid: 7a14dcb608f1ac240bb35356ddb90e20, type: 3}

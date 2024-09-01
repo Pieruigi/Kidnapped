@@ -46,13 +46,18 @@ namespace Kidnapped.SaveSystem
         void SetCutScenes(List<CutSceneSavable> list)
         {
             // Loop through each cut
+            foreach(var c in cutScenes)
+            {
+                var savable = list.Find(s=>s.Code == c.Code);
+                savable.SetData(c);
+            }
         }
 
         public void SetData()
         {
             Debug.Log("Setting data");
 
-            //PlayerController.Instance.Init() // Init() method missing; also check the savable script
+            FindObjectOfType<PlayerSavable>().SetData(playerData);// Init() method missing; also check the savable script
             List<CutSceneSavable> csd = new List<CutSceneSavable>(FindObjectsOfType<CutSceneSavable>());
             // Set fade in and fade out
             SetFadeInOut(csd);

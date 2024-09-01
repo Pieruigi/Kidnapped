@@ -66,6 +66,12 @@ namespace EvolveGames
         public bool InteractionDisabled { get; set; } = false;
         public bool PlayerInputEnabled { get; set; } = true;
 
+        public bool CanCrouch { get; set; } = false;
+
+        //public bool CanRun { get; set; } = false;
+
+        public bool HasFlashlight { get; set; } = false;
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -127,7 +133,7 @@ namespace EvolveGames
                 else cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, InstallFOV, SpeedToFOV * Time.deltaTime);
             }
 
-            if (Input.GetKey(CroughKey))
+            if (Input.GetKey(CroughKey) && CanCrouch)
             {
                 isCrough = true;
                 float Height = Mathf.Lerp(characterController.height, CroughHeight, 5 * Time.deltaTime);

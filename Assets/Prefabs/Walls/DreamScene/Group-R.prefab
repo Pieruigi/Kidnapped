@@ -116,7 +116,9 @@ PrefabInstance:
       value: Wall_Interior_3x_Burn_Controller (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1310401804665437120, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
+    - {fileID: 591384487663311817, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
@@ -206,7 +208,9 @@ PrefabInstance:
       value: Wall_Interior_3x_Burn_Controller (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1310401804665437120, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
+    - {fileID: 591384487663311817, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
@@ -304,7 +308,9 @@ PrefabInstance:
       value: Wall_Interior_3x_Burn_Controller
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1310401804665437120, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
+    - {fileID: 591384487663311817, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
@@ -394,7 +400,9 @@ PrefabInstance:
       value: Wall_Interior_3x_Burn_Controller (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1310401804665437120, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
+    - {fileID: 591384487663311817, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48c6cb933fe0a64ba8bd750efc722f3, type: 3}
