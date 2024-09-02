@@ -25,5 +25,13 @@ namespace Kidnapped.SaveSystem
         [SerializeField]
         bool canCrouch;
         public bool CanCrouch { get { return canCrouch; } set { canCrouch = value; } }
+
+        //[SerializeField]
+        //Vector3 position;
+        //public Vector3 Position { get { return position; } set {  position = value; } }
+
+        //[SerializeField]
+        //Quaternion rotation;
+        //public Quaternion Rotation { get { return rotation; } set { rotation = value; } }
     }
 }

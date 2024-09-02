@@ -236,7 +236,7 @@ namespace Kidnapped
                     UpdateLightFlicker(flicker, lights[i].intensity);
                     if (normalizedValue == 0)
                     {
-                        Debug.Log($"StopLight:{lights[i].gameObject.name}");
+                       
                         flicker.enabled = false;
                         lights[i].enabled = false;
                     }
@@ -265,7 +265,7 @@ namespace Kidnapped
                 {
                     fireParticles[i] = fireParticleSystem.transform.GetChild(i).GetComponent<ParticleSystem>();
                     var shape = fireParticles[i].shape;
-                    Debug.Log($"Setting shapemesh:{shapeMesh}");
+                
                     shape.mesh = shapeMesh;
                     
                 }
@@ -276,7 +276,7 @@ namespace Kidnapped
         {
             if (fireParticleSystem != null && !fireParticleSystem.isPlaying)
             {
-                Debug.Log("Playing particle");
+                
                 fireParticleSystem.Play(true);
             }
 

@@ -57,6 +57,8 @@ namespace Kidnapped.SaveSystem
         {
             Debug.Log("Setting data");
 
+            //playerData.Position = PlayerController.Instance.transform.position;
+            //playerData.Rotation = PlayerController.Instance.transform.rotation;
             FindObjectOfType<PlayerSavable>().SetData(playerData);// Init() method missing; also check the savable script
             List<CutSceneSavable> csd = new List<CutSceneSavable>(FindObjectsOfType<CutSceneSavable>());
             // Set fade in and fade out

@@ -1,7 +1,13 @@
-// Commons
+
 player: player
 fadeIn: fade_id
 fadeout: fade_out
 
-// Level 1 ( Dream )
-wakeUpCutScene: cut_1_1
+// {LevelId}: the level id
+// {Id}: the object id
+// For example if we have 3 doors in the level 4: door_4_1, door_4_2 and door_4_3
+cutScenes: cut_{levelId}_{Id}
+doors: door_{levelId}_{Id}
+activable: activable_{levelId}_{Id}
+
+

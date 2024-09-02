@@ -21,11 +21,15 @@ namespace Kidnapped.SaveSystem
             PlayerController.Instance.HasFlashlight = d.HasFlashlight;
             PlayerController.Instance.CanRunning = d.CanRun;
             PlayerController.Instance.CanCrouch = d.CanCrouch;
+            //PlayerController.Instance.transform.position = d.Position;
+            //PlayerController.Instance.transform.rotation = d.Rotation;
         }
 
         public override object GetData()
         {
-            return new PlayerData() { Code = Code, HasFlashlight = PlayerController.Instance.HasFlashlight, CanCrouch = !PlayerController.Instance.CanCrouch, CanRun = !PlayerController.Instance.CanRunning };
+            return new PlayerData() { Code = Code, HasFlashlight = PlayerController.Instance.HasFlashlight, CanCrouch = !PlayerController.Instance.CanCrouch, 
+                                      /*CanRun = !PlayerController.Instance.CanRunning, Position = PlayerController.Instance.transform.position, 
+                                      Rotation = PlayerController.Instance.transform.rotation */};
         }
 
     }

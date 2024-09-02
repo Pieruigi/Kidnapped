@@ -41,11 +41,11 @@ namespace Kidnapped.SaveSystem
         void Update()
         {
 #if UNITY_EDITOR
-            //if(Input.GetKeyDown(KeyCode.S)) 
+            //if (Input.GetKeyDown(KeyCode.O))
             //{
             //    SaveGame();
             //}
-            //if (Input.GetKeyDown(KeyCode.A))
+            //if (Input.GetKeyDown(KeyCode.P))
             //{
             //    LoadGame();
             //}

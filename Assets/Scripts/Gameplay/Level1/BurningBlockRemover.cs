@@ -1,3 +1,4 @@
+using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace Kidnapped
         {
             block.SetActive(false);
             doorController.GetComponentInParent<BurningController>().StartBurning();
+
+            SaveManager.Instance.SaveGame();
         }
     }
 
