@@ -1,12 +1,14 @@
+using Kidnapped.OldSaveSystem;
 using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 namespace Kidnapped
 {
-    public class BurningBlockRemover : MonoBehaviour
+    public class BurningBlockRemover : MonoBehaviour, ISavable
     {
         [SerializeField]
         DoorController doorController;
@@ -43,6 +45,37 @@ namespace Kidnapped
 
             SaveManager.Instance.SaveGame();
         }
+
+        #region save system
+        [Header("SaveSystem")]
+        [SerializeField]
+        string code;
+
+        public string GetCode()
+        {
+            return code;
+        }
+
+        public string GetData()
+        {
+            return block.activeSelf.ToString();
+        }
+
+        public void Init(string data)
+        {
+            bool active = bool.Parse(data);
+            if(active && !gameObject.activeSelf)
+            {
+                block.SetActive(true);
+            }
+            else if(!active && gameObject.activeSelf)
+            {
+                block.SetActive(false);
+                doorController.GetComponentInParent<BurningController>().StartBurning();
+            }
+        }
+
+        #endregion
     }
 
 }

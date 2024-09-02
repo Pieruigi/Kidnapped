@@ -996,6 +996,7 @@ MonoBehaviour:
   Lookvertical: 0
   Lookhorizontal: 0
   WalkingValue: 0
+  code: player
 --- !u!136 &5484289203772514503
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1836,7 +1837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SCShader: {fileID: 4800000, guid: f9175d598df1d3b4292b1c2cd9bfcfe3, type: 3}
-  Size: 0.229
+  Size: 0.48
   Smooth: 0.022
 --- !u!114 &5594863548929307934
 MonoBehaviour:
@@ -1851,7 +1852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 5750784661396560246}
-  wideValue: 0.343
+  wideValue: 0.48
   wideTime: 2
 --- !u!1 &8430335810359649764
 GameObject:

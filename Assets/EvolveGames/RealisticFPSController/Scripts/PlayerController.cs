@@ -1,4 +1,5 @@
 ﻿//by EvolveGames
+using Kidnapped.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace EvolveGames
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerController : Singleton<PlayerController>
+    public class PlayerController : Singleton<PlayerController>, ISavable
     {
         [Header("PlayerController")]
         [SerializeField] public Transform Camera;
@@ -199,5 +200,32 @@ namespace EvolveGames
             GetComponent<CharacterController>().enabled = true;
         }
 
+
+        #region save system
+        [Header("SaveSystem")]
+        [SerializeField]
+        string code;
+
+        public string GetCode()
+        {
+            return code;
+        }
+
+        public string GetData()
+        {
+            char c = ISavable.Separator;
+            return $"{HasFlashlight}{c}{CanRunning}{c}{CanCrouch}{c}{SaveManager.ParseVector3ToString(transform.position)}{c}{SaveManager.ParseQuaternionToString(transform.rotation)}";
+        }
+
+        public void Init(string data)
+        {
+            string[] s = data.Split(ISavable.Separator);
+            HasFlashlight = bool.Parse(s[0]);
+            CanRunning = bool.Parse(s[1]);
+            CanCrouch = bool.Parse(s[2]);
+            transform.position = SaveManager.ParseStringToVector3(s[3]);
+            transform.rotation = SaveManager.ParseStringToQuaternion(s[4]);
+        }
+        #endregion
     }
 }

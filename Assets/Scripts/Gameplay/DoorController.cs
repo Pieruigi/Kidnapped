@@ -1,5 +1,6 @@
 using CSA;
 using EvolveGames;
+using Kidnapped.SaveSystem;
 using Suburb;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using UnityEngine.Events;
 namespace Kidnapped
 {
    
-    public class DoorController : MonoBehaviour
+    public class DoorController : MonoBehaviour, ISavable
     {
         public static UnityAction<DoorController> OnCameraOver; // Tell the player they can press a key to open the door
         public static UnityAction<DoorController> OnCameraExit; // Stop telling the player
@@ -181,6 +182,32 @@ namespace Kidnapped
            
             OnDoorInitialized?.Invoke(this);
         }
+
+        #region save system
+        [Header("SaveSystem")]
+        [SerializeField]
+        string code;
+
+        public string GetCode()
+        {
+            return code;
+        }
+
+        public string GetData()
+        {
+            char c = ISavable.Separator;
+            return $"{isLocked}{c}{IsOpen}{c}{interactionDisabled}";
+        }
+
+        public void Init(string data)
+        {
+            string[] s = data.Split(ISavable.Separator);
+            isLocked = bool.Parse(s[0]);
+            isOpen = bool.Parse(s[1]);  
+            interactionDisabled = bool.Parse(s[2]); 
+        }
+
+        #endregion
     }
 
 }

@@ -1,4 +1,5 @@
 using EvolveGames;
+using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using UnityEngine.Playables;
 
 namespace Kidnapped
 {
-    public class CutSceneController : MonoBehaviour
+    public class CutSceneController : MonoBehaviour, ISavable
     {
         public static UnityAction<CutSceneController> OnCompleted;
 
@@ -74,7 +75,27 @@ namespace Kidnapped
             this.playOnEnter = playOnEnter;
         }
 
+        #region save system
+        [Header("SaveSystem")]
+        [SerializeField]
+        string code;
 
+        public string GetCode()
+        {
+            return code;
+        }
+
+        public string GetData()
+        {
+            return playOnEnter.ToString();
+        }
+
+        public void Init(string data)
+        {
+            playOnEnter = bool.Parse(data);
+        }
+
+        #endregion
     }
 
 }
