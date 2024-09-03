@@ -1,6 +1,7 @@
 using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,12 +18,7 @@ namespace Kidnapped.SaveSystem
 
         string fileName = "save.txt";
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            InitSavables();
-        }
+       
 
         private void Update()
         {
@@ -33,25 +29,34 @@ namespace Kidnapped.SaveSystem
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                LoadGame();
             }
 #endif
         }
 
-        
+        private void OnEnable()
+        {
+            Debug.Log($"OnEnable:{gameObject}");
+            // If it's not the game scene we can reset cache data, otherwise we initialize game objects
+            InitSavables();
+        }
 
         void LoadGame()
         {
             ReadFromFile();
 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
             //InitSavables();
-            
+
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             //foreach (string key in data.Keys)
             //{
             //    Debug.Log($"{key}:{data[key]}");
             //}
         }
+
+      
 
         void InitSavables()
         {
@@ -117,24 +122,24 @@ namespace Kidnapped.SaveSystem
         #region utilities
         public static string ParseVector3ToString(Vector3 vector)
         {
-            return $"{vector.x},{vector.y},{vector.z}";
+            return $"{vector.x.ToString(CultureInfo.InvariantCulture)},{vector.y.ToString(CultureInfo.InvariantCulture)},{vector.z.ToString(CultureInfo.InvariantCulture)}";
         }
 
         public static Vector3 ParseStringToVector3(string data)
         {
             string[] s = data.Split(",");
-            return new Vector3(float.Parse(s[0]), float.Parse(s[1]), float.Parse(s[2]));
+            return new Vector3(float.Parse(s[0], CultureInfo.InvariantCulture), float.Parse(s[1], CultureInfo.InvariantCulture), float.Parse(s[2], CultureInfo.InvariantCulture));
         }
 
         public static string ParseQuaternionToString(Quaternion q)
         {
-            return $"{q.x},{q.y},{q.z},{q.w}";
+            return $"{q.x.ToString(CultureInfo.InvariantCulture)},{q.y.ToString(CultureInfo.InvariantCulture)},{q.z.ToString(CultureInfo.InvariantCulture)},{q.w.ToString(CultureInfo.InvariantCulture)}";
         }
 
         public static Quaternion ParseStringToQuaternion(string data)
         {
             string[] s = data.Split(",");
-            return new Quaternion(float.Parse(s[0]), float.Parse(s[1]), float.Parse(s[2]), float.Parse(s[3]));
+            return new Quaternion(float.Parse(s[0], CultureInfo.InvariantCulture), float.Parse(s[1], CultureInfo.InvariantCulture), float.Parse(s[2], CultureInfo.InvariantCulture), float.Parse(s[3], CultureInfo.InvariantCulture));
         }
 
         #endregion

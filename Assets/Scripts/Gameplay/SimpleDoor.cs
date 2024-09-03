@@ -26,6 +26,7 @@ namespace Kidnapped
 
         private void Awake()
         {
+            Debug.Log($"Awake:{gameObject}");
             controller = GetComponentInParent<DoorController>();
             coll = GetComponent<Collider>();
             angleDefault = transform.localEulerAngles.y;
@@ -76,8 +77,10 @@ namespace Kidnapped
             
         }
 
-        private void HandleOnDoorOpenFailed(DoorController arg0)
+        private void HandleOnDoorOpenFailed(DoorController controller)
         {
+            if (this.controller != controller)
+                return;
             Debug.Log("The door is locked and can't be opened");
             lockedEffect.PlayFeedbacks();
         }

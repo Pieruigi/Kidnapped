@@ -53,7 +53,7 @@ namespace Kidnapped
 
         void Awake()
         {
-            
+            Debug.Log($"Awake:{gameObject}");
 
             // Reset shaders
             ResetBurningShaders();
@@ -75,11 +75,11 @@ namespace Kidnapped
         {
 #if UNITY_EDITOR
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
+            //if (Input.GetKeyDown(KeyCode.B))
+            //{
                
-                StartBurning();
-            }
+            //    StartBurning();
+            //}
 #endif                        
 
             if (looping)

@@ -52,7 +52,12 @@ namespace Kidnapped
         }
 
         bool cameraOver = false;
-       
+
+        private void Awake()
+        {
+            Debug.Log($"Awake:{gameObject}");
+        }
+
         // Update is called once per frame
         void Update()
         {

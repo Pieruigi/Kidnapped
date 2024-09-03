@@ -33,6 +33,7 @@ namespace Kidnapped
 
         private void Awake()
         {
+            Debug.Log($"Awake:{gameObject}");
             director = GetComponent<PlayableDirector>();
             
         }

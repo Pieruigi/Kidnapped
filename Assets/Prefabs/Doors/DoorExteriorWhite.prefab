@@ -50,7 +50,8 @@ MonoBehaviour:
   distanceChecker: {fileID: 6131038688211134747}
   interactionCollider: {fileID: 2223269318417275876}
   isOpen: 0
-  isLocked: 0
+  isLocked: 1
+  code: 
 --- !u!1 &5311748344035275160
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 2923850555365548603}
         DebugActive: 0
-        TargetShaker: {fileID: 0}
+        TargetShaker: {fileID: 5986957297195326176}
         Duration: 0.5
         ResetShakerValuesAfterShake: 1
         ResetTargetValuesAfterShake: 1
