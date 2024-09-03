@@ -1,4 +1,5 @@
 using EvolveGames;
+using Kidnapped.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,21 @@ namespace Kidnapped.OldSaveSystem
 {
     public class GameDataSetter : MonoBehaviour
     {
-        
+        [System.Serializable]
+        class Data
+        {
+            [SerializeField]
+            public GameObject savable;
+
+            //[SerializeField]
+            //string code;
+
+            [SerializeField]
+            public string value;
+        }
+
+        [SerializeField]
+        List<Data> dataList;
 
         // Start is called before the first frame update
         void Start()
@@ -46,12 +61,12 @@ namespace Kidnapped.OldSaveSystem
         {
             Debug.Log("Setting data");
 
-            
-            ////FindObjectOfType<PlayerSavable>().SetData(playerData);// Init() method missing; also check the savable script
-            //List<CutSceneSavable> csd = new List<CutSceneSavable>(FindObjectsOfType<CutSceneSavable>());
-            //// Set fade in and fade out
-            //SetFadeInOut(csd);
-            //SetCutScenes(csd);
+            foreach (Data data in dataList)
+            {
+                ISavable iSav = data.savable.GetComponent<ISavable>();
+                iSav.Init(data.value);
+            }
+           
         }
 
 

@@ -1,3 +1,4 @@
+using CSA;
 using Kidnapped.OldSaveSystem;
 using Kidnapped.SaveSystem;
 using System;
@@ -14,18 +15,15 @@ namespace Kidnapped
         DoorController doorController;
 
         [SerializeField]
-        GameObject block;
+        bool active = false;
 
-        // Start is called before the first frame update
-        void Start()
+        Collider coll;
+
+        private void Awake()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            coll = GetComponent<Collider>();
+            if(!active)
+                coll.enabled = false;
         }
 
         private void OnEnable()
@@ -40,10 +38,19 @@ namespace Kidnapped
 
         private void HandleOnOpenFailed(DoorController arg0)
         {
-            block.SetActive(false);
+            active = true;
+            coll.enabled = active;
             doorController.GetComponentInParent<BurningController>().StartBurning();
 
             SaveManager.Instance.SaveGame();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag(Tags.Player))
+                return;
+
+            Debug.Log("Player is inside");
         }
 
         #region save system
@@ -58,19 +65,19 @@ namespace Kidnapped
 
         public string GetData()
         {
-            return block.activeSelf.ToString();
+            return active.ToString();
         }
 
         public void Init(string data)
         {
-            bool active = bool.Parse(data);
-            if(active && !gameObject.activeSelf)
+            active = bool.Parse(data);
+            if(active && !coll.enabled)
             {
-                block.SetActive(true);
+                coll.enabled = true;
             }
-            else if(!active && gameObject.activeSelf)
+            else if(!active && coll.enabled)
             {
-                block.SetActive(false);
+                coll.enabled = false;
                 doorController.GetComponentInParent<BurningController>().StartBurning();
             }
         }

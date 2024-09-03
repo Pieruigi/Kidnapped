@@ -1,13 +1,13 @@
 
-player: player
-fadeIn: fade_id
-fadeout: fade_out
+player: player   (bool:hasflashlight, bool:canRun, bool:canCrouch, vector3:position, quaternion:rotation)
+fadeIn: fade_id		(bool:playOnStart)
+fadeout: fade_out	(bool:playOnStart)
 
 // {LevelId}: the level id
 // {Id}: the object id
 // For example if we have 3 doors in the level 4: door_4_1, door_4_2 and door_4_3
-cutScenes: cut_{levelId}_{Id}
-doors: door_{levelId}_{Id}
-activable: activable_{levelId}_{Id}
+cutScenes: cut_{levelId}_{Id}  (bool:playOnStart)
+doors: door_{levelId}_{Id}  (bool:isLocked, bool:isOpen, bool:interactionDisabled)
+activable: activable_{levelId}_{Id}  (bool:activeself)
 
 

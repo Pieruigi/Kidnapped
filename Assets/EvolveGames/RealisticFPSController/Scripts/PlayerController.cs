@@ -26,7 +26,7 @@ namespace EvolveGames
         [SerializeField] float gravity = 20.0f;
         [SerializeField] float timeToRunning = 2.0f;
         [HideInInspector] public bool canMove = true;
-        [HideInInspector] public bool CanRunning = true;
+        /*[HideInInspector]*/ public bool CanRunning = true;
 
         [Space(20)]
         [Header("Climbing")]
@@ -223,8 +223,10 @@ namespace EvolveGames
             HasFlashlight = bool.Parse(s[0]);
             CanRunning = bool.Parse(s[1]);
             CanCrouch = bool.Parse(s[2]);
-            transform.position = SaveManager.ParseStringToVector3(s[3]);
-            transform.rotation = SaveManager.ParseStringToQuaternion(s[4]);
+            if (!"-".Equals(s[3]))
+                transform.position = SaveManager.ParseStringToVector3(s[3]);
+            if (!"-".Equals(s[4]))
+                transform.rotation = SaveManager.ParseStringToQuaternion(s[4]);
         }
         #endregion
     }

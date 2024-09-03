@@ -7,7 +7,7 @@ namespace Kidnapped.SaveSystem
     public interface ISavable
     {
         public static char Separator = ' ';
-
+        
         public string GetCode();
 
         public string GetData();
