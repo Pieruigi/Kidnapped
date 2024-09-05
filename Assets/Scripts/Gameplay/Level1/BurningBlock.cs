@@ -72,13 +72,17 @@ namespace Kidnapped
 
         private void OnEnable()
         {
-            DoorController.OnDoorOpenFailed += HandleOnOpenFailed;
+            //DoorController.OnDoorOpenFailed += HandleOnOpenFailed;
+           
         }
 
         private void OnDisable()
         {
-            DoorController.OnDoorOpenFailed -= HandleOnOpenFailed;
+            //DoorController.OnDoorOpenFailed -= HandleOnOpenFailed;
+         
         }
+
+       
 
         private void HandleOnOpenFailed(DoorController doorController)
         {

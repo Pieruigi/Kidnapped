@@ -23,6 +23,9 @@ namespace Kidnapped
         List<Renderer> renderers;
 
         [SerializeField]
+        int materialId = 0;
+
+        [SerializeField]
         Mesh shapeMesh;
 
         [SerializeField]
@@ -130,8 +133,18 @@ namespace Kidnapped
         {
             foreach (var renderer in renderers)
             {
-                renderer.material.SetFloat("StartBurning", 0);
-                renderer.material.SetFloat("StopBurning", 0);
+                if(materialId == 0)
+                {
+                    renderer.material.SetFloat("StartBurning", 0);
+                    renderer.material.SetFloat("StopBurning", 0);
+                }
+                else
+                {
+                    Material[] mats = renderer.materials;
+                    mats[materialId].SetFloat("StartBurning", 0);
+                    mats[materialId].SetFloat("StopBurning", 0);
+                    renderer.materials = mats;
+                }
             }
         }
 
@@ -308,7 +321,16 @@ namespace Kidnapped
         {
             foreach (var renderer in renderers)
             {
-                renderer.material.SetFloat("StartBurning", value);
+                if(materialId == 0)
+                {
+                    renderer.material.SetFloat("StartBurning", value);
+                }
+                else
+                {
+                    Material[] mats = renderer.materials;
+                    mats[materialId].SetFloat("StartBurning", value);
+                    renderer.materials = mats;
+                }
             }
     
         }
@@ -317,7 +339,19 @@ namespace Kidnapped
         {
             foreach (var renderer in renderers)
             {
-                renderer.material.SetFloat("StopBurning", value);
+                if(materialId == 0)
+                {
+                    renderer.material.SetFloat("StopBurning", value);
+
+                }
+                else
+                {
+                    Material[] mats = renderer.materials;
+                    mats[materialId].SetFloat("StartBurning", value);
+                    renderer.materials = mats;
+                }
+                
+
             }
         }
 
