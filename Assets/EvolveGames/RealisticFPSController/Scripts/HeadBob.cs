@@ -18,16 +18,18 @@ namespace EvolveGames
         [SerializeField, Range(40f, 4f)] float RoationMovementSmooth = 10.0f;
         [SerializeField, Range(1f, 10f)] float RoationMovementAmount = 3.0f;
 
-        float ToggleSpeed = 3.0f;
+        float ToggleSpeed = 2f;
         Vector3 StartPos;
         Vector3 StartRot;
         Vector3 FinalRot;
         CharacterController player;
+        PlayerController playerController;
         private void Awake()
         {
             player = GetComponentInParent<CharacterController>();
             StartPos = transform.localPosition;
             StartRot = transform.localRotation.eulerAngles;
+            playerController = GetComponentInParent<PlayerController>();
         }
 
         private void Update()
@@ -41,6 +43,10 @@ namespace EvolveGames
         private void CheckMotion()
         {
             float speed = new Vector3(player.velocity.x, 0, player.velocity.z).magnitude;
+            if (playerController.isRunning)
+                Amount = 0.003f;
+            else
+                Amount = 0.001f;
             if (speed < ToggleSpeed) return;
             if (!player.isGrounded) return;
             PlayMotion(HeadBobMotion());

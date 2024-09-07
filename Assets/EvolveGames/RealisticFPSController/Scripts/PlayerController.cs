@@ -108,6 +108,7 @@ namespace EvolveGames
             else RunningValue = WalkingValue;
             float movementDirectionY = moveDirection.y;
             moveDirection = (forward * vertical) + (right * horizontal);
+            moveDirection = Vector3.ClampMagnitude(moveDirection, isRunning ? RunningValue : WalkingValue);
 
             if (Input.GetButton("Jump") && canMove && characterController.isGrounded && !isClimbing)
             {

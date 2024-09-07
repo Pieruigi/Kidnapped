@@ -12,5 +12,6 @@ namespace CSA
     public class KeyBindings
     {
         public static KeyCode InteractionKey = KeyCode.E;
+        public static KeyCode FlashlightKey = KeyCode.F;
     }
 }
