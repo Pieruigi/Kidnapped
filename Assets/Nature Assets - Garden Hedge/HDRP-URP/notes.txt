@@ -1,0 +1,4 @@
+If you are using HDRP, after opening and importing the package, any texture named "_MetallicSmoothness" and "_AO" can be deleted.
+These are packed together in the "_MaskMap" and won't be needed in the HDRP workflow.
+
+When unpacking the package you will use, overwriting is OK to do! :)
