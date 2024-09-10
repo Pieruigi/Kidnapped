@@ -341,6 +341,10 @@ PrefabInstance:
       value: PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 3989176490580258636, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989176490580258636, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 119
       objectReference: {fileID: 0}
