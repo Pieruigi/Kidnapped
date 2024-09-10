@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kidnapped
 {
-    public class Flashlight : MonoBehaviour
+    public class Flashlight : Singleton<Flashlight>
     {
         [SerializeField]
         Light flashLight;
@@ -13,11 +13,15 @@ namespace Kidnapped
         [SerializeField]
         Light handsLight;
 
+        [SerializeField]
+        AudioSource clickAudioSource;
+
         bool isOn = false;
         bool notAvailable = false;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             flashLight.enabled = false;
             handsLight.enabled = false;
         }
@@ -45,9 +49,9 @@ namespace Kidnapped
             {
                 isOn = !isOn;
                 if(isOn)
-                    EnableLights();
+                    SwitchOn();
                 else
-                    DisableLights();
+                    SwitchOff();
             }
         }
 
@@ -61,6 +65,17 @@ namespace Kidnapped
         {
             flashLight.enabled = true;
             handsLight.enabled = true;
+        }
+
+        public void SwitchOn()
+        {
+            EnableLights();
+            clickAudioSource.Play();
+        }
+        public void SwitchOff()
+        {
+            DisableLights();
+            clickAudioSource.Play();
         }
     }
 

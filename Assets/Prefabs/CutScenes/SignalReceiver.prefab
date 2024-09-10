@@ -51,6 +51,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 88cb4fdc56519354cadd1f1c7116cee8, type: 2}
     - {fileID: 11400000, guid: 5c5673d53ed89ed4c8b3ccec37e318ee, type: 2}
     - {fileID: 11400000, guid: 083da5505ef35644597dbf2b24607a17, type: 2}
+    - {fileID: 11400000, guid: 64d7ddd1cb1ac4349a08b8e8a46fdb01, type: 2}
+    - {fileID: 11400000, guid: beaa60948f5127f4482250ef36c51d3c, type: 2}
+    - {fileID: 11400000, guid: 96568e6d37fd8ef47ae19ac8327dae11, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -99,6 +102,48 @@ MonoBehaviour:
         - m_Target: {fileID: 8805750157171348920}
           m_TargetAssemblyTypeName: Kidnapped.SignalReceiver, Assembly-CSharp
           m_MethodName: SetWideScreenOff
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8805750157171348920}
+          m_TargetAssemblyTypeName: Kidnapped.SignalReceiver, Assembly-CSharp
+          m_MethodName: FlashlightOn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8805750157171348920}
+          m_TargetAssemblyTypeName: Kidnapped.SignalReceiver, Assembly-CSharp
+          m_MethodName: FlashlightOff
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8805750157171348920}
+          m_TargetAssemblyTypeName: Kidnapped.SignalReceiver, Assembly-CSharp
+          m_MethodName: SubtitleOff
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

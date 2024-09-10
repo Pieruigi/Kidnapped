@@ -1,5 +1,6 @@
 using EvolveGames;
 using Kidnapped.OldSaveSystem;
+using Kidnapped.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,21 @@ namespace Kidnapped
         public void SetGameData(GameDataSetter setter)
         {
             setter.SetData();
+        }
+
+        public void FlashlightOn()
+        {
+            Flashlight.Instance.SwitchOn();
+        }
+
+        public void FlashlightOff()
+        {
+            Flashlight.Instance.SwitchOff();
+        }
+
+        public void SubtitleOff()
+        {
+            SubtitleUI.Instance.Hide();
         }
     }
 

@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   useDensity: 1
-  density: 3.84
+  density: 0.24
   useScattering: 1
   scattering: 0.412
   useAmbientLighting: 1
-  ambientLightingStrength: 0.31
+  ambientLightingStrength: 0.76
   useColor: 0
   color: {r: 0.0000005066395, g: 0.5, b: 0.5, a: 1}
   colorStrength: 1
   useTint: 1
-  tint: {r: 0.999999, g: 0.91798955, b: 0.56638414, a: 1}
+  tint: {r: 0.43632826, g: 0.4060313, b: 0.999999, a: 1}
   tintStrength: 1
   useExtinction: 1
-  extinction: 0.923
+  extinction: 0.929

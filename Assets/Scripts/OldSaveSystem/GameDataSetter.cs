@@ -66,7 +66,8 @@ namespace Kidnapped.OldSaveSystem
                 ISavable iSav = data.savable.GetComponent<ISavable>();
                 iSav.Init(data.value);
             }
-           
+
+            SaveManager.Instance.SaveGame();
         }
 
 

@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: ef62aa089286210418973d204d97415e
   m_SerializeEntries:
   - m_GUID: 951779c9d03841c4892c41ff28ca1906
-    m_Address: PlayerText_de
+    m_Address: subtitles_de
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-de
