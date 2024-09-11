@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 6441274055147688472}
   - component: {fileID: 5300208415170642166}
   - component: {fileID: 6170044705717412313}
+  - component: {fileID: 1195218240568631014}
   m_Layer: 0
   m_Name: PlayerFlashlight
   m_TagString: Untagged
@@ -405,8 +406,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.90697473, b: 0.740566, a: 1}
-  m_Intensity: 3.76
-  m_Range: 10.96
+  m_Intensity: 4.21
+  m_Range: 11.74
   m_SpotAngle: 85
   m_InnerSpotAngle: 15
   m_CookieSize: 10
@@ -486,6 +487,21 @@ MonoBehaviour:
   flashLight: {fileID: 6441274055147688472}
   handsLight: {fileID: 624994331199771063}
   clickAudioSource: {fileID: 8397292357896205292}
+  animations:
+  - {fileID: 7400000, guid: 7569f0df7b655ed41b05a80a75c04a05, type: 2}
+--- !u!114 &1195218240568631014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6441274055147688474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887f3ae65305aa14491b7d343b04c5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _light: {fileID: 6441274055147688472}
 --- !u!1001 &6542640349651246023
 PrefabInstance:
   m_ObjectHideFlags: 0

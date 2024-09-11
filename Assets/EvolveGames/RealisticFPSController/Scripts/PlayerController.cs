@@ -90,6 +90,13 @@ namespace EvolveGames
 
         void Update()
         {
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.P)) 
+            {
+                PlayerInputEnabled = !PlayerInputEnabled;
+            }
+#endif
+
             if(!PlayerInputEnabled) return;
 
             RaycastHit CroughCheck;
