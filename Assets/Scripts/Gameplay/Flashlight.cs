@@ -17,8 +17,8 @@ namespace Kidnapped
         AudioSource clickAudioSource;
 
         [SerializeField]
-        AnimationClip[] animations;
-
+        float flashIntensity = 4.5f;
+       
         bool isOn = false;
         bool notAvailable = false;
 
@@ -27,8 +27,7 @@ namespace Kidnapped
         protected override void Awake()
         {
             base.Awake();
-            flashLight.enabled = false;
-            handsLight.enabled = false;
+            DisableLights();
             anims = GetComponent<Animation>();
         }
 
@@ -67,12 +66,14 @@ namespace Kidnapped
         {
             flashLight.enabled = false;
             handsLight.enabled = false;
+            flashLight.intensity = 0;
         }
 
         void EnableLights()
         {
             flashLight.enabled = true;
             handsLight.enabled = true;
+            flashLight.intensity = flashIntensity;
         }
 
         public void SwitchOn()
@@ -86,11 +87,6 @@ namespace Kidnapped
             clickAudioSource.Play();
         }
 
-        public void FlickerOff()
-        {
-            anims.clip = animations[0];
-            anims.Play();
-        }
     }
 
 }
