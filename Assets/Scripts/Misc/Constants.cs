@@ -14,4 +14,9 @@ namespace CSA
         public static KeyCode InteractionKey = KeyCode.E;
         public static KeyCode FlashlightKey = KeyCode.F;
     }
+
+    public class GameplaySettings
+    {
+        public static float InteractionDistance = 1.5f;
+    }
 }

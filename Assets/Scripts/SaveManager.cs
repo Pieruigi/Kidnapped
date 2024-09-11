@@ -23,14 +23,14 @@ namespace Kidnapped.SaveSystem
         private void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                SaveGame();
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                LoadGame();
-            }
+            //if (Input.GetKeyDown(KeyCode.O))
+            //{
+            //    SaveGame();
+            //}
+            //if (Input.GetKeyDown(KeyCode.P))
+            //{
+            //    LoadGame();
+            //}
 #endif
         }
 

@@ -81,6 +81,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1836185773285394716, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3111838490551226213, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
       propertyPath: m_Name
       value: PlayerController
@@ -113,6 +117,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5530074832399788770}
     m_Modifications:
+    - target: {fileID: 1521644402922275565, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521644402922275565, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5300208415170642166, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
       propertyPath: target
       value: 

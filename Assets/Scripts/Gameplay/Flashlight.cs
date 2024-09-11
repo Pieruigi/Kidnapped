@@ -16,14 +16,20 @@ namespace Kidnapped
         [SerializeField]
         AudioSource clickAudioSource;
 
+        [SerializeField]
+        AnimationClip[] animations;
+
         bool isOn = false;
         bool notAvailable = false;
+
+        Animation anims;
 
         protected override void Awake()
         {
             base.Awake();
             flashLight.enabled = false;
             handsLight.enabled = false;
+            anims = GetComponent<Animation>();
         }
 
         // Start is called before the first frame update
@@ -35,6 +41,8 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
+
+
             if (notAvailable)
             {
                 if(isOn)
@@ -76,6 +84,12 @@ namespace Kidnapped
         {
             DisableLights();
             clickAudioSource.Play();
+        }
+
+        public void FlickerOff()
+        {
+            anims.clip = animations[0];
+            anims.Play();
         }
     }
 
