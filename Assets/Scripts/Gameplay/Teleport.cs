@@ -1,17 +1,30 @@
+using Aura2API;
+using EvolveGames;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Diagnostics;
+using UnityEngine.Events;
 
 namespace Kidnapped
 {
     public class Teleport : MonoBehaviour
     {
+        public UnityAction OnLightOff;
+        public UnityAction OnLightOn;
+
         [SerializeField]
         Light[] lights;
 
         [SerializeField]
-        GameObject[] objects; 
+        GameObject[] objects;
+
+        [SerializeField]
+        Transform target;
+
+        [SerializeField]
+        bool keepRotation;
 
         // Start is called before the first frame update
         void Start()
@@ -25,33 +38,56 @@ namespace Kidnapped
 
         }
 
-        private void OnEnable()
+        private void OnTriggerEnter(Collider other)
         {
-            LightFlickerOff.OnLightOn += HandleOnLightOn;
-            LightFlickerOff.OnLightOff += HandleOnLightOff;
+            Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
         }
 
-        private void OnDisable()
+        void MovePlayer()
         {
-            LightFlickerOff.OnLightOn -= HandleOnLightOn;
-            LightFlickerOff.OnLightOff -= HandleOnLightOff;
+            PlayerController.Instance.characterController.enabled = false;
+            PlayerController.Instance.transform.position = target.position;
+            if(!keepRotation)
+                PlayerController.Instance.transform.rotation = target.rotation;
+            PlayerController.Instance.characterController.enabled = true;
         }
 
-        private void HandleOnLightOff(LightFlickerOff arg0)
+        private void HandleOnLightOff()
         {
             foreach(Light light in lights)
-                light.enabled = false;
+                DisableLight(light);
             foreach(GameObject obj in objects)
                 obj.SetActive(false);
+            MovePlayer();
+            Debug.Log(OnLightOff);
+            OnLightOff?.Invoke();
         }
 
-        private void HandleOnLightOn(LightFlickerOff arg0)
+        private void HandleOnLightOn()
         {
             foreach (Light light in lights)
-                light.enabled = true;
+                EnableLight(light);
             foreach (GameObject obj in objects)
                 obj.SetActive(true);
+            OnLightOn?.Invoke();
         }
+
+        void DisableLight(Light light)
+        {
+            light.enabled = false;
+            light.GetComponent<AuraLight>().enabled = false;
+        }
+
+        void EnableLight(Light light)
+        {
+            light.enabled = true;
+            light.GetComponent<AuraLight>().enabled = true;
+        }
+
+        //public void Activate()
+        //{
+        //    Flashlight.Instance.GetComponent<LightFlickerOff>().Play();
+        //}
     }
 
 }

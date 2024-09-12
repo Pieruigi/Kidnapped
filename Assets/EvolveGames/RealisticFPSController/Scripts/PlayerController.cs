@@ -231,10 +231,13 @@ namespace EvolveGames
             HasFlashlight = bool.Parse(s[0]);
             CanRunning = bool.Parse(s[1]);
             CanCrouch = bool.Parse(s[2]);
+            characterController = GetComponent<CharacterController>();
+            characterController.enabled = false;
             if (!"-".Equals(s[3]))
                 transform.position = SaveManager.ParseStringToVector3(s[3]);
             if (!"-".Equals(s[4]))
                 transform.rotation = SaveManager.ParseStringToQuaternion(s[4]);
+            characterController.enabled = true;
         }
         #endregion
     }

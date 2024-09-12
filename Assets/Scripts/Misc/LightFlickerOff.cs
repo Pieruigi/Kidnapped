@@ -9,11 +9,13 @@ namespace Kidnapped
     public class LightFlickerOff : MonoBehaviour
     {
 
-        public static UnityAction<LightFlickerOff> OnLightOff;
-        public static UnityAction<LightFlickerOff> OnLightOn;
+        //public static UnityAction<LightFlickerOff> OnLightOff;
+        //public static UnityAction<LightFlickerOff> OnLightOn;
 
         [SerializeField]
         Light _light;
+
+       
 
         // Start is called before the first frame update
         void Start()
@@ -24,12 +26,12 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyUp(KeyCode.G)) { Play(); }
-#endif
+
         }
 
-        public void Play()
+       
+
+        public void Play(UnityAction onLightOffCallback = null, UnityAction onLightOnCallback = null)
         {
             
 
@@ -49,9 +51,10 @@ namespace Kidnapped
 
             seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, Random.Range(minInt, maxInt), Random.Range(minTime, maxTime)).SetDelay(Random.Range(minTime, maxTime) * 2));
             seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, Random.Range(minDef, maxDef), Random.Range(minTime, maxTime)));
-            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, 0, Random.Range(minTime, maxTime)).OnComplete(() => { OnLightOff?.Invoke(this); }));
+            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, 0, Random.Range(minTime, maxTime)).OnComplete(() => { onLightOffCallback?.Invoke(); }));
 
-            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, startValue, 2f * Random.Range(minTime, maxTime)).SetDelay(Random.Range(minTime, maxTime) * 10).OnStart(() => { OnLightOn?.Invoke(this); }));
+            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, startValue, 2f * Random.Range(minTime, maxTime)).SetDelay(Random.Range(minTime, maxTime) * 10).OnStart(() => { onLightOnCallback?.Invoke(); }));
+
 
         }
     }

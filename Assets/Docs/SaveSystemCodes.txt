@@ -3,11 +3,10 @@ player: player   (bool:hasflashlight, bool:canRun, bool:canCrouch, vector3:posit
 fadeIn: fade_id		(bool:playOnStart)
 fadeout: fade_out	(bool:playOnStart)
 
-// {LevelId}: the level id
 // {Id}: the object id
-// For example if we have 3 doors in the level 4: door_4_1, door_4_2 and door_4_3
 cutScenes: cut_{Id}  (bool:playOnStart)
 doors: door_{Id}  (bool:isLocked, bool:isOpen, bool:interactionDisabled)
 activable: activable_{Id}  (bool:activeself)
+stateful: state_{id} (int:state)
 
 

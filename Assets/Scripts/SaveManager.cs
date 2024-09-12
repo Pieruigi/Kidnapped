@@ -18,7 +18,10 @@ namespace Kidnapped.SaveSystem
 
         string fileName = "save.txt";
 
-       
+        private void Start()
+        {
+            InitSavables();
+        }
 
         private void Update()
         {
@@ -27,10 +30,10 @@ namespace Kidnapped.SaveSystem
             //{
             //    SaveGame();
             //}
-            //if (Input.GetKeyDown(KeyCode.P))
-            //{
-            //    LoadGame();
-            //}
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                LoadGame();
+            }
 #endif
         }
 
@@ -47,7 +50,7 @@ namespace Kidnapped.SaveSystem
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-            //InitSavables();
+            
 
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             //foreach (string key in data.Keys)
