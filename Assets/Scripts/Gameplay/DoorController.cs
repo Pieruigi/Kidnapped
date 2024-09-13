@@ -55,7 +55,9 @@ namespace Kidnapped
 
         private void Awake()
         {
-            Debug.Log($"Awake:{gameObject}");
+            string data = SaveManager.GetCachedValue(code);
+            if(!string.IsNullOrEmpty(data))
+                Init(data);
         }
 
         // Update is called once per frame

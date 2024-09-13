@@ -78,6 +78,10 @@ namespace Kidnapped
 
         private void Awake()
         {
+            string data = SaveManager.GetCachedValue(code);
+            if(!string.IsNullOrEmpty(data))
+                Init(data);
+
             leftEulerDefault = leftDoor.localEulerAngles.z;
             rightEulerDefault = rightDoor.localEulerAngles.z;
             BlockLeftTunnel();

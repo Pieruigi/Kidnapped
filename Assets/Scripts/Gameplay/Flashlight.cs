@@ -1,4 +1,5 @@
 using CSA;
+using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,12 +24,14 @@ namespace Kidnapped
         bool notAvailable = false;
 
         Animation anims;
+        LightFlickerOff flickerOff;
 
         protected override void Awake()
         {
             base.Awake();
             DisableLights();
             anims = GetComponent<Animation>();
+            flickerOff = GetComponent<LightFlickerOff>();
         }
 
         // Start is called before the first frame update
@@ -52,16 +55,21 @@ namespace Kidnapped
                 return;
             }
 
-            if(Input.GetKeyDown(KeyBindings.FlashlightKey))
+            if(PlayerController.Instance.PlayerInputEnabled && !flickerOff.Flickering)
             {
-                isOn = !isOn;
-                if(isOn)
-                    SwitchOn();
-                else
-                    SwitchOff();
+                if (Input.GetKeyDown(KeyBindings.FlashlightKey))
+                {
+                    isOn = !isOn;
+                    if (isOn)
+                        SwitchOn();
+                    else
+                        SwitchOff();
+                }
             }
+            
         }
 
+        
         void DisableLights()
         {
             flashLight.enabled = false;

@@ -17,7 +17,6 @@ namespace Kidnapped
 
         public void SetPlayerInputOff()
         {
-            Debug.Log("SetPlayerInputOff");
             PlayerController.Instance.PlayerInputEnabled = false;
         }
 

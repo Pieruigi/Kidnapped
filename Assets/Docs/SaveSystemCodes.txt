@@ -10,3 +10,21 @@ activable: activable_{Id}  (bool:activeself)
 stateful: state_{id} (int:state)
 
 
+
+
+
+
+//// OBJECTS
+player: player
+
+/// CUT SCENES
+fadeIn: fade_in
+fadeOut: fade_out
+firstCut: cut_1
+
+/// Statefull
+EntranceGate: stateful_1
+GymScare: stateful_2
+
+
+

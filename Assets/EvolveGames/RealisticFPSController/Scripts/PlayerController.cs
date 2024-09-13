@@ -73,6 +73,17 @@ namespace EvolveGames
 
         public bool HasFlashlight { get; set; } = false;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            // Init
+            string data = SaveManager.GetCachedValue(code);
+            if (!string.IsNullOrEmpty(data))
+            {
+                Init(data);
+            }
+        }
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();

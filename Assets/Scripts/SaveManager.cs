@@ -18,30 +18,19 @@ namespace Kidnapped.SaveSystem
 
         string fileName = "save.txt";
 
-        private void Start()
-        {
-            InitSavables();
-        }
-
+        
         private void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.O))
-            //{
-            //    SaveGame();
-            //}
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                SaveGame();
+            }
             if (Input.GetKeyDown(KeyCode.L))
             {
                 LoadGame();
             }
 #endif
-        }
-
-        private void OnEnable()
-        {
-            Debug.Log($"OnEnable:{gameObject}");
-            // If it's not the game scene we can reset cache data, otherwise we initialize game objects
-            InitSavables();
         }
 
         void LoadGame()
@@ -122,7 +111,16 @@ namespace Kidnapped.SaveSystem
             WriteToFile();
         }
 
+
+
         #region utilities
+        public static string GetCachedValue(string key)
+        {
+            if (!data.ContainsKey(key))
+                return "";
+            return data[key];
+        }
+
         public static string ParseVector3ToString(Vector3 vector)
         {
             return $"{vector.x.ToString(CultureInfo.InvariantCulture)},{vector.y.ToString(CultureInfo.InvariantCulture)},{vector.z.ToString(CultureInfo.InvariantCulture)}";

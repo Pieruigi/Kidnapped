@@ -36,26 +36,6 @@ namespace Kidnapped.OldSaveSystem
 
         }
 
-        //void SetFadeInOut(List<CutSceneSavable> list)
-        //{
-        //    // Fade in
-        //    var tmp = list.Find(c=>c.Code == fadeIn.Code);
-        //    if (tmp)
-        //        tmp.SetData(fadeIn);
-        //    tmp = list.Find(c => c.Code == fadeOut.Code);
-        //    if (tmp)
-        //        tmp.SetData(fadeOut);
-        //}
-
-        //void SetCutScenes(List<CutSceneSavable> list)
-        //{
-        //    // Loop through each cut
-        //    foreach(var c in cutScenes)
-        //    {
-        //        var savable = list.Find(s=>s.Code == c.Code);
-        //        savable.SetData(c);
-        //    }
-        //}
 
         public void SetData()
         {

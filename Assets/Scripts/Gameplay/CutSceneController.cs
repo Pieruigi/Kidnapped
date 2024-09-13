@@ -33,15 +33,27 @@ namespace Kidnapped
 
         private void Awake()
         {
-            Debug.Log($"Awake:{gameObject}");
+            string data = SaveManager.GetCachedValue(code);
+            if(!string.IsNullOrEmpty(data))
+                Init(data);
+
             director = GetComponent<PlayableDirector>();
+
             
         }
 
         private void Start()
         {
-            if(playOnEnter)// && !played)
+            if (playOnEnter)
+            {
                 Play();
+            }
+            else
+            {
+                AudioSource[] sources = GetComponentsInChildren<AudioSource>();
+                foreach(AudioSource source in sources)
+                    source.enabled = false;
+            }
         }
 
         private void Update()
