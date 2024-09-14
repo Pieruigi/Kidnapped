@@ -2,6 +2,7 @@
 player: player   (bool:hasflashlight, bool:canRun, bool:canCrouch, vector3:position, quaternion:rotation)
 fadeIn: fade_id		(bool:playOnStart)
 fadeout: fade_out	(bool:playOnStart)
+cat: (int:state[deactivated=0|stand=1|help=2], vector3:position, quaternion:rotation ) 
 
 // {Id}: the object id
 cutScenes: cut_{Id}  (bool:playOnStart)
@@ -16,6 +17,7 @@ stateful: state_{id} (int:state)
 
 //// OBJECTS
 player: player
+cat: cat
 
 /// CUT SCENES
 fadeIn: fade_in

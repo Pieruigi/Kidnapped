@@ -29,6 +29,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject doorBlock;
 
+        [SerializeField]
+        Transform catTarget;
+
         [Header("State 10")]
         [SerializeField]
         Transform ballEnd;
@@ -79,6 +82,9 @@ namespace Kidnapped
             SetDoorBlock();
 
             ballTrigger.enabled = true;
+
+            // Activate the black cat
+            CatController.Instance.StandAndPlayRandom(catTarget.position, catTarget.rotation);
         }
 
      
@@ -98,6 +104,8 @@ namespace Kidnapped
             // Launch the ball
             Vector3 dir = ballTarget.position - ball.transform.position;
             rb.AddForce(dir.normalized * 15, ForceMode.VelocityChange);
+
+            
         }
 
         #region save system
@@ -118,10 +126,12 @@ namespace Kidnapped
         {
             state = int.Parse(data);
 
+            
+
             if(state == 0)
             {
                 ResetDoorBlock();
-                //ballTrigger.enabled = false;
+                ballTrigger.enabled = false;
                 
             }
             else if(state == 90) // Completed state
