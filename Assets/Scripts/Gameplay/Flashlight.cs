@@ -59,11 +59,11 @@ namespace Kidnapped
             {
                 if (Input.GetKeyDown(KeyBindings.FlashlightKey))
                 {
-                    isOn = !isOn;
-                    if (isOn)
+                    if (!isOn)
                         SwitchOn();
                     else
                         SwitchOff();
+                    
                 }
             }
             
@@ -86,11 +86,15 @@ namespace Kidnapped
 
         public void SwitchOn()
         {
+            if (isOn) return;
+            isOn = true;
             EnableLights();
             clickAudioSource.Play();
         }
         public void SwitchOff()
         {
+            if(!isOn) return;
+            isOn = false;
             DisableLights();
             clickAudioSource.Play();
         }

@@ -1,13 +1,14 @@
 using Kidnapped.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Kidnapped
 {
     public class GymScareController : MonoBehaviour, ISavable
     {
-        [Header("State 0")]
+        [Header("Ball")]
         [SerializeField]
         GameObject ball;
 
@@ -17,6 +18,10 @@ namespace Kidnapped
         [SerializeField]
         Transform ballTarget;
 
+        [SerializeField]
+        Transform ballEnd;
+
+        [Header("Doors")]
         [SerializeField]
         Collider doorTrigger;
 
@@ -29,12 +34,17 @@ namespace Kidnapped
         [SerializeField]
         GameObject doorBlock;
 
+        [Header("Cat")]
         [SerializeField]
         Transform catTarget;
 
-        [Header("State 10")]
         [SerializeField]
-        Transform ballEnd;
+        Transform catDestination;
+
+        [SerializeField]
+        GameObject catDeactivator;
+
+        
 
 
         int state = 0;
@@ -89,7 +99,7 @@ namespace Kidnapped
 
      
 
-        public void LaunchTheBall()
+        public async Task LaunchTheBall()
         {
             // Update state
             state = 20;
@@ -105,7 +115,14 @@ namespace Kidnapped
             Vector3 dir = ballTarget.position - ball.transform.position;
             rb.AddForce(dir.normalized * 15, ForceMode.VelocityChange);
 
-            
+            // Activate the cat deactivation trigger
+            catDeactivator.SetActive(true);
+
+            await Task.Delay(500);
+
+            CatController.Instance.ScaredAndRunAway(catDestination.position);
+
+
         }
 
         #region save system
@@ -126,22 +143,24 @@ namespace Kidnapped
         {
             state = int.Parse(data);
 
+            ResetDoorBlock();
+            ballTrigger.enabled = false;
+            catDeactivator.SetActive(false);
+            Rigidbody rb = ball.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
             
 
-            if(state == 0)
+            if (state == 20)
             {
-                ResetDoorBlock();
-                ballTrigger.enabled = false;
-                
-            }
-            else if(state == 90) // Completed state
-            {
-                ResetDoorBlock();
-                ballTrigger.enabled = false;
-                Rigidbody rb = ball.GetComponent<Rigidbody>();
-                rb.isKinematic = false; 
+                rb.isKinematic = false;
                 rb.position = ballEnd.position;
             }
+            //else if(state == 90) // Completed state
+            //{
+            //    ResetDoorBlock();
+            //    ballTrigger.enabled = false;
+                
+            //}
 
         }
         #endregion

@@ -13,6 +13,9 @@ namespace Kidnapped
         [SerializeField]
         CatStandAndPlayRandom standAndPlayRandom;
 
+        [SerializeField]
+        CatScaredAndRunWay scaredAndRunAway;
+
         int state = 0;
 
         protected override void Awake()
@@ -22,11 +25,13 @@ namespace Kidnapped
             Init(data);
         }
 
-       
-        void ResetAll()
+
+
+        public void ResetAll()
         {
             cat.SetActive(false);
             standAndPlayRandom.enabled = false;
+            scaredAndRunAway.enabled = false;
         }
 
         public void StandAndPlayRandom(Vector3 position, Quaternion rotation)
@@ -37,8 +42,20 @@ namespace Kidnapped
             if(!cat.activeSelf)
                 cat.SetActive(true);
 
-            if(!standAndPlayRandom.enabled)
-                standAndPlayRandom.enabled = true;
+            scaredAndRunAway.enabled = false;
+
+            standAndPlayRandom.enabled = true;
+                
+        }
+
+        public void ScaredAndRunAway(Vector3 destination)
+        {
+            if(!cat.activeSelf)
+                cat.SetActive(true);
+
+            standAndPlayRandom.enabled=false;
+            scaredAndRunAway.Destination = destination;
+            scaredAndRunAway.enabled=true;
         }
 
         #region save system
@@ -72,6 +89,10 @@ namespace Kidnapped
                     if(state == 1)
                     {
                         standAndPlayRandom.enabled = true;
+                    }
+                    else if(state == 2)
+                    {
+                        scaredAndRunAway.enabled = true;
                     }
                 }
 

@@ -7,6 +7,7 @@ namespace CSA
     public class Tags
     {
         public static string Player = "Player";
+        public static string Cat = "Cat";
     }
 
     public class KeyBindings

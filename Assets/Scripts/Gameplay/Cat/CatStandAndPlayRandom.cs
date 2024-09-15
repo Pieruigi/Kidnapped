@@ -7,29 +7,16 @@ namespace Kidnapped
 {
     public class CatStandAndPlayRandom : MonoBehaviour
     {
-        
+
         [SerializeField]
-        GameObject cat;
+        Animator animator;
 
         [SerializeField]
         string[] triggers;
 
-        //float eatDuration;
-        //float lickingDuration;
-        //float meowDuration;
-        //float hitDuration;
-        //float[] attacksDuration;
-
-        string eatParam = "Eat";
-        string lickParam = "Lick";
-        string meowParam = "Meow";
-        string hitParam = "Hit";
-        string attackParam = "Attack";
-       
-
         DateTime idleStartTime;
         
-        Animator animator;
+        
         bool inIdle = false;
         string idleName = "idle";
 
@@ -37,13 +24,12 @@ namespace Kidnapped
         float maxIdleTIme = 5f;
         float idleTime;
         bool inTransition = false;
-      
+        Rigidbody rb;
 
         private void Awake()
         {
-            animator = cat.GetComponent<Animator>();
-
-            enabled = false;
+            rb = GetComponent<Rigidbody>();
+            //enabled = false;
         }
 
         // Start is called before the first frame update
@@ -99,6 +85,7 @@ namespace Kidnapped
             }
             inIdle = false;
             inTransition = false;
+            //rb.isKinematic = true;
             //idleStartTime = DateTime.Now;
             //idleTime = UnityEngine.Random.Range(minIdleTime, maxIdleTIme);
             //inIdle = true;

@@ -73,6 +73,8 @@ namespace EvolveGames
 
         public bool HasFlashlight { get; set; } = false;
 
+        Animator animator;
+
         protected override void Awake()
         {
             base.Awake();
@@ -82,6 +84,8 @@ namespace EvolveGames
             {
                 Init(data);
             }
+
+            animator = GetComponent<Animator>();
         }
 
         void Start()
@@ -178,6 +182,8 @@ namespace EvolveGames
                 Items.ani.SetBool("Hide", WallDistance);
                 Items.DefiniteHide = WallDistance;
             }
+
+            animator.SetFloat("Speed", characterController.velocity.magnitude);
         }
 
         private void OnTriggerEnter(Collider other)
