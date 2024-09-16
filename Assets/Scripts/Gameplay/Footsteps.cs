@@ -59,7 +59,8 @@ namespace Kidnapped
                     }
                 }
 
-                Debug.Log($"Step on texture:{texture.name}");
+                if(texture)
+                    Debug.Log($"Step on texture:{texture.name}");
 
                 ClipData clipData = null;
                 if (texture) 

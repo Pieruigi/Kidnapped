@@ -43,7 +43,7 @@ namespace EvolveGames
         private void CheckMotion()
         {
             float speed = new Vector3(player.velocity.x, 0, player.velocity.z).magnitude;
-            if (playerController.isRunning)
+            if (playerController.IsRunning)
                 Amount = 0.003f;
             else
                 Amount = 0.001f;

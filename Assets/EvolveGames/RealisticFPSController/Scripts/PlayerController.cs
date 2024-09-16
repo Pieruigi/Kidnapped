@@ -48,9 +48,11 @@ namespace EvolveGames
         [HideInInspector] public CharacterController characterController;
         [HideInInspector] public Vector3 moveDirection = Vector3.zero;
         bool isCrough = false;
+        public bool IsCrouching {  get { return isCrough; } }
         float InstallCroughHeight;
         float rotationX = 0;
-        [HideInInspector] public bool isRunning = false;
+        [HideInInspector] bool isRunning = false;
+        public bool IsRunning {  get { return isRunning; } }
         Vector3 InstallCameraMovement;
         float InstallFOV;
         Camera cam;
@@ -67,13 +69,18 @@ namespace EvolveGames
         public bool InteractionDisabled { get; set; } = false;
         public bool PlayerInputEnabled { get; set; } = true;
 
-        public bool CanCrouch { get; set; } = false;
+        public bool IsDying { get; set; } = false;
+
+        public bool CanCrouch { get; set; } = true;
 
         //public bool CanRun { get; set; } = false;
 
         public bool HasFlashlight { get; set; } = false;
 
         Animator animator;
+
+
+        
 
         protected override void Awake()
         {

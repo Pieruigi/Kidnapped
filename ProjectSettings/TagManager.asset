@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Ladder
   - Cat
+  - Moon
   layers:
   - Default
   - TransparentFX
