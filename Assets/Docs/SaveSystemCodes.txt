@@ -13,9 +13,6 @@ stateful: state_{id} (int:state)
 
 
 
-
-
-
 //// OBJECTS
 player: player
 cat: cat
@@ -29,6 +26,10 @@ firstCut: cut_1
 /// Statefull
 EntranceGate: stateful_1
 GymScare: stateful_2
+
+/// Environment
+OriginalGym: old_gym (bool:active)
+AbandonedGym: abandoned_gym (bool:active)
 
 
 

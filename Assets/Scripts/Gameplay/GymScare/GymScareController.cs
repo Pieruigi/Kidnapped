@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Kidnapped
@@ -45,7 +46,8 @@ namespace Kidnapped
         [SerializeField]
         GameObject catDeactivator;
 
-        
+        [SerializeField]
+        GameObject[] gyms;
 
 
         int state = 0;
@@ -62,12 +64,18 @@ namespace Kidnapped
         // Start is called before the first frame update
         void Start()
         {
-
+           
         }
 
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.K))
+            {
+                Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            }
+#endif
 
         }
 
@@ -124,7 +132,7 @@ namespace Kidnapped
             CatController.Instance.ScaredAndRunAway(catDestination.position);
 
             // Just wait for a while and then flicker the flashlight out and start the new section
-            await Task.Delay(2000);
+            await Task.Delay(2500);
 
             // Flashlight
             Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
@@ -135,12 +143,22 @@ namespace Kidnapped
 
         private void HandleOnLightOff()
         {
+            Debug.Log("Handle aaaaaaaaaaaaaaaaaaaaaa");
+
             // Switch to modern school
+            gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
+            gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
+
+            
         }
 
         private void HandleOnLightOn()
         {
-            throw new NotImplementedException();
+            // Set the new state
+            state = 30;
+
+            // Save state
+            SaveManager.Instance.SaveGame();
         }
 
         #region save system
@@ -168,17 +186,12 @@ namespace Kidnapped
             rb.isKinematic = true;
             
 
-            if (state == 20) // Step to save
+            if (state == 30) // Step to save
             {
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
             }
-            //else if(state == 90) // Completed state
-            //{
-            //    ResetDoorBlock();
-            //    ballTrigger.enabled = false;
-                
-            //}
+            
 
         }
         #endregion

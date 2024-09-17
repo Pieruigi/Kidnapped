@@ -2,6 +2,7 @@ using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +19,15 @@ namespace Kidnapped.SaveSystem
 
         string fileName = "save.txt";
 
-        
+        private void Start()
+        {
+            var list = new List<MonoBehaviour>(FindObjectsOfType<MonoBehaviour>(true)).Where(m=>m is ISavable);
+            savables = new List<GameObject>();
+            foreach (var l in list)
+                savables.Add(l.gameObject);
+            
+        }
+
         private void Update()
         {
 #if UNITY_EDITOR
@@ -50,18 +59,18 @@ namespace Kidnapped.SaveSystem
 
       
 
-        void InitSavables()
-        {
-            foreach (var savable in savables)
-            {
-                ISavable s = savable.GetComponent<ISavable>();
-                // Get the code
-                string code = s.GetCode();
-                // Look for the code in the dictionary
-                if (data.ContainsKey(code))
-                    s.Init(data[code]);
-            }
-        }
+        //void InitSavables()
+        //{
+        //    foreach (var savable in savables)
+        //    {
+        //        ISavable s = savable.GetComponent<ISavable>();
+        //        // Get the code
+        //        string code = s.GetCode();
+        //        // Look for the code in the dictionary
+        //        if (data.ContainsKey(code))
+        //            s.Init(data[code]);
+        //    }
+        //}
 
         void WriteToFile()
         {
