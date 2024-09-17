@@ -1,4 +1,5 @@
 using Kidnapped.SaveSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -122,7 +123,24 @@ namespace Kidnapped
 
             CatController.Instance.ScaredAndRunAway(catDestination.position);
 
+            // Just wait for a while and then flicker the flashlight out and start the new section
+            await Task.Delay(2000);
 
+            // Flashlight
+            Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+
+
+            
+        }
+
+        private void HandleOnLightOff()
+        {
+            // Switch to modern school
+        }
+
+        private void HandleOnLightOn()
+        {
+            throw new NotImplementedException();
         }
 
         #region save system
@@ -150,7 +168,7 @@ namespace Kidnapped
             rb.isKinematic = true;
             
 
-            if (state == 20)
+            if (state == 20) // Step to save
             {
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
