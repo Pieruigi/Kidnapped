@@ -1,0 +1,946 @@
+fileFormatVersion: 2
+guid: 801c019f991f15b49a06a30b508e576a
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: run2-1
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Creepy_mannequin_LeftForeArm' has translation
+      animation that will be discarded.\n\t'Creepy_mannequin_LeftLeg' has translation
+      animation that will be discarded.\n\t'Creepy_mannequin_RightLeg' has translation
+      animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: run2-1
+      takeName: Take 001
+      internalID: 1827226128182048838
+      firstFrame: 0
+      lastFrame: 44
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Creepy_mannequin_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Spine2
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftEye
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightEye
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Jaw
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandPink1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandPink2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_LeftHandPink3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandPink1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandPink2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_RightHandPink3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Creepy_mannequin_Spine3
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Creepy_mannequin@run2-1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Root
+      parentName: Creepy_mannequin@run2-1(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Hips
+      parentName: Creepy_mannequin_Root
+      position: {x: 0.0032343387, y: 0.94304925, z: 0.03902015}
+      rotation: {x: -0.013285969, y: 0.1380979, z: -0.0036456625, w: 0.99032277}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Spine
+      parentName: Creepy_mannequin_Hips
+      position: {x: -0.000000007992369, y: 0.083356306, z: -0.008575767}
+      rotation: {x: 0.18973348, y: -0.058192816, z: 0.01906718, w: 0.97992414}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Spine2
+      parentName: Creepy_mannequin_Spine
+      position: {x: 2.1100634e-10, y: 0.08104403, z: 0.00000006391308}
+      rotation: {x: -0.08248328, y: -0.11756426, z: 0.055901516, w: 0.98805374}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Spine3
+      parentName: Creepy_mannequin_Spine2
+      position: {x: -0.0000000010466454, y: 0.09211762, z: 0.0000000026099407}
+      rotation: {x: -0.017569818, y: -0.123115525, z: 0.041992128, w: 0.99134785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Neck
+      parentName: Creepy_mannequin_Spine3
+      position: {x: -0.00000024887476, y: 0.2856649, z: -0.094198644}
+      rotation: {x: -0.14979975, y: 0.09110461, z: -0.067038104, w: 0.982225}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Head
+      parentName: Creepy_mannequin_Neck
+      position: {x: 0.000000063607956, y: 0.083575666, z: 0.01344022}
+      rotation: {x: -0.090983436, y: 0.107005306, z: -0.04825102, w: 0.9889104}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_HeadEnd
+      parentName: Creepy_mannequin_Head
+      position: {x: -0, y: 0.22058147, z: 4.440892e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_Jaw
+      parentName: Creepy_mannequin_Head
+      position: {x: -0, y: -0.008445488, z: 0.09723323}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftEye
+      parentName: Creepy_mannequin_Head
+      position: {x: -0.038009897, y: 0.08457092, z: 0.09244711}
+      rotation: {x: -0.06545704, y: 0.114451855, z: 0.13319393, w: 0.9822808}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftEyelid
+      parentName: Creepy_mannequin_Head
+      position: {x: -0.03911758, y: 0.08527627, z: 0.10025696}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightEyelid
+      parentName: Creepy_mannequin_Head
+      position: {x: 0.0391176, y: 0.08527848, z: 0.100256935}
+      rotation: {x: 1, y: -0, z: 0, w: 6.123234e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightEye
+      parentName: Creepy_mannequin_Head
+      position: {x: 0.0380099, y: 0.084574305, z: 0.09244714}
+      rotation: {x: 0.98230994, y: 0.1330543, z: -0.114929415, w: 0.06445945}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftShoulder
+      parentName: Creepy_mannequin_Spine3
+      position: {x: -0.04401034, y: 0.23389976, z: -0.06395422}
+      rotation: {x: 0.0064459112, y: 0.026085498, z: 0.04630783, w: 0.9985658}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftArm
+      parentName: Creepy_mannequin_LeftShoulder
+      position: {x: -0.08355524, y: 0.0076248, z: 0.0010318455}
+      rotation: {x: -0.16116773, y: 0.13354206, z: -0.084611714, w: 0.97418296}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftForeArm
+      parentName: Creepy_mannequin_LeftArm
+      position: {x: -0.25790057, y: -0.00000006582908, z: -0.000000017283117}
+      rotation: {x: 0.001679584, y: 0.04121462, z: -0.0047799284, w: 0.9991376}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHand
+      parentName: Creepy_mannequin_LeftForeArm
+      position: {x: -0.26809618, y: -0.000021594631, z: 0.00011320021}
+      rotation: {x: -0.06478763, y: 0.21752429, z: -0.094852984, w: 0.96927226}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandThumb1
+      parentName: Creepy_mannequin_LeftHand
+      position: {x: -0.05341606, y: -0.017704776, z: 0.029168192}
+      rotation: {x: 0.5533765, y: 0.4347628, z: -0.04199093, w: 0.7092197}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandThumb2
+      parentName: Creepy_mannequin_LeftHandThumb1
+      position: {x: -0.04851222, y: -0.000000008813035, z: -0.00000016650043}
+      rotation: {x: 0.0001935958, y: -0.0007968839, z: 0.03494166, w: 0.99938905}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandThumb3
+      parentName: Creepy_mannequin_LeftHandThumb2
+      position: {x: -0.029194314, y: 0.000000008354322, z: 0.00000017309442}
+      rotation: {x: 0.000032419295, y: -0.00090503803, z: 0.03909239, w: 0.9992353}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandThumb4
+      parentName: Creepy_mannequin_LeftHandThumb3
+      position: {x: -0.02226655, y: -0.000000005326093, z: -0.00000008038363}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandIndex1
+      parentName: Creepy_mannequin_LeftHand
+      position: {x: -0.121617496, y: -0.020705665, z: 0.032551534}
+      rotation: {x: -0.09739948, y: 0.05870746, z: 0.16456082, w: 0.979789}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandIndex2
+      parentName: Creepy_mannequin_LeftHandIndex1
+      position: {x: -0.034541033, y: -0.0000000243535, z: 4.6103976e-10}
+      rotation: {x: 0.00013665098, y: -0.0011761775, z: 0.02740819, w: 0.99962366}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandIndex3
+      parentName: Creepy_mannequin_LeftHandIndex2
+      position: {x: -0.024362702, y: 0.00000002035763, z: 0.0000000057463567}
+      rotation: {x: 0.00021753284, y: -0.0011531694, z: 0.027750807, w: 0.9996142}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandIndex4
+      parentName: Creepy_mannequin_LeftHandIndex3
+      position: {x: -0.018711865, y: -0.000000051430828, z: -7.721966e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandMiddle1
+      parentName: Creepy_mannequin_LeftHand
+      position: {x: -0.12274816, y: -0.02123352, z: 0.011927405}
+      rotation: {x: -0.05778837, y: 0.050618604, z: 0.16972224, w: 0.9824931}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandMiddle2
+      parentName: Creepy_mannequin_LeftHandMiddle1
+      position: {x: -0.045695018, y: -0.000000022638265, z: 0.0000000010942586}
+      rotation: {x: 0.0001567601, y: -0.0010863013, z: 0.025248474, w: 0.99968064}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandMiddle3
+      parentName: Creepy_mannequin_LeftHandMiddle2
+      position: {x: -0.024362726, y: -0.0000000010876887, z: -0.0000000027212894}
+      rotation: {x: 0.00022046977, y: -0.0011572733, z: 0.027925402, w: 0.9996093}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandMiddle4
+      parentName: Creepy_mannequin_LeftHandMiddle3
+      position: {x: -0.018711882, y: -0.000000025850397, z: -0.0000000122733566}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandRing1
+      parentName: Creepy_mannequin_LeftHand
+      position: {x: -0.12101661, y: -0.020860983, z: -0.010534487}
+      rotation: {x: -0.009509789, y: -0.019391943, z: 0.13554837, w: 0.9905353}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandRing2
+      parentName: Creepy_mannequin_LeftHandRing1
+      position: {x: -0.03902426, y: 0.00000011429976, z: 0.000000010389974}
+      rotation: {x: 0.000114094386, y: -0.001263353, z: 0.029500045, w: 0.99956405}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandRing3
+      parentName: Creepy_mannequin_LeftHandRing2
+      position: {x: -0.02436265, y: -0.000000033256573, z: 0.000000007639416}
+      rotation: {x: 0.00019082446, y: -0.0012340274, z: 0.029981416, w: 0.9995497}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandRing4
+      parentName: Creepy_mannequin_LeftHandRing3
+      position: {x: -0.01871197, y: -0.000000031353018, z: -0.0000000092323935}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandPink1
+      parentName: Creepy_mannequin_LeftHand
+      position: {x: -0.11678125, y: -0.024036642, z: -0.031433962}
+      rotation: {x: 0.005482721, y: -0.018281251, z: 0.039558947, w: 0.99903494}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandPink2
+      parentName: Creepy_mannequin_LeftHandPink1
+      position: {x: -0.030726016, y: -0.000000038341213, z: -0.00000001245794}
+      rotation: {x: 0.00013731737, y: -0.0011735607, z: 0.02733824, w: 0.9996256}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandPink3
+      parentName: Creepy_mannequin_LeftHandPink2
+      position: {x: -0.024362627, y: -0.0000000032781995, z: 0.000000015358035}
+      rotation: {x: 0.00018621702, y: -0.0012231182, z: 0.029554293, w: 0.99956244}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftHandPink4
+      parentName: Creepy_mannequin_LeftHandPink3
+      position: {x: -0.018711863, y: 0.00000008869147, z: 8.1874757e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightShoulder
+      parentName: Creepy_mannequin_Spine3
+      position: {x: 0.0440103, y: 0.23390226, z: -0.063954435}
+      rotation: {x: 0.9413628, y: -0.20241602, z: -0.26990396, w: 0.0039671343}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightArm
+      parentName: Creepy_mannequin_RightShoulder
+      position: {x: 0.08355549, y: -0.0076249265, z: -0.0010319733}
+      rotation: {x: -0.49375, y: 0.17928699, z: -0.056392785, w: 0.8490506}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightForeArm
+      parentName: Creepy_mannequin_RightArm
+      position: {x: 0.25790158, y: 0.0000033401427, z: -0.0000002507054}
+      rotation: {x: 0.0067697754, y: 0.0052400525, z: -0.013750842, w: 0.99986887}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHand
+      parentName: Creepy_mannequin_RightForeArm
+      position: {x: 0.2680947, y: 0.000020509307, z: -0.0001134588}
+      rotation: {x: 0.41270423, y: -0.040389914, z: -0.19904096, w: 0.8879339}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandThumb1
+      parentName: Creepy_mannequin_RightHand
+      position: {x: 0.053416822, y: 0.017705848, z: -0.029167894}
+      rotation: {x: 0.5352515, y: 0.42569366, z: -0.12958877, w: 0.7179815}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandThumb2
+      parentName: Creepy_mannequin_RightHandThumb1
+      position: {x: 0.04851344, y: 0.000001860776, z: -0.0000008450839}
+      rotation: {x: 0.00064700824, y: -0.0006126761, z: 0.021730805, w: 0.99976355}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandThumb3
+      parentName: Creepy_mannequin_RightHandThumb2
+      position: {x: 0.029193942, y: -0.00000003154914, z: -0.000000112937435}
+      rotation: {x: -0.00007495748, y: -0.0009663594, z: 0.031486355, w: 0.9995038}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandThumb4
+      parentName: Creepy_mannequin_RightHandThumb3
+      position: {x: 0.022267269, y: 0.0000011156826, z: -0.0000007785501}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandIndex1
+      parentName: Creepy_mannequin_RightHand
+      position: {x: 0.121618, y: 0.020706283, z: -0.032551225}
+      rotation: {x: -0.11955917, y: 0.11679305, z: 0.10916177, w: 0.9798718}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandIndex2
+      parentName: Creepy_mannequin_RightHandIndex1
+      position: {x: 0.034539375, y: -0.000004132532, z: -0.00000004102449}
+      rotation: {x: 0.00011779362, y: -0.0013205105, z: 0.02975635, w: 0.9995563}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandIndex3
+      parentName: Creepy_mannequin_RightHandIndex2
+      position: {x: 0.024363834, y: 0.0000026383236, z: 0.000000021260048}
+      rotation: {x: 0.000082609484, y: -0.0014255779, z: 0.03462479, w: 0.9993994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandIndex4
+      parentName: Creepy_mannequin_RightHandIndex3
+      position: {x: 0.018712563, y: 0.000002063179, z: -0.00000005842715}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandMiddle1
+      parentName: Creepy_mannequin_RightHand
+      position: {x: 0.12274911, y: 0.021234294, z: -0.0119271455}
+      rotation: {x: -0.059465334, y: 0.05446109, z: 0.16705121, w: 0.98264533}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandMiddle2
+      parentName: Creepy_mannequin_RightHandMiddle1
+      position: {x: 0.045693163, y: -0.0000031916618, z: -0.000000053992952}
+      rotation: {x: 0.000109862485, y: -0.0013511882, z: 0.030543799, w: 0.9995325}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandMiddle3
+      parentName: Creepy_mannequin_RightHandMiddle2
+      position: {x: 0.024363812, y: 0.0000028276502, z: 0.000000032339827}
+      rotation: {x: 0.000043433673, y: -0.0014284821, z: 0.03704258, w: 0.9993127}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandMiddle4
+      parentName: Creepy_mannequin_RightHandMiddle3
+      position: {x: 0.018713282, y: 0.0000012652201, z: 0.000000034669227}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandRing1
+      parentName: Creepy_mannequin_RightHand
+      position: {x: 0.12101804, y: 0.020865, z: 0.010534548}
+      rotation: {x: -0.009628501, y: -0.0010569725, z: 0.15112117, w: 0.9884678}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandRing2
+      parentName: Creepy_mannequin_RightHandRing1
+      position: {x: 0.039024267, y: -0.00000037118886, z: -0.00000017040482}
+      rotation: {x: 0.0001037018, y: -0.0013624132, z: 0.031085446, w: 0.99951583}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandRing3
+      parentName: Creepy_mannequin_RightHandRing2
+      position: {x: 0.024358965, y: -0.000005792209, z: 0.00000013211611}
+      rotation: {x: 0.000056966546, y: -0.0014250267, z: 0.035746384, w: 0.99935985}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandRing4
+      parentName: Creepy_mannequin_RightHandRing3
+      position: {x: 0.018713301, y: 0.0000012014348, z: -0.00000027052445}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandPink1
+      parentName: Creepy_mannequin_RightHand
+      position: {x: 0.11678066, y: 0.024033481, z: 0.031434745}
+      rotation: {x: 0.083555795, y: -0.019326411, z: 0.060289167, w: 0.9944899}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandPink2
+      parentName: Creepy_mannequin_RightHandPink1
+      position: {x: 0.030729653, y: 0.0000066180355, z: -0.00000028734615}
+      rotation: {x: 0.00014428789, y: -0.001178713, z: 0.026764035, w: 0.99964106}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandPink3
+      parentName: Creepy_mannequin_RightHandPink2
+      position: {x: 0.024359753, y: -0.000006338927, z: 0.0000001753185}
+      rotation: {x: 0.00016248929, y: -0.0012620414, z: 0.0296585, w: 0.99955934}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightHandPink4
+      parentName: Creepy_mannequin_RightHandPink3
+      position: {x: 0.018712455, y: 0.0000016712954, z: -0.0000002794877}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftUpLeg
+      parentName: Creepy_mannequin_Hips
+      position: {x: -0.07615433, y: -0.022694694, z: -0.029153759}
+      rotation: {x: -0.080971, y: 0.04277152, z: -0.029310547, w: 0.9953669}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftLeg
+      parentName: Creepy_mannequin_LeftUpLeg
+      position: {x: -0.00000006519535, y: -0.39819044, z: -0.00000010384664}
+      rotation: {x: 0.30877575, y: -0.06663488, z: 0.026900372, w: 0.9484165}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftFoot
+      parentName: Creepy_mannequin_LeftLeg
+      position: {x: 0.0000000010343261, y: -0.44296747, z: -0.000000049631794}
+      rotation: {x: 0.32144073, y: -0.053648368, z: 0.0068655303, w: 0.94538385}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftToeBase
+      parentName: Creepy_mannequin_LeftFoot
+      position: {x: -0.0000000163665, y: -0.000000014225654, z: 0.15976252}
+      rotation: {x: -0.26067546, y: 0.05666443, z: 0.015328361, w: 0.9636403}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_LeftToeBaseEnd
+      parentName: Creepy_mannequin_LeftToeBase
+      position: {x: -0.0000000050703517, y: 0.000000006855975, z: 0.060783148}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightUpLeg
+      parentName: Creepy_mannequin_Hips
+      position: {x: 0.07615433, y: -0.022694657, z: -0.029153774}
+      rotation: {x: 0.99183196, y: 0.047579437, z: -0.046726033, w: 0.10873105}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightLeg
+      parentName: Creepy_mannequin_RightUpLeg
+      position: {x: 0.00000009140617, y: 0.39819044, z: 0.0000001637232}
+      rotation: {x: 0.33097246, y: -0.04621743, z: -0.009680849, w: 0.9424582}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightFoot
+      parentName: Creepy_mannequin_RightLeg
+      position: {x: -0.00000018571771, y: 0.44296777, z: 0.00000006660029}
+      rotation: {x: 0.002121627, y: 0.0661052, z: 0.03784621, w: 0.9970924}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightToeBase
+      parentName: Creepy_mannequin_RightFoot
+      position: {x: -0.00000009472186, y: -0.000000087653994, z: -0.15976255}
+      rotation: {x: -0.38952917, y: 0.053707987, z: 0.022025872, w: 0.91918296}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Creepy_mannequin_RightToeBaseEnd
+      parentName: Creepy_mannequin_RightToeBase
+      position: {x: -3.892186e-11, y: -4.443422e-10, z: -0.06078292}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

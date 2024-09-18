@@ -34,7 +34,7 @@ namespace EvolveGames
 
         private void Update()
         {
-            if (!Enabled) return;
+            if (!Enabled || !playerController.PlayerInputEnabled) return;
             CheckMotion();
             ResetPos();
             if (EnabledRoationMovement) transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(FinalRot), RoationMovementSmooth * Time.deltaTime);

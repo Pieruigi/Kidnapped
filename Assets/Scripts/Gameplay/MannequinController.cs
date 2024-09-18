@@ -29,7 +29,10 @@ namespace Kidnapped
         float killDistance = 2f;
 
         [SerializeField]
-        GameObject killerObject;
+        GameObject[] killingHeads;
+
+        [SerializeField]
+        GameObject root;
 
         bool canMove = false;
         NavMeshAgent agent;
@@ -42,13 +45,20 @@ namespace Kidnapped
         float checkTime = .1f;
         CharacterController playerCC;
 
+        Animator animator;
 
+        string walkParam = "Walk";
+        string typeParam = "Type";
+        string speedParam = "Speed";
 
+        int walkAnimCount = 5;
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            killerObject.SetActive(false);
+            foreach(var g in killingHeads) 
+                g.SetActive(false);
+            animator = GetComponentInChildren<Animator>();
         }
 
         // Start is called before the first frame update
@@ -56,11 +66,20 @@ namespace Kidnapped
         {
             lastTargetPosition = PlayerController.Instance.transform.position;
             playerCC = PlayerController.Instance.GetComponent<CharacterController>();
+            SetRandomWalkAnimation();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (PlayerController.Instance.IsDying)
+            {
+                //agent.ResetPath();
+                agent.enabled = false;
+                return;
+            }
+                
+
             if ((DateTime.Now - lastCheckTime).TotalSeconds > checkTime)
             {
                 currentRange = GetSpottedRange();
@@ -74,7 +93,11 @@ namespace Kidnapped
             if (!canMove)
             {
                 if (agent.hasPath)
+                {
                     agent.ResetPath();
+                    // Change animation
+                    //SetRandomWalkAnimation();
+                }
             }
             else
             {
@@ -82,9 +105,23 @@ namespace Kidnapped
             }
 
             if (Vector3.ProjectOnPlane(PlayerController.Instance.transform.position - transform.position, Vector3.up).magnitude < killDistance)
+            {
+                animator.SetFloat(speedParam, 0);
                 KillThePlayer();
+            }
+            else
+            {
+                animator.SetFloat(speedParam, agent.velocity.magnitude);
+            }
+                
 
             //agent.SetDestination(target.position);
+        }
+
+        void SetRandomWalkAnimation()
+        {
+            animator.SetInteger(typeParam, UnityEngine.Random.Range(0, walkAnimCount));
+            animator.SetTrigger(walkParam);
         }
 
         bool CheckForMovement()
@@ -97,8 +134,8 @@ namespace Kidnapped
             if (Vector3.Distance(PlayerController.Instance.transform.position, transform.position) > currentRange)
                 return false;
 
-            if (IsObjectInFrustum(gameObject))
-                return false;
+            //if (IsObjectInFrustum(gameObject))
+            //    return false;
 
             return true;
         }
@@ -130,7 +167,7 @@ namespace Kidnapped
         void KillThePlayer()
         {
             Debug.Log("Killing the player");
-
+           
             // Avoid to get killed by more than one mannequin
             if (PlayerController.Instance.IsDying)
                 return;
@@ -144,20 +181,31 @@ namespace Kidnapped
 
         void HandleOnLightOn()
         {
-            // Stop the player from moving and receiving input
-            PlayerController.Instance.PlayerInputEnabled = false;
-
-            // Put something in front of the camera to scare the player
-            Vector3 position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
-            killerObject.transform.position = position;
-            killerObject.transform.LookAt(Camera.main.transform.position);
-            killerObject.SetActive(true);
+            
+            
 
         }
 
         void HandleOnLightOff()
         {
+            // Stop the player from moving and receiving input
+            PlayerController.Instance.PlayerInputEnabled = false;
 
+            // Set fov
+            Camera.main.fieldOfView = 25;
+
+            // Put something in front of the camera to scare the player
+            Vector3 position = Camera.main.transform.position;
+            Quaternion rotation = Camera.main.transform.rotation;
+
+            // Choose a random killing heads
+            GameObject kh = killingHeads[UnityEngine.Random.Range(0, killingHeads.Length)];
+            kh.transform.parent = Camera.main.transform;
+            kh.transform.localPosition = Vector3.zero;
+            kh.transform.localRotation = Quaternion.identity;
+            kh.SetActive(true);
+
+            root.SetActive(false);
         }
     }
 

@@ -112,7 +112,7 @@ namespace Kidnapped
             seq.Join(DOTween.To(() => RenderSettings.reflectionIntensity, x => RenderSettings.reflectionIntensity = x, 0, minTime));
 
             // Step 6
-            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, startValue, 2f * Random.Range(minTime, maxTime)).SetDelay(Random.Range(minTime, maxTime) * 10).OnStart(() => { onLightOnCallback?.Invoke(); }));
+            seq.Append(DOTween.To(() => _light.intensity, x => _light.intensity = x, startValue, 2f * Random.Range(minTime, maxTime)).SetDelay(Random.Range(minTime, maxTime) * 4).OnStart(() => { onLightOnCallback?.Invoke(); }));
             seq.Join(DOTween.To(() => handLight.intensity, x => handLight.intensity = x, hStartValue, 2f * Random.Range(minTime, maxTime))/*.SetDelay(Random.Range(minTime, maxTime) * 10)*/);
             seq.Join(DOTween.To(() => moonLight.intensity, x => moonLight.intensity = x, moonIntensity, minTime));
             seq.Join(skybox.DOColor(skyboxColor, "_Tint", minTime));

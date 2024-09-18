@@ -69,6 +69,7 @@ namespace EvolveGames
         public bool InteractionDisabled { get; set; } = false;
         public bool PlayerInputEnabled { get; set; } = true;
 
+
         public bool IsDying { get; set; } = false;
 
         public bool CanCrouch { get; set; } = true;
