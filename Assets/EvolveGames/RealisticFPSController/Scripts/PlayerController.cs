@@ -120,7 +120,12 @@ namespace EvolveGames
             }
 #endif
 
-            if(!PlayerInputEnabled) return;
+            if (!PlayerInputEnabled)
+            {
+                animator.SetFloat("Speed", 0); // Stop footsteps
+                return;
+            }
+            
 
             RaycastHit CroughCheck;
             RaycastHit ObjectCheck;

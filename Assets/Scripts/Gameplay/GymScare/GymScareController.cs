@@ -49,8 +49,14 @@ namespace Kidnapped
         [SerializeField]
         GameObject[] gyms;
 
+        [SerializeField]
+        ScaryGroup[] scaryGroups;
 
+
+        int scaryIndex = 0;
         int state = 0;
+
+        GameObject brokenMannequin;
         
         private void Awake()
         {
@@ -73,7 +79,7 @@ namespace Kidnapped
 #if UNITY_EDITOR
             if(Input.GetKeyDown(KeyCode.K))
             {
-                Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+                Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
             }
 #endif
 
@@ -135,7 +141,7 @@ namespace Kidnapped
             await Task.Delay(2500);
 
             // Flashlight
-            Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
 
 
             
@@ -143,14 +149,18 @@ namespace Kidnapped
 
         private void HandleOnLightOff()
         {
-            Debug.Log("Handle aaaaaaaaaaaaaaaaaaaaaa");
+            
 
             // Switch to modern school
             gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
             gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
 
-            
+            // Create first scary group
+            scaryIndex = 0;
+            scaryGroups[scaryIndex].Create();
         }
+
+        
 
         private void HandleOnLightOn()
         {
@@ -159,6 +169,14 @@ namespace Kidnapped
 
             // Save state
             SaveManager.Instance.SaveGame();
+        }
+
+        void DisableScaryGroupAll()
+        {
+            foreach(var group in scaryGroups)
+            {
+                group.Release();
+            }
         }
 
         #region save system
@@ -184,12 +202,15 @@ namespace Kidnapped
             catDeactivator.SetActive(false);
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             rb.isKinematic = true;
-            
+            DisableScaryGroupAll();
 
-            if (state == 30) // Step to save
+            if (state == 30) // Step to save ( the cat freaking out )
             {
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
+                scaryIndex = 0;
+                scaryGroups[scaryIndex].Create();
+                     
             }
             
 

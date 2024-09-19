@@ -12,6 +12,22 @@ namespace Kidnapped
 {
     public class MannequinController : MonoBehaviour
     {
+        [System.Serializable]
+        private class KillingPoseInfo
+        {
+            
+            [SerializeField]
+            public float cameraFov;
+
+            [SerializeField]
+            public Vector3 cameraEulers;
+
+            [SerializeField]
+            public Vector3 characterPosition;
+
+            [SerializeField]
+            public Vector3 characterEulers;
+        }
    
         [SerializeField]
         float crouchRange = 2f;
@@ -32,7 +48,16 @@ namespace Kidnapped
         GameObject[] killingHeads;
 
         [SerializeField]
-        GameObject root;
+        Material evilMaterial;
+
+        [SerializeField]
+        Renderer evilRenderer;
+
+        [SerializeField]
+        GameObject character;
+
+        [SerializeField]
+        KillingPoseInfo[] killingInfos;
 
         bool canMove = false;
         NavMeshAgent agent;
@@ -50,8 +75,10 @@ namespace Kidnapped
         string walkParam = "Walk";
         string typeParam = "Type";
         string speedParam = "Speed";
+        string killParam = "Kill";
 
-        int walkAnimCount = 5;
+        int walkAnimCount = 2;
+        int killAnimCount = 2;
 
         private void Awake()
         {
@@ -120,13 +147,14 @@ namespace Kidnapped
 
         void SetRandomWalkAnimation()
         {
-            animator.SetInteger(typeParam, UnityEngine.Random.Range(0, walkAnimCount));
+            //animator.SetInteger(typeParam, UnityEngine.Random.Range(0, walkAnimCount));
+            //animator.SetInteger(typeParam, 2);
             animator.SetTrigger(walkParam);
         }
 
         bool CheckForMovement()
         {
-            if (playerCC.velocity.magnitude == 0)
+            if (Vector3.ProjectOnPlane(playerCC.velocity, Vector3.up).magnitude == 0)
                 return false;
 
             if(PlayerController.Instance.IsDying) return false;
@@ -176,7 +204,7 @@ namespace Kidnapped
             PlayerController.Instance.InteractionDisabled = true;
 
             // Flicker off the flashlight
-            Flashlight.Instance.GetComponent<LightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn, HandleOnFlickerComplete);
         }
 
         void HandleOnLightOn()
@@ -191,21 +219,53 @@ namespace Kidnapped
             // Stop the player from moving and receiving input
             PlayerController.Instance.PlayerInputEnabled = false;
 
-            // Set fov
-            Camera.main.fieldOfView = 25;
+            //// Set fov
+            //Camera.main.fieldOfView = 25;
 
-            // Put something in front of the camera to scare the player
-            Vector3 position = Camera.main.transform.position;
-            Quaternion rotation = Camera.main.transform.rotation;
+            //// Put something in front of the camera to scare the player
+            //Vector3 position = Camera.main.transform.position;
+            //Quaternion rotation = Camera.main.transform.rotation;
 
-            // Choose a random killing heads
-            GameObject kh = killingHeads[UnityEngine.Random.Range(0, killingHeads.Length)];
-            kh.transform.parent = Camera.main.transform;
-            kh.transform.localPosition = Vector3.zero;
-            kh.transform.localRotation = Quaternion.identity;
-            kh.SetActive(true);
+            // Disable agent
+            agent.enabled = false;
 
-            root.SetActive(false);
+            // Change to evil material
+            evilRenderer.material = evilMaterial;
+
+            // Switch to killing pose
+            int type = UnityEngine.Random.Range(0, killAnimCount);
+            type = 0;
+            animator.SetInteger(typeParam, type);
+            animator.SetTrigger(killParam);
+
+            // Get the killing pose info
+            KillingPoseInfo info = killingInfos[type];
+
+            // Move the character under the camera
+            character.transform.parent = Camera.main.transform;
+
+            // Set position and rotation
+            character.transform.localPosition = info.characterPosition;
+            character.transform.localEulerAngles = info.characterEulers;
+
+            // Set camera
+            Camera.main.fieldOfView = info.cameraFov;
+            Camera.main.transform.GetChild(0).GetComponent<Camera>().fieldOfView = info.cameraFov;
+            Camera.main.transform.localEulerAngles = info.cameraEulers;
+
+            //// Choose a random killing heads
+            //GameObject kh = killingHeads[UnityEngine.Random.Range(0, killingHeads.Length)];
+            //kh.transform.parent = Camera.main.transform;
+            //kh.transform.localPosition = Vector3.zero;
+            //kh.transform.localRotation = Quaternion.identity;
+            //kh.SetActive(true);
+
+            //root.SetActive(false);
+        }
+
+        void HandleOnFlickerComplete()
+        {
+            GameManager.Instance.FadeOutAndReloadAfterDeath();
         }
     }
 

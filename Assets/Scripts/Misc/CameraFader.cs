@@ -22,7 +22,7 @@ namespace Kidnapped
 
         public void FadeIn(float time)
         {
-            panel.DOColor(new Color(1, 1, 1, 0), time);
+            panel.DOColor(new Color(0, 0, 0, 0), time);
         }
 
         public void FadeOut()
@@ -32,7 +32,7 @@ namespace Kidnapped
 
         public void FadeOut(float time)
         {
-            panel.DOColor(new Color(1, 1, 1, 1), time);
+            panel.DOColor(new Color(0, 0, 0, 1), time);
         }
 
     }

@@ -1,0 +1,1087 @@
+fileFormatVersion: 2
+guid: 56aeaf72c33a75b42a2c7f1422d04a62
+ModelImporter:
+  serializedVersion: 20300
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Agony
+      takeName: Take 001
+      internalID: 1827226128182048838
+      firstFrame: 0
+      lastFrame: 284
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: SinisterButler:Root_M
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Hip_L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Hip_R
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Knee_L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Knee_R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Ankle_L
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Ankle_R
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Spine1_M
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Spine2_M
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Neck_M
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Head_M
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Scapula_L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Scapula_R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Shoulder_L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Shoulder_R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Elbow_L
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Elbow_R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Wrist_L
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Wrist_R
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Toes_L
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Toes_R
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Eye_L
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Eye_R
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Jaw_M
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger1_L
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger2_L
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger3_L
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger1_L
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger2_L
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger3_L
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger1_L
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger2_L
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger3_L
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger1_L
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger2_L
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger3_L
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger1_L
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger2_L
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger3_L
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger1_R
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger2_R
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:ThumbFinger3_R
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger1_R
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger2_R
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:IndexFinger3_R
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger1_R
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger2_R
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:MiddleFinger3_R
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger1_R
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger2_R
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:RingFinger3_R
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger1_R
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger2_R
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:PinkyFinger3_R
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: SinisterButler:Chest_M
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: SK_SinisterButler(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:MotionSystem
+      parentName: SK_SinisterButler(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:MainSystem
+      parentName: SinisterButler:MotionSystem
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:MainExtra1
+      parentName: SinisterButler:MainSystem
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:DeformationSystem
+      parentName: SinisterButler:MainExtra1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:Root_M
+      parentName: SinisterButler:DeformationSystem
+      position: {x: -1.9709482e-17, y: 0.926647, z: -0.001539799}
+      rotation: {x: -0.5206444, y: 0.47846565, z: 0.5206444, w: -0.47846565}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:Spine1_M
+      parentName: SinisterButler:Root_M
+      position: {x: -0.14414434, y: 4.4408918e-17, z: -1.546177e-17}
+      rotation: {x: 0.000000029802322, y: 0.000000029802322, z: 0.024881214, w: 0.9996904}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: SinisterButler:Spine2_M
+      parentName: SinisterButler:Spine1_M
+      position: {x: -0.11775181, y: -3.2862602e-16, z: 2.5853406e-17}
+      rotation: {x: 0.0000000028475085, y: 0.000000058081028, z: -0.048188217, w: -0.99883825}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000006}
+    - name: SinisterButler:Chest_M
+      parentName: SinisterButler:Spine2_M
+      position: {x: -0.12225898, y: 1.5987211e-16, z: -6.2180305e-17}
+      rotation: {x: 0.00000006324098, y: 0.000000026843407, z: 0.05192292, w: -0.9986511}
+      scale: {x: 0.9999997, y: 0.9999998, z: 0.99999994}
+    - name: SinisterButler:Scapula_R
+      parentName: SinisterButler:Chest_M
+      position: {x: -0.12848362, y: -0.00908212, z: -0.022398612}
+      rotation: {x: -0.0076825325, y: -0.7678056, z: -0.0012277962, w: 0.6406358}
+      scale: {x: 1.0000049, y: 1.0000013, z: 1.0000023}
+    - name: SinisterButler:Shoulder_R
+      parentName: SinisterButler:Scapula_R
+      position: {x: -0.1308815, y: 6.750156e-16, z: 2.842171e-16}
+      rotation: {x: 0.0038428325, y: 0.062386125, z: -0.0006773877, w: 0.9980445}
+      scale: {x: 0.9999979, y: 0.99999934, z: 0.99999875}
+    - name: SinisterButler:Elbow_R
+      parentName: SinisterButler:Shoulder_R
+      position: {x: -0.24287887, y: 2.2843947e-13, z: -8.384404e-15}
+      rotation: {x: 0.0020876224, y: 0.018343208, z: -0.040646713, w: 0.99900305}
+      scale: {x: 1.0000032, y: 1.0000015, z: 1.0000013}
+    - name: SinisterButler:ElbowPart1_R
+      parentName: SinisterButler:Elbow_R
+      position: {x: -0.12668365, y: 4.440892e-18, z: 3.0695444e-14}
+      rotation: {x: -0, y: -0, z: 2.664535e-15, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000004}
+    - name: SinisterButler:Wrist_R
+      parentName: SinisterButler:Elbow_R
+      position: {x: -0.2533673, y: -6.661338e-18, z: 6.139089e-14}
+      rotation: {x: 0.014301506, y: -0.08533381, z: -0.027271774, w: 0.99587643}
+      scale: {x: 1.0000008, y: 1.0000002, z: 1.0000001}
+    - name: SinisterButler:Weapon_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.101094075, y: -0.014019418, z: -0.0346304}
+      rotation: {x: 0.29679623, y: -0.24258526, z: -0.5955526, w: 0.7059614}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:PinkyFinger1_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.09092147, y: -0.04146021, z: 0.0010215188}
+      rotation: {x: -0.0028020137, y: 0.01946527, z: 0.07877621, w: 0.9966983}
+      scale: {x: 1.0000006, y: 1.000001, z: 1.0000008}
+    - name: SinisterButler:PinkyFinger2_R
+      parentName: SinisterButler:PinkyFinger1_R
+      position: {x: -0.0443171, y: -1.3322676e-16, z: 5.684342e-16}
+      rotation: {x: 0.0030454502, y: -0.036159176, z: -0.0012103703, w: 0.99934065}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: SinisterButler:PinkyFinger3_R
+      parentName: SinisterButler:PinkyFinger2_R
+      position: {x: -0.024226047, y: 1.7763568e-17, z: 0}
+      rotation: {x: 0.018159382, y: 0.008376017, z: -0.00065623224, w: 0.99979985}
+      scale: {x: 0.9999997, y: 0.99999994, z: 0.9999998}
+    - name: SinisterButler:MiddleFinger1_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.10352196, y: 2.0428103e-16, z: -4.2632563e-16}
+      rotation: {x: 0.0032761577, y: -0.024247665, z: 0.078401044, w: 0.99662167}
+      scale: {x: 1.0000017, y: 1.0000011, z: 1.0000001}
+    - name: SinisterButler:MiddleFinger2_R
+      parentName: SinisterButler:MiddleFinger1_R
+      position: {x: -0.054128774, y: -2.1094237e-17, z: -1.4210854e-16}
+      rotation: {x: 0.00033740426, y: -0.038413856, z: -0.000073278185, w: 0.9992619}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: SinisterButler:MiddleFinger3_R
+      parentName: SinisterButler:MiddleFinger2_R
+      position: {x: -0.03690987, y: 8.881784e-18, z: 1.4210854e-16}
+      rotation: {x: 0.00042015314, y: -0.009314701, z: 0.000096961856, w: 0.9999566}
+      scale: {x: 1.0000002, y: 1, z: 1.0000001}
+    - name: SinisterButler:ThumbFinger1_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.03829094, y: 0.021964151, z: -0.024245212}
+      rotation: {x: -0.55926913, y: 0.16039595, z: -0.29334158, w: 0.75857884}
+      scale: {x: 1.0000035, y: 0.99999887, z: 1.0000002}
+    - name: SinisterButler:ThumbFinger2_R
+      parentName: SinisterButler:ThumbFinger1_R
+      position: {x: -0.035289414, y: 1.4210854e-16, z: 3.5527135e-16}
+      rotation: {x: -0.000015377997, y: 0.022150626, z: -0.033530075, w: 0.99919224}
+      scale: {x: 0.99999887, y: 0.9999997, z: 1.0000005}
+    - name: SinisterButler:ThumbFinger3_R
+      parentName: SinisterButler:ThumbFinger2_R
+      position: {x: -0.034859844, y: 9.947598e-16, z: -7.105427e-17}
+      rotation: {x: -0.0017507669, y: -0.085185334, z: 0.020473162, w: 0.9961533}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+    - name: SinisterButler:IndexFinger1_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.10413565, y: 0.022021525, z: -0.006871547}
+      rotation: {x: -0.009068981, y: 0.033635564, z: 0.024147822, w: 0.9991012}
+      scale: {x: 1.000001, y: 1.0000006, z: 1.0000004}
+    - name: SinisterButler:IndexFinger2_R
+      parentName: SinisterButler:IndexFinger1_R
+      position: {x: -0.0471071, y: 1.7763568e-17, z: 5.684342e-16}
+      rotation: {x: -0.0011897802, y: -0.034132138, z: 0.0011305825, w: 0.99941605}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: SinisterButler:IndexFinger3_R
+      parentName: SinisterButler:IndexFinger2_R
+      position: {x: -0.044439163, y: -3.5527136e-17, z: -1.4210854e-16}
+      rotation: {x: -0.012692958, y: 0.0084947795, z: -0.0039147884, w: 0.9998757}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: SinisterButler:RingFinger1_R
+      parentName: SinisterButler:Wrist_R
+      position: {x: -0.10204136, y: -0.02123206, z: 0.0016881713}
+      rotation: {x: 0.004813938, y: -0.01230493, z: 0.08037912, w: 0.99667686}
+      scale: {x: 1.0000011, y: 1.0000007, z: 0.99999994}
+    - name: SinisterButler:RingFinger2_R
+      parentName: SinisterButler:RingFinger1_R
+      position: {x: -0.046137113, y: -3.9968027e-17, z: 1.9895197e-15}
+      rotation: {x: -0.0022842938, y: -0.03841626, z: -0.0005647219, w: 0.99925905}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: SinisterButler:RingFinger3_R
+      parentName: SinisterButler:RingFinger2_R
+      position: {x: -0.034658965, y: -7.9936054e-17, z: 2.842171e-16}
+      rotation: {x: 0.0046075583, y: -0.0137283355, z: 0.00050891936, w: 0.99989504}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: SinisterButler:ShoulderPart1_R
+      parentName: SinisterButler:Shoulder_R
+      position: {x: -0.121439435, y: 1.1421974e-13, z: -4.5474734e-15}
+      rotation: {x: -0.000000009313225, y: 0.00000004470348, z: 0.0000000037252899, w: 1}
+      scale: {x: 1.000001, y: 1.000001, z: 1.0000002}
+    - name: SinisterButler:Neck_M
+      parentName: SinisterButler:Chest_M
+      position: {x: -0.22363248, y: 8.8817837e-17, z: 4.7153657e-16}
+      rotation: {x: -0.0000000035676992, y: 0.00000003182246, z: -0.06990752, w: 0.9975535}
+      scale: {x: 1.0000024, y: 1.000003, z: 1.0000025}
+    - name: SinisterButler:Head_M
+      parentName: SinisterButler:Neck_M
+      position: {x: -0.07991389, y: -3.5527136e-17, z: -1.8481064e-17}
+      rotation: {x: 0.0000000020648523, y: -0.0000000020051696, z: 0.068251066, w: 0.9976682}
+      scale: {x: 0.9999996, y: 0.99999934, z: 0.9999985}
+    - name: SinisterButler:Eye_L
+      parentName: SinisterButler:Head_M
+      position: {x: -0.080515265, y: 0.07886103, z: 0.029103233}
+      rotation: {x: -0.0015402668, y: -0.0016103645, z: 0.6905263, w: -0.72330385}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000004}
+    - name: SinisterButler:Eye_R
+      parentName: SinisterButler:Head_M
+      position: {x: -0.080515265, y: 0.07886103, z: -0.029103233}
+      rotation: {x: -0.0015402514, y: -0.0016102807, z: -0.6905263, w: 0.72330385}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000004}
+    - name: SinisterButler:Jaw_M
+      parentName: SinisterButler:Head_M
+      position: {x: -0.04484419, y: 0.026642708, z: -7.2178516e-17}
+      rotation: {x: -0.0000000033612055, y: 0.000000040591726, z: -0.87443715, w: 0.4851388}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000004}
+    - name: SinisterButler:Scapula_L
+      parentName: SinisterButler:Chest_M
+      position: {x: -0.12848362, y: -0.00908212, z: 0.022398612}
+      rotation: {x: 0.7678055, y: -0.0076825838, z: 0.6406358, w: 0.00122779}
+      scale: {x: 1.0000036, y: 1.0000018, z: 1.0000014}
+    - name: SinisterButler:Shoulder_L
+      parentName: SinisterButler:Scapula_L
+      position: {x: 0.1308815, y: -6.0396133e-16, z: -5.684342e-16}
+      rotation: {x: 0.0038428148, y: 0.062385704, z: -0.000677445, w: 0.9980445}
+      scale: {x: 1, y: 1.0000001, z: 0.9999998}
+    - name: SinisterButler:Elbow_L
+      parentName: SinisterButler:Shoulder_L
+      position: {x: 0.24287887, y: -2.2811974e-13, z: 8.384404e-15}
+      rotation: {x: -0.0020876944, y: -0.018343357, z: 0.04064646, w: -0.99900305}
+      scale: {x: 1.0000024, y: 1.0000013, z: 1.0000007}
+    - name: SinisterButler:ElbowPart1_L
+      parentName: SinisterButler:Elbow_L
+      position: {x: 0.12668365, y: 9.5479175e-17, z: -3.1121773e-14}
+      rotation: {x: -0, y: -0, z: -0.000000014901161, w: 1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000001}
+    - name: SinisterButler:Wrist_L
+      parentName: SinisterButler:Elbow_L
+      position: {x: 0.2533673, y: 1.7985613e-16, z: -6.2101433e-14}
+      rotation: {x: 0.0143014, y: -0.08533385, z: -0.027271746, w: 0.9958765}
+      scale: {x: 1.0000027, y: 1.000002, z: 1.0000013}
+    - name: SinisterButler:Weapon_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.101094075, y: 0.014019418, z: 0.0346304}
+      rotation: {x: 0.29679623, y: -0.24258526, z: -0.5955526, w: 0.7059614}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:RingFinger1_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.10204136, y: 0.02123206, z: -0.0016881713}
+      rotation: {x: -0.0048141014, y: 0.0123053165, z: -0.080379926, w: -0.99667674}
+      scale: {x: 0.99999696, y: 0.9999972, z: 0.99999946}
+    - name: SinisterButler:RingFinger2_L
+      parentName: SinisterButler:RingFinger1_L
+      position: {x: 0.046137113, y: 8.8817837e-17, z: -2.2737367e-15}
+      rotation: {x: -0.0022842765, y: -0.038412295, z: -0.00056485017, w: 0.99925923}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
+    - name: SinisterButler:RingFinger3_L
+      parentName: SinisterButler:RingFinger2_L
+      position: {x: 0.034658965, y: 8.437695e-17, z: 2.842171e-16}
+      rotation: {x: 0.0046075755, y: -0.01372841, z: 0.0005089465, w: 0.9998951}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: SinisterButler:IndexFinger1_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.10413565, y: -0.022021525, z: 0.006871547}
+      rotation: {x: -0.009068817, y: 0.033635467, z: 0.024147809, w: 0.9991013}
+      scale: {x: 0.99999744, y: 0.9999977, z: 0.99999887}
+    - name: SinisterButler:IndexFinger2_L
+      parentName: SinisterButler:IndexFinger1_L
+      position: {x: 0.0471071, y: 5.3290704e-17, z: -1.1368684e-15}
+      rotation: {x: 0.0011896392, y: 0.034130167, z: -0.001130888, w: -0.99941605}
+      scale: {x: 1.0000006, y: 1.0000005, z: 1.0000002}
+    - name: SinisterButler:IndexFinger3_L
+      parentName: SinisterButler:IndexFinger2_L
+      position: {x: 0.044439163, y: 3.5527136e-17, z: 2.842171e-16}
+      rotation: {x: -0.012692997, y: 0.008494839, z: -0.0039148605, w: 0.9998757}
+      scale: {x: 1.0000002, y: 1, z: 1.0000001}
+    - name: SinisterButler:PinkyFinger1_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.09092147, y: 0.04146021, z: -0.0010215188}
+      rotation: {x: 0.0028019857, y: -0.019465426, z: -0.07877611, w: -0.9966983}
+      scale: {x: 0.9999979, y: 0.99999803, z: 0.9999996}
+    - name: SinisterButler:PinkyFinger2_L
+      parentName: SinisterButler:PinkyFinger1_L
+      position: {x: 0.0443171, y: 1.1546319e-16, z: -8.5265126e-16}
+      rotation: {x: 0.0030456625, y: -0.03616054, z: -0.0012103806, w: 0.99934065}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+    - name: SinisterButler:PinkyFinger3_L
+      parentName: SinisterButler:PinkyFinger2_L
+      position: {x: 0.024226047, y: -2.2204459e-17, z: 5.684342e-16}
+      rotation: {x: -0.01815929, y: -0.008375957, z: 0.0006561428, w: -0.99979985}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: SinisterButler:MiddleFinger1_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.10352196, y: -1.4210854e-16, z: 7.105427e-16}
+      rotation: {x: -0.003276382, y: 0.02424794, z: -0.078401305, w: -0.9966216}
+      scale: {x: 1.0000014, y: 1.0000011, z: 1.0000002}
+    - name: SinisterButler:MiddleFinger2_L
+      parentName: SinisterButler:MiddleFinger1_L
+      position: {x: 0.054128774, y: 3.8857805e-17, z: 1.4210854e-16}
+      rotation: {x: 0.00033736893, y: -0.03841421, z: -0.000073038595, w: 0.99926186}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: SinisterButler:MiddleFinger3_L
+      parentName: SinisterButler:MiddleFinger2_L
+      position: {x: 0.03690987, y: 2.5535128e-17, z: 1.4210854e-16}
+      rotation: {x: 0.00042010844, y: -0.009314612, z: 0.00009703636, w: 0.99995655}
+      scale: {x: 0.9999997, y: 0.9999997, z: 0.99999994}
+    - name: SinisterButler:ThumbFinger1_L
+      parentName: SinisterButler:Wrist_L
+      position: {x: 0.03829094, y: -0.021964151, z: 0.024245212}
+      rotation: {x: 0.5592696, y: -0.16039594, z: 0.29334262, w: -0.75857806}
+      scale: {x: 1.0000029, y: 0.9999984, z: 1.0000019}
+    - name: SinisterButler:ThumbFinger2_L
+      parentName: SinisterButler:ThumbFinger1_L
+      position: {x: 0.035289414, y: 0, z: -1.4210854e-16}
+      rotation: {x: -0.000015497204, y: 0.02214987, z: -0.033529893, w: 0.9991923}
+      scale: {x: 0.99999994, y: 1.0000012, z: 1.0000013}
+    - name: SinisterButler:ThumbFinger3_L
+      parentName: SinisterButler:ThumbFinger2_L
+      position: {x: 0.034859844, y: -4.2632563e-16, z: 2.1316282e-16}
+      rotation: {x: -0.0017507747, y: -0.085185304, z: 0.020473242, w: 0.99615324}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: SinisterButler:ShoulderPart1_L
+      parentName: SinisterButler:Shoulder_L
+      position: {x: 0.121439435, y: -1.1407764e-13, z: 4.263256e-15}
+      rotation: {x: -0.000000019092113, y: -0.000000074505806, z: 0.0000000018626451, w: 1}
+      scale: {x: 1.0000017, y: 1.0000011, z: 1.000001}
+    - name: SinisterButler:Hip_R
+      parentName: SinisterButler:Root_M
+      position: {x: 0.019626806, y: 0.0077308845, z: -0.07843736}
+      rotation: {x: 0.026218902, y: -0.99862933, z: 0.018263666, w: 0.04145352}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
+    - name: SinisterButler:Knee_R
+      parentName: SinisterButler:Hip_R
+      position: {x: -0.37812304, y: 0.000000021082228, z: 3.8763746e-11}
+      rotation: {x: -0, y: 0.000000029802319, z: 0.02459016, w: 0.9996977}
+      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000004}
+    - name: SinisterButler:KneePart1_R
+      parentName: SinisterButler:Knee_R
+      position: {x: -0.22912866, y: -3.279614e-10, z: 2.3460789e-11}
+      rotation: {x: -0, y: -4.440892e-16, z: 8.239937e-17, w: 1}
+      scale: {x: 0.99999994, y: 0.99999976, z: 1}
+    - name: SinisterButler:Ankle_R
+      parentName: SinisterButler:Knee_R
+      position: {x: -0.45825732, y: -6.559228e-10, z: 4.6921595e-11}
+      rotation: {x: 0.0132730305, y: -0.04299762, z: -0.03917452, w: 0.9982186}
+      scale: {x: 0.99999994, y: 0.99999964, z: 0.9999997}
+    - name: SinisterButler:Toes_R
+      parentName: SinisterButler:Ankle_R
+      position: {x: -0.062054105, y: 0.11225751, z: -2.3387887e-11}
+      rotation: {x: -0.0449405, y: -0.006071508, z: -0.6863741, w: 0.72583336}
+      scale: {x: 1.0000005, y: 1, z: 1.0000002}
+    - name: SinisterButler:HipPart1_R
+      parentName: SinisterButler:Hip_R
+      position: {x: -0.18906152, y: 0.000000010541114, z: 1.93819e-11}
+      rotation: {x: 1.1641531e-10, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000001}
+    - name: SinisterButler:Cloth_R
+      parentName: SinisterButler:Root_M
+      position: {x: -0.054019716, y: -0.09593467, z: -0.08970871}
+      rotation: {x: -0.04906273, y: -0.0009936243, z: -0.9967419, w: 0.064012125}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000004}
+    - name: SinisterButler:Cloth1_R
+      parentName: SinisterButler:Cloth_R
+      position: {x: -0.10883076, y: 1.8651746e-16, z: 1.3986679e-12}
+      rotation: {x: -0.000026122023, y: 0.0020275263, z: 0.05671917, w: -0.9983881}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999999}
+    - name: SinisterButler:Cloth2_R
+      parentName: SinisterButler:Cloth1_R
+      position: {x: -0.108338036, y: -1.2860824e-13, z: -2.2076561e-12}
+      rotation: {x: 0.00010894239, y: -0.0029582083, z: 0.0327899, w: 0.99945796}
+      scale: {x: 0.9999998, y: 0.9999997, z: 1}
+    - name: SinisterButler:Cloth3_R
+      parentName: SinisterButler:Cloth2_R
+      position: {x: -0.10965876, y: -3.202949e-13, z: -1.2914114e-13}
+      rotation: {x: -0.00045732065, y: 0.0108290445, z: -0.038170204, w: 0.9992125}
+      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+    - name: SinisterButler:Cloth4_R
+      parentName: SinisterButler:Cloth3_R
+      position: {x: -0.11916996, y: 4.0861536e-13, z: -2.8031976e-12}
+      rotation: {x: 0.0042731017, y: -0.044190913, z: 0.01599361, w: -0.998886}
+      scale: {x: 0.9999997, y: 0.9999994, z: 0.9999997}
+    - name: SinisterButler:Cloth_L
+      parentName: SinisterButler:Root_M
+      position: {x: -0.054019716, y: -0.09593467, z: 0.08970871}
+      rotation: {x: 0.0009936094, y: -0.049062714, z: 0.06401217, w: 0.9967419}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
+    - name: SinisterButler:Cloth1_L
+      parentName: SinisterButler:Cloth_L
+      position: {x: 0.10883076, y: -3.2367276e-10, z: -1.3986679e-12}
+      rotation: {x: 0.000026062131, y: -0.0020275563, z: -0.056719184, w: 0.9983882}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: SinisterButler:Cloth2_L
+      parentName: SinisterButler:Cloth1_L
+      position: {x: 0.108338036, y: -3.2207598e-10, z: 2.2985346e-12}
+      rotation: {x: 0.0001089915, y: -0.002958186, z: 0.032789983, w: 0.9994579}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: SinisterButler:Cloth3_L
+      parentName: SinisterButler:Cloth2_L
+      position: {x: 0.10965876, y: -3.257986e-10, z: 1.4235724e-13}
+      rotation: {x: -0.00045734644, y: 0.010829076, z: -0.038170323, w: 0.9992125}
+      scale: {x: 0.9999999, y: 0.9999996, z: 0.99999976}
+    - name: SinisterButler:Cloth4_L
+      parentName: SinisterButler:Cloth3_L
+      position: {x: 0.11916996, y: -3.5480666e-10, z: 2.4699886e-12}
+      rotation: {x: 0.0042731166, y: -0.044190913, z: 0.01599364, w: -0.9988859}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: SinisterButler:Hip_L
+      parentName: SinisterButler:Root_M
+      position: {x: 0.019626806, y: 0.0077308845, z: 0.07843736}
+      rotation: {x: -0.99862933, y: -0.026218932, z: -0.04145352, w: 0.018263666}
+      scale: {x: 0.9999998, y: 1.0000002, z: 1.0000002}
+    - name: SinisterButler:HipPart1_L
+      parentName: SinisterButler:Hip_L
+      position: {x: 0.18906152, y: -0.000000009978425, z: -1.9382006e-11}
+      rotation: {x: -0, y: -0, z: -0.000000014901159, w: 1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000002}
+    - name: SinisterButler:Knee_L
+      parentName: SinisterButler:Hip_L
+      position: {x: 0.37812304, y: -0.00000001995685, z: -3.8763978e-11}
+      rotation: {x: -0.000000044703484, y: 0.000000059604645, z: -0.024590239, w: -0.9996977}
+      scale: {x: 1.0000004, y: 0.9999999, z: 1.0000002}
+    - name: SinisterButler:Ankle_L
+      parentName: SinisterButler:Knee_L
+      position: {x: 0.45825732, y: 0.0000000020197963, z: -5.2560463e-11}
+      rotation: {x: 0.013272953, y: -0.04299755, z: -0.039174575, w: 0.99821866}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000005}
+    - name: SinisterButler:Toes_L
+      parentName: SinisterButler:Ankle_L
+      position: {x: 0.062054105, y: -0.11225751, z: 3.0834713e-11}
+      rotation: {x: 0.04494051, y: 0.0060714935, z: 0.6863741, w: -0.72583336}
+      scale: {x: 1.0000001, y: 0.99999976, z: 0.9999996}
+    - name: SinisterButler:KneePart1_L
+      parentName: SinisterButler:Knee_L
+      position: {x: 0.22912866, y: 0.0000000010098982, z: -2.628024e-11}
+      rotation: {x: -0, y: -0, z: 3.8082597e-15, w: 1}
+      scale: {x: 1.0000004, y: 0.9999998, z: 1.0000005}
+    - name: SinisterButler:Geometry
+      parentName: SK_SinisterButler(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:geo
+      parentName: SinisterButler:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:head
+      parentName: SinisterButler:model:geo
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:body
+      parentName: SinisterButler:model:geo
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:suit_GRP
+      parentName: SinisterButler:model:geo
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:jacket_GRP
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:jacket_Tick
+      parentName: SinisterButler:model:jacket_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:buttons_front
+      parentName: SinisterButler:model:jacket_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:buttons_right
+      parentName: SinisterButler:model:jacket_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:buttons_left
+      parentName: SinisterButler:model:jacket_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:pocket
+      parentName: SinisterButler:model:jacket_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:shoes
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:papilon
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:gilet
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:pants
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:shirt
+      parentName: SinisterButler:model:suit_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:face_GRP
+      parentName: SinisterButler:model:geo
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:eyeglass
+      parentName: SinisterButler:model:face_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:eyes
+      parentName: SinisterButler:model:face_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:mouth_GRP
+      parentName: SinisterButler:model:face_GRP
+      position: {x: -0.000000007152557, y: 1.6179006, z: 0.10091155}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:teeth_upper
+      parentName: SinisterButler:model:mouth_GRP
+      position: {x: 0.000000007152557, y: -1.6179006, z: -0.10091155}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:teeth_bottom
+      parentName: SinisterButler:model:mouth_GRP
+      position: {x: 0.000000007152557, y: -1.6179006, z: -0.10091155}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SinisterButler:model:tongue
+      parentName: SinisterButler:model:mouth_GRP
+      position: {x: 0.000000007152557, y: -1.6179006, z: -0.10091155}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: cff4498ecc0e86c4987b8ba3d8a881aa, type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

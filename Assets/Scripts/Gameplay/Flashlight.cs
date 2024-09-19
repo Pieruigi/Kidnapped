@@ -8,6 +8,7 @@ namespace Kidnapped
 {
     public class Flashlight : Singleton<Flashlight>
     {
+        
         [SerializeField]
         Light flashLight;
 
@@ -19,25 +20,29 @@ namespace Kidnapped
 
         [SerializeField]
         float flashIntensity = 4.5f;
+        public float LightIntensity { get { return flashIntensity; } }
        
         bool isOn = false;
         bool notAvailable = false;
 
         Animation anims;
-        LightFlickerOff flickerOff;
+        FlashlightFlickerOff flickerOff;
 
+        
         protected override void Awake()
         {
             base.Awake();
             DisableLights();
             anims = GetComponent<Animation>();
-            flickerOff = GetComponent<LightFlickerOff>();
+            flickerOff = GetComponent<FlashlightFlickerOff>();
+
+        
         }
 
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame

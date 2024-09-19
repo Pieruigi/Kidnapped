@@ -42,20 +42,7 @@ namespace Kidnapped.SaveSystem
 #endif
         }
 
-        void LoadGame()
-        {
-            ReadFromFile();
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-            
-
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //foreach (string key in data.Keys)
-            //{
-            //    Debug.Log($"{key}:{data[key]}");
-            //}
-        }
+        
 
       
 
@@ -120,7 +107,14 @@ namespace Kidnapped.SaveSystem
             WriteToFile();
         }
 
+        public void LoadGame()
+        {
+            ReadFromFile();
 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+
+        }
 
         #region utilities
         public static string GetCachedValue(string key)
