@@ -100,9 +100,12 @@ namespace Kidnapped
 
         public void SlamTheDoor()
         {
-            state = 10;
-
             door.Close();
+
+            if (state > 0)
+                return;
+
+            state = 10;
 
             SetDoorBlock();
 
@@ -147,28 +150,68 @@ namespace Kidnapped
             
         }
 
+        void HandleOnInteraction(ObjectInteractor interactor)
+        {
+            //state = 40;
+
+            // Flashlight
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+        }
+
         private void HandleOnLightOff()
         {
+            switch (state)
+            {
+                case 20:
+                    // Switch to modern school
+                    gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
+                    gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
+
+                    // Create first scary group
+                    scaryIndex = 0;
+                    scaryGroups[scaryIndex].Create();
+                    // Get the target and set the callback
+                    scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().SetCallback(HandleOnInteraction);
+                    break;
+                case 30:
+                    // Switch to modern school
+                    gyms[0].GetComponent<SimpleActivator>().Init(true.ToString());
+                    gyms[1].GetComponent<SimpleActivator>().Init(false.ToString());
+                    // remove scary group
+                    scaryIndex = 0;
+                    scaryGroups[scaryIndex].Release();
+                    // Reset the door block
+                    ResetDoorBlock();
+                    break;
+            }
+
             
-
-            // Switch to modern school
-            gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
-            gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
-
-            // Create first scary group
-            scaryIndex = 0;
-            scaryGroups[scaryIndex].Create();
         }
 
         
 
         private void HandleOnLightOn()
         {
-            // Set the new state
-            state = 30;
+            switch(state) 
+            { 
+                case 20:
+                    // Set the new state
+                    state = 30;
 
-            // Save state
-            SaveManager.Instance.SaveGame();
+                    // Save state
+                    SaveManager.Instance.SaveGame();
+                    break;
+                case 30:
+                    // Update state
+                    state = 40;
+
+                    // Save
+                    //SaveManager.Instance.SaveGame();
+                    break;
+            
+            }
+
+           
         }
 
         void DisableScaryGroupAll()
@@ -206,14 +249,21 @@ namespace Kidnapped
 
             if (state == 30) // Step to save ( the cat freaking out )
             {
+                //doorTrigger.enabled = false;
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
                 scaryIndex = 0;
                 scaryGroups[scaryIndex].Create();
-                     
+                scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().SetCallback(HandleOnInteraction);
             }
             
-
+            if(state == 40) // Dummy target touched
+            {
+                //doorTrigger.enabled = false;
+                rb.isKinematic = false;
+                rb.position = ballEnd.position;
+                ResetDoorBlock();
+            }
         }
         #endregion
     }

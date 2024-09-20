@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CSA
+namespace Kidnapped
 {
     public class Tags
     {
         public static string Player = "Player";
         public static string Cat = "Cat";
+    }
+
+    public class Layers
+    {
+        public static string Interaction = "Interaction";
     }
 
     public class KeyBindings
