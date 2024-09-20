@@ -77,7 +77,7 @@ namespace Kidnapped
         string speedParam = "Speed";
         string killParam = "Kill";
 
-        int walkAnimCount = 2;
+        int walkAnimCount = 3;
         int killAnimCount = 2;
 
         private void Awake()
@@ -122,8 +122,6 @@ namespace Kidnapped
                 if (agent.hasPath)
                 {
                     agent.ResetPath();
-                    // Change animation
-                    //SetRandomWalkAnimation();
                 }
             }
             else
@@ -140,15 +138,17 @@ namespace Kidnapped
             {
                 animator.SetFloat(speedParam, agent.velocity.magnitude);
             }
-                
-
-            //agent.SetDestination(target.position);
+            
         }
 
         void SetRandomWalkAnimation()
         {
-            //animator.SetInteger(typeParam, UnityEngine.Random.Range(0, walkAnimCount));
-            //animator.SetInteger(typeParam, 2);
+            int type = UnityEngine.Random.Range(0, walkAnimCount);
+            animator.SetInteger(typeParam, type);
+            if (type == 2) // Crawling
+            {
+                agent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+            }
             animator.SetTrigger(walkParam);
         }
 
@@ -170,13 +170,13 @@ namespace Kidnapped
 
         bool IsObjectInFrustum(GameObject obj)
         {
-            // Ottieni i piani del frustum della camera
+            // Get camera frustum planes
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
 
-            // Ottieni il renderer del cubo per accedere ai bounds
+            // Get the rendering cube
             Renderer renderer = obj.GetComponent<Renderer>();
 
-            // Controlla se i bounds del cubo sono all'interno del frustum
+            // Check bounds
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 

@@ -8,17 +8,27 @@ namespace Kidnapped
 {
     public class ScaryGroup : MonoBehaviour
     {
-        [SerializeField]
-        ObjectPool dummyPool;
+        [System.Serializable]
+        class PrefabGroup
+        {
+            [SerializeField]
+            public ObjectPool dummyPool;
 
-        [SerializeField]
-        Transform[] dummyTargetList;
+            [SerializeField]
+            public Transform[] dummyTargetList;
 
+            public List<GameObject> dummies = new List<GameObject>();
+        }
+
+        
         [SerializeField]
         GameObject targetToReach;
 
         [SerializeField]
-        List<GameObject> dummies = new List<GameObject>();
+        List<PrefabGroup> prefabGroups;
+
+        //[SerializeField]
+        
 
         
 
@@ -34,29 +44,38 @@ namespace Kidnapped
 
         public void Create()
         {
-            dummies.Clear();
-            foreach(var target in dummyTargetList)
-            {
-                GameObject dummy = dummyPool.GetFromPool();
-                dummy.GetComponent<NavMeshAgent>().enabled = false;
-                dummy.transform.position = target.position;
-                dummy.transform.rotation = target.rotation;
-                dummy.GetComponent<NavMeshAgent>().enabled = true;
-                dummies.Add(dummy);
+            
 
+            foreach(var pg in prefabGroups)
+            {
+                pg.dummies.Clear();
+                foreach (var target in pg.dummyTargetList)
+                {
+                    GameObject dummy = pg.dummyPool.GetFromPool();
+                    dummy.GetComponent<NavMeshAgent>().enabled = false;
+                    dummy.transform.position = target.position;
+                    dummy.transform.rotation = target.rotation;
+                    dummy.GetComponent<NavMeshAgent>().enabled = true;
+                    pg.dummies.Add(dummy);
+                }
             }
+
+           
             targetToReach.SetActive(true);
         }
 
         public void Release()
         {
-            foreach(var dummy in dummies)
+            foreach(var pg in prefabGroups)
             {
-                dummy.GetComponent<NavMeshAgent>().enabled = false;
-                dummyPool.ReturnToPool(dummy);
+                foreach (var dummy in pg.dummies)
+                {
+                    dummy.GetComponent<NavMeshAgent>().enabled = false;
+                    pg.dummyPool.ReturnToPool(dummy);
+                }
+                pg.dummies.Clear();
             }
 
-            dummies.Clear();
             targetToReach.SetActive(false);
         }
 
