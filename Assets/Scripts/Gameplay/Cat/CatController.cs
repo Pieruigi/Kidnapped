@@ -48,14 +48,26 @@ namespace Kidnapped
                 
         }
 
-        public void ScaredAndRunAway(Vector3 destination)
+        public void ScaredAndRunAway(Vector3 destination, bool jumpDisabled = false)
         {
             if(!cat.activeSelf)
                 cat.SetActive(true);
 
             standAndPlayRandom.enabled=false;
             scaredAndRunAway.Destination = destination;
+            scaredAndRunAway.JumpDisabled = jumpDisabled;
             scaredAndRunAway.enabled=true;
+        }
+
+        public void ScaredAndRunAway(Vector3 destination, Vector3 position, Quaternion rotation, bool jumpDisabled = false)
+        {
+            if (!cat.activeSelf)
+                cat.SetActive(true);
+
+            transform.position = position;
+            transform.rotation = rotation;
+
+            ScaredAndRunAway(destination, jumpDisabled);
         }
 
         #region save system
@@ -86,14 +98,15 @@ namespace Kidnapped
                     transform.position = SaveManager.ParseStringToVector3(values[1]);
                     transform.rotation = SaveManager.ParseStringToQuaternion(values[2]);
 
-                    if(state == 1)
+                    if(state == 1) // Save only the state 1 ( other states must be triggered )
                     {
                         standAndPlayRandom.enabled = true;
                     }
-                    else if(state == 2)
-                    {
-                        scaredAndRunAway.enabled = true;
-                    }
+                    //else if(state == 2)
+                    //{
+                    //    scaredAndRunAway.enabled = true;
+                    //}
+
                 }
 
             }

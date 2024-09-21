@@ -16,7 +16,8 @@ public class CatScaredAndRunWay : MonoBehaviour
     float elapsed = 0;
     float runTime = .75f;
     float rotationTime = .75f;
-    
+
+    public bool JumpDisabled { get; set; } = false;
 
     private void Awake()
     {
@@ -54,10 +55,18 @@ public class CatScaredAndRunWay : MonoBehaviour
     {
         //rb.isKinematic = false;
         // Play scared animation
-        animator.SetTrigger("Scared");
-        // Jump
-        rb.AddForce(Vector3.up * 3, ForceMode.VelocityChange);
-        elapsed = 0;
+        if(!JumpDisabled)
+        {
+            animator.SetTrigger("Scared");
+            // Jump
+            rb.AddForce(Vector3.up * 3, ForceMode.VelocityChange);
+            elapsed = 0;
+        }
+        else // Don't jump
+        {
+            animator.SetTrigger("Run");
+            elapsed = runTime;
+        }
     }
 
     private void OnDisable()

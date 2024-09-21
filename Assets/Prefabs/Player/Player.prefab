@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SCShader: {fileID: 4800000, guid: 58713503155483942b839347d51d7efc, type: 3}
-  Value: 32
+  Value: 11.7
 --- !u!114 &1079047070475899613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,11 +404,15 @@ PrefabInstance:
       objectReference: {fileID: 3801578171469496809}
     - target: {fileID: 6441274055147688472, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
       propertyPath: m_Range
-      value: 14.2
+      value: 14.29
       objectReference: {fileID: 0}
     - target: {fileID: 6441274055147688472, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
       propertyPath: m_Intensity
-      value: 4.9
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441274055147688472, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
+      propertyPath: m_SpotAngle
+      value: 91.3
       objectReference: {fileID: 0}
     - target: {fileID: 6441274055147688474, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
       propertyPath: m_Name

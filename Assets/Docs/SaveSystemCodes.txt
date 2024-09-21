@@ -7,7 +7,7 @@ moonController: moon_controller (float:strength)
 
 // {Id}: the object id
 cutScenes: cut_{Id}  (bool:playOnStart)
-doors: door_{Id}  (bool:isLocked, bool:isOpen, bool:interactionDisabled)
+scaryDoor: (bool:isClosed)
 activable: activable_{Id}  (bool:activeself)
 stateful: state_{id} (int:state)
 
@@ -23,13 +23,27 @@ fadeIn: fade_in
 fadeOut: fade_out
 firstCut: cut_1
 
-/// Statefull
+/// Gameplay controllers
 EntranceGate: stateful_1
 GymScare: stateful_2
+EnterTheSchool: floor1_part1
 
 /// Environment
 OriginalGym: old_gym (bool:active)
 AbandonedGym: abandoned_gym (bool:active)
+
+/// Doors ( ScaryDoor )
+Gym internal door: gym_door
+first floor door1: floor1_door1
+spoiatoio floor door1: floor1_door2
+porta piano 1: floor1_door3
+
+/// Blocks ( bool:active )
+MainEntranceBlock: floor1_block1
+Block between first and second floor: stairs_block
+gym external door block: gym_block1, gym_block1_n 
+kitchen entrance block: kit_block, kit_block_n
+
 
 
 

@@ -1,4 +1,5 @@
 using Kidnapped;
+using Kidnapped.SaveSystem;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Kidnapped
 {
-    public class ScaryDoor : MonoBehaviour
+    public class ScaryDoor : MonoBehaviour, ISavable
     {
         //enum _State { Closed, Open, Locked }
 
@@ -38,14 +39,16 @@ namespace Kidnapped
 
         private void Awake()
         {
-            
+            // Set up fx
             openFx.GetFeedbackOfType<MMF_Rotation>().RemapCurveOne = openAngle;
             closeFx.GetFeedbackOfType<MMF_Rotation>().RemapCurveOne = -openAngle;
 
-            if(!closed)
-            {
-                _collider.transform.localEulerAngles = Vector3.up * openAngle;
-            }
+            // Get data from cache
+            string data = SaveManager.GetCachedValue(code);
+            if(string.IsNullOrEmpty(data))
+                data = closed.ToString();
+            // Init
+            Init(data);
         }
 
         // Start is called before the first frame update
@@ -114,6 +117,31 @@ namespace Kidnapped
             closed = true;
             closeFx.PlayFeedbacks();
         }
+
+
+        #region save system
+        [Header("Save System")]
+        [SerializeField]
+        string code;
+        public string GetCode()
+        {
+            return code;
+        }
+
+        public string GetData()
+        {
+            return closed.ToString();
+        }
+
+        public void Init(string data)
+        {
+            closed = bool.Parse(data);
+            if (!closed)
+            {
+                _collider.transform.localEulerAngles = Vector3.up * openAngle;
+            }
+        }
+        #endregion
     }
 
 }

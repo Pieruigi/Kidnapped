@@ -2,16 +2,20 @@ using Kidnapped;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kidnapped
 {
     public class PlayerWalkInTrigger : MonoBehaviour
     {
-        [SerializeField]
-        MonoBehaviour controller;
+        public UnityAction OnEnter;
+        public UnityAction OnExit;
 
-        [SerializeField]
-        string functionName;
+        //[SerializeField]
+        //MonoBehaviour controller;
+
+        //[SerializeField]
+        //string functionName;
 
     
         //[SerializeField]
@@ -34,13 +38,16 @@ namespace Kidnapped
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            //controller.LaunchTheBall();
-            controller.Invoke(functionName, 0);
-            
-            
+            OnEnter?.Invoke();
         }
 
-       
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.CompareTag(Tags.Player))
+                return;
+
+            OnExit?.Invoke();
+        }
 
     }
 

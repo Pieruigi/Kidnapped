@@ -85,17 +85,47 @@ namespace Kidnapped
 
         }
 
+        private void OnEnable()
+        {
+            ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnBallTriggerEnter;
+            doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnDoorTriggerEnter;
+
+        }
+
+        private void OnDisable()
+        {
+            ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnBallTriggerEnter;
+            doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnDoorTriggerEnter;
+        }
+
+        private void HandleOnDoorTriggerEnter()
+        {
+            SlamTheDoor();
+        }
+
+        private void HandleOnBallTriggerEnter()
+        {
+           
+#pragma warning disable CS4014
+            LaunchTheBall();
+#pragma warning restore CS4014
+        }
+
         void SetDoorBlock()
         {
-            doorBlock.SetActive(true);
-            doorUnblock.SetActive(false);
+            doorBlock.GetComponent<ISavable>().Init(true.ToString());
+            doorUnblock.GetComponent<ISavable>().Init(false.ToString());
+            //doorBlock.SetActive(true);
+            //doorUnblock.SetActive(false);
             
         }
 
         void ResetDoorBlock()
         {
-            doorBlock.SetActive(false);
-            doorUnblock.SetActive(true);
+            doorBlock.GetComponent<ISavable>().Init(false.ToString());
+            doorUnblock.GetComponent<ISavable>().Init(true.ToString());
+            //doorBlock.SetActive(false);
+            //doorUnblock.SetActive(true);
         }
 
         public void SlamTheDoor()
@@ -240,7 +270,7 @@ namespace Kidnapped
         {
             state = int.Parse(data);
 
-            ResetDoorBlock();
+            //ResetDoorBlock();
             ballTrigger.enabled = false;
             catDeactivator.SetActive(false);
             Rigidbody rb = ball.GetComponent<Rigidbody>();
@@ -262,7 +292,7 @@ namespace Kidnapped
                 //doorTrigger.enabled = false;
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
-                ResetDoorBlock();
+                //ResetDoorBlock();
             }
         }
         #endregion

@@ -55,6 +55,12 @@ namespace Kidnapped
         [SerializeField]
         GameObject wreckage;
 
+        [SerializeField]
+        GameObject catActivator;
+
+        [SerializeField]
+        GameObject catDeactivator;
+
 
         [SerializeField]
         Teleport teleport;
@@ -78,15 +84,12 @@ namespace Kidnapped
 
         private void Awake()
         {
-            string data = SaveManager.GetCachedValue(code);
-            if(!string.IsNullOrEmpty(data))
-                Init(data);
+            
+           
 
-            leftEulerDefault = leftDoor.localEulerAngles.z;
-            rightEulerDefault = rightDoor.localEulerAngles.z;
-            BlockLeftTunnel();
-            BlockRightTunnelFront();
-            wreckage.SetActive(false);
+            string data = SaveManager.GetCachedValue(code);
+            if (!string.IsNullOrEmpty(data))
+                Init(data);
         }
 
         // Start is called before the first frame update
@@ -147,7 +150,13 @@ namespace Kidnapped
                     // Check the player distance to open the gate
                     float distance = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
                     if (distance < 8f)
+                    {
                         OpenTheGate();
+                        // Activate the cat trigger
+                        catActivator.SetActive(true);
+                        catDeactivator.SetActive(true);
+                    }
+                        
                 }
             }
             
@@ -328,6 +337,14 @@ namespace Kidnapped
 
         public void Init(string data)
         {
+            leftEulerDefault = leftDoor.localEulerAngles.z;
+            rightEulerDefault = rightDoor.localEulerAngles.z;
+            BlockLeftTunnel();
+            BlockRightTunnelFront();
+            wreckage.SetActive(false);
+            catActivator.SetActive(false);
+            catDeactivator.SetActive(false);
+
             state = int.Parse(data);
             if(state == 3)
             {

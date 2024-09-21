@@ -13,6 +13,7 @@ namespace Kidnapped
     public class Layers
     {
         public static string Interaction = "Interaction";
+        public static string Player = "Player";
     }
 
     public class KeyBindings
