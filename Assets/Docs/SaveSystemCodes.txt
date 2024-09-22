@@ -18,6 +18,7 @@ player: player
 cat: cat
 moonController: moon_controller
 boy for appearance only: scary_boy_appearance (simpleActivator)
+girl for appearance only: scary_girl_appearance (simpleActivator)
 
 /// CUT SCENES
 fadeIn: fade_in
@@ -28,10 +29,12 @@ firstCut: cut_1
 EntranceGate: stateful_1
 GymScare: stateful_2
 EnterTheSchool: floor1_part1
+after entering the school: floor1_part2
 
 /// Environment
 OriginalGym: old_gym (bool:active)
 AbandonedGym: abandoned_gym (bool:active)
+
 
 /// Doors ( ScaryDoor )
 Gym internal door: gym_door
@@ -44,6 +47,8 @@ MainEntranceBlock: floor1_block1
 Block between first and second floor: stairs_block
 gym external door block: gym_block1, gym_block1_n 
 kitchen entrance block: kit_block, kit_block_n
+meet the girl room block: mtg_block ( TransformSaver )
+meet the girl board cover: mtg_cover ( TransformSaver )
 
 
 
