@@ -26,4 +26,9 @@ namespace Kidnapped
     {
         public static float InteractionDistance = 1.5f;
     }
+
+    public class  LocalizationTables
+    {
+        public static string Subtitles = "subtitles";
+    }
 }

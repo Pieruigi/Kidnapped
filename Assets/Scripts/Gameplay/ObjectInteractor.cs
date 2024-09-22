@@ -9,7 +9,9 @@ namespace Kidnapped
 {
     public class ObjectInteractor : MonoBehaviour
     {
-   
+
+        public UnityAction OnInteraction;
+
         [SerializeField]
         float interactionDistance = 1.5f;
 
@@ -21,7 +23,7 @@ namespace Kidnapped
 
         bool inside = false;
         
-        List<UnityAction<ObjectInteractor>> callbacks = new List<UnityAction<ObjectInteractor>>();
+        //List<UnityAction<ObjectInteractor>> callbacks = new List<UnityAction<ObjectInteractor>>();
 
         private void Update()
         {
@@ -32,7 +34,7 @@ namespace Kidnapped
             {
                 Debug.Log("Button clicked");
                 // Raycast
-                int layerMask = LayerMask.GetMask(Layers.Interaction); 
+                int layerMask = ~LayerMask.GetMask(Layers.Player); 
                 RaycastHit hit;
                 if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
                 {
@@ -42,23 +44,25 @@ namespace Kidnapped
                         if (!multipleInteractionsAllowed)
                             interactionCollider.enabled = false;
 
-                        foreach (var callback in callbacks)
-                            callback.Invoke(this);
+                        //foreach (var callback in callbacks)
+                        //    callback.Invoke(this);
+                        OnInteraction?.Invoke();
+
                         
                     }
                 }
             }
         }
 
-        private void OnEnable()
-        {
-            callbacks.Clear();
-        }
+        //private void OnEnable()
+        //{
+        //    callbacks.Clear();
+        //}
 
-        private void OnDisable()
-        {
-            callbacks.Clear();
-        }
+        //private void OnDisable()
+        //{
+        //    callbacks.Clear();
+        //}
 
         private void OnTriggerEnter(Collider other)
         {
@@ -76,10 +80,10 @@ namespace Kidnapped
             inside = false;
         }
 
-        public void SetCallback(UnityAction<ObjectInteractor> callback)
-        {
-            callbacks.Add(callback);
-        }
+        //public void SetCallback(UnityAction<ObjectInteractor> callback)
+        //{
+        //    callbacks.Add(callback);
+        //}
     }
 
 }

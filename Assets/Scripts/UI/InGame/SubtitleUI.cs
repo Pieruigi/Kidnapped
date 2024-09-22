@@ -37,7 +37,10 @@ namespace Kidnapped.UI
             if(!bg.gameObject.activeSelf)
                 bg.gameObject.SetActive(true);
             textField.text = text;
+            
         }
+                
+
 
         public void Hide()
         {

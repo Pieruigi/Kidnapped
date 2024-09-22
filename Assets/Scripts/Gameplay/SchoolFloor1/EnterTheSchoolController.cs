@@ -1,13 +1,16 @@
 using Aura2API;
 using DG.Tweening;
 using Kidnapped.SaveSystem;
+using Kidnapped.UI;
 using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Android.Types;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Kidnapped
 {
@@ -20,7 +23,7 @@ namespace Kidnapped
         PlayerWalkInTrigger lockerWalkInTrigger;
 
         [SerializeField]
-        PlayerCloseLook lockerLook;
+        ObjectInteractor chipsInteractor;
 
         [SerializeField]
         SimpleActivator kitchenFree;
@@ -39,6 +42,27 @@ namespace Kidnapped
 
         [SerializeField]
         Transform tableTarget;
+
+        [SerializeField]
+        GameObject jar;
+
+        [SerializeField]
+        GameObject brokenJar;
+
+        [SerializeField]
+        GameObject kitchenLight;
+
+        [SerializeField]
+        GameObject corridorBlock;
+
+        [SerializeField]
+        Transform scaryEvilTarget;
+
+        [SerializeField]
+        PlayerWalkInTrigger scaryEvilTrigger;
+
+        [SerializeField]
+        SimpleActivator scaryEvil;
 
         int state = 0;
 
@@ -115,24 +139,45 @@ namespace Kidnapped
         {
             lockerWalkInTrigger.OnEnter += HandleOnLockerTriggerEnter;
             lockerWalkInTrigger.OnExit += HandleOnLockerTriggerExit;
-            lockerLook.OnPlayerLook += HandleOnLockerLook;
+            chipsInteractor.OnInteraction += HandleOnChipsInteraction;
             tableTrigger.OnEnter += HandleOnTableTriggerEnter;
+            scaryEvilTrigger.OnEnter += HandleOnScaryTriggerEnter;
         }
 
         private void OnDisable()
         {
             lockerWalkInTrigger.OnEnter -= HandleOnLockerTriggerEnter;
             lockerWalkInTrigger.OnExit += HandleOnLockerTriggerExit;
-            lockerLook.OnPlayerLook -= HandleOnLockerLook;
+            chipsInteractor.OnInteraction -= HandleOnChipsInteraction;
             tableTrigger.OnEnter -= HandleOnTableTriggerEnter;
+            scaryEvilTrigger.OnEnter -= HandleOnScaryTriggerEnter;
         }
 
-        private void HandleOnTableTriggerEnter()
+        private async void HandleOnScaryTriggerEnter()
         {
+            scaryEvilTrigger.gameObject.SetActive(false);
+            scaryEvil.Init(true.ToString());
+
+            await Task.Delay(3000);
+            scaryEvil.Init(false.ToString());
+        }
+
+        private async void HandleOnTableTriggerEnter()
+        {
+            
             float time = 0.25f;
             tableObject.transform.DOMove(tableTarget.position, time);
             tableObject.transform.DORotate(tableTarget.eulerAngles, time);
             tableTrigger.gameObject.SetActive(false);
+
+            await Task.Delay(1000);
+            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "check_the_rules"));
+            await Task.Delay(3000);
+            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "mmmph"));
+            await Task.Delay(1000);
+            kitchenLight.SetActive(false);
+            SubtitleUI.Instance.Hide();
+            corridorBlock.SetActive(false);
         }
 
         private void HandleOnLockerTriggerExit()
@@ -146,14 +191,17 @@ namespace Kidnapped
             
         }
 
-        void HandleOnLockerLook()
+        void HandleOnChipsInteraction()
         {
             state = 10; 
             lockerWalkInTrigger.gameObject.SetActive(false);
-            lockerLook.gameObject.SetActive(false);
+            chipsInteractor.gameObject.SetActive(false);
             kitchenBlock.Init(false.ToString());
             kitchenFree.Init(true.ToString());
             mainBlock.Init(true.ToString());
+            jar.SetActive(false);
+            brokenJar.SetActive(true);
+            kitchenLight.SetActive(true);
         }
 
 
@@ -177,8 +225,8 @@ namespace Kidnapped
 
             playLocker = true;
             nextLockerTime = UnityEngine.Random.Range(nextLockerMinTime, nextLockerMaxTime);
-            
-            
+            brokenJar.SetActive(false);
+            kitchenLight.SetActive(false);
         }
         #endregion
     }

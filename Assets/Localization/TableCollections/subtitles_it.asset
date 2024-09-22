@@ -24,6 +24,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 4135661488566173722
+  - m_Id: 4478964482150400
+    m_Localized: <color=red>Non pensarci nemmeno, tocca a me giocare! Rispetta le
+      regole.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4479365705076736
+    m_Localized: <color=blue>Mmmph!!!</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

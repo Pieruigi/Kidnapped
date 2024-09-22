@@ -180,9 +180,10 @@ namespace Kidnapped
             
         }
 
-        void HandleOnInteraction(ObjectInteractor interactor)
+        void HandleOnInteraction()
         {
             //state = 40;
+            scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
             // Flashlight
             Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
@@ -201,7 +202,7 @@ namespace Kidnapped
                     scaryIndex = 0;
                     scaryGroups[scaryIndex].Create();
                     // Get the target and set the callback
-                    scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().SetCallback(HandleOnInteraction);
+                    scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction += HandleOnInteraction;
                     break;
                 case 30:
                     // Switch to modern school
@@ -284,7 +285,7 @@ namespace Kidnapped
                 rb.position = ballEnd.position;
                 scaryIndex = 0;
                 scaryGroups[scaryIndex].Create();
-                scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().SetCallback(HandleOnInteraction);
+                scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction += HandleOnInteraction;
             }
             
             if(state == 40) // Dummy target touched
