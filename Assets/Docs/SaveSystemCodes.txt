@@ -17,7 +17,7 @@ stateful: state_{id} (int:state)
 player: player
 cat: cat
 moonController: moon_controller
-boy for appearance only: scary_evil (simpleActivator)
+boy for appearance only: scary_boy_appearance (simpleActivator)
 
 /// CUT SCENES
 fadeIn: fade_in

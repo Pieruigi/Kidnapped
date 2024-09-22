@@ -155,17 +155,25 @@ namespace Kidnapped
 
         private async void HandleOnScaryTriggerEnter()
         {
+            state = 20;
+            
             scaryEvilTrigger.gameObject.SetActive(false);
+            scaryEvil.transform.position = scaryEvilTarget.transform.position;
+            scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
             scaryEvil.Init(true.ToString());
+            scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Walk");
 
             await Task.Delay(3000);
             scaryEvil.Init(false.ToString());
+
+            // Save state 20
+            SaveManager.Instance.SaveGame();
         }
 
         private async void HandleOnTableTriggerEnter()
         {
             
-            float time = 0.25f;
+            float time = 0.15f;
             tableObject.transform.DOMove(tableTarget.position, time);
             tableObject.transform.DORotate(tableTarget.eulerAngles, time);
             tableTrigger.gameObject.SetActive(false);
@@ -222,11 +230,25 @@ namespace Kidnapped
 
         public void Init(string data)
         {
-
+            Debug.Log("Init entrance:"+state);
             playLocker = true;
             nextLockerTime = UnityEngine.Random.Range(nextLockerMinTime, nextLockerMaxTime);
             brokenJar.SetActive(false);
             kitchenLight.SetActive(false);
+
+            state = int.Parse(data);
+
+            if(state == 20)
+            {
+                lockerWalkInTrigger.gameObject.SetActive(false);
+                tableTrigger.gameObject.SetActive(false);
+                scaryEvilTrigger.gameObject.SetActive(false);
+                jar.gameObject.SetActive(false);
+                brokenJar.gameObject.SetActive(true);
+                corridorBlock.gameObject.SetActive(false);
+                tableObject.transform.position = tableTarget.transform.position;
+                tableObject.transform.rotation = tableTarget.transform.rotation;
+            }
         }
         #endregion
     }
