@@ -26,7 +26,7 @@ namespace Kidnapped
         bool notAvailable = false;
 
         Animation anims;
-        FlashlightFlickerOff flickerOff;
+        FlashlightFlickerController flickerOff;
 
         
         protected override void Awake()
@@ -34,7 +34,7 @@ namespace Kidnapped
             base.Awake();
             DisableLights();
             anims = GetComponent<Animation>();
-            flickerOff = GetComponent<FlashlightFlickerOff>();
+            flickerOff = GetComponent<FlashlightFlickerController>();
 
         
         }

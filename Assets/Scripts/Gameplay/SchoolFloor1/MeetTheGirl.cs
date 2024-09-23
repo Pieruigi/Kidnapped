@@ -36,10 +36,10 @@ namespace Kidnapped
         Transform blockTransform;
 
         [SerializeField]
-        PlayerWalkInTrigger boardTrigger;
+        PlayerWalkInTrigger bellsTrigger;
 
         [SerializeField]
-        GameObject boardCover;
+        List<GameObject> bellInteractors;
 
         int state = 0;
 
@@ -70,7 +70,7 @@ namespace Kidnapped
             girlToRoomTrigger.OnEnter += HandleOnGirlToRoom;
             preblockTrigger.OnEnter += HandleOnPreblockTrigger;
             blockTrigger.OnEnter += HandleOnBlockTrigger;
-            boardTrigger.OnEnter += HandleOnBoardTrigger;
+            bellsTrigger.OnEnter += HandleOnBoardTrigger;
         }
 
         
@@ -80,15 +80,24 @@ namespace Kidnapped
             girlToRoomTrigger.OnEnter -= HandleOnGirlToRoom;
             preblockTrigger.OnEnter -= HandleOnPreblockTrigger;
             blockTrigger.OnEnter -= HandleOnBlockTrigger;
-            boardTrigger.OnEnter -= HandleOnBoardTrigger;
+            bellsTrigger.OnEnter -= HandleOnBoardTrigger;
         }
 
-        private void HandleOnBoardTrigger()
+        private async void HandleOnBoardTrigger()
         {
             // Deactivate the trigger
-            boardTrigger.gameObject.SetActive(false);
-            // Rotate the cover
-            boardCover.transform.DORotate(Vector3.right * coverRotationAngle, 1f);
+            bellsTrigger.gameObject.SetActive(false);
+            // Enable interacors
+            SetBellInteractorsEnable(true);
+            // Reset false the big bell interactor because we play it by script the first time
+            bellInteractors[0].SetActive(false); // The big bell
+            // Play 
+            bellInteractors[0].transform.parent.GetComponentInChildren<BellController>().Play();
+            // Wait or the bell to complete
+            await Task.Delay(13000);
+            // Set interaction enable
+            bellInteractors[0].SetActive(true); // The big bell
+
         }
 
         private void HandleOnBlockTrigger()
@@ -101,7 +110,7 @@ namespace Kidnapped
             roomBlock.transform.DOMove(blockTransform.position, time);
             roomBlock.transform.DORotate(blockTransform.eulerAngles, time);
             // Activate the board trigger
-            boardTrigger.gameObject.SetActive(true);
+            bellsTrigger.gameObject.SetActive(true);
         }
 
         private void HandleOnPreblockTrigger()
@@ -135,6 +144,14 @@ namespace Kidnapped
             PlayerController.Instance.CanRunning = true;
         }
 
+        void SetBellInteractorsEnable(bool value)
+        {
+            foreach(var interactor in bellInteractors)
+            {
+                interactor.SetActive(value);
+            }
+        }
+
         #region save system
         [Header("SaveSystem")]
         [SerializeField]
@@ -155,7 +172,8 @@ namespace Kidnapped
 
             // Default
             blockTrigger.gameObject.SetActive(false);
-            //boardTrigger.gameObject.SetActive(false);
+            //boardTrigger.gameObject.SetActive(false); // Commented only for test
+            SetBellInteractorsEnable(false);
 
             if (state == finalState)
             {

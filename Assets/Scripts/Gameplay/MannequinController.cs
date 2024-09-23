@@ -204,7 +204,7 @@ namespace Kidnapped
             PlayerController.Instance.InteractionDisabled = true;
 
             // Flicker off the flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnFlickerComplete);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnFlickerComplete);
         }
 
        

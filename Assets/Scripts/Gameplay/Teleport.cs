@@ -30,7 +30,7 @@ namespace Kidnapped
        
         private void OnTriggerEnter(Collider other)
         {
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff/*, HandleOnLightOn*/);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff/*, HandleOnLightOn*/);
         }
 
         void MovePlayer()

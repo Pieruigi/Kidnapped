@@ -168,7 +168,7 @@ namespace Kidnapped
             await Task.Delay(2500);
 
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightComplete);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightComplete);
 
 
             
@@ -180,7 +180,7 @@ namespace Kidnapped
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightComplete);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightComplete);
         }
 
         private void HandleOnLightOff(float duration)

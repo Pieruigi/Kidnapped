@@ -19,15 +19,22 @@ namespace Kidnapped
         Collider interactionCollider;
 
         [SerializeField]
-        bool multipleInteractionsAllowed = false;
+        bool keepEnabled = false;
+
+        [SerializeField]
+        float interactionCooldown = .5f;
 
         bool inside = false;
-        
-        //List<UnityAction<ObjectInteractor>> callbacks = new List<UnityAction<ObjectInteractor>>();
+
+        System.DateTime lastInteractionTime;
+
 
         private void Update()
         {
             if (!inside)
+                return;
+
+            if ((System.DateTime.Now - lastInteractionTime).TotalSeconds < interactionCooldown)
                 return;
 
             if(Input.GetKeyDown(KeyBindings.InteractionKey))
@@ -38,14 +45,15 @@ namespace Kidnapped
                 RaycastHit hit;
                 if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
                 {
-                    Debug.Log($"Hit:{hit.collider.gameObject.name}");
+                    Debug.Log($"Hit:{hit.collider.gameObject.transform.parent.name}");
                     if (hit.collider == interactionCollider)
                     {
-                        if (!multipleInteractionsAllowed)
+                        if (!keepEnabled)
                             interactionCollider.enabled = false;
 
                         //foreach (var callback in callbacks)
                         //    callback.Invoke(this);
+                        lastInteractionTime = System.DateTime.Now;
                         OnInteraction?.Invoke();
 
                         
