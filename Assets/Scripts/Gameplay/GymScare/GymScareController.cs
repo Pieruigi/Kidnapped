@@ -76,12 +76,6 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.K))
-            {
-                Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
-            }
-#endif
 
         }
 
@@ -174,7 +168,7 @@ namespace Kidnapped
             await Task.Delay(2500);
 
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightComplete);
 
 
             
@@ -186,10 +180,10 @@ namespace Kidnapped
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightComplete);
         }
 
-        private void HandleOnLightOff()
+        private void HandleOnLightOff(float duration)
         {
             switch (state)
             {
@@ -221,7 +215,7 @@ namespace Kidnapped
 
         
 
-        private void HandleOnLightOn()
+        private void HandleOnLightComplete()
         {
             switch(state) 
             { 

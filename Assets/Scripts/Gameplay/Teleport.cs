@@ -3,6 +3,7 @@ using EvolveGames;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.Events;
@@ -29,7 +30,7 @@ namespace Kidnapped
        
         private void OnTriggerEnter(Collider other)
         {
-            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff, HandleOnLightOn);
+            Flashlight.Instance.GetComponent<FlashlightFlickerOff>().Play(HandleOnLightOff/*, HandleOnLightOn*/);
         }
 
         void MovePlayer()
@@ -41,7 +42,7 @@ namespace Kidnapped
             PlayerController.Instance.characterController.enabled = true;
         }
 
-        private void HandleOnLightOff()
+        private async void HandleOnLightOff(float duration)
         {
             foreach(Light light in lights)
                 DisableLight(light);
@@ -50,16 +51,24 @@ namespace Kidnapped
             MovePlayer();
             Debug.Log(OnLightOff);
             OnLightOff?.Invoke();
-        }
 
-        private void HandleOnLightOn()
-        {
+            await Task.Delay(TimeSpan.FromSeconds(duration));
+
             foreach (Light light in lights)
                 EnableLight(light);
             foreach (GameObject obj in objects)
                 obj.SetActive(true);
             OnLightOn?.Invoke();
         }
+
+        //private void HandleOnLightOn()
+        //{
+        //    foreach (Light light in lights)
+        //        EnableLight(light);
+        //    foreach (GameObject obj in objects)
+        //        obj.SetActive(true);
+        //    OnLightOn?.Invoke();
+        //}
 
         void DisableLight(Light light)
         {
