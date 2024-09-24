@@ -11,6 +11,8 @@ namespace Kidnapped
 
     public class BellController : MonoBehaviour
     {
+        public static UnityAction<BellController> OnRing;
+
         [SerializeField]
         ObjectInteractor interactor;
 
@@ -40,6 +42,8 @@ namespace Kidnapped
             animator.SetTrigger("Play");
             await Task.Delay(500);
             audioSource.Play();
+
+            OnRing?.Invoke(this);
         }
 
         public void Play()

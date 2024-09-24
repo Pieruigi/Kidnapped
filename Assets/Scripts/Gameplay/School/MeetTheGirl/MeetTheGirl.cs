@@ -49,6 +49,9 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInTrigger ballTrigger;
 
+        [SerializeField]
+        GymIsLockedController gymIsLockedController;
+
         int state = 0;
 
         int finalState = 100;
@@ -96,9 +99,27 @@ namespace Kidnapped
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
         }
 
-        private void HandleOnBallTriggerEnter()
+        private async void HandleOnBallTriggerEnter()
         {
-            // Show the rolling ball
+            // Deactivate trigger
+            ballTrigger.gameObject.SetActive(false);
+
+            // Remove entrance block
+            float time = .5f;
+            roomBlock.transform.DOMove(blockFreeTransform.position, time);
+            roomBlock.transform.DORotate(blockFreeTransform.eulerAngles, time);
+
+            // Wait 
+            await Task.Delay(500);
+            
+            // Set the next gameplay controller
+            gymIsLockedController.SetWorkingState();
+
+            // Update current state
+            state = finalState;
+
+            // Save game
+            SaveManager.Instance.SaveGame();
         }
 
         private async void HandleOnPuzzleFailed()
@@ -122,6 +143,8 @@ namespace Kidnapped
 
             // Let the girl say something
             SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_smart"), true);
+
+
         }
 
         private async void HandleOnBoardTrigger()
@@ -213,7 +236,7 @@ namespace Kidnapped
 
             // Default
             blockTrigger.gameObject.SetActive(false);
-            //boardTrigger.gameObject.SetActive(false); // Commented only for test
+            bellsTrigger.gameObject.SetActive(false); // Commented only for test
             SetBellInteractorsEnable(false);
             ballTrigger.gameObject.SetActive(false);    
 

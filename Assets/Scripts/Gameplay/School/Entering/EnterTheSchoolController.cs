@@ -201,8 +201,15 @@ namespace Kidnapped
 
         void HandleOnChipsInteraction()
         {
-           
-            state = 10; 
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerAndWatch(1, OnFlickerLightOff);
+        }
+
+        void OnFlickerLightOff()
+        {
+            if (state == 10)
+                return;
+
+            state = 10;
             lockerWalkInTrigger.gameObject.SetActive(false);
             chipsInteractor.gameObject.SetActive(false);
             kitchenBlock.Init(false.ToString());
@@ -212,8 +219,6 @@ namespace Kidnapped
             brokenJar.SetActive(true);
             kitchenLight.SetActive(true);
         }
-
-
 
         #region save system
         [Header("SaveSystem")]

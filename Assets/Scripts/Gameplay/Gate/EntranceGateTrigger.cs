@@ -84,12 +84,11 @@ namespace Kidnapped
 
         private void Awake()
         {
-            
-           
-
             string data = SaveManager.GetCachedValue(code);
-            if (!string.IsNullOrEmpty(data))
-                Init(data);
+            if (string.IsNullOrEmpty(data))
+                data = 0.ToString();
+
+            Init(data);
         }
 
         // Start is called before the first frame update

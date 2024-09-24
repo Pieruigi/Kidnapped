@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,52 +14,51 @@ namespace Kidnapped
         public UnityAction OnFailed;
 
         [SerializeField]
-        ObjectInteractor[] solution;
+        List<BellController> solution;
 
         int next = 0;
         int step = 0;
 
-        //private void OnEnable()
-        //{
-        //    for(int i = 0; i < solution.Length; i++)
-        //    {
-        //        solution[i].OnInteraction += () => { Interaction(i); };
-        //    }
-            
-        //}
-
-        //private void OnDisable()
-        //{
-        //    for (int i = 0; i < solution.Length; i++)
-        //    {
-        //        solution[i].OnInteraction += () => { Interaction(i); };
-        //    }
-        //}
-
-        void Interaction(int index)
+        private void OnEnable()
         {
+            BellController.OnRing += HandleOnBellRing;
+
+        }
+
+        private void OnDisable()
+        {
+            BellController.OnRing -= HandleOnBellRing;
+        }
+
+        void HandleOnBellRing(BellController bell)
+        {
+            // Get the bell index
+            int index = solution.FindIndex(b => b == bell);
+
             Debug.Log($"Index:{index}");
 
             if (index == next)
                 next++;
             else
                 next = 0;
-            
-            step++; 
 
-            if(next == solution.Length)
+            step++;
+
+            if (next == solution.Count)
             {
                 OnSolved?.Invoke();
             }
             else
             {
-                if(step > 6)
+                if (step > 6)
                 {
                     OnFailed?.Invoke();
                     step = 0;
                 }
             }
         }
+
+  
 
    
     }

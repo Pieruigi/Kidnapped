@@ -44,6 +44,7 @@ namespace Kidnapped.UI
                 // Check how many words and calculate half a second for each word
                 int count = text.Split(' ').Length;
                 await Task.Delay(500 * count);
+                Hide();
             }
         }
                 
