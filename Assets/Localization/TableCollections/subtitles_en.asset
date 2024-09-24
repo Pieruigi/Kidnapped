@@ -33,6 +33,14 @@ MonoBehaviour:
     m_Localized: <color=blue>Mmmph!!!</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 5217959101042688
+    m_Localized: <color=red>Really! Is this puzzle to much for you?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5218602998009856
+    m_Localized: <color=red>Ah! You are so smart!</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

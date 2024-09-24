@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: mmmph
     m_Metadata:
       m_Items: []
+  - m_Id: 5217959101042688
+    m_Key: so_stupid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5218602998009856
+    m_Key: so_smart
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

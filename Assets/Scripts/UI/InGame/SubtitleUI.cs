@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,12 +33,18 @@ namespace Kidnapped.UI
 
         }
 
-        public void Show(string text)
+        public async void Show(string text, bool autoHide = false)
         {
             if(!bg.gameObject.activeSelf)
                 bg.gameObject.SetActive(true);
             textField.text = text;
             
+            if(autoHide)
+            {
+                // Check how many words and calculate half a second for each word
+                int count = text.Split(' ').Length;
+                await Task.Delay(500 * count);
+            }
         }
                 
 
