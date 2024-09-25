@@ -158,6 +158,7 @@ namespace Kidnapped
             state = 20;
             
             scaryEvilTrigger.gameObject.SetActive(false);
+            scaryEvil.GetComponent<EvilMaterialSetter>().SetNormal();
             scaryEvil.transform.position = scaryEvilTarget.transform.position;
             scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
             scaryEvil.Init(true.ToString());
@@ -201,7 +202,8 @@ namespace Kidnapped
 
         void HandleOnChipsInteraction()
         {
-            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerAndWatch(1, OnFlickerLightOff);
+            //Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerAndWatch(OnFlickerLightOff);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerOnce(OnFlickerLightOff);
         }
 
         void OnFlickerLightOff()

@@ -1,7 +1,9 @@
+using DG.Tweening;
 using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,7 +25,24 @@ namespace Kidnapped
 
         [SerializeField]
         AudioSource slamAudio;
-        
+
+        [SerializeField]
+        ScaryDoor gymDoor;
+
+        [SerializeField]
+        GameObject girl;
+
+        [SerializeField]
+        Transform girlTarget;
+
+        [SerializeField]
+        Transform girlTarget2;
+
+        [SerializeField]
+        bool doorTriggerOn = false;
+
+        int lightOffCount = 0;
+       
 
         const int deactivatedState = 0;
 
@@ -51,19 +70,74 @@ namespace Kidnapped
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.H))
-                slamAudio.Play();
+            {
+                girl.SetActive(true);
+                girl.transform.position = girlTarget.transform.position;
+                girl.transform.rotation = girlTarget.transform.rotation;
+                girl.GetComponent<EvilMaterialSetter>().SetNormal();
+                girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
+                girl.transform.DOMoveY(0.140f, 0.05f, false);
+                // 
+            }
         }
 
         private void OnEnable()
         {
             ballTrigger.OnEnter += HandleOnBallTriggerEnter;
             slamTrigger.OnEnter += HandleOnSlamTriggerEnter;
+            gymDoor.OnLocked += HandleOnDoorLocked;
         }
 
         private void OnDisable()
         {
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
             slamTrigger.OnEnter -= HandleOnSlamTriggerEnter;
+            gymDoor.OnLocked -= HandleOnDoorLocked;
+        }
+
+        private async void HandleOnDoorLocked(ScaryDoor arg0)
+        {
+            if (!doorTriggerOn)
+                return;
+
+            // Deactivate trigger
+            doorTriggerOn = false;
+
+            // Add some delay
+            await Task.Delay(500);
+
+            FlashlightFlickerController.Instance.FlickerOnce();
+            await Task.Delay(TimeSpan.FromSeconds(FlashlightFlickerController.FlickerDuration / 2));
+
+            // Show Lilith
+            girl.SetActive(true);
+            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            girl.transform.position = girlTarget.transform.position;
+            girl.transform.rotation = girlTarget.transform.rotation;
+            //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
+            girl.transform.DOMoveY(0.140f, 0.05f, false);
+
+            // Start the flickering
+            await Task.Delay(400);
+            FlashlightFlickerController.Instance.FlickerAndWatch(HandleOnLightOff);
+        }
+
+        
+
+        private void HandleOnLightOff()
+        {
+            if(lightOffCount == 0)
+            {
+                girl.transform.position = girlTarget2.position;
+                girl.transform.rotation = girlTarget2.rotation;
+                girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
+            }
+            else if(lightOffCount == 1)
+            {
+                girl.SetActive(false);
+            }
+
+            lightOffCount++;
         }
 
         private void HandleOnSlamTriggerEnter()
@@ -73,6 +147,9 @@ namespace Kidnapped
 
             // Play audio
             slamAudio.Play();
+
+            // Set the door trigger on ( now if we try to open the door something will be triggered )
+            doorTriggerOn = true;
         }
 
         private void HandleOnBallTriggerEnter()

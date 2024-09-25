@@ -6,12 +6,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kidnapped
 {
     public class ScaryDoor : MonoBehaviour, ISavable
     {
-        //enum _State { Closed, Open, Locked }
+        public UnityAction<ScaryDoor> OnLocked;
 
         [SerializeField]
         MMF_Player openFx;
@@ -80,6 +81,7 @@ namespace Kidnapped
                     if (hit.collider == _collider)
                     {
                         lockedFx.PlayFeedbacks();
+                        OnLocked?.Invoke(this);
                     }
                 }
             }

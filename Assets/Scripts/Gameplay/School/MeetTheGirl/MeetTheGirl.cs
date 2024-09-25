@@ -189,6 +189,8 @@ namespace Kidnapped
         {
             // Deactivate the trigger
             girlToRoomTrigger.gameObject.SetActive(false);
+            // Set material
+            girl.GetComponent<EvilMaterialSetter>().SetNormal();
             // Set the girl transform
             girl.transform.position = girlToRoomTarget.position;
             girl.transform.rotation = girlToRoomTarget.rotation;

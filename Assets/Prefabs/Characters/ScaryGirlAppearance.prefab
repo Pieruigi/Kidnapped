@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 992585926201608825}
   - component: {fileID: 7458862013383969461}
+  - component: {fileID: 3103479968513680295}
   m_Layer: 0
   m_Name: ScaryGirlAppearance
   m_TagString: Untagged
@@ -79,6 +80,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activate: 0
   code: scary_girl_appearance
+--- !u!114 &3103479968513680295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8106593183598903559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e736b0ad8c9984ab9642baeac9d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 2202505729290410383}
+  normalMaterial: {fileID: 2100000, guid: a323ed45818066e4b9df9c7166fda638, type: 2}
+  evilMaterial: {fileID: 2100000, guid: d42fe6a8ff8b2274bab0cfbd21353d7c, type: 2}
 --- !u!1001 &378933277680830170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,6 +169,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f617641c80caf784c8ca950cbf1bb67e, type: 3}
+--- !u!137 &2202505729290410383 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2004913842502737749, guid: f617641c80caf784c8ca950cbf1bb67e, type: 3}
+  m_PrefabInstance: {fileID: 378933277680830170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8117534775867521726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8495331582075944036, guid: f617641c80caf784c8ca950cbf1bb67e, type: 3}

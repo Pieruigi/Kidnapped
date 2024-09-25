@@ -217,9 +217,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
+    - target: {fileID: 3111838490551226213, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3580323324172613359, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
       propertyPath: m_Height
       value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094585368648683229, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120891547185586971, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5963774893618288653, guid: dc5ca6677f7294f4b8e68c76ceb856c6, type: 3}
       propertyPath: jumpSpeed
@@ -458,6 +470,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7337402963587124122, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337402963587124122, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.028
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1195218240568631014, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
     m_RemovedGameObjects: []
@@ -538,10 +558,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b088e11e0582daf43b6e841189fd5609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistent: 0
   _light: {fileID: 7134204876286040080}
   handLight: {fileID: 3659636634161028031}
   moonLight: {fileID: 0}
   skybox: {fileID: 2100000, guid: 8e84ade52dd344235be3ca5e4a9c65c1, type: 2}
+  evil: {fileID: 0}
 --- !u!114 &7447972896776636785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,32 +571,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7134204876286040082}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 0.55
+  strength: 0.92
   useScattering: 0
-  overrideScattering: 0
-  overridingScattering: 0.5
+  overrideScattering: 1
+  overridingScattering: 0.122
   scatteringBias: 0
   useColorTemperatureTint: 0
   overrideColor: 0
-  overridingColor: {r: 1, g: 1, b: 1, a: 1}
+  overridingColor: {r: 0.99131846, g: 0.999999, b: 0.9826379, a: 1}
   useShadow: 1
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  customDistanceFalloffThreshold: 0.5
-  customDistanceFalloffPower: 2
+  customDistanceFalloffThreshold: 0.194
+  customDistanceFalloffPower: 3.91
   customCookieDistanceFalloffStartThreshold: 0.1
   customCookieDistanceFalloffEndThreshold: 0.25
   customCookieDistanceFalloffPower: 2
-  customAngularFalloffThreshold: 0.8
-  customAngularFalloffPower: 2
+  customAngularFalloffThreshold: 0.892
+  customAngularFalloffPower: 2.09
 --- !u!4 &7134204876286040083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6441274055147688475, guid: cfdefe035c7114bc3930f5996c0df744, type: 3}
