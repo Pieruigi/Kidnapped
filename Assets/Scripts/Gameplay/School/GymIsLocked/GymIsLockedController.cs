@@ -41,6 +41,9 @@ namespace Kidnapped
         [SerializeField]
         bool doorTriggerOn = false;
 
+        [SerializeField]
+        BouncingBallController theBouncingBall;
+
         int lightOffCount = 0;
        
 
@@ -109,6 +112,9 @@ namespace Kidnapped
             FlashlightFlickerController.Instance.FlickerOnce();
             await Task.Delay(TimeSpan.FromSeconds(FlashlightFlickerController.FlickerDuration / 2));
 
+            // Hide ball 
+            ball.SetActive(false);
+
             // Show Lilith
             girl.SetActive(true);
             girl.GetComponent<EvilMaterialSetter>().SetNormal();
@@ -120,6 +126,13 @@ namespace Kidnapped
             // Start the flickering
             await Task.Delay(400);
             FlashlightFlickerController.Instance.FlickerAndWatch(HandleOnLightOff);
+
+            // Some delay
+            await Task.Delay(3);
+            // Activate the bouncing ball
+            theBouncingBall.gameObject.SetActive(true);
+            // Set first step
+            theBouncingBall.MoveToNextStep();
         }
 
         
@@ -150,6 +163,8 @@ namespace Kidnapped
 
             // Set the door trigger on ( now if we try to open the door something will be triggered )
             doorTriggerOn = true;
+
+
         }
 
         private void HandleOnBallTriggerEnter()
@@ -192,6 +207,7 @@ namespace Kidnapped
             ballTrigger.gameObject.SetActive(false);
             ball.SetActive(false);
             slamTrigger.gameObject.SetActive(false);
+            theBouncingBall.gameObject.SetActive(false);
 
             switch (state)
             {

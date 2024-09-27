@@ -29,7 +29,17 @@ public class _TestScaryBall : MonoBehaviour
                 ball.Deactivate();
             else
                 ball.Activate(target);
-            
+                        
+        }
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            if (ball.IsActive)
+                ball.MoveToDestination(destination.position, 10, true);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (ball.IsActive)
+                ball.MoveToDestination(destination.position, 4, false);
         }
     }
 }
