@@ -131,6 +131,13 @@ namespace Kidnapped
             //    steps[step].nextStepActivationTrigger.SetActive(true);
         }
 
+        public void ForceStopMoving()
+        {
+            moving = false;
+            ball.Deactivate();
+            //OnStepCompleted?.Invoke(step);
+        }
+
         public void MoveToNextStep()
         {
             if (step > steps.Count - 1) // Last step

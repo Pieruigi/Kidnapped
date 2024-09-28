@@ -65,6 +65,9 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInTrigger scaryDoorStep3Trigger;
 
+        [SerializeField]
+        PlayerWalkInTrigger bouncingBallMovingStep3;
+
         int lightOffCount = 0;
        
 
@@ -115,6 +118,7 @@ namespace Kidnapped
             bouncingBallActivationStep1.OnEnter += HandleOnBouncingBallActivationTriggerEnter;
             bouncingBallMovingStep1.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep3Trigger.OnEnter += HandleOnScaryDoorStep3TriggerEnter;
+            bouncingBallMovingStep3.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
         }
 
         private void OnDisable()
@@ -127,6 +131,7 @@ namespace Kidnapped
             bouncingBallActivationStep1.OnEnter -= HandleOnBouncingBallActivationTriggerEnter;
             bouncingBallMovingStep1.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep3Trigger.OnEnter -= HandleOnScaryDoorStep3TriggerEnter;
+            bouncingBallMovingStep3.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
         }
 
         private async void HandleOnScaryDoorStep3TriggerEnter()
@@ -143,12 +148,38 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBouncingBallMovingTriggerEnter()
+        private async void HandleOnBouncingBallMovingTriggerEnter()
         {
-            if(bouncingBallController.Step == 1)
-                bouncingBallMovingStep1.gameObject.SetActive(false);
+            switch (bouncingBallController.Step)
+            {
+                case 1:
+                    // Disable trigger
+                    bouncingBallMovingStep1.gameObject.SetActive(false);
+                    // Move ball
+                    bouncingBallController.Move();
+                    break;
+                case 3:
+                    // Disable trigger
+                    bouncingBallMovingStep3.gameObject.SetActive(false);
+                    // Move ball
+                    bouncingBallController.Move();
+                    // Add some delay
+                    await Task.Delay(250);
+                    // Flicker
+                    FlashlightFlickerController.Instance.FlickerOnce();
+                    // Wait
+                    await Task.Delay(TimeSpan.FromSeconds(FlashlightFlickerController.FlickerDuration / 2f));
+                    // Disable ball 
+                    bouncingBallController.ForceStopMoving();
+                    // Add delay
+                    await Task.Delay(1000);
+                    // Activate the next step
+                    bouncingBallController.MoveToNextStep();
+                    break;
+            }
 
-            bouncingBallController.Move();
+
+            
             
         }
 
