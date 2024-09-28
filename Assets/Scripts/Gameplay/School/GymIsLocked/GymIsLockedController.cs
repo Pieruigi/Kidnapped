@@ -99,7 +99,7 @@ namespace Kidnapped
             if(Input.GetKeyDown(KeyCode.H))
             {
                 Debug.Log($"Setting transform:{girlTarget.transform.position}");
-                girl.transform.position = girlTarget.transform.position + Vector3.up * 5;
+                girl.transform.position = girlTarget.transform.position;
                 girl.transform.rotation = girlTarget.transform.rotation;
                 girl.SetActive(true);
                 girl.GetComponent<EvilMaterialSetter>().SetNormal();
@@ -165,7 +165,7 @@ namespace Kidnapped
                     // Move ball
                     bouncingBallController.Move();
                     // Add some delay
-                    await Task.Delay(250);
+                    await Task.Delay(350);
                     // Flicker
                     FlashlightFlickerController.Instance.FlickerOnce();
                     // Wait

@@ -868,6 +868,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1963965381
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.66410494
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.74763936
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -96.773
+      objectReference: {fileID: 0}
+    - target: {fileID: 992585926201608825, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758289888943759556, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106593183598903559, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_Name
+      value: ScaryGirlAppearance
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106593183598903559, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6d57d676efed8f40bbc247c03abb1db, type: 3}
 --- !u!1 &2098138918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,3 +1555,4 @@ SceneRoots:
   - {fileID: 530877961}
   - {fileID: 209791798}
   - {fileID: 1556057224}
+  - {fileID: 1963965381}

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 992585926201608825}
   - component: {fileID: 7458862013383969461}
   - component: {fileID: 3103479968513680295}
+  - component: {fileID: 7182180076345105929}
   m_Layer: 0
   m_Name: ScaryGirlAppearance
   m_TagString: Untagged
@@ -96,6 +97,19 @@ MonoBehaviour:
   - {fileID: 2202505729290410383}
   normalMaterial: {fileID: 2100000, guid: a323ed45818066e4b9df9c7166fda638, type: 2}
   evilMaterial: {fileID: 2100000, guid: d42fe6a8ff8b2274bab0cfbd21353d7c, type: 2}
+--- !u!114 &7182180076345105929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8106593183598903559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b088749c2e8b7419f4eb2576e316c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 8117534775867521726}
 --- !u!1001 &378933277680830170
 PrefabInstance:
   m_ObjectHideFlags: 0
