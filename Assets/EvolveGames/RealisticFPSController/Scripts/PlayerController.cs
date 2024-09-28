@@ -118,6 +118,8 @@ namespace EvolveGames
             {
                 PlayerInputEnabled = !PlayerInputEnabled;
             }
+
+            RuningSpeed = 40;
 #endif
 
             if (!PlayerInputEnabled)

@@ -42,7 +42,28 @@ namespace Kidnapped
         bool doorTriggerOn = false;
 
         [SerializeField]
-        BouncingBallController theBouncingBall;
+        BouncingBallController bouncingBallController;
+
+        [SerializeField]
+        PlayerWalkInAndLookTrigger kitchenConjuringTrigger;
+
+        [SerializeField]
+        Transform girlKitchenTarget;
+
+        [SerializeField]
+        PlayerWalkInTrigger bouncingBallActivationStep1;
+
+        [SerializeField]
+        PlayerWalkInAndLookTrigger bouncingBallMovingStep1;
+
+        [SerializeField]
+        Transform ballKitchenTarget;
+
+        [SerializeField]
+        ScaryDoor scaryDoorStep3;
+
+        [SerializeField]
+        PlayerWalkInTrigger scaryDoorStep3Trigger;
 
         int lightOffCount = 0;
        
@@ -89,6 +110,11 @@ namespace Kidnapped
             ballTrigger.OnEnter += HandleOnBallTriggerEnter;
             slamTrigger.OnEnter += HandleOnSlamTriggerEnter;
             gymDoor.OnLocked += HandleOnDoorLocked;
+            kitchenConjuringTrigger.OnEnter += HandleOnKitchenTriggerEnter;
+            bouncingBallController.OnStepCompleted += HandleOnBouncingBallStepCompleted;
+            bouncingBallActivationStep1.OnEnter += HandleOnBouncingBallActivationTriggerEnter;
+            bouncingBallMovingStep1.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
+            scaryDoorStep3Trigger.OnEnter += HandleOnScaryDoorStep3TriggerEnter;
         }
 
         private void OnDisable()
@@ -96,6 +122,111 @@ namespace Kidnapped
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
             slamTrigger.OnEnter -= HandleOnSlamTriggerEnter;
             gymDoor.OnLocked -= HandleOnDoorLocked;
+            kitchenConjuringTrigger.OnEnter -= HandleOnKitchenTriggerEnter;
+            bouncingBallController.OnStepCompleted -= HandleOnBouncingBallStepCompleted;
+            bouncingBallActivationStep1.OnEnter -= HandleOnBouncingBallActivationTriggerEnter;
+            bouncingBallMovingStep1.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
+            scaryDoorStep3Trigger.OnEnter -= HandleOnScaryDoorStep3TriggerEnter;
+        }
+
+        private async void HandleOnScaryDoorStep3TriggerEnter()
+        {
+            // Disable trigger
+            scaryDoorStep3Trigger.gameObject.SetActive(false);
+
+            // Open the door
+            scaryDoorStep3.Open();
+
+            // Await 
+            await Task.Delay(3000);
+
+
+        }
+
+        private void HandleOnBouncingBallMovingTriggerEnter()
+        {
+            if(bouncingBallController.Step == 1)
+                bouncingBallMovingStep1.gameObject.SetActive(false);
+
+            bouncingBallController.Move();
+            
+        }
+
+        private async void HandleOnBouncingBallActivationTriggerEnter()
+        {   
+            int step = bouncingBallController.Step;
+            switch(step)
+            {
+                case 0:
+                    // Flicker
+                    FlashlightFlickerController.Instance.FlickerOnce();
+                    // Wait
+                    await Task.Delay(TimeSpan.FromSeconds(FlashlightFlickerController.FlickerDuration / 2f));
+                    // Remove ball 
+                    ball.SetActive(false);
+                    // Wait a little more
+                    await Task.Delay(2000);
+                    // Activate next bouncing ball event
+                    bouncingBallActivationStep1.gameObject.SetActive(false);
+                    bouncingBallMovingStep1.gameObject.SetActive(true);
+                    bouncingBallController.MoveToNextStep();
+                    break;
+            }
+        }
+
+        private void HandleOnBouncingBallStepCompleted(int stepIndex)
+        {
+            Debug.Log($"OnBallStepCompleted:{stepIndex}");
+            switch(stepIndex)
+            {
+                case 0:
+                    kitchenConjuringTrigger.gameObject.SetActive(true);
+                    break;
+                case 1:
+                    bouncingBallController.MoveToNextStep();
+                    break;
+                case 2:
+                    // Move the bouncing ball to next step
+                    bouncingBallController.MoveToNextStep();
+                    // Activate the scary door trigger
+                    scaryDoorStep3Trigger.gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        private async void HandleOnKitchenTriggerEnter()
+        {
+            // Disable trigger
+            kitchenConjuringTrigger.gameObject.SetActive(false);
+
+            // Activate the ball in the kitchen
+            ball.SetActive(true);
+            Rigidbody ballRB = ball.GetComponent<Rigidbody>();
+            ballRB.isKinematic = true;
+            ballRB.velocity = Vector3.zero;
+            ballRB.angularVelocity = Vector3.zero;
+            ball.transform.position = ballKitchenTarget.transform.position;
+            //ballRB.isKinematic = false;
+
+            // Activate character
+            girl.SetActive(true);
+            // Set transform
+            girl.transform.position = girlKitchenTarget.position;
+            girl.transform.rotation = girlKitchenTarget.rotation;
+            // Set material
+            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            // Set animation
+            girl.GetComponentInChildren<Animator>().SetTrigger("RunScary");
+
+            // Add some delay
+            await Task.Delay(1200);
+
+            // Deactivate character
+            girl.SetActive(false);
+
+            // Lilith conjuring
+            Debug.Log("Lilith conjuring in the kitchen");
+            bouncingBallActivationStep1.gameObject.SetActive(true);
         }
 
         private async void HandleOnDoorLocked(ScaryDoor arg0)
@@ -130,9 +261,9 @@ namespace Kidnapped
             // Some delay
             await Task.Delay(3);
             // Activate the bouncing ball
-            theBouncingBall.gameObject.SetActive(true);
+            bouncingBallController.gameObject.SetActive(true);
             // Set first step
-            theBouncingBall.MoveToNextStep();
+            bouncingBallController.MoveToNextStep();
         }
 
         
@@ -207,8 +338,11 @@ namespace Kidnapped
             ballTrigger.gameObject.SetActive(false);
             ball.SetActive(false);
             slamTrigger.gameObject.SetActive(false);
-            theBouncingBall.gameObject.SetActive(false);
-
+            bouncingBallController.gameObject.SetActive(false);
+            kitchenConjuringTrigger.gameObject.SetActive(false);
+            bouncingBallActivationStep1.gameObject.SetActive(false);
+            bouncingBallMovingStep1.gameObject.SetActive(false);
+            scaryDoorStep3Trigger.gameObject.SetActive(false);
             switch (state)
             {
                 case workingState:

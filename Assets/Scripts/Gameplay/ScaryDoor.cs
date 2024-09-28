@@ -111,6 +111,7 @@ namespace Kidnapped
             if(!closed) return;
             closed = false;
             openFx.PlayFeedbacks();
+            
         }
 
         public void Close()
