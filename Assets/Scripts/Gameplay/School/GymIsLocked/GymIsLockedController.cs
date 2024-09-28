@@ -98,12 +98,13 @@ namespace Kidnapped
         {
             if(Input.GetKeyDown(KeyCode.H))
             {
-                girl.SetActive(true);
-                girl.transform.position = girlTarget.transform.position;
+                Debug.Log($"Setting transform:{girlTarget.transform.position}");
+                girl.transform.position = girlTarget.transform.position + Vector3.up * 5;
                 girl.transform.rotation = girlTarget.transform.rotation;
+                girl.SetActive(true);
                 girl.GetComponent<EvilMaterialSetter>().SetNormal();
-                girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
-                girl.transform.DOMoveY(0.140f, 0.05f, false);
+                //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
+                //girl.transform.DOMoveY(0.140f, 0.05f, false);
                 // 
             }
         }
@@ -239,11 +240,12 @@ namespace Kidnapped
             ball.transform.position = ballKitchenTarget.transform.position;
             //ballRB.isKinematic = false;
 
-            // Activate character
-            girl.SetActive(true);
-            // Set transform
+            
+            // Set character transform
             girl.transform.position = girlKitchenTarget.position;
             girl.transform.rotation = girlKitchenTarget.rotation;
+            // Activate character
+            girl.SetActive(true);
             // Set material
             girl.GetComponent<EvilMaterialSetter>().SetNormal();
             // Set animation
@@ -278,10 +280,11 @@ namespace Kidnapped
             ball.SetActive(false);
 
             // Show Lilith
-            girl.SetActive(true);
-            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            Debug.Log($"Setting position:{girlTarget.transform.position}");
             girl.transform.position = girlTarget.transform.position;
             girl.transform.rotation = girlTarget.transform.rotation;
+            girl.SetActive(true);
+            girl.GetComponent<EvilMaterialSetter>().SetNormal();
             //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
             girl.transform.DOMoveY(0.140f, 0.05f, false);
 

@@ -195,7 +195,7 @@ namespace Kidnapped
             girl.transform.position = girlToRoomTarget.position;
             girl.transform.rotation = girlToRoomTarget.rotation;
             // Activate girl
-            Debug.Log("Activte girl");
+            Debug.Log("Activate girl");
             girl.SetActive(true);
             // Play the run animation
             girl.GetComponentInChildren<Animator>().SetTrigger("Run");
@@ -205,6 +205,7 @@ namespace Kidnapped
             // Wait a few seconds
             await Task.Delay(3000);
             // Dectivate girl
+            girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
             girl.SetActive(false);
             // You can run again
             PlayerController.Instance.CanRunning = true;
