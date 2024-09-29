@@ -240,6 +240,19 @@ namespace EvolveGames
             GetComponent<CharacterController>().enabled = true;
         }
 
+        public void ForcePositionAndRotation(Transform target)
+        {
+            ForcePositionAndRotation(target.position, target.rotation);
+        }
+
+        public void ForcePositionAndRotation(Vector3 position, Quaternion rotation)
+        {
+            characterController.enabled = false;
+            transform.position = position;
+            transform.rotation = rotation;
+            characterController.enabled = true;
+        }
+
 
         #region save system
         [Header("SaveSystem")]

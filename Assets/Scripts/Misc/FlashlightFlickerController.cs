@@ -12,9 +12,9 @@ namespace Kidnapped
         //public static UnityAction<LightFlickerOff> OnLightOff;
         //public static UnityAction<LightFlickerOff> OnLightOn;
 
-        public static float FlickerDuration = 0.1f;
-        public static float OffDuration = 0.2f;
-        public static float OnDuration = 0.1f;
+        public const float FlickerDuration = 0.1f;
+        public const float OffDuration = 0.2f;
+        public const float OnDuration = 0.1f;
 
         [SerializeField]
         Light _light;
@@ -181,7 +181,7 @@ namespace Kidnapped
 
         }
 
-        public void FlickerAndWatch(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null)
+        public void FlickerAndWatch(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
         {
             if (flickering)
                 return;
@@ -199,7 +199,7 @@ namespace Kidnapped
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
-                            .AppendInterval(OnDuration)
+                            .AppendInterval(onDuration)
                             .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); })) // Di nuovo spegnimento
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2)) // Di nuovo spegnimento
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); }))
@@ -322,6 +322,8 @@ namespace Kidnapped
             seq.OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); });
 
         }
+
+        
     }
 
 }
