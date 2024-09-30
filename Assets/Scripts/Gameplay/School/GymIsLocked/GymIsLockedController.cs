@@ -89,7 +89,12 @@ namespace Kidnapped
 
         [SerializeField]
         Transform lockerRoomGirlTarget;
-        
+
+        [SerializeField]
+        GameObject schoolBlock;
+
+        [SerializeField]
+        GameObject gymBlock;
 
 
         int lightOffCount = 0;
@@ -195,23 +200,12 @@ namespace Kidnapped
 
             // Flicker
             flickerOffStep = 0;
-            FlashlightFlickerController.Instance.FlickerAndWatch(OnStep4FlickerOff, null, 1f);
-
-            //// Await for darkness
-            //await Task.Delay(TimeSpan.FromSeconds(FlashlightFlickerController.FlickerDuration / 2f));
-
-            //// Stop player input
-            //PlayerController.Instance.PlayerInputEnabled = false;
-            //// Move player to the center
-            //PlayerController.Instance.ForceTransform(playerBathroomTarget);
-
-            //// Open the door
-            //showerDoor.transform.localEulerAngles = oldEulers;
-
+            FlashlightFlickerController.Instance.FlickerAndWatch(OnStep4FlickerOff, null, .25f);
+           
 
         }
 
-        void OnStep4FlickerOff()
+        async void OnStep4FlickerOff()
         {
             switch(flickerOffStep)
             {
@@ -224,7 +218,7 @@ namespace Kidnapped
                     playeroldRotation = PlayerController.Instance.transform.rotation;
 
                     // Stop player input
-                    PlayerController.Instance.PlayerInputEnabled = false;
+                    //PlayerController.Instance.PlayerInputEnabled = false;
                     // Move player to the center
                     PlayerController.Instance.ForcePositionAndRotation(playerBathroomTarget);
                     
@@ -238,14 +232,25 @@ namespace Kidnapped
                     // Open the door
                     showerDoor.transform.localEulerAngles = showerDoorLocalEulers;
                     flickerOffStep++;
+
+                    
                     break;
                 case 1:
+                    // Disable Lilith
+                    girl.SetActive(false);
                     // Reset player
                     PlayerController.Instance.ForcePositionAndRotation(playerOldPosition, playeroldRotation);
                     // Enable input
-                    PlayerController.Instance.PlayerInputEnabled = true;
+                    //PlayerController.Instance.PlayerInputEnabled = true;
                     // Disable original locker room
-                    originalLockerRoom.SetActive(true);
+                    originalLockerRoom.SetActive(false);
+                    // Remove blocks
+                    schoolBlock.GetComponent<SimpleActivator>().Init(false.ToString());
+                    gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
+                    // Set final state
+                    state = finalState;
+                    // Save game
+                    SaveManager.Instance.SaveGame();
                     break;
             }
         }

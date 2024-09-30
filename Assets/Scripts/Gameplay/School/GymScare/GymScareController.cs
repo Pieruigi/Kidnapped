@@ -31,6 +31,9 @@ namespace Kidnapped
         ScaryDoor door;
 
         [SerializeField]
+        PlayerWalkInTwoWayTrigger doorStateTrigger;
+
+        [SerializeField]
         GameObject doorUnblock;
 
         [SerializeField]
@@ -83,13 +86,26 @@ namespace Kidnapped
         {
             ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnBallTriggerEnter;
             doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnDoorTriggerEnter;
-
+            doorStateTrigger.OnExit += HandleOnDoorStateTriggerExit;
         }
 
         private void OnDisable()
         {
             ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnBallTriggerEnter;
             doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnDoorTriggerEnter;
+            doorStateTrigger.OnExit -= HandleOnDoorStateTriggerExit;
+        }
+
+        private void HandleOnDoorStateTriggerExit(bool fromBehind)
+        {
+            if (state > 0)
+                return;
+
+            if (fromBehind)
+                door.Close();
+            else
+                door.Open();
+
         }
 
         private void HandleOnDoorTriggerEnter()
@@ -199,7 +215,7 @@ namespace Kidnapped
                     scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction += HandleOnInteraction;
                     break;
                 case 30:
-                    // Switch to modern school
+                    // Switch to abandoned school
                     gyms[0].GetComponent<SimpleActivator>().Init(true.ToString());
                     gyms[1].GetComponent<SimpleActivator>().Init(false.ToString());
                     // remove scary group
