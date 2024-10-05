@@ -55,6 +55,9 @@ namespace Kidnapped
         [SerializeField]
         ScaryGroup[] scaryGroups;
 
+        [SerializeField]
+        InTheFog inTheFogController;
+
 
         int scaryIndex = 0;
         int state = 0;
@@ -244,10 +247,11 @@ namespace Kidnapped
                     break;
                 case 30:
                     // Update state
-                    state = 40;
-
+                    state = 40; // Complete
+                    // Set in the fog controller ready
+                    inTheFogController.SetReady();
                     // Save
-                    //SaveManager.Instance.SaveGame();
+                    SaveManager.Instance.SaveGame();
                     break;
             
             }

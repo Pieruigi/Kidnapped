@@ -31,6 +31,7 @@ GymScare: stateful_2
 EnterTheSchool: floor1_part1
 after entering the school: floor1_part2
 gym is locked: floor1_part3
+in the fog: ext_part1
 
 /// Environment
 OriginalGym: old_gym (bool:active)
