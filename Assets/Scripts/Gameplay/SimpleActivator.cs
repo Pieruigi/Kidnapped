@@ -13,6 +13,8 @@ namespace Kidnapped
         private void Awake()
         {
             string data = SaveManager.GetCachedValue(code);
+            if(string.IsNullOrEmpty(data))
+                data = activate.ToString();
             Init(data);
         }
 
@@ -38,19 +40,19 @@ namespace Kidnapped
 
         public string GetData()
         {
-            return activate.ToString();
+            return gameObject.activeSelf.ToString();
 
         }
 
         public void Init(string data)
         {
             Debug.Log($"Init - {gameObject.name}:{data}");
-            if (!string.IsNullOrEmpty(data))
-            {
-                activate = bool.Parse(data);
-            }
+            //if (!string.IsNullOrEmpty(data))
+            //{
+            //    activate = bool.Parse(data);
+            //}
             
-            gameObject.SetActive(activate);
+            gameObject.SetActive(bool.Parse(data));
         }
     }
 

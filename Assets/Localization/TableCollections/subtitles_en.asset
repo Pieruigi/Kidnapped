@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Localized: <color=red>Ah! You are so smart!</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 9961625958977536
+    m_Localized: <color=blue>Not so fast, you need to find the menu first!!!</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

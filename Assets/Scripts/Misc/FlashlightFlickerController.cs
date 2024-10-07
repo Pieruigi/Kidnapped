@@ -191,10 +191,14 @@ namespace Kidnapped
             Sequence flickerSequence = DOTween.Sequence();
 
             // Fast flicker
-            flickerSequence.Append(_light.DOIntensity(0, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
-                            .Join(handLight.DOIntensity(0, FlickerDuration / 2))
-                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
-                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+            flickerSequence.Append(_light.DOIntensity(defaultIntensity * .75f, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
+                            .Join(handLight.DOIntensity(handsLightDefaultIntensity * .75f, FlickerDuration / 2))
+                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
+                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
+                            //.Append(_light.DOIntensity(0, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
+                            //.Join(handLight.DOIntensity(0, FlickerDuration / 2))
+                            //.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+                            //.Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
@@ -218,10 +222,14 @@ namespace Kidnapped
             Sequence flickerSequence = DOTween.Sequence();
 
             // Fast flicker
-            flickerSequence.Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
-                            .Join(handLight.DOIntensity(0, FlickerDuration / 2))
-                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); })) // Riaccendiamo velocemente
-                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccendiamo velocemente
+            flickerSequence.Append(_light.DOIntensity(defaultIntensity * .75f, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity * .75f, FlickerDuration / 2))
+                           .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
+                           .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
+                           .Join(handLight.DOIntensity(0, FlickerDuration / 2))
+                           .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); })) // Riaccendiamo velocemente
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccendiamo velocemente
                           
         }
 

@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: so_smart
     m_Metadata:
       m_Items: []
+  - m_Id: 9961625958977536
+    m_Key: kitchen_pass_needed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Localized: "<color=red>Ah! Sei cos\xEC furbo!</color>"
     m_Metadata:
       m_Items: []
+  - m_Id: 9961625958977536
+    m_Localized: "<color=blue>Non cos\xEC in fretta, devi trovare il menu prima</color>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

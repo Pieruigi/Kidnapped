@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneralStates:
     LoadedProjectGUID:
-      valueInternal: 
+      valueInternal: ccb361bba5ffad145b1bb97cf1259083
     RecentlyOpenedProjectPath:
-      valueInternal: Assets\Animations\VentriloquistDoll
+      valueInternal: Assets\_Test
     RecentlyOpenedProjectGUIDsList:
+    - valueInternal: ccb361bba5ffad145b1bb97cf1259083
+    - valueInternal: 97e7fb015e9f7d14288363b32fe25846
     - valueInternal: 87ce3e9871865bf47958b859de0c0727
     - valueInternal: 91cfb3d944573a548a0641233bd09fe8
     - valueInternal: efe346661d59e1c4a97a4ac4f0a06846

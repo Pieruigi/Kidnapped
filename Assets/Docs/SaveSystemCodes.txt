@@ -19,6 +19,11 @@ cat: cat
 moonController: moon_controller
 boy for appearance only: scary_boy_appearance (simpleActivator)
 girl for appearance only: scary_girl_appearance (simpleActivator)
+brokenKitchenDoor: broken_kitchen_door (activator)
+kitchenDoorActivator: broken_kitchen_door
+kitchenDoor: kitchen_door
+booth_door: booth_door
+
 
 /// CUT SCENES
 fadeIn: fade_in
