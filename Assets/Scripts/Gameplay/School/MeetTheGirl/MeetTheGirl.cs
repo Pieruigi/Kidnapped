@@ -23,6 +23,9 @@ namespace Kidnapped
         Transform girlToRoomTarget;
 
         [SerializeField]
+        AudioSource girlToRoomStingerSound;
+
+        [SerializeField]
         PlayerWalkInTrigger preblockTrigger;
 
         [SerializeField]
@@ -194,6 +197,8 @@ namespace Kidnapped
             // Set the girl transform
             girl.transform.position = girlToRoomTarget.position;
             girl.transform.rotation = girlToRoomTarget.rotation;
+            // Play sound
+            girlToRoomStingerSound.PlayDelayed(.25f);
             // Activate girl
             Debug.Log("Activate girl");
             girl.SetActive(true);

@@ -205,7 +205,7 @@ namespace Kidnapped
 
         }
 
-        async void OnStep4FlickerOff()
+        void OnStep4FlickerOff()
         {
             switch(flickerOffStep)
             {
