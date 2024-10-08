@@ -28,6 +28,8 @@ namespace Kidnapped
         [SerializeField]
         GameObject boy;
 
+        [SerializeField]
+        Keeper keeperGameplay;
 
 
         int state = 0;
@@ -48,6 +50,11 @@ namespace Kidnapped
             if(string.IsNullOrEmpty(data))
                 data = notReadyState.ToString();
             Init(data);
+        }
+
+        private void Update()
+        {
+
         }
 
         private void OnEnable()
@@ -158,6 +165,8 @@ namespace Kidnapped
                 {
                     // Set completed and save the game
                     state = completedState;
+                    // Set the next gameplay controller
+                    keeperGameplay.SetReady();
                 }
 
                 // Eventually reactivate player input
@@ -168,6 +177,9 @@ namespace Kidnapped
 
                     // Activate player input
                     PlayerController.Instance.PlayerInputEnabled = true;
+
+                    // Save game
+                    SaveManager.Instance.SaveGame();
                 }
                 
             }
@@ -179,13 +191,36 @@ namespace Kidnapped
             {
                 case 1: // External metal fence
                     // We are in the booth, activate Puck
+                    // Set position and rotation
                     Transform target = teleportGroups[teleportIndex].transform.Find(boyTargetChildName);
                     boy.transform.position = target.position;
                     boy.transform.rotation = target.rotation;
+                    // Register the animation event handler
+                    boy.GetComponentInChildren<AnimationEventDispatcher>().OnAnimationEvent += HandleOnAnimationEvent;
+                    // Set evil material
                     boy.GetComponent<EvilMaterialSetter>().SetEvil();
+                    // Activate character
                     boy.SetActive(true);
+                    // Start animation
+                    boy.GetComponentInChildren<Animator>().SetTrigger("Scary1");
                     break;
             }
+        }
+
+        void HandleOnAnimationEvent(int id)
+        {
+            // Unregister callback
+            boy.GetComponentInChildren<AnimationEventDispatcher>().OnAnimationEvent -= HandleOnAnimationEvent;
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness(HandleOnFlickerToDarkness);
+        }
+
+        void HandleOnFlickerToDarkness(float duration)
+        {
+            // Disable Puck
+            boy.SetActive(false);
+            // Open the booth door
+            boothDoor.Open();
         }
 
         #region logic

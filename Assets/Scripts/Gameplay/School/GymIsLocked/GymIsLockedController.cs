@@ -84,9 +84,7 @@ namespace Kidnapped
         [SerializeField]
         Transform playerBathroomTarget;
 
-        [SerializeField]
-        GameObject originalLockerRoom;
-
+     
         [SerializeField]
         Transform lockerRoomGirlTarget;
 
@@ -107,7 +105,6 @@ namespace Kidnapped
         const int finalState = 100;
 
         int state = 0;
-        int flickerOffStep = 0;
         Vector3 showerDoorLocalEulers;
         Vector3 playerOldPosition;
         Quaternion playeroldRotation;
@@ -129,24 +126,7 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.H))
-            {
-                //Debug.Log($"Setting transform:{girlTarget.transform.position}");
-                //girl.transform.position = girlTarget.transform.position;
-                //girl.transform.rotation = girlTarget.transform.rotation;
-                //girl.SetActive(true);
-                //girl.GetComponent<EvilMaterialSetter>().SetNormal();
-                //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
-                //girl.transform.DOMoveY(0.140f, 0.05f, false);
-                // 
-                bouncingBallController.gameObject.SetActive(true);
-                bouncingBallController.MoveToNextStep();
-                bouncingBallController.MoveToNextStep();
-                bouncingBallController.MoveToNextStep();
-                bouncingBallController.MoveToNextStep();
-                bouncingBallController.MoveToNextStep();
-                scaryDoorStep4Trigger.gameObject.SetActive(true);
-            }
+            
         }
 
         private void OnEnable()
@@ -179,6 +159,7 @@ namespace Kidnapped
             lockerConjuringTrigger.OnEnter -= HandleOnLockerConjuringTrigger;
         }
 
+        // When the player enter the bathroom and walk towards the shower
         private async void HandleOnLockerConjuringTrigger()
         {
             // Disable trigger
@@ -198,63 +179,37 @@ namespace Kidnapped
             bouncingBallController.ForceStopMoving();
             bouncingBallController.gameObject.SetActive(false);
 
-            // Flicker
-            flickerOffStep = 0;
-            FlashlightFlickerController.Instance.FlickerAndWatch(OnStep4FlickerOff, null, .25f);
-           
+            // Add some delay
+            await Task.Delay(200);
+            // Activate Lilith
+            girl.transform.position = lockerRoomGirlTarget.transform.position;
+            girl.transform.rotation = lockerRoomGirlTarget.transform.rotation;
+            girl.SetActive(true);
+            girl.GetComponent<EvilMaterialSetter>().SetEvil();
+            girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
+            // Open the door
+            showerDoor.transform.DOLocalRotate(showerDoorLocalEulers, 0.1f).SetEase(Ease.OutBounce);
+            // Add some delay
+            await Task.Delay(200);
+            // Start flickering
+            FlashlightFlickerController.Instance.FlickerToDarkeness(HandleOnFlickerToDarkness);
 
         }
 
-        void OnStep4FlickerOff()
+        void HandleOnFlickerToDarkness(float duration)
         {
-            switch(flickerOffStep)
-            {
-                case 0:
-                    // Show the original locker room
-                    originalLockerRoom.SetActive(true);
-
-                    // Store the original player 
-                    playerOldPosition = PlayerController.Instance.transform.position;
-                    playeroldRotation = PlayerController.Instance.transform.rotation;
-
-                    // Stop player input
-                    //PlayerController.Instance.PlayerInputEnabled = false;
-                    // Move player to the center
-                    PlayerController.Instance.ForcePositionAndRotation(playerBathroomTarget);
-                    
-                    // Activate Lilith
-                    girl.transform.position = lockerRoomGirlTarget.transform.position;
-                    girl.transform.rotation = lockerRoomGirlTarget.transform.rotation;
-                    girl.SetActive(true);
-                    girl.GetComponent<EvilMaterialSetter>().SetEvil();
-                    girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
-
-                    // Open the door
-                    showerDoor.transform.localEulerAngles = showerDoorLocalEulers;
-                    flickerOffStep++;
-
-                    
-                    break;
-                case 1:
-                    // Disable Lilith
-                    girl.SetActive(false);
-                    // Reset player
-                    PlayerController.Instance.ForcePositionAndRotation(playerOldPosition, playeroldRotation);
-                    // Enable input
-                    //PlayerController.Instance.PlayerInputEnabled = true;
-                    // Disable original locker room
-                    originalLockerRoom.SetActive(false);
-                    // Remove blocks
-                    schoolBlock.GetComponent<SimpleActivator>().Init(false.ToString());
-                    gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
-                    // Set final state
-                    state = finalState;
-                    // Save game
-                    SaveManager.Instance.SaveGame();
-                    break;
-            }
+            // Deactivate Lilith
+            girl.SetActive(false);
+            // Remove blocks
+            schoolBlock.GetComponent<SimpleActivator>().Init(false.ToString());
+            gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
+            // Set final state
+            state = finalState;
+            // Save game
+            SaveManager.Instance.SaveGame();
         }
 
+       
         private async void HandleOnScaryDoorStep4TriggerEnter()
         {
             // Disable trigger
@@ -520,7 +475,7 @@ namespace Kidnapped
             scaryDoorStep3Trigger.gameObject.SetActive(false);
             scaryDoorStep4Trigger.gameObject.SetActive(false);
             lockerConjuringTrigger.gameObject.SetActive(false);
-            originalLockerRoom.SetActive(false);
+            
             switch (state)
             {
                 case workingState:

@@ -61,7 +61,6 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-        
 
             if (!inside || !closed) // We can only tigger the locked fx
                 return;
@@ -108,6 +107,7 @@ namespace Kidnapped
 
         public void Open()
         {
+            Debug.Log($"Open the door, door name:{gameObject.name}");
             if(!closed) return;
             closed = false;
             openFx.PlayFeedbacks();

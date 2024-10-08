@@ -37,6 +37,8 @@ EnterTheSchool: floor1_part1
 after entering the school: floor1_part2
 gym is locked: floor1_part3
 in the fog: ext_part1
+keeper: keeper_part1
+dorms: ext_part2
 
 /// Environment
 OriginalGym: old_gym (bool:active)
