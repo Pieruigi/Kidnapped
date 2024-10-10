@@ -182,6 +182,8 @@ MonoBehaviour:
   openFx: {fileID: 1502188318079521908}
   closeFx: {fileID: 7178115596432502972}
   lockedFx: {fileID: 4499961470091519975}
+  slamAudioSource: {fileID: 535284612458914573}
+  lockedAudioSource: {fileID: 286494280878145349}
   _collider: {fileID: 8356566918130053693}
   distance: 1.5
   closed: 0

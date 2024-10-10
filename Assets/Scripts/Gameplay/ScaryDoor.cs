@@ -24,6 +24,12 @@ namespace Kidnapped
         MMF_Player lockedFx;
 
         [SerializeField]
+        AudioSource slamAudioSource;
+
+        [SerializeField]
+        AudioSource lockedAudioSource;
+
+        [SerializeField]
         Collider _collider;
 
         [SerializeField]
@@ -80,6 +86,8 @@ namespace Kidnapped
                     if (hit.collider == _collider)
                     {
                         lockedFx.PlayFeedbacks();
+                        if(lockedAudioSource)
+                            lockedAudioSource.Play();
                         OnLocked?.Invoke(this);
                     }
                 }
@@ -119,6 +127,8 @@ namespace Kidnapped
             if (closed) return;
             closed = true;
             closeFx.PlayFeedbacks();
+            if(slamAudioSource)
+                slamAudioSource.Play();
         }
 
 

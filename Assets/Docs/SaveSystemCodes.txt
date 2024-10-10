@@ -37,8 +37,7 @@ EnterTheSchool: floor1_part1
 after entering the school: floor1_part2
 gym is locked: floor1_part3
 in the fog: ext_part1
-keeper: keeper_part1
-dorms: ext_part2
+boy_dorms: boy_dorms_part1
 
 /// Environment
 OriginalGym: old_gym (bool:active)
@@ -50,6 +49,7 @@ Gym internal door: gym_door
 first floor door1: floor1_door1
 spoiatoio floor door1: floor1_door2
 porta piano 1: floor1_door3
+dorms_doors: dorms_ext_door1, dorms_ext_door2, dorms_ext_door3, dorms_ext_door4
 
 /// Blocks ( bool:active )
 MainEntranceBlock: floor1_block1

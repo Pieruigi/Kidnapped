@@ -29,9 +29,15 @@ namespace Kidnapped
         GameObject boy;
 
         [SerializeField]
-        Keeper keeperGameplay;
+        BoyDorms dormsGameplay;
 
+        [SerializeField]
+        GameObject carWreckage;
 
+        [SerializeField]
+        GameObject carWreckageTarget;
+
+        
         int state = 0;
 
         const int notReadyState = 0;
@@ -44,6 +50,9 @@ namespace Kidnapped
         string playerTargetChildName = "PlayerTarget";
         string boyTargetChildName = "BoyTarget";
 
+        Vector3 carWreckagePositionDefault;
+        Quaternion carWreckageRotationDefault;
+
         private void Awake()
         {
             string data = SaveManager.GetCachedValue(code);
@@ -54,6 +63,12 @@ namespace Kidnapped
 
         private void Update()
         {
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.Z)) 
+            {
+                SetReady();
+            }
+#endif
 
         }
 
@@ -98,25 +113,45 @@ namespace Kidnapped
         {
             GameObject g = teleportGroups[index];
             g.SetActive(true);
-            PlayerWalkInTwoWayTrigger trigger = g.GetComponentInChildren<PlayerWalkInTwoWayTrigger>();
-            if(trigger)
-                trigger.OnExit += HandleOnTeleportTriggerOnExit;
+            if(index == 0 || index == 2)
+            {
+                PlayerWalkInTrigger trigger = g.GetComponentInChildren<PlayerWalkInTrigger>();
+                if (trigger)
+                    trigger.OnExit += HandleOnTeleportTriggerOnExit;
+            }
+            else
+            {
+                PlayerWalkInTwoWayTrigger trigger = g.GetComponentInChildren<PlayerWalkInTwoWayTrigger>();
+                
+                if (trigger)
+                    trigger.OnExit += HandleOnTeleportTwoWaysTriggerOnExit;
+            }
+            
+
             
         }
+
+       
 
         void DeactivateTeleportGroup(int index)
         {
             GameObject g = teleportGroups[index];
             PlayerWalkInTwoWayTrigger trigger = g.GetComponentInChildren<PlayerWalkInTwoWayTrigger>();
             if (trigger)
-                trigger.OnExit -= HandleOnTeleportTriggerOnExit;
+                trigger.OnExit -= HandleOnTeleportTwoWaysTriggerOnExit;
             
             
             g.SetActive(false);
             
         }
 
-        private void HandleOnTeleportTriggerOnExit(bool fromBehind)
+        private void HandleOnTeleportTriggerOnExit()
+        {
+            // Flashlight flickering
+            FlashlightFlickerController.Instance.FlickerOnce(HandleOnLightOffCallback);
+        }
+
+        private void HandleOnTeleportTwoWaysTriggerOnExit(bool fromBehind)
         {
             Debug.Log($"Getting out trigger");
 
@@ -144,8 +179,24 @@ namespace Kidnapped
                 {
                     // Deactivate player input
                     PlayerController.Instance.PlayerInputEnabled = false;
+
+                    
+                    // Reset wreckage position and rotation
+                    carWreckage.transform.position = carWreckagePositionDefault;
+                    carWreckage.transform.rotation = carWreckageRotationDefault;
+                    
                 }
-                
+                else if (currentTeleportIndex == 0)
+                {
+
+                    // Save the old position and rotation
+                    carWreckagePositionDefault = carWreckage.transform.position;
+                    carWreckageRotationDefault = carWreckage.transform.rotation;
+                    // Move the wreckage
+                    carWreckage.transform.position = carWreckageTarget.transform.position;
+                    carWreckage.transform.rotation = carWreckageTarget.transform.rotation;
+                }
+
                 // Move the player
                 PlayerController.Instance.ForcePositionAndRotation(t);
                 // Deactivate the current group
@@ -163,24 +214,25 @@ namespace Kidnapped
                 }
                 else
                 {
+                    Debug.Log("AAAAAAAAAAAAAAAAAAAA");
                     // Set completed and save the game
                     state = completedState;
                     // Set the next gameplay controller
-                    keeperGameplay.SetReady();
+                    dormsGameplay.SetReady();
+                    // Save game
+                    SaveManager.Instance.SaveGame();
                 }
 
                 // Eventually reactivate player input
-                if(currentTeleportIndex == 2)
+                if(!PlayerController.Instance.PlayerInputEnabled)
                 {
                     // Add some delay
                     await Task.Delay(250);
 
                     // Activate player input
                     PlayerController.Instance.PlayerInputEnabled = true;
-
-                    // Save game
-                    SaveManager.Instance.SaveGame();
                 }
+                
                 
             }
         }

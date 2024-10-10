@@ -17,9 +17,10 @@ namespace Kidnapped
         //[SerializeField]
         //string functionName;
 
-    
+
         //[SerializeField]
         //Action
+
 
         // Start is called before the first frame update
         void Start()

@@ -1,13 +1,20 @@
 using Kidnapped.SaveSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kidnapped
 {
-    public class Keeper : MonoBehaviour
+    public class BoyDorms : MonoBehaviour, ISavable
     {
-        
+
+        [SerializeField]
+        PlayerWalkInTrigger entranceCloseTrigger;
+
+        [SerializeField]
+        ScaryDoor[] externalDoors;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -28,8 +35,30 @@ namespace Kidnapped
 
         }
 
+        private void OnEnable()
+        {
+            entranceCloseTrigger.OnEnter += HandleOnEntranceCloseTriggerEnter;
+        }
+
+        private void OnDisable()
+        {
+            entranceCloseTrigger.OnEnter -= HandleOnEntranceCloseTriggerEnter;
+        }
+
+        private void HandleOnEntranceCloseTriggerEnter()
+        {
+            // Deactivate the trigger
+            entranceCloseTrigger.gameObject.SetActive(false);
+            // Close all external doors
+            foreach (var door in externalDoors)
+            {
+                door.Close();
+            }
+        }
+
         public void SetReady()
         {
+            Debug.Log("Setting ready");
             Init(readyState.ToString());
         }
 
@@ -50,7 +79,7 @@ namespace Kidnapped
         public void Init(string data)
         {
             state = int.Parse(data);
-
+            Debug.Log($"Dorms new state = {state}");
         }
         #endregion
     }

@@ -89,8 +89,7 @@ namespace Kidnapped.SaveSystem
 
         public void SaveGame()
         {
-            //SaveScene();
-            //SavePlayer();
+            
             foreach (var savable in savables)
             {
                 // Get the interface
