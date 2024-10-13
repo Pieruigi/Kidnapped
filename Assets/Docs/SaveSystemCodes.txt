@@ -4,6 +4,7 @@ fadeIn: fade_id		(bool:playOnStart)
 fadeout: fade_out	(bool:playOnStart)
 cat:cat (int:state[deactivated=0|stand=1|help=2], vector3:position, quaternion:rotation ) 
 moonController: moon_controller (float:strength)
+ventriloquist: ventriloquist
 
 // {Id}: the object id
 cutScenes: cut_{Id}  (bool:playOnStart)

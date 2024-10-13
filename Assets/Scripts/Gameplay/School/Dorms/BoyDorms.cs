@@ -18,31 +18,21 @@ namespace Kidnapped
         ScaryDoor[] externalDoors;
 
         [SerializeField]
-        GameObject scaryMannequin;
+        GameObject ventriloquist;
 
         [SerializeField]
-        GameObject scaryMannequinHead;
+        List<Transform> ventriloquistTargets;
 
         [SerializeField]
-        GameObject scaryMannequinTrunk;
-
-        [SerializeField]
-        GameObject scaryMannequinArm;
-
-        [SerializeField]
-        AudioSource scaryMannequinAudioSource;
-
-        [SerializeField]
-        GameObject puck;
-
-        [SerializeField]
-        PlayerWalkInAndLookTrigger scaryMannequinTrigger;
+        PlayerWalkInAndLookTrigger ventriloquistLockerRoomTrigger;
 
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
 
         int state = 0;
+
+        Animator ventriloquistAnimator;
 
         private void Awake()
         {
@@ -61,64 +51,28 @@ namespace Kidnapped
         private void OnEnable()
         {
             entranceCloseTrigger.OnEnter += HandleOnEntranceCloseTriggerEnter;
-            scaryMannequinTrigger.OnEnter += HandleOnLookTriggerEnter;
+            ventriloquistLockerRoomTrigger.OnEnter += HandleOnVentriLockerRoomTrigger;
         }
 
         private void OnDisable()
         {
             entranceCloseTrigger.OnEnter -= HandleOnEntranceCloseTriggerEnter;
-            scaryMannequinTrigger.OnEnter -= HandleOnLookTriggerEnter;
+            ventriloquistLockerRoomTrigger.OnEnter -= HandleOnVentriLockerRoomTrigger;
         }
 
-        
-        private async void HandleOnLookTriggerEnter()
+        private void HandleOnVentriLockerRoomTrigger()
         {
-            // Play stinger
-            scaryMannequinAudioSource.Play();
-            // Deactivate the trigger
-            scaryMannequinTrigger.gameObject.SetActive(false);
-            // Set Puck position and rotation
-            Vector3 pos = scaryMannequin.transform.position - PlayerController.Instance.transform.position;
-            pos = pos.normalized;
-            pos = scaryMannequin.transform.position + pos * .5f;
-            puck.transform.position = pos;
-            puck.transform.forward = Vector3.ProjectOnPlane(PlayerController.Instance.transform.position - puck.transform.position, Vector3.up);
-            // Set material
-            puck.GetComponent<EvilMaterialSetter>().SetEvil();
-            // Activate Puck
-            puck.gameObject.SetActive(true);
-            // Set Puck animation
-            puck.GetComponentInChildren<Animator>().SetTrigger("AttackHigh");
-
-            // Add some delay
-            await Task.Delay(500);
-
-            // Activate physics
-            Rigidbody rb = scaryMannequinHead.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            // Toss the head
-            //Vector3 dir = PlayerController.Instance.transform.position - headRB.position;
-            //dir = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
-            //dir += Vector3.up * .1f;
-            rb.AddForce(new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3)), ForceMode.VelocityChange);
-            rb.AddTorque(new Vector3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10)));
-            rb = scaryMannequinTrunk.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.AddForce(new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3)), ForceMode.VelocityChange);
-            rb.AddTorque(new Vector3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10)));
-            rb = scaryMannequinArm.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.AddForce(new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3)), ForceMode.VelocityChange);
-            rb.AddTorque(new Vector3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(-10, 10)));
-
-            await Task.Delay(2000);
-            FlashlightFlickerController.Instance.FlickerOnce(OnFlickerOffCallback);
-
+            // Disable trigger
+            ventriloquistLockerRoomTrigger.gameObject.SetActive(false);
+            // Set animation
+            ventriloquistAnimator.SetTrigger("HangedEnd");
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness(OnLockerRoomFlicker);
         }
 
-        private void OnFlickerOffCallback()
+        private void OnLockerRoomFlicker(float arg0)
         {
-            puck.SetActive(false);
+            ventriloquist.SetActive(false);
         }
 
         private void HandleOnEntranceCloseTriggerEnter()
@@ -158,16 +112,18 @@ namespace Kidnapped
             Debug.Log($"Dorms new state = {state}");
 
             // Default settings
-            // Disable the scary mannequin head rigidbody
-            scaryMannequinHead.GetComponent<Rigidbody>().isKinematic = true;
-            scaryMannequinTrunk.GetComponent<Rigidbody>().isKinematic = true;
-            scaryMannequinArm.GetComponent<Rigidbody>().isKinematic = true;
+            // Activate the ventriloquist
+            ventriloquist.transform.position = ventriloquistTargets[0].position;
+            ventriloquist.transform.rotation = ventriloquistTargets[0].rotation;
+            ventriloquist.SetActive(true);
+            ventriloquistAnimator = ventriloquist.GetComponentInChildren<Animator>();
+            ventriloquistAnimator.SetTrigger("Hanged");
+            
+            
             if (state == completedState)
             {
-                // Disable scary mannequin
-                scaryMannequin.SetActive(false);
-                // Disable scary mannequin look trigger
-                scaryMannequinTrigger.gameObject.SetActive(false);
+                // Reset the entrance trigger
+                entranceCloseTrigger.gameObject.SetActive(false);
             }
         }
         #endregion
