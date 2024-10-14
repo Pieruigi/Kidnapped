@@ -18,6 +18,9 @@ namespace Kidnapped
         ScaryDoor[] externalDoors;
 
         [SerializeField]
+        ScaryDoor[] internalDoors;
+
+        [SerializeField]
         GameObject ventriloquist;
 
         [SerializeField]
@@ -25,6 +28,12 @@ namespace Kidnapped
 
         [SerializeField]
         PlayerWalkInAndLookTrigger ventriloquistLockerRoomTrigger;
+
+        [SerializeField]
+        GameObject sportRoomMannequinGroup;
+
+        [SerializeField]
+        PlayerWalkInAndLookTrigger ventriloquistSportRoomTrigger;
 
         const int notReadyState = 0;
         const int readyState = 100;
@@ -52,12 +61,25 @@ namespace Kidnapped
         {
             entranceCloseTrigger.OnEnter += HandleOnEntranceCloseTriggerEnter;
             ventriloquistLockerRoomTrigger.OnEnter += HandleOnVentriLockerRoomTrigger;
+            ventriloquistSportRoomTrigger.OnEnter += HandleOnVentriloquistSportRoomTrigger;
         }
 
         private void OnDisable()
         {
             entranceCloseTrigger.OnEnter -= HandleOnEntranceCloseTriggerEnter;
             ventriloquistLockerRoomTrigger.OnEnter -= HandleOnVentriLockerRoomTrigger;
+            ventriloquistSportRoomTrigger.OnEnter -= HandleOnVentriloquistSportRoomTrigger;
+        }
+
+        private void HandleOnVentriloquistSportRoomTrigger()
+        {
+            // Disable trigger
+            ventriloquistSportRoomTrigger.gameObject.SetActive(false);
+           
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness(OnSportRoomFlicker);
+            // Open sports room door
+            internalDoors[1].Open();
         }
 
         private void HandleOnVentriLockerRoomTrigger()
@@ -68,11 +90,46 @@ namespace Kidnapped
             ventriloquistAnimator.SetTrigger("HangedEnd");
             // Flicker
             FlashlightFlickerController.Instance.FlickerToDarkeness(OnLockerRoomFlicker);
+            
         }
 
         private void OnLockerRoomFlicker(float arg0)
         {
+            // Disable the ventriloquist
             ventriloquist.SetActive(false);
+            
+            // Open the sport room door
+            internalDoors[0].Open();
+
+            // Enable the ventriloquist
+            ventriloquist.SetActive(true);
+            // Set position and rotation
+            ventriloquist.transform.position = ventriloquistTargets[1].transform.position;
+            ventriloquist.transform.rotation = ventriloquistTargets[1].transform.rotation;
+            // Set animation
+            ventriloquistAnimator.SetTrigger("Basketed");
+            
+        }
+
+        private void OnSportRoomFlicker(float arg0)
+        {
+            // Disable the ventriloquist
+            ventriloquist.SetActive(false);
+
+            // Activate mannequins
+            sportRoomMannequinGroup.SetActive(true);
+
+            //// Open the sport room door
+            //internalDoors[0].Open();
+
+            //// Enable the ventriloquist
+            //ventriloquist.SetActive(true);
+            //// Set position and rotation
+            //ventriloquist.transform.position = ventriloquistTargets[1].transform.position;
+            //ventriloquist.transform.rotation = ventriloquistTargets[1].transform.rotation;
+            //// Set animation
+            //ventriloquistAnimator.SetTrigger("Basketed");
+
         }
 
         private void HandleOnEntranceCloseTriggerEnter()
@@ -118,7 +175,8 @@ namespace Kidnapped
             ventriloquist.SetActive(true);
             ventriloquistAnimator = ventriloquist.GetComponentInChildren<Animator>();
             ventriloquistAnimator.SetTrigger("Hanged");
-            
+            // Disable sport room mannequin group
+            sportRoomMannequinGroup.SetActive(false);
             
             if (state == completedState)
             {

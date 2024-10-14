@@ -50,7 +50,7 @@ Gym internal door: gym_door
 first floor door1: floor1_door1
 spoiatoio floor door1: floor1_door2
 porta piano 1: floor1_door3
-dorms_doors: dorms_ext_door1, dorms_ext_door2, dorms_ext_door3, dorms_ext_door4, dorms_f1_door1, dorms_f1_door2
+dorms_doors: dorms_ext_door1, dorms_ext_door2, dorms_ext_door3, dorms_ext_door4, dorms_f1_door1, dorms_f1_door2, dorms_f1_door3
 
 
 /// Blocks ( bool:active )
