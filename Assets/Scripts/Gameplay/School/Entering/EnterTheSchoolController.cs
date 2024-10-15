@@ -200,7 +200,7 @@ namespace Kidnapped
             
         }
 
-        void HandleOnChipsInteraction()
+        void HandleOnChipsInteraction(ObjectInteractor interactor)
         {
             //Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerAndWatch(OnFlickerLightOff);
             Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerOnce(OnFlickerLightOff);

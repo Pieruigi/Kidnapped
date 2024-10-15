@@ -36,7 +36,7 @@ namespace Kidnapped
             interactor.OnInteraction -= HandleOnInteraction;
         }
 
-        private async void HandleOnInteraction()
+        private async void HandleOnInteraction(ObjectInteractor interactor)
         {
     
             animator.SetTrigger("Play");
@@ -48,7 +48,7 @@ namespace Kidnapped
 
         public void Play()
         {
-            HandleOnInteraction();
+            HandleOnInteraction(interactor);
         }
     }
 

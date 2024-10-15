@@ -35,6 +35,9 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInAndLookTrigger ventriloquistSportRoomTrigger;
 
+        [SerializeField]
+        VentriloquistPuzzle ventriloquistPuzzle;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -62,6 +65,7 @@ namespace Kidnapped
             entranceCloseTrigger.OnEnter += HandleOnEntranceCloseTriggerEnter;
             ventriloquistLockerRoomTrigger.OnEnter += HandleOnVentriLockerRoomTrigger;
             ventriloquistSportRoomTrigger.OnEnter += HandleOnVentriloquistSportRoomTrigger;
+            ventriloquistPuzzle.OnPuzzleSolved += HandleOnVentriloquistPuzzleSolved;
         }
 
         private void OnDisable()
@@ -69,6 +73,24 @@ namespace Kidnapped
             entranceCloseTrigger.OnEnter -= HandleOnEntranceCloseTriggerEnter;
             ventriloquistLockerRoomTrigger.OnEnter -= HandleOnVentriLockerRoomTrigger;
             ventriloquistSportRoomTrigger.OnEnter -= HandleOnVentriloquistSportRoomTrigger;
+            ventriloquistPuzzle.OnPuzzleSolved -= HandleOnVentriloquistPuzzleSolved;
+        }
+
+        async void HandleOnVentriloquistPuzzleSolved()
+        {
+            // Add some delay
+            await Task.Delay(2000);
+
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness(OnBathroomFlicker);
+        }
+
+        private void OnBathroomFlicker(float duration)
+        {
+            // Disable puzzle
+            ventriloquistPuzzle.StopPuzzle();
+
+
         }
 
         private void HandleOnVentriloquistSportRoomTrigger()
@@ -119,11 +141,11 @@ namespace Kidnapped
             // Activate mannequins
             sportRoomMannequinGroup.SetActive(true);
 
-            //// Open the sport room door
-            //internalDoors[0].Open();
+            // Open the bathroom door
+            internalDoors[1].Open();
 
-            //// Enable the ventriloquist
-            //ventriloquist.SetActive(true);
+            // Enable the ventriloquist puzzle
+            ventriloquistPuzzle.StartPuzzle();
             //// Set position and rotation
             //ventriloquist.transform.position = ventriloquistTargets[1].transform.position;
             //ventriloquist.transform.rotation = ventriloquistTargets[1].transform.rotation;

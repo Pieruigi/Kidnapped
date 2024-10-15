@@ -193,7 +193,7 @@ namespace Kidnapped
             
         }
 
-        void HandleOnInteraction()
+        void HandleOnInteraction(ObjectInteractor interactor)
         {
             //state = 40;
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;

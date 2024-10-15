@@ -63,12 +63,7 @@ namespace Kidnapped
 
         private void Update()
         {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.Z)) 
-            {
-                SetReady();
-            }
-#endif
+
 
         }
 
@@ -80,7 +75,8 @@ namespace Kidnapped
 
         private void OnDisable()
         {
-            kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked -= HandleOnKitchenDoorLocked;
+            if(kitchenDoor)
+                kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked -= HandleOnKitchenDoorLocked;
         }
 
         private void HandleOnKitchenDoorLocked(ScaryDoor door)
