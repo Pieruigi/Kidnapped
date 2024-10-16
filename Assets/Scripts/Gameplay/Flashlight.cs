@@ -27,7 +27,7 @@ namespace Kidnapped
 
         Animation anims;
         FlashlightFlickerController flickerOff;
-
+ 
         
         protected override void Awake()
         {
@@ -35,8 +35,7 @@ namespace Kidnapped
             DisableLights();
             anims = GetComponent<Animation>();
             flickerOff = GetComponent<FlashlightFlickerController>();
-
-        
+              
         }
 
         // Start is called before the first frame update
@@ -71,6 +70,8 @@ namespace Kidnapped
                     
                 }
             }
+
+
             
         }
 
@@ -80,6 +81,7 @@ namespace Kidnapped
             flashLight.enabled = false;
             handsLight.enabled = false;
             flashLight.intensity = 0;
+            
         }
 
         void EnableLights()
@@ -87,6 +89,7 @@ namespace Kidnapped
             flashLight.enabled = true;
             handsLight.enabled = true;
             flashLight.intensity = flashIntensity;
+                
         }
 
         public void SwitchOn()

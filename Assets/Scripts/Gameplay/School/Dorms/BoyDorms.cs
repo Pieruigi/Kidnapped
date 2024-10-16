@@ -38,6 +38,12 @@ namespace Kidnapped
         [SerializeField]
         VentriloquistPuzzle ventriloquistPuzzle;
 
+        [SerializeField]
+        PlayerWalkInTrigger bellTrigger;
+
+        [SerializeField]
+        AudioSource bellAudioSource;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -66,6 +72,7 @@ namespace Kidnapped
             ventriloquistLockerRoomTrigger.OnEnter += HandleOnVentriLockerRoomTrigger;
             ventriloquistSportRoomTrigger.OnEnter += HandleOnVentriloquistSportRoomTrigger;
             ventriloquistPuzzle.OnPuzzleSolved += HandleOnVentriloquistPuzzleSolved;
+            bellTrigger.OnExit += HandleOnBellTrigger;
         }
 
         private void OnDisable()
@@ -74,6 +81,22 @@ namespace Kidnapped
             ventriloquistLockerRoomTrigger.OnEnter -= HandleOnVentriLockerRoomTrigger;
             ventriloquistSportRoomTrigger.OnEnter -= HandleOnVentriloquistSportRoomTrigger;
             ventriloquistPuzzle.OnPuzzleSolved -= HandleOnVentriloquistPuzzleSolved;
+            bellTrigger.OnExit -= HandleOnBellTrigger;
+        }
+
+        private async void HandleOnBellTrigger()
+        {
+            // Disable trigger
+            bellTrigger.gameObject.SetActive(false);
+
+            // Play audio
+            bellAudioSource.Play();
+
+            // Add some delay
+            await Task.Delay(1500);
+
+            // Open the kitchen door
+            internalDoors[2].Open();
         }
 
         async void HandleOnVentriloquistPuzzleSolved()
@@ -90,7 +113,8 @@ namespace Kidnapped
             // Disable puzzle
             ventriloquistPuzzle.StopPuzzle();
 
-
+            // Activate the bell trigger
+            bellTrigger.gameObject.SetActive(true);
         }
 
         private void HandleOnVentriloquistSportRoomTrigger()
@@ -199,7 +223,9 @@ namespace Kidnapped
             ventriloquistAnimator.SetTrigger("Hanged");
             // Disable sport room mannequin group
             sportRoomMannequinGroup.SetActive(false);
-            
+            // Disable the bell trigger
+            bellTrigger.gameObject.SetActive(false);
+
             if (state == completedState)
             {
                 // Reset the entrance trigger

@@ -62,8 +62,8 @@ namespace Kidnapped
 #if UNITY_EDITOR
             if(Input.GetKeyDown(KeyCode.G)) 
             {
-                //FlickerToDarkeness();
-                FlickerAndWatch(onLightOffCallback: OnLightOff);
+                FlickerToDarkeness();
+                //FlickerAndWatch(onLightOffCallback: OnLightOff);
             }
 
 #endif
@@ -153,12 +153,12 @@ namespace Kidnapped
             Sequence flickerSequence = DOTween.Sequence();
 
             // Primo flicker veloce prima dello spegnimento
-            flickerSequence.Append(_light.DOIntensity(0, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
-                           .Join(handLight.DOIntensity(0, FlickerDuration / 2))
+            flickerSequence.Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
-                           .Append(_light.DOIntensity(0, FlickerDuration / 2)) // Di nuovo spegnimento
-                           .Join(handLight.DOIntensity(0, FlickerDuration / 2)) // Di nuovo spegnimento
+                           .Append(_light.DOIntensity(defaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione veloce
 
@@ -171,8 +171,8 @@ namespace Kidnapped
             // Un altro flicker veloce per la riaccensione
             flickerSequence.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)/*.OnStart(() => { onLightOnCallback?.Invoke(); })*/)  // Riaccendi con flicker
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
-                           .Append(_light.DOIntensity(0, FlickerDuration / 2)) // Spegnimento rapido
-                           .Join(handLight.DOIntensity(0, FlickerDuration / 2)) // Spegnimento rapido
+                           .Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccensione finale
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione finale          
 
