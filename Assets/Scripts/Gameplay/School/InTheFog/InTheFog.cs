@@ -141,7 +141,7 @@ namespace Kidnapped
             
         }
 
-        private void HandleOnTeleportTriggerOnExit()
+        private void HandleOnTeleportTriggerOnExit(PlayerWalkInTrigger trigger)
         {
             // Flashlight flickering
             FlashlightFlickerController.Instance.FlickerOnce(HandleOnLightOffCallback);

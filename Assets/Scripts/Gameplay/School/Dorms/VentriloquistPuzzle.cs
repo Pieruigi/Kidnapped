@@ -43,13 +43,7 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                
-                StartPuzzle();
-            }
-#endif
+
         }
 
         public void StartPuzzle()

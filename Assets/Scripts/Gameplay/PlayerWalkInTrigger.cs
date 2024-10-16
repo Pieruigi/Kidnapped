@@ -8,8 +8,8 @@ namespace Kidnapped
 {
     public class PlayerWalkInTrigger : MonoBehaviour
     {
-        public UnityAction OnEnter;
-        public UnityAction OnExit;
+        public UnityAction<PlayerWalkInTrigger> OnEnter;
+        public UnityAction<PlayerWalkInTrigger> OnExit;
 
         //[SerializeField]
         //MonoBehaviour controller;
@@ -39,7 +39,7 @@ namespace Kidnapped
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            OnEnter?.Invoke();
+            OnEnter?.Invoke(this);
         }
 
         private void OnTriggerExit(Collider other)
@@ -47,7 +47,7 @@ namespace Kidnapped
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            OnExit?.Invoke();
+            OnExit?.Invoke(this);
         }
 
     }

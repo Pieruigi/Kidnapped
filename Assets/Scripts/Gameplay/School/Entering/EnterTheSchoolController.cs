@@ -153,7 +153,7 @@ namespace Kidnapped
             scaryEvilTrigger.OnEnter -= HandleOnScaryTriggerEnter;
         }
 
-        private async void HandleOnScaryTriggerEnter()
+        private async void HandleOnScaryTriggerEnter(PlayerWalkInTrigger trigger)
         {
             state = 20;
             
@@ -171,7 +171,7 @@ namespace Kidnapped
             SaveManager.Instance.SaveGame();
         }
 
-        private async void HandleOnTableTriggerEnter()
+        private async void HandleOnTableTriggerEnter(PlayerWalkInTrigger trigger)
         {
             
             float time = 0.15f;
@@ -189,12 +189,12 @@ namespace Kidnapped
             corridorBlock.SetActive(false);
         }
 
-        private void HandleOnLockerTriggerExit()
+        private void HandleOnLockerTriggerExit(PlayerWalkInTrigger trigger)
         {
             playLocker=true;
         }
 
-        private void HandleOnLockerTriggerEnter()
+        private void HandleOnLockerTriggerEnter(PlayerWalkInTrigger trigger)
         {
             playLocker=false;
             

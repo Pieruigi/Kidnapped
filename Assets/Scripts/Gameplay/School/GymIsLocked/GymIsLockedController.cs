@@ -137,7 +137,7 @@ namespace Kidnapped
             kitchenConjuringTrigger.OnEnter += HandleOnKitchenTriggerEnter;
             bouncingBallController.OnStepCompleted += HandleOnBouncingBallStepCompleted;
             bouncingBallActivationStep1.OnEnter += HandleOnBouncingBallActivationTriggerEnter;
-            bouncingBallMovingStep1.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
+            bouncingBallMovingStep1.OnEnter += HandleOnBouncingBallMovingStepOneTriggerEnter;
             scaryDoorStep3Trigger.OnEnter += HandleOnScaryDoorStep3TriggerEnter;
             bouncingBallMovingStep3.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep4Trigger.OnEnter += HandleOnScaryDoorStep4TriggerEnter;
@@ -152,7 +152,7 @@ namespace Kidnapped
             kitchenConjuringTrigger.OnEnter -= HandleOnKitchenTriggerEnter;
             bouncingBallController.OnStepCompleted -= HandleOnBouncingBallStepCompleted;
             bouncingBallActivationStep1.OnEnter -= HandleOnBouncingBallActivationTriggerEnter;
-            bouncingBallMovingStep1.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
+            bouncingBallMovingStep1.OnEnter -= HandleOnBouncingBallMovingStepOneTriggerEnter;
             scaryDoorStep3Trigger.OnEnter -= HandleOnScaryDoorStep3TriggerEnter;
             bouncingBallMovingStep3.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep4Trigger.OnEnter -= HandleOnScaryDoorStep4TriggerEnter;
@@ -160,7 +160,7 @@ namespace Kidnapped
         }
 
         // When the player enter the bathroom and walk towards the shower
-        private async void HandleOnLockerConjuringTrigger()
+        private async void HandleOnLockerConjuringTrigger(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             lockerConjuringTrigger.gameObject.SetActive(false);
@@ -210,7 +210,7 @@ namespace Kidnapped
         }
 
        
-        private async void HandleOnScaryDoorStep4TriggerEnter()
+        private async void HandleOnScaryDoorStep4TriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             scaryDoorStep4Trigger.gameObject.SetActive(false);
@@ -227,7 +227,7 @@ namespace Kidnapped
             scaryDoorStep4.Init(false.ToString());
         }
 
-        private async void HandleOnScaryDoorStep3TriggerEnter()
+        private async void HandleOnScaryDoorStep3TriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             scaryDoorStep3Trigger.gameObject.SetActive(false);
@@ -242,16 +242,29 @@ namespace Kidnapped
 
         }
 
-        private async void HandleOnBouncingBallMovingTriggerEnter()
+        private void HandleOnBouncingBallMovingStepOneTriggerEnter()
         {
             switch (bouncingBallController.Step)
             {
                 case 1:
-                    // Disable trigger
-                    bouncingBallMovingStep1.gameObject.SetActive(false);
-                    // Move ball
-                    bouncingBallController.Move();
-                    break;
+                // Disable trigger
+                bouncingBallMovingStep1.gameObject.SetActive(false);
+                // Move ball
+                bouncingBallController.Move();
+                break;
+            }
+        }
+
+        private async void HandleOnBouncingBallMovingTriggerEnter(PlayerWalkInTrigger trigger)
+        {
+            switch (bouncingBallController.Step)
+            {
+                //case 1:
+                //    // Disable trigger
+                //    bouncingBallMovingStep1.gameObject.SetActive(false);
+                //    // Move ball
+                //    bouncingBallController.Move();
+                //    break;
                 case 3:
                     // Disable trigger
                     bouncingBallMovingStep3.gameObject.SetActive(false);
@@ -280,7 +293,7 @@ namespace Kidnapped
             
         }
 
-        private async void HandleOnBouncingBallActivationTriggerEnter()
+        private async void HandleOnBouncingBallActivationTriggerEnter(PlayerWalkInTrigger trigger)
         {   
             int step = bouncingBallController.Step;
             switch(step)
@@ -414,7 +427,7 @@ namespace Kidnapped
             lightOffCount++;
         }
 
-        private void HandleOnSlamTriggerEnter()
+        private void HandleOnSlamTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Deacivate trigger
             slamTrigger.gameObject.SetActive(false);
@@ -428,7 +441,7 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBallTriggerEnter()
+        private void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             ballTrigger.gameObject.SetActive(false);

@@ -223,9 +223,6 @@ GameObject:
   - component: {fileID: 4871932354015327882}
   - component: {fileID: 6383425389228014350}
   - component: {fileID: 3511642913774373028}
-  - component: {fileID: 1057138015969219324}
-  - component: {fileID: 6798605070094271245}
-  - component: {fileID: 4102880210670535104}
   m_Layer: 0
   m_Name: VentriloquistDoll
   m_TagString: Untagged
@@ -385,57 +382,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e2f88b3190633e4eb199b8fed8f53b4, type: 3}
   - {fileID: 8300000, guid: b5aeb056851aa494d8004023e0d555f9, type: 3}
   - {fileID: 8300000, guid: 4b3b68d2e5b2a764198594015e631109, type: 3}
---- !u!114 &1057138015969219324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e951db234fa9064a8df83fee645c671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4871932354015327882}
-  maxAngle: 90
-  leftEye: {fileID: 4615977041684456589}
-  rightEye: {fileID: 1073441058750376661}
---- !u!135 &6798605070094271245
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 42.5
-  m_Center: {x: 0, y: 4.76, z: 0}
---- !u!114 &4102880210670535104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e56af75aecb99448da367bc4e371df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activate: 0
-  code: ventriloquist
 --- !u!1 &1073441058750376661
 GameObject:
   m_ObjectHideFlags: 0

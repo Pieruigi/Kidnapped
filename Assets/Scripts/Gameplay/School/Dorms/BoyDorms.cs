@@ -21,7 +21,7 @@ namespace Kidnapped
         ScaryDoor[] internalDoors;
 
         [SerializeField]
-        GameObject ventriloquist;
+        GameObject ventriloquistPrefab;
 
         [SerializeField]
         List<Transform> ventriloquistTargets;
@@ -44,13 +44,36 @@ namespace Kidnapped
         [SerializeField]
         AudioSource bellAudioSource;
 
+        [SerializeField]
+        GameObject hookedVentriloquistPrefab;
+
+        [SerializeField]
+        List<Transform> hookedVentriloquistTargets;
+
+        [SerializeField]
+        List<Collider> hookedTriggers;
+
+        [SerializeField]
+        GameObject kitchenRoomClearGroup;
+
+        [SerializeField]
+        GameObject mannequinGroupPrefab;
+
+        [SerializeField]
+        Transform mannequinGroupTarget;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
 
         int state = 0;
 
+        GameObject ventriloquist;
         Animator ventriloquistAnimator;
+        List<GameObject> hookedVentriloquists = new List<GameObject>();
+        int hookStep = 0;
+        GameObject mannequinGroup;
+        bool spawnMoreHookedDummies = false;
 
         private void Awake()
         {
@@ -63,7 +86,29 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
 
+                bellTrigger.gameObject.SetActive(true);
+            }
+#endif
+
+            if (spawnMoreHookedDummies)
+            {
+                // Check distance between the player and each target ( we don't reuse the first one, so we skip it )
+                for(int i=1; i<hookedVentriloquistTargets.Count; i++)
+                {
+                    float distance = Vector3.ProjectOnPlane(PlayerController.Instance.transform.position - hookedVentriloquistTargets[i].position, Vector3.up).magnitude;
+                    if (distance < 1f)
+                        return;
+                }
+
+                spawnMoreHookedDummies = false;
+
+                // Flicker
+                FlashlightFlickerController.Instance.FlickerToDarkeness(OnHookedFlicker);
+            }
         }
 
         private void OnEnable()
@@ -84,7 +129,7 @@ namespace Kidnapped
             bellTrigger.OnExit -= HandleOnBellTrigger;
         }
 
-        private async void HandleOnBellTrigger()
+        private async void HandleOnBellTrigger(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             bellTrigger.gameObject.SetActive(false);
@@ -92,11 +137,144 @@ namespace Kidnapped
             // Play audio
             bellAudioSource.Play();
 
+            // Spawn hooked ventriloquist
+            var hv = Instantiate(hookedVentriloquistPrefab);
+            hv.transform.position = hookedVentriloquistTargets[0].transform.position;
+            hv.transform.rotation = hookedVentriloquistTargets[0].transform.rotation;
+            hookedVentriloquists.Add(hv);
+
+            // Enable triggers
+            hookedTriggers[0].gameObject.SetActive(true);
+
+            // Set trigger callback
+            hookedTriggers[0].GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnHookTriggerEnter;
+
+            // Set the first step
+            hookStep = 0;
+
             // Add some delay
             await Task.Delay(1500);
 
             // Open the kitchen door
             internalDoors[2].Open();
+        }
+
+        async void HandleOnHookTriggerEnter(PlayerWalkInTrigger trigger)
+        {
+            // Get trigger index
+            int index = hookedTriggers.FindIndex(t=>t.GetComponent<PlayerWalkInTrigger>() == trigger);
+
+            // Remove handle
+            hookedTriggers[index].GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnHookTriggerEnter;
+
+            // Disable the trigger
+            hookedTriggers[index].gameObject.SetActive(false);
+
+            switch (hookStep)
+            {
+                case 0:
+                    // Add some delay
+                    //await Task.Delay(500);
+                    // Flicker
+                    FlashlightFlickerController.Instance.FlickerToDarkeness(OnHookedFlicker);
+                    break;
+                case 1:
+                    // Slam kitchen door
+                    internalDoors[2].Close();
+
+                    // Add some delay
+                    await Task.Delay(12000);
+
+                    // Since the player is free to move around the room, before we spawn the hooked dummies, we need to make sure they don't collide. For this reason
+                    // we let the update to choose when to spawn the dummies.
+                    spawnMoreHookedDummies = true;
+
+                    // Update step
+                    hookStep++;
+
+                    break;
+            }
+        }
+
+        private async void OnHookedFlicker(float duration)
+        {
+            switch (hookStep)
+            {
+                case 0:
+                    // Destroy ventriloquist
+                    foreach (var o in hookedVentriloquists)
+                        Destroy(o);
+
+                    // Clear list
+                    hookedVentriloquists.Clear();
+
+                    // Clear room
+                    kitchenRoomClearGroup.gameObject.SetActive(false);
+
+                    // Create the mannequin group
+                    mannequinGroup = Instantiate(mannequinGroupPrefab);
+                    // Set position and rotation
+                    mannequinGroup.transform.position = mannequinGroupTarget.transform.position;
+                    mannequinGroup.transform.rotation = mannequinGroupTarget.transform.rotation;
+
+                    // Update step
+                    hookStep++;
+
+                    // Activate door trigger
+                    hookedTriggers[1].gameObject.SetActive(true);
+
+                    // Register callback
+                    hookedTriggers[1].GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnHookTriggerEnter;
+
+                    break;
+
+                case 1:
+                    // Disable mannequin group
+                    mannequinGroup.SetActive(false);
+                    
+                    // Spawn more hooked ventriloquists
+
+                    break;
+                case 2:
+                    // Spawn more hooked dummies
+                    for(int i=1; i<hookedVentriloquistTargets.Count; i++)
+                    {
+                        // Spawn the next dummy
+                        var dummy = Instantiate(hookedVentriloquistPrefab);
+                        // Set position and rotation
+                        dummy.transform.position = hookedVentriloquistTargets[i].transform.position;
+                        dummy.transform.rotation = hookedVentriloquistTargets[i].transform.rotation;
+                        // Add to the list
+                        hookedVentriloquists.Add(dummy);
+                    }
+
+                    // Hide mannequins
+                    mannequinGroup.SetActive(false);
+
+                    // Add some delay
+                    await Task.Delay(14000);
+
+                    // Update step
+                    hookStep++;
+
+                    // Flicker
+                    FlashlightFlickerController.Instance.FlickerToDarkeness(OnHookedFlicker);
+                    break;
+                case 3:
+                    // Remove all hooked dummies
+                    foreach (var d in hookedVentriloquists)
+                        Destroy(d);
+                    // Clear list
+                    hookedVentriloquists.Clear();
+                    // Move the player in the middle of the mannequins group
+                    PlayerController.Instance.ForcePositionAndRotation(mannequinGroupTarget);
+                    // Disable the female child in the mannequin group
+                    mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
+                    // Activate the group
+                    mannequinGroup.SetActive(true);
+
+                    break;
+            }
         }
 
         async void HandleOnVentriloquistPuzzleSolved()
@@ -159,8 +337,9 @@ namespace Kidnapped
 
         private void OnSportRoomFlicker(float arg0)
         {
-            // Disable the ventriloquist
-            ventriloquist.SetActive(false);
+            // Destroy the ventriloquist
+            Destroy(ventriloquist);
+            //ventriloquist.SetActive(false);
 
             // Activate mannequins
             sportRoomMannequinGroup.SetActive(true);
@@ -178,7 +357,7 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnEntranceCloseTriggerEnter()
+        private void HandleOnEntranceCloseTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Deactivate the trigger
             entranceCloseTrigger.gameObject.SetActive(false);
@@ -216,6 +395,7 @@ namespace Kidnapped
 
             // Default settings
             // Activate the ventriloquist
+            ventriloquist = Instantiate(ventriloquistPrefab);
             ventriloquist.transform.position = ventriloquistTargets[0].position;
             ventriloquist.transform.rotation = ventriloquistTargets[0].rotation;
             ventriloquist.SetActive(true);
@@ -225,6 +405,9 @@ namespace Kidnapped
             sportRoomMannequinGroup.SetActive(false);
             // Disable the bell trigger
             bellTrigger.gameObject.SetActive(false);
+            // Disable all hook triggers
+            foreach (var t in hookedTriggers)
+                t.gameObject.SetActive(false);
 
             if (state == completedState)
             {

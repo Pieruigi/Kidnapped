@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneralStates:
     LoadedProjectGUID:
-      valueInternal: 50cf02ce84a54644999f72ecadd9ec37
+      valueInternal: 6484af714bed0d149814ce5ca27293fb
     RecentlyOpenedProjectPath:
-      valueInternal: Assets\Animations\UMotion\Ventriloquist
+      valueInternal: Assets\Animations\UMotion\Arms
     RecentlyOpenedProjectGUIDsList:
+    - valueInternal: 6484af714bed0d149814ce5ca27293fb
     - valueInternal: 50cf02ce84a54644999f72ecadd9ec37
     - valueInternal: ccb361bba5ffad145b1bb97cf1259083
     - valueInternal: 97e7fb015e9f7d14288363b32fe25846

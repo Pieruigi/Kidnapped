@@ -102,7 +102,7 @@ namespace Kidnapped
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
         }
 
-        private async void HandleOnBallTriggerEnter()
+        private async void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Deactivate trigger
             ballTrigger.gameObject.SetActive(false);
@@ -150,7 +150,7 @@ namespace Kidnapped
 
         }
 
-        private async void HandleOnBoardTrigger()
+        private async void HandleOnBoardTrigger(PlayerWalkInTrigger trigger)
         {
             // Deactivate the trigger
             bellsTrigger.gameObject.SetActive(false);
@@ -167,7 +167,7 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBlockTrigger()
+        private void HandleOnBlockTrigger(PlayerWalkInTrigger trigger)
         {
             // Deactivate the trigger
             blockTrigger.gameObject.SetActive(false);
@@ -180,7 +180,7 @@ namespace Kidnapped
             bellsTrigger.gameObject.SetActive(true);
         }
 
-        private void HandleOnPreblockTrigger()
+        private void HandleOnPreblockTrigger(PlayerWalkInTrigger trigger)
         {
             // Deactivate the preblock trigger
             preblockTrigger.gameObject.SetActive(false);
@@ -188,7 +188,7 @@ namespace Kidnapped
             blockTrigger.gameObject.SetActive(true);
         }
 
-        private async void HandleOnGirlToRoom()
+        private async void HandleOnGirlToRoom(PlayerWalkInTrigger trigger)
         {
             // Deactivate the trigger
             girlToRoomTrigger.gameObject.SetActive(false);

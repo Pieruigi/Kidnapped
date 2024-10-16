@@ -111,12 +111,12 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnDoorTriggerEnter()
+        private void HandleOnDoorTriggerEnter(PlayerWalkInTrigger trigger)
         {
             SlamTheDoor();
         }
 
-        private void HandleOnBallTriggerEnter()
+        private void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
         {
            
 #pragma warning disable CS4014
