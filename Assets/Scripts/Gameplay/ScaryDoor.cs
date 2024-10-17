@@ -76,22 +76,57 @@ namespace Kidnapped
 
             // The only interaction is with closed ( locked ) doors, because you can't open door in the school, they open when you an leave the section you are in.
             // This means that the only interaction we have with closed door will trigger the locked fx.
-            if (Input.GetKeyDown(KeyBindings.InteractionKey))
+            RaycastHit hit;
+            Debug.Log("Raycast");
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
             {
-                RaycastHit hit;
-                Debug.Log("Raycast");
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
+                Debug.Log($"Hit:{hit.collider}");
+                if (hit.collider == _collider)
                 {
-                    Debug.Log($"Hit:{hit.collider}");
-                    if (hit.collider == _collider)
+                    // Play left hand clue animation
+                    PlayerLeftHand.Instance.PlayClueAnimation();
+
+                    // Check input
+                    if (Input.GetKeyDown(KeyBindings.InteractionKey))
                     {
+                        PlayerLeftHand.Instance.PlayTouchAnimation();
                         lockedFx.PlayFeedbacks();
-                        if(lockedAudioSource)
+                        if (lockedAudioSource)
                             lockedAudioSource.Play();
                         OnLocked?.Invoke(this);
                     }
                 }
+                else
+                {
+                    // Play left hand idle animation
+                    PlayerLeftHand.Instance.PlayIdleAnimation();
+                }
             }
+            else
+            {
+                // Play left hand idle animation
+                PlayerLeftHand.Instance.PlayIdleAnimation();
+            }
+
+
+            //if (Input.GetKeyDown(KeyBindings.InteractionKey))
+            //{
+            //    RaycastHit hit;
+            //    Debug.Log("Raycast");
+            //    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
+            //    {
+            //        Debug.Log($"Hit:{hit.collider}");
+            //        if (hit.collider == _collider)
+            //        {
+            //            lockedFx.PlayFeedbacks();
+            //            if(lockedAudioSource)
+            //                lockedAudioSource.Play();
+            //            OnLocked?.Invoke(this);
+            //        }
+            //    }
+            //}
+
+
             
         }
 
@@ -111,6 +146,7 @@ namespace Kidnapped
 
             inside = false;
 
+            PlayerLeftHand.Instance.PlayIdleAnimation();
         }
 
         public void Open()

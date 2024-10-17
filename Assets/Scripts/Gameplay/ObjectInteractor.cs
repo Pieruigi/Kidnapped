@@ -37,17 +37,21 @@ namespace Kidnapped
             if ((System.DateTime.Now - lastInteractionTime).TotalSeconds < interactionCooldown)
                 return;
 
-            if(Input.GetKeyDown(KeyBindings.InteractionKey))
+
+            // Raycast
+            int layerMask = ~LayerMask.GetMask(Layers.Player);
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
             {
-                Debug.Log("Button clicked");
-                // Raycast
-                int layerMask = ~LayerMask.GetMask(Layers.Player); 
-                RaycastHit hit;
-                if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
+                PlayerLeftHand.Instance.PlayClueAnimation();
+
+                Debug.Log($"Hit:{hit.collider.gameObject.name}");
+                if (hit.collider == interactionCollider)
                 {
-                    Debug.Log($"Hit:{hit.collider.gameObject.name}");
-                    if (hit.collider == interactionCollider)
+                    if (Input.GetKeyDown(KeyBindings.InteractionKey))
                     {
+                        PlayerLeftHand.Instance.PlayTouchAnimation();
+
                         if (!keepEnabled)
                             interactionCollider.enabled = false;
 
@@ -55,11 +59,39 @@ namespace Kidnapped
                         //    callback.Invoke(this);
                         lastInteractionTime = System.DateTime.Now;
                         OnInteraction?.Invoke(this);
-
-                        
                     }
+
+
                 }
             }
+            else
+            {
+                PlayerLeftHand.Instance.PlayIdleAnimation();
+            }
+
+            //if (Input.GetKeyDown(KeyBindings.InteractionKey))
+            //{
+            //    Debug.Log("Button clicked");
+            //    // Raycast
+            //    int layerMask = ~LayerMask.GetMask(Layers.Player); 
+            //    RaycastHit hit;
+            //    if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
+            //    {
+            //        Debug.Log($"Hit:{hit.collider.gameObject.name}");
+            //        if (hit.collider == interactionCollider)
+            //        {
+            //            if (!keepEnabled)
+            //                interactionCollider.enabled = false;
+
+            //            //foreach (var callback in callbacks)
+            //            //    callback.Invoke(this);
+            //            lastInteractionTime = System.DateTime.Now;
+            //            OnInteraction?.Invoke(this);
+
+                        
+            //        }
+            //    }
+            //}
         }
 
         //private void OnEnable()
@@ -67,10 +99,10 @@ namespace Kidnapped
         //    callbacks.Clear();
         //}
 
-        //private void OnDisable()
-        //{
-        //    callbacks.Clear();
-        //}
+        private void OnDisable()
+        {
+            PlayerLeftHand.Instance.PlayIdleAnimation();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -86,6 +118,8 @@ namespace Kidnapped
                 return;
 
             inside = false;
+
+            PlayerLeftHand.Instance.PlayIdleAnimation();
         }
 
         //public void SetCallback(UnityAction<ObjectInteractor> callback)
