@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Kidnapped
@@ -67,6 +68,9 @@ namespace Kidnapped
 
         [SerializeField]
         DormsKitchenPuzzle kitchenPuzzle;
+
+        [SerializeField]
+        BoyDormsMannequin finalSection;
         
 
         const int notReadyState = 0;
@@ -105,10 +109,14 @@ namespace Kidnapped
                 mannequinGroup.transform.position = mannequinGroupTarget.position;
                 mannequinGroup.transform.rotation = mannequinGroupTarget.rotation;
                 mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
-                kitchenLight.enabled = true;
+                Utility.SwitchLightOn(kitchenLight, true);
+                
                 PlayerController.Instance.ForcePositionAndRotation(mannequinGroupTarget);
                 kitchenPuzzle.Init(mannequinGroup, kitchenLight);
                 kitchenPuzzle.gameObject.SetActive(true);
+                bellTrigger.gameObject.SetActive(false);
+
+                
             }
 #endif
 
@@ -136,6 +144,7 @@ namespace Kidnapped
             ventriloquistSportRoomTrigger.OnEnter += HandleOnVentriloquistSportRoomTrigger;
             ventriloquistPuzzle.OnPuzzleSolved += HandleOnVentriloquistPuzzleSolved;
             bellTrigger.OnExit += HandleOnBellTrigger;
+            kitchenPuzzle.OnPuzzleSolved += HandleOnKitchenPuzzleSolved;
         }
 
         private void OnDisable()
@@ -145,6 +154,25 @@ namespace Kidnapped
             ventriloquistSportRoomTrigger.OnEnter -= HandleOnVentriloquistSportRoomTrigger;
             ventriloquistPuzzle.OnPuzzleSolved -= HandleOnVentriloquistPuzzleSolved;
             bellTrigger.OnExit -= HandleOnBellTrigger;
+            kitchenPuzzle.OnPuzzleSolved -= HandleOnKitchenPuzzleSolved;
+        }
+
+        private void HandleOnKitchenPuzzleSolved()
+        {
+            // Destroy mannequin group 
+            Destroy(mannequinGroup);
+
+            // Open the kitchen door
+            internalDoors[2].Open();
+
+            // Set the final section ready
+            finalSection.SetReady();
+
+            // Set this to completed
+            Init(completedState.ToString());
+
+            // Save game
+            SaveManager.Instance.SaveGame();
         }
 
         private async void HandleOnBellTrigger(PlayerWalkInTrigger trigger)
@@ -235,8 +263,8 @@ namespace Kidnapped
                     mannequinGroup.transform.rotation = mannequinGroupTarget.transform.rotation;
 
                     // Switch the light on
-                    kitchenLight.enabled = true;
-
+                    Utility.SwitchLightOn(kitchenLight, true);
+                    
                     // Update step
                     hookStep++;
 
@@ -253,8 +281,8 @@ namespace Kidnapped
                     mannequinGroup.SetActive(false);
 
                     // Switch the light off
-                    kitchenLight.enabled = false;
-
+                    Utility.SwitchLightOn(kitchenLight, false);
+                    
                     break;
                 case 2:
                     // Spawn more hooked dummies
@@ -273,7 +301,7 @@ namespace Kidnapped
                     mannequinGroup.SetActive(false);
 
                     // Switch the light off
-                    kitchenLight.enabled = false;
+                    Utility.SwitchLightOn(kitchenLight, false);
 
                     // Add some delay
                     await Task.Delay(14000);
@@ -298,8 +326,8 @@ namespace Kidnapped
                     mannequinGroup.SetActive(true);
 
                     // Switch the light on
-                    kitchenLight.enabled = true;
-
+                    Utility.SwitchLightOn(kitchenLight, true);
+                    
                     // Init the kitchen puzzle
                     kitchenPuzzle.Init(mannequinGroup, kitchenLight);
 
@@ -413,6 +441,8 @@ namespace Kidnapped
             Init(readyState.ToString());
         }
 
+        
+
         #region save system
         [Header("SaveSystem")]
         [SerializeField]
@@ -441,7 +471,7 @@ namespace Kidnapped
             foreach (var t in hookedTriggers)
                 t.gameObject.SetActive(false);
             // Disable kitchen light
-            kitchenLight.enabled = false;
+            Utility.SwitchLightOn(kitchenLight, false);
             // Disable the kitchen puzzle
             kitchenPuzzle.gameObject.SetActive(false);
 

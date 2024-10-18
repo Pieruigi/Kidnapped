@@ -19,7 +19,7 @@ namespace Kidnapped
         [SerializeField]
         GameObject rightEye;
 
-        bool busy = false;
+        bool playing = false;
 
         bool playerInside = false;
         bool playerVisible = false;
@@ -29,6 +29,8 @@ namespace Kidnapped
         const float baseTime = 3f;
         float randomValue = .2f;
         int side = 0; // -1:left, 0:middle, 1:right
+
+        bool exitToReset = false;
 
         private void Awake()
         {
@@ -44,66 +46,12 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            if (busy || !playerInside) return;
-
-            if (playerInside)
-            {
-                // Check if the player is infront of the ventriloquist 
-                float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(PlayerController.Instance.transform.position - transform.position, Vector3.up), transform.forward, Vector3.up);
-                playerVisible = (Mathf.Abs(angle) < maxAngle) ? true : false;
-                float sideAngle = maxAngle / 2f;
-                //if(Mathf.Abs(angle) < sideAngle)
-                //    side = 0;
-                //else
-                //    side = sideAngle < 0 ? -1 : 1;
-                //if (Mathf.Abs(angle) < sideAngle)
-                //{
-                //    side = 0;
-                //}
-                //else
-                //{
-                //    if(angle < 0)
-                //    {
-
-                //    }
-                //}
-                    side = (Mathf.Abs(angle) < sideAngle) ? 0 : (angle < 0) ? 1 : -1;
-            }
-       
-            if (!playerVisible)
-            {
-                elapsed = 0; // Reset
-            }
-            else
-            {
-                elapsed += Time.deltaTime;
-                if(elapsed > time)
-                {
-                    ResetTime();
-                    busy = true;
-                    int type = 0;
-                    bool mirror = false;
-
-                    if(side != 0)
-                    {
-                        type = 1;
-                        mirror = (side < 0) ? false : true;
-                        
-                    }
-
-                    animator.SetInteger("Type", type);
-                    animator.SetBool("Mirror", mirror);
-                    animator.SetTrigger("Creepy");
-
-                    Debug.Log("Creepy");
-                }
-            }
-            
+         
         }
 
         private void LateUpdate()
         {
-            if (!busy)
+            if (!playing)
                 return;
 
             if (playerVisible)
@@ -124,24 +72,57 @@ namespace Kidnapped
             elapsed = 0;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (!other.CompareTag(Tags.Player))
                 return;
-            playerInside = true;    
+            //playerInside = true;    
+
+            if (playing || exitToReset)
+                return;
+
+            // Check if the player is visible
+            float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(PlayerController.Instance.transform.position - transform.position, Vector3.up), transform.forward, Vector3.up);
+            var playerVisible = (Mathf.Abs(angle) < maxAngle) ? true : false;
+
+            if (!playerVisible)
+                return;
+
+            exitToReset = true;
+            float sideAngle = maxAngle / 2f;
+            // Is player approaching from left or right
+            side = (Mathf.Abs(angle) < sideAngle) ? 0 : (angle < 0) ? 1 : -1;
+            // Play animation
+            playing = true;
+            int type = 0;
+            bool mirror = false;
+
+            if (side != 0)
+            {
+                type = 1;
+                mirror = (side < 0) ? false : true;
+            }
+            
+            animator.SetInteger("Type", type);
+            animator.SetBool("Mirror", mirror);
+            animator.SetTrigger("Creepy");
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag(Tags.Player))
                 return;
-            playerInside = false;
-            playerVisible = false;
+            //playerInside = false;
+            //playerVisible = false;
+            exitToReset = false;
         }
 
+        /// <summary>
+        /// Animation event
+        /// </summary>
         public void End()
         {
-            busy = false;
+            playing = false;
 
         }
 

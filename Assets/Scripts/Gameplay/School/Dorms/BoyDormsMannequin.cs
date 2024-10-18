@@ -35,11 +35,16 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInAndLookTrigger scaryMannequinTrigger;
 
-        
+        [SerializeField]
+        GameObject ventriloquistPrefab;
+
+        [SerializeField]
+        Transform ventriloquistTarget;
 
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
+        GameObject ventriloquist;
 
         int state = 0;
 
@@ -162,11 +167,17 @@ namespace Kidnapped
             {
                 case readyState:
                     // Enable Puck destroying mannequin trigger
-                    scaryMannequinTrigger.gameObject.SetActive(false);
+                    scaryMannequinTrigger.gameObject.SetActive(true);
                     // Enable mannequin
                     scaryMannequin.SetActive(true);
                     // Activate locker block
                     lockerBlock.SetActive(true);
+                    // Enable the ventriloquist
+                    ventriloquist = Instantiate(ventriloquistPrefab);
+                    // Set position and rotation
+                    ventriloquist.transform.position = ventriloquistTarget.position;
+                    ventriloquist.transform.rotation = ventriloquistTarget.rotation;
+                    
                     break;
                 case completedState: 
                     break;

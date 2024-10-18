@@ -1,3 +1,4 @@
+using Aura2API;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,19 @@ namespace Kidnapped
 
             return copy;
         }
+
+        public static void SwitchLightOn(Light light, bool value)
+        {
+            light.enabled = value;
+            
+            LightFlicker lf = light.GetComponent<LightFlicker>();
+            if(lf)
+                lf.enabled = value;
+            AuraLight al = light.GetComponent<AuraLight>();
+            if(al)
+                al.enabled = value;
+        }
+
     }
     
 }
