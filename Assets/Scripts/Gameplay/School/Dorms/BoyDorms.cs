@@ -62,6 +62,10 @@ namespace Kidnapped
         [SerializeField]
         Transform mannequinGroupTarget;
 
+        [SerializeField]
+        Light kitchenLight;
+        
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -173,8 +177,6 @@ namespace Kidnapped
             switch (hookStep)
             {
                 case 0:
-                    // Add some delay
-                    //await Task.Delay(500);
                     // Flicker
                     FlashlightFlickerController.Instance.FlickerToDarkeness(OnHookedFlicker);
                     break;
@@ -217,6 +219,9 @@ namespace Kidnapped
                     mannequinGroup.transform.position = mannequinGroupTarget.transform.position;
                     mannequinGroup.transform.rotation = mannequinGroupTarget.transform.rotation;
 
+                    // Switch the light on
+                    kitchenLight.enabled = true;
+
                     // Update step
                     hookStep++;
 
@@ -231,8 +236,9 @@ namespace Kidnapped
                 case 1:
                     // Disable mannequin group
                     mannequinGroup.SetActive(false);
-                    
-                    // Spawn more hooked ventriloquists
+
+                    // Switch the light off
+                    kitchenLight.enabled = false;
 
                     break;
                 case 2:
@@ -250,6 +256,9 @@ namespace Kidnapped
 
                     // Hide mannequins
                     mannequinGroup.SetActive(false);
+
+                    // Switch the light off
+                    kitchenLight.enabled = false;
 
                     // Add some delay
                     await Task.Delay(14000);
@@ -272,6 +281,9 @@ namespace Kidnapped
                     mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
                     // Activate the group
                     mannequinGroup.SetActive(true);
+
+                    // Switch the light on
+                    kitchenLight.enabled = true;
 
                     break;
             }
@@ -408,6 +420,8 @@ namespace Kidnapped
             // Disable all hook triggers
             foreach (var t in hookedTriggers)
                 t.gameObject.SetActive(false);
+            // Disable kitchen light
+            kitchenLight.enabled = false;
 
             if (state == completedState)
             {

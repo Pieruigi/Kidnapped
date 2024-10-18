@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization.PropertyVariants.TrackedProperties;
 
@@ -33,16 +34,18 @@ namespace Kidnapped
         // Start is called before the first frame update
         void Start()
         {
-            currentIntensity = _light.intensity;
+            currentIntensity = GetLightIntensity();
             UpdateEmissive();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (currentIntensity != _light.intensity)
+            float lightIntensity = GetLightIntensity();
+
+            if (currentIntensity != lightIntensity)
             {
-                currentIntensity = _light.intensity;
+                currentIntensity = lightIntensity;
                 UpdateEmissive();
             }
         }
@@ -51,6 +54,14 @@ namespace Kidnapped
         {
             float power = intensityMul * currentIntensity;
             material.SetColor("_EmissionColor", baseColor * power);
+        }
+
+        float GetLightIntensity()
+        {
+            if (_light.enabled)
+                return _light.intensity;
+
+            return 0;
         }
     }
 
