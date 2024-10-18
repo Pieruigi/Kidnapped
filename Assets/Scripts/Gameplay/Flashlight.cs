@@ -3,12 +3,16 @@ using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kidnapped
 {
     public class Flashlight : Singleton<Flashlight>
     {
-        
+
+        public UnityAction OnSwitchedOn;
+        public UnityAction OnSwitchedOff;
+
         [SerializeField]
         Light flashLight;
 
@@ -23,6 +27,10 @@ namespace Kidnapped
         public float LightIntensity { get { return flashIntensity; } }
        
         bool isOn = false;
+        public bool IsOn
+        {
+            get { return isOn; }
+        }
         bool notAvailable = false;
 
         Animation anims;
@@ -98,6 +106,7 @@ namespace Kidnapped
             isOn = true;
             EnableLights();
             clickAudioSource.Play();
+            OnSwitchedOn?.Invoke();
         }
         public void SwitchOff()
         {
@@ -105,6 +114,7 @@ namespace Kidnapped
             isOn = false;
             DisableLights();
             clickAudioSource.Play();
+            OnSwitchedOff?.Invoke();
         }
 
         

@@ -64,11 +64,15 @@ namespace Kidnapped
 
         [SerializeField]
         Light kitchenLight;
+
+        [SerializeField]
+        DormsKitchenPuzzle kitchenPuzzle;
         
 
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
+        const int firstPuzzleCompletedState = 110;
 
         int state = 0;
 
@@ -93,8 +97,18 @@ namespace Kidnapped
 #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Z))
             {
+                //bellTrigger.gameObject.SetActive(true);
 
-                bellTrigger.gameObject.SetActive(true);
+
+                // Start kitchen puzzle
+                mannequinGroup = Instantiate(mannequinGroupPrefab);
+                mannequinGroup.transform.position = mannequinGroupTarget.position;
+                mannequinGroup.transform.rotation = mannequinGroupTarget.rotation;
+                mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
+                kitchenLight.enabled = true;
+                PlayerController.Instance.ForcePositionAndRotation(mannequinGroupTarget);
+                kitchenPuzzle.Init(mannequinGroup, kitchenLight);
+                kitchenPuzzle.gameObject.SetActive(true);
             }
 #endif
 
@@ -163,6 +177,7 @@ namespace Kidnapped
             internalDoors[2].Open();
         }
 
+
         async void HandleOnHookTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Get trigger index
@@ -176,11 +191,11 @@ namespace Kidnapped
 
             switch (hookStep)
             {
-                case 0:
+                case 0: // The trigger close to the first hooked dummy
                     // Flicker
                     FlashlightFlickerController.Instance.FlickerToDarkeness(OnHookedFlicker);
                     break;
-                case 1:
+                case 1: // The internal kitchen door trigger to slam the door closed
                     // Slam kitchen door
                     internalDoors[2].Close();
 
@@ -285,6 +300,12 @@ namespace Kidnapped
                     // Switch the light on
                     kitchenLight.enabled = true;
 
+                    // Init the kitchen puzzle
+                    kitchenPuzzle.Init(mannequinGroup, kitchenLight);
+
+                    // Start the kitchen puzzle
+                    kitchenPuzzle.gameObject.SetActive(true);
+
                     break;
             }
         }
@@ -305,6 +326,12 @@ namespace Kidnapped
 
             // Activate the bell trigger
             bellTrigger.gameObject.SetActive(true);
+
+            // Update state
+            Init(firstPuzzleCompletedState.ToString());
+
+            // Save game
+            SaveManager.Instance.SaveGame();
         }
 
         private void HandleOnVentriloquistSportRoomTrigger()
@@ -406,13 +433,6 @@ namespace Kidnapped
             Debug.Log($"Dorms new state = {state}");
 
             // Default settings
-            // Activate the ventriloquist
-            ventriloquist = Instantiate(ventriloquistPrefab);
-            ventriloquist.transform.position = ventriloquistTargets[0].position;
-            ventriloquist.transform.rotation = ventriloquistTargets[0].rotation;
-            ventriloquist.SetActive(true);
-            ventriloquistAnimator = ventriloquist.GetComponentInChildren<Animator>();
-            ventriloquistAnimator.SetTrigger("Hanged");
             // Disable sport room mannequin group
             sportRoomMannequinGroup.SetActive(false);
             // Disable the bell trigger
@@ -422,8 +442,26 @@ namespace Kidnapped
                 t.gameObject.SetActive(false);
             // Disable kitchen light
             kitchenLight.enabled = false;
+            // Disable the kitchen puzzle
+            kitchenPuzzle.gameObject.SetActive(false);
 
-            if (state == completedState)
+
+            if(state == readyState)
+            {
+                // Activate the ventriloquist
+                ventriloquist = Instantiate(ventriloquistPrefab);
+                ventriloquist.transform.position = ventriloquistTargets[0].position;
+                ventriloquist.transform.rotation = ventriloquistTargets[0].rotation;
+                ventriloquist.SetActive(true);
+                ventriloquistAnimator = ventriloquist.GetComponentInChildren<Animator>();
+                ventriloquistAnimator.SetTrigger("Hanged");
+            }
+            else if(state == firstPuzzleCompletedState)
+            {
+                // enable the bell trigger
+                bellTrigger.gameObject.SetActive(true);
+            }
+            else if (state == completedState)
             {
                 // Reset the entrance trigger
                 entranceCloseTrigger.gameObject.SetActive(false);

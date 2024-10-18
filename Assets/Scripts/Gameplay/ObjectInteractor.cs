@@ -24,6 +24,9 @@ namespace Kidnapped
         [SerializeField]
         float interactionCooldown = .5f;
 
+        [SerializeField]
+        bool noActivationTrigger = false;
+
         bool inside = false;
 
         System.DateTime lastInteractionTime;
@@ -31,7 +34,7 @@ namespace Kidnapped
 
         private void Update()
         {
-            if (!inside)
+            if (!noActivationTrigger && !inside)
                 return;
 
             if ((System.DateTime.Now - lastInteractionTime).TotalSeconds < interactionCooldown)
@@ -45,7 +48,7 @@ namespace Kidnapped
             {
                 PlayerLeftHand.Instance.PlayClueAnimation();
 
-                Debug.Log($"Hit:{hit.collider.gameObject.name}");
+                //Debug.Log($"Hit:{hit.collider.gameObject.name}");
                 if (hit.collider == interactionCollider)
                 {
                     if (Input.GetKeyDown(KeyBindings.InteractionKey))
@@ -69,29 +72,7 @@ namespace Kidnapped
                 PlayerLeftHand.Instance.PlayIdleAnimation();
             }
 
-            //if (Input.GetKeyDown(KeyBindings.InteractionKey))
-            //{
-            //    Debug.Log("Button clicked");
-            //    // Raycast
-            //    int layerMask = ~LayerMask.GetMask(Layers.Player); 
-            //    RaycastHit hit;
-            //    if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
-            //    {
-            //        Debug.Log($"Hit:{hit.collider.gameObject.name}");
-            //        if (hit.collider == interactionCollider)
-            //        {
-            //            if (!keepEnabled)
-            //                interactionCollider.enabled = false;
-
-            //            //foreach (var callback in callbacks)
-            //            //    callback.Invoke(this);
-            //            lastInteractionTime = System.DateTime.Now;
-            //            OnInteraction?.Invoke(this);
-
-                        
-            //        }
-            //    }
-            //}
+           
         }
 
         //private void OnEnable()
