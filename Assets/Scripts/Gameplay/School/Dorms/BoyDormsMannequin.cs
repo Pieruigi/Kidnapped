@@ -1,3 +1,4 @@
+using DG.Tweening;
 using EvolveGames;
 using Kidnapped.SaveSystem;
 using System;
@@ -41,12 +42,23 @@ namespace Kidnapped
         [SerializeField]
         Transform ventriloquistTarget;
 
+        [SerializeField]
+        ObjectInteractor jarInteractor;
+
+        [SerializeField]
+        GameObject jarPrefab;
+
+        [SerializeField]
+        Transform jarTarget;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
         GameObject ventriloquist;
 
         int state = 0;
+
+        GameObject jar;
 
         private void Awake()
         {
@@ -66,13 +78,33 @@ namespace Kidnapped
         {
      
             scaryMannequinTrigger.OnEnter += HandleOnLookTriggerEnter;
+            jarInteractor.OnInteraction += HandleOnJarInteractor;
         }
 
         private void OnDisable()
         {
-                  scaryMannequinTrigger.OnEnter -= HandleOnLookTriggerEnter;
+            scaryMannequinTrigger.OnEnter -= HandleOnLookTriggerEnter;
+            jarInteractor.OnInteraction -= HandleOnJarInteractor;
         }
 
+        private void HandleOnJarInteractor(ObjectInteractor arg0)
+        {
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness(OnJarInteractionFlicker);
+            // Start rotating the jar
+            jar.transform.DOLocalRotate(Vector3.right * 90, 0.5f, RotateMode.LocalAxisAdd);
+        }
+
+        private void OnJarInteractionFlicker(float duration)
+        {
+            // Destroy the jar
+            Destroy(jar);
+
+            // Load school kitchen
+
+            // Save
+            //SaveManager.Instance.SaveGame();
+        }
 
         private async void HandleOnLookTriggerEnter()
         {
@@ -117,6 +149,14 @@ namespace Kidnapped
             await Task.Delay(2000);
             FlashlightFlickerController.Instance.FlickerOnce(OnFlickerOffCallback);
 
+            // Instantiate the jar object
+            jar = Instantiate(jarPrefab);
+            // Set position and rotation
+            jar.transform.position = jarTarget.position;
+            jar.transform.rotation = jarTarget.rotation;
+
+            // Enable jar interactor
+            jarInteractor.gameObject.SetActive(true);
         }
 
         private void OnFlickerOffCallback()
@@ -161,7 +201,9 @@ namespace Kidnapped
             lockerBlock.SetActive(false);
             // Disable mannequin trigger
             scaryMannequinTrigger.gameObject.SetActive(false);
-            // Remove block
+            // Disable jar interactor
+            jarInteractor.gameObject.SetActive(false);
+            
 
             switch (state)
             {
@@ -177,6 +219,8 @@ namespace Kidnapped
                     // Set position and rotation
                     ventriloquist.transform.position = ventriloquistTarget.position;
                     ventriloquist.transform.rotation = ventriloquistTarget.rotation;
+                    // Set scripted eyes
+                    ventriloquist.GetComponent<VentriloquistEyes>().UseScriptedEyes = true;
                     
                     break;
                 case completedState: 

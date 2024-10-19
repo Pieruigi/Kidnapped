@@ -13,11 +13,11 @@ namespace Kidnapped
         [SerializeField]
         float maxAngle;
 
-        [SerializeField]
-        GameObject leftEye;
+        //[SerializeField]
+        //GameObject leftEye;
 
-        [SerializeField]
-        GameObject rightEye;
+        //[SerializeField]
+        //GameObject rightEye;
 
         bool playing = false;
 
@@ -49,22 +49,22 @@ namespace Kidnapped
          
         }
 
-        private void LateUpdate()
-        {
-            if (!playing)
-                return;
+        //private void LateUpdate()
+        //{
+        //    if (!playing)
+        //        return;
 
-            if (playerVisible)
-            {
-                leftEye.transform.LookAt(Camera.main.transform.position);
-                rightEye.transform.LookAt(Camera.main.transform.position);
-            }
-            else
-            {
-                leftEye.transform.rotation = Quaternion.RotateTowards(leftEye.transform.rotation, Quaternion.identity, Time.deltaTime);
-                rightEye.transform.rotation = Quaternion.RotateTowards(rightEye.transform.rotation, Quaternion.identity, Time.deltaTime);
-            }
-        }
+        //    if (playerVisible)
+        //    {
+        //        leftEye.transform.LookAt(Camera.main.transform.position);
+        //        rightEye.transform.LookAt(Camera.main.transform.position);
+        //    }
+        //    else
+        //    {
+        //        leftEye.transform.rotation = Quaternion.RotateTowards(leftEye.transform.rotation, Quaternion.identity, Time.deltaTime);
+        //        rightEye.transform.rotation = Quaternion.RotateTowards(rightEye.transform.rotation, Quaternion.identity, Time.deltaTime);
+        //    }
+        //}
 
         void ResetTime()
         {
