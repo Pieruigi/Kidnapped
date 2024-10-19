@@ -37,6 +37,7 @@ namespace Kidnapped
         List<string[]> steps = new List<string[]>();
 
         GameObject ventriloquist;
+        ObjectInteractor lastInteractor;
 
         // Start is called before the first frame update
         void Start()
@@ -47,7 +48,28 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
+                ventriloquist = Instantiate(ventriloquistPrefab);
+                // Set rotation 
+                //ventriloquist.transform.forward = -Camera.main.transform.forward;
+                //// Set parent
+                //ventriloquist.transform.parent = Camera.main.transform;
+                //// Adjust position
+                //ventriloquist.transform.localPosition = new Vector3(0, -0.907f, 0.365f);
+                lastInteractor = interactors[0];
+                ventriloquist.transform.forward = lastInteractor.transform.forward;
+                ventriloquist.transform.position = lastInteractor.transform.position;
+                // Set animation
+                ventriloquist.GetComponentInChildren<Animator>().SetTrigger("HugToMannequin");
+                // Set eyes
+                ventriloquist.GetComponent<VentriloquistEyes>().UseScriptedEyes = true;
+                
+                
+            }
+#endif
         }
 
         private void OnEnable()
@@ -91,6 +113,8 @@ namespace Kidnapped
 
         private async void HandleOnSymbolInteraction(ObjectInteractor interactor)
         {
+            // Store the last symbol we interacted with
+            lastInteractor = interactor;
             // Disable all interactors
             EnableInteractorAll(false);
             // Get interactor index
@@ -120,6 +144,7 @@ namespace Kidnapped
 
                     // Flicker
                     FlashlightFlickerController.Instance.FlickerOnce(OnPuzzleFailedFlicker);
+                    
                 }
             }
             else
@@ -127,7 +152,8 @@ namespace Kidnapped
                 // Move to the next step
                 step++;
                 // Switch off the kitchen light
-                kitchenLight.enabled = false;
+                //kitchenLight.enabled = false;
+                Utility.SwitchLightOn(kitchenLight, false);
                 // Flicker
                 FlashlightFlickerController.Instance.FlickerOnce(OnInteractionFlicker, OnInteractionFlickerCompleted);
             }
@@ -151,26 +177,30 @@ namespace Kidnapped
 
         private async void OnPuzzleFailedFlicker()
         {
-            // Switch off kitchen light
-            kitchenLight.enabled = false;
+            // Switch the kitchen light off
+            Utility.SwitchLightOn(kitchenLight, false);
 
-
+            // Instantiate the ventriloquist
             ventriloquist = Instantiate(ventriloquistPrefab);
-            // Set rotation 
-            ventriloquist.transform.forward = -Camera.main.transform.forward;
-            // Set parent
-            ventriloquist.transform.parent = Camera.main.transform;
-            // Adjust position
-            ventriloquist.transform.localPosition = new Vector3(0, -0.907f, 0.365f);
+            ventriloquist.transform.forward = lastInteractor.transform.forward;
+            ventriloquist.transform.position = lastInteractor.transform.position;
+            // Set animation
+            ventriloquist.GetComponentInChildren<Animator>().SetTrigger("HugToMannequin");
+            // Set eyes
+            ventriloquist.GetComponent<VentriloquistEyes>().UseScriptedEyes = true;
+
             // Set animation
             Animator animator = ventriloquist.GetComponentInChildren<Animator>();
-            animator.SetInteger("Type", 7);
-            animator.SetTrigger("Pose");
+            animator.SetTrigger("HugToMannequin");
 
-            await Task.Delay(500);
+            // Wait a little more
+            await Task.Delay(1500);
+
 
             // Flicker
             FlashlightFlickerController.Instance.FlickerOnce(OnPuzzleResetFlicker);
+
+            
         }
 
         private void OnPuzzleResetFlicker()
@@ -188,7 +218,7 @@ namespace Kidnapped
             UpdateInteractionSymbols();
 
             // Enable kitchen light
-            kitchenLight.enabled = true;
+            Utility.SwitchLightOn(kitchenLight, true);
         }
 
         private void OnInteractionFlicker()
@@ -205,7 +235,8 @@ namespace Kidnapped
         private void OnInteractionFlickerCompleted()
         {
             // Switch on kitchen light
-            kitchenLight.enabled = true;
+            //kitchenLight.enabled = true;
+            Utility.SwitchLightOn(kitchenLight, true);
         }
 
         void EnableInteractorAll(bool value)

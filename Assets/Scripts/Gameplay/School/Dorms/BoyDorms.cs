@@ -116,7 +116,9 @@ namespace Kidnapped
                 kitchenPuzzle.gameObject.SetActive(true);
                 bellTrigger.gameObject.SetActive(false);
 
+
                 
+
             }
 #endif
 
