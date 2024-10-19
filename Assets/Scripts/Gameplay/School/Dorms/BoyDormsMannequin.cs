@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Kidnapped
 {
@@ -49,12 +50,29 @@ namespace Kidnapped
         GameObject jarPrefab;
 
         [SerializeField]
+        GameObject openJarPrefab;
+
+        [SerializeField]
         Transform jarTarget;
+
+        [SerializeField]
+        GameObject bloodyFloorPrefab;
+
+        [SerializeField]
+        Transform bloodyFloorTarget;
+
+        [SerializeField]
+        GameObject hookedPartsPrefab;
+
+        [SerializeField]
+        Transform hookedPartsTarget;
 
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
         GameObject ventriloquist;
+        GameObject bloodyFloor;
+        GameObject hookedParts;
 
         int state = 0;
 
@@ -100,10 +118,48 @@ namespace Kidnapped
             // Destroy the jar
             Destroy(jar);
 
-            // Load school kitchen
+            // Instantiate the open jar
+            jar = Instantiate(openJarPrefab);
 
-            // Save
+            // Set position and rotation
+            jar.transform.position = jarTarget.position;
+            jar.transform.rotation = jarTarget.rotation;
+
+            // Create the bloody rising water
+            bloodyFloor = Instantiate(bloodyFloorPrefab);
+            // Set position and rotation
+            bloodyFloor.transform.position = bloodyFloorTarget.position;
+            bloodyFloor.transform.rotation = bloodyFloorTarget.rotation;
+            // Register callback
+            bloodyFloor.GetComponent<BloodyFloor>().OnHeightReached += HandleOnBloodyFloor;
+            // Remove the locker room block and the mannequin
+            lockerBlock.SetActive(false);
+            scaryMannequin.SetActive(false);
+            // Spawn hooked body parts
+            hookedParts = Instantiate(hookedPartsPrefab);
+            // Set position and rotation
+            hookedParts.transform.position = hookedPartsTarget.position;
+            hookedParts.transform.rotation = hookedPartsTarget.rotation;
+            // Prevent the player from crouching
+            PlayerController.Instance.CanCrouch = false;
+        }
+
+        private void HandleOnBloodyFloor()
+        {
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerToDarkeness();
+
+            // Load school kitchen
+            
+            // Set completed state
+            Init(completedState.ToString());
+
+            // Player can crouch again
+            PlayerController.Instance.CanCrouch = true;
+
+            // Save game
             //SaveManager.Instance.SaveGame();
+
         }
 
         private async void HandleOnLookTriggerEnter()
