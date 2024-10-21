@@ -67,6 +67,18 @@ namespace Kidnapped
         [SerializeField]
         Transform hookedPartsTarget;
 
+        [SerializeField]
+        SimpleActivator abandonedSchoolKitchen;
+
+        [SerializeField]
+        SimpleActivator originalSchoolKitchen;
+
+        [SerializeField]
+        Transform schoolKitchenPlayerTarget;
+
+        [SerializeField]
+        KitchenHunt kitchenHunt;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -156,6 +168,21 @@ namespace Kidnapped
 
             // Player can crouch again
             PlayerController.Instance.CanCrouch = true;
+
+            // Disable the school abandoned kitchen
+            abandonedSchoolKitchen.Init(false.ToString());
+
+            // Enable the school original kitchen
+            originalSchoolKitchen.Init(true.ToString());
+
+            // Init the new gameplay part
+            kitchenHunt.SetReady();
+
+            // Set this one completed
+            Init(completedState.ToString());
+
+            // Move the player in the school kitchen
+            PlayerController.Instance.ForcePositionAndRotation(schoolKitchenPlayerTarget.position, schoolKitchenPlayerTarget.rotation);
 
             // Save game
             //SaveManager.Instance.SaveGame();
