@@ -96,10 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe050e1e5d719444a232372895680f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2.5
+  walkSpeed: 1.5
   runSpeed: 3.5
   animator: {fileID: 2311337648691111446}
   patrolPoints: []
+  spotRanges:
+  - 2
+  - 3
+  - 4.5
+  - 6
 --- !u!195 &4469888675069108611
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -109,16 +114,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 9012230090468100161}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.15
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 16
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 720
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.6
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

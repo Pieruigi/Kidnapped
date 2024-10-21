@@ -1,7 +1,9 @@
+using EvolveGames;
 using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,11 +15,19 @@ namespace Kidnapped
         GameObject puckPrefab;
 
         [SerializeField]
+        List<Transform> patrolPoints;
+
+        [SerializeField]
         PlayerWalkInTrigger puckGetInTrigger;
 
         [SerializeField]
         Transform puckGetInTarget;
 
+        [SerializeField]
+        Transform puckFirstDestination;
+
+        [SerializeField]
+        ScaryDoor externalDoor;
 
         const int notReadyState = 0;
         const int readyState = 100;
@@ -60,14 +70,25 @@ namespace Kidnapped
             puckGetInTrigger.OnEnter -= HandleOnPuckGetInTrigger;
         }
 
-        private void HandleOnPuckGetInTrigger(PlayerWalkInTrigger trigger)
+        private async void HandleOnPuckGetInTrigger(PlayerWalkInTrigger trigger)
         {
+            // Disable trigger
+            trigger.gameObject.SetActive(false);
+
             // Instantiate puck
             puck = Instantiate(puckPrefab, puckGetInTarget.position, puckGetInTarget.rotation);
             // Set the evil material
             puck.GetComponent<EvilMaterialSetter>().SetEvil();
-            // Set first destination
-            puck.GetComponent<ScaryBoyHunter>().ForceDestination(puckGetInTarget.position + puckGetInTarget.forward * 3f, true);
+            // Get script controller
+            var ctrl = puck.GetComponent<ScaryBoyHunter>();
+            // Set patrol points
+            ctrl.SetPatrolPoints(patrolPoints);
+            // Force the first destination to reach
+            ctrl.ForceDestination(puckFirstDestination.position, false);
+            // Add some delay
+            await Task.Delay(500);
+            // Slam the door
+            externalDoor.Close();
         }
 
         public void SetReady()

@@ -1,5 +1,7 @@
+using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +9,9 @@ namespace Kidnapped
 {
     public class ScaryBoyHunter : MonoBehaviour
     {
+        enum _State { Idle, Patrol, Chase, Kill }
+
+        static List<ScaryBoyHunter> siblings = new List<ScaryBoyHunter>();
 
         [SerializeField]
         float walkSpeed = 2.5f;
@@ -18,19 +23,48 @@ namespace Kidnapped
         Animator animator;
 
         [SerializeField]
-        List<GameObject> patrolPoints;
+        List<Transform> patrolPoints;
+
+        /// <summary>
+        /// 0: player not moving
+        /// 1: player crouching ( moving )
+        /// 2: player walking
+        /// 3: player running
+        /// </summary>
+        [SerializeField]
+        List<float> spotRanges;
+
 
         float idleMinTime = 5;
         float idleMaxTime = 8;
 
         NavMeshAgent agent;
         float idleTime;
+        float idleElapsed = 0;
         bool running = false;
+
+        bool logicDisabled = false;
+
+        string speedParamName = "Speed";
+        string agonyParamName = "Agony";
+
+        float patrolPointMinDistance = 7f;
+
+        Vector3 lastSpottedPosition;
+        float chaseTime = 2f;
+        float chaseElapsed = 0;
+        
+        _State state = _State.Idle;
+
+
 
         private void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
+            // Add to the sibling list
+            siblings.Add(this);
 
+            agent = GetComponent<NavMeshAgent>();
+           
         }
 
         // Start is called before the first frame update
@@ -42,7 +76,153 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
+            UpdateState();
 
+            UpdateAnimations();
+        }
+
+        private void OnDestroy()
+        {
+            // Remove from the sibling list
+            siblings.Remove(this);
+        }
+
+        void UpdateState()
+        {
+            switch (state)
+            {
+                case _State.Idle:
+                    UpdateIdleState();
+                    break;
+                case _State.Patrol:
+                    UpdatePatrolState();       
+                    break;
+                case _State.Chase:
+                    UpdateChaseState();
+                    break;
+                
+            }
+        }
+
+        void EnterPatrolState()
+        {
+            // Get a random destination
+            var target = GetRandomPatrolPoint();
+            // Set destination
+            agent.SetDestination(target.position);
+            // Set state
+            state = _State.Patrol;
+        }
+
+        void UpdatePatrolState()
+        {
+            // If the player has been spotted move to chasing state
+            if(PlayerSpotted())
+            {
+                EnterChaseState();
+                return;
+            }
+
+            if (!agent.hasPath)
+            {
+                EnterIdleState();
+            }
+        }
+
+        void EnterIdleState()
+        {
+            // Reset time
+            idleElapsed = 0;
+            idleTime = Random.Range(idleMinTime, idleMaxTime);
+            // Occasionally set the agony animation
+            int anim = Random.Range(0, 4);
+            if(anim == 0)
+                animator.SetBool(agonyParamName, true);
+            // Stop running
+            SetRunning(false);
+            // Change state
+            state = _State.Idle;
+        }
+
+       
+        void UpdateIdleState()
+        {
+            // If the player has been spotted move to chasing state
+            if (PlayerSpotted())
+            {
+                EnterChaseState();
+                return;
+            }
+
+            idleElapsed += Time.deltaTime;
+            if (idleElapsed < idleTime)
+                return;
+
+            EnterPatrolState();
+        }
+
+        void EnterChaseState()
+        {
+            // Reset params
+            chaseElapsed = 0;
+
+            // Stop moving
+            agent.ResetPath();
+
+            // Set the new state
+            state = _State.Chase;
+        }
+
+        void UpdateChaseState()
+        {
+           
+            if (chaseElapsed < chaseTime)
+            {
+                chaseElapsed += Time.deltaTime;
+                return;
+            }
+
+            // Chase
+            if (!PlayerSpotted() && !agent.hasPath)
+            {
+                EnterIdleState();
+                return;
+            }
+
+            agent.SetDestination(lastSpottedPosition);
+        }
+
+        bool PlayerSpotted()
+        {
+            // Set the range based on the player movement
+            float range = spotRanges[0]; // Default: player not moving at all
+            if(PlayerController.Instance.characterController.velocity.magnitude > 0f) // Player is moving
+            {
+                if (PlayerController.Instance.IsRunning)
+                    range = spotRanges[3];
+                else if (PlayerController.Instance.IsCrouching)
+                    range = spotRanges[1];
+                else 
+                    range = spotRanges[2]; // Walking
+            }            
+            
+            // Check the player distance
+            float distance = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+            if(distance < range)
+            {
+                lastSpottedPosition = PlayerController.Instance.transform.position;
+                return true; // Spotted
+            }
+
+            return false;
+        }
+
+        void UpdateAnimations()
+        {
+            if (agent.velocity.magnitude > 0 && animator.GetBool(agonyParamName))
+                animator.SetBool(agonyParamName, false);
+           
+            animator.SetFloat("Speed", agent.velocity.magnitude);
         }
 
         void SetRunning(bool value)
@@ -54,12 +234,52 @@ namespace Kidnapped
                 agent.speed = walkSpeed;  
         }
 
-        public void ForceDestination(Vector3 destination, bool run)
+        Transform GetRandomPatrolPoint()
         {
-            agent.destination = destination;
-            SetRunning(run);
+            // Get all the available patrol points
+            List<Transform> candidates = new List<Transform>();
+            for(int i=0; i<patrolPoints.Count; i++)
+            {
+                // Compute distance between agent and patrol point
+                float distance = Vector3.Distance(transform.position, patrolPoints[i].position);
+                // TODO: also check the others
+                if(distance > patrolPointMinDistance) // We exclude the last chosen one if any
+                    candidates.Add(patrolPoints[i]);
+            }
+
+            // Choose a random destination
+            return candidates[Random.Range(0, candidates.Count)];
+            
         }
 
+        public void ForceDestination(Vector3 destination, bool run)
+        {
+            //lastPatrolPoint = null;
+            agent.destination = destination;
+            SetRunning(run);
+            state = _State.Patrol;
+        }
+
+        public void DisableLogic()
+        {
+            logicDisabled = true;
+        }
+
+        public void EnableLogic()
+        {
+            logicDisabled = false;
+        }
+
+        public void SetAgonyAnimation()
+        {
+            state = _State.Idle;
+            animator.SetBool(agonyParamName, true);
+        }
+
+        public void SetPatrolPoints(List<Transform> patrolPoints)
+        {
+            this.patrolPoints = patrolPoints;
+        }
     }
 
 }
