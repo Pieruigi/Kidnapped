@@ -3,21 +3,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Kidnapped
 {
     public class KitchenHunt : MonoBehaviour, ISavable
     {
+        [SerializeField]
+        GameObject puckPrefab;
 
         [SerializeField]
         PlayerWalkInTrigger puckGetInTrigger;
+
+        [SerializeField]
+        Transform puckGetInTarget;
 
 
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
 
+        GameObject puck;
+
         int state;
+
 
        
         private void Awake()
@@ -54,7 +63,11 @@ namespace Kidnapped
         private void HandleOnPuckGetInTrigger(PlayerWalkInTrigger trigger)
         {
             // Instantiate puck
-
+            puck = Instantiate(puckPrefab, puckGetInTarget.position, puckGetInTarget.rotation);
+            // Set the evil material
+            puck.GetComponent<EvilMaterialSetter>().SetEvil();
+            // Set first destination
+            puck.GetComponent<ScaryBoyHunter>().ForceDestination(puckGetInTarget.position + puckGetInTarget.forward * 3f, true);
         }
 
         public void SetReady()

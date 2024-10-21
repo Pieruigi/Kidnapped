@@ -42,6 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4585525779261023971}
   - component: {fileID: 6818978975384848554}
+  - component: {fileID: 780559378651915240}
+  - component: {fileID: 4469888675069108611}
   m_Layer: 0
   m_Name: ScaryBoyHunter
   m_TagString: Untagged
@@ -82,6 +84,44 @@ MonoBehaviour:
   - {fileID: 4524833255450681875}
   normalMaterial: {fileID: 2100000, guid: 69279567edbccde45b8e9c7ec44081d9, type: 2}
   evilMaterial: {fileID: 2100000, guid: c8863911392c160489030da2daf27538, type: 2}
+--- !u!114 &780559378651915240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9012230090468100161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe050e1e5d719444a232372895680f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 2.5
+  runSpeed: 3.5
+  animator: {fileID: 2311337648691111446}
+  patrolPoints: []
+--- !u!195 &4469888675069108611
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9012230090468100161}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &6547256532988057096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,6 +206,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1413997381370529165}
   m_SourcePrefab: {fileID: 100100000, guid: 74d54bd6bf13ff24e82bf039334d2e55, type: 3}
+--- !u!95 &2311337648691111446 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8849294510650535966, guid: 74d54bd6bf13ff24e82bf039334d2e55, type: 3}
+  m_PrefabInstance: {fileID: 6547256532988057096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &4524833255450681875 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7212489514283496475, guid: 74d54bd6bf13ff24e82bf039334d2e55, type: 3}
