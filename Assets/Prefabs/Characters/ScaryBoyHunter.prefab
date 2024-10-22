@@ -101,10 +101,11 @@ MonoBehaviour:
   animator: {fileID: 2311337648691111446}
   patrolPoints: []
   spotRanges:
-  - 2
-  - 3
-  - 4.5
-  - 6
+  - 2.5
+  - 3.5
+  - 5
+  - 8
+  killRange: 1.5
 --- !u!195 &4469888675069108611
 NavMeshAgent:
   m_ObjectHideFlags: 0

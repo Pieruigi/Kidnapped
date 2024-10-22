@@ -46,11 +46,12 @@ namespace Kidnapped
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
             {
-                PlayerLeftHand.Instance.PlayClueAnimation();
-
                 //Debug.Log($"Hit:{hit.collider.gameObject.name}");
                 if (hit.collider == interactionCollider)
                 {
+                    // Clue animation
+                    PlayerLeftHand.Instance.PlayClueAnimation();
+                    // Check input
                     if (Input.GetKeyDown(KeyBindings.InteractionKey))
                     {
                         PlayerLeftHand.Instance.PlayTouchAnimation();

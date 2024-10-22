@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace Kidnapped
 {
     public class ScaryBoyHunter : MonoBehaviour
     {
+        public UnityAction<ScaryBoyHunter> OnKillingPlayer;
+
         enum _State { Idle, Patrol, Chase, Kill }
 
         static List<ScaryBoyHunter> siblings = new List<ScaryBoyHunter>();
@@ -34,6 +37,8 @@ namespace Kidnapped
         [SerializeField]
         List<float> spotRanges;
 
+        [SerializeField]
+        float killRange = 1.5f;
 
         float idleMinTime = 5;
         float idleMaxTime = 8;
@@ -47,12 +52,12 @@ namespace Kidnapped
 
         string speedParamName = "Speed";
         string agonyParamName = "Agony";
+        //string screamParamName = "Scream";
 
         float patrolPointMinDistance = 7f;
 
         Vector3 lastSpottedPosition;
-        float chaseTime = 2f;
-        float chaseElapsed = 0;
+        
         
         _State state = _State.Idle;
 
@@ -100,7 +105,9 @@ namespace Kidnapped
                 case _State.Chase:
                     UpdateChaseState();
                     break;
-                
+                case _State.Kill:
+                    UpdateKillState();
+                    break;
             }
         }
 
@@ -163,22 +170,22 @@ namespace Kidnapped
 
         void EnterChaseState()
         {
-            // Reset params
-            chaseElapsed = 0;
-
             // Stop moving
             agent.ResetPath();
 
             // Set the new state
             state = _State.Chase;
+
+            
         }
 
         void UpdateChaseState()
         {
-           
-            if (chaseElapsed < chaseTime)
+            // Check kill range
+            if(PlayerKilled())
             {
-                chaseElapsed += Time.deltaTime;
+                Debug.Log("KillPlayer");
+                EnterKillState();
                 return;
             }
 
@@ -191,6 +198,27 @@ namespace Kidnapped
 
             agent.SetDestination(lastSpottedPosition);
         }
+
+        void EnterKillState()
+        {
+            state = _State.Kill;
+
+            // Stop moving
+            agent.ResetPath();
+            agent.enabled = false;
+
+            // If the player is already dying return ( maybe another Puck is already killing the player )
+            if (PlayerController.Instance.IsDying)
+                return;
+
+            OnKillingPlayer?.Invoke(this);
+
+            
+        }
+
+        void UpdateKillState() { }
+
+       
 
         bool PlayerSpotted()
         {
@@ -213,6 +241,15 @@ namespace Kidnapped
                 lastSpottedPosition = PlayerController.Instance.transform.position;
                 return true; // Spotted
             }
+
+            return false;
+        }
+
+        bool PlayerKilled()
+        {
+            float distance = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+            if (distance < killRange)
+                return true;
 
             return false;
         }

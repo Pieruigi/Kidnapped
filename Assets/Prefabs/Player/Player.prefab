@@ -4474,7 +4474,7 @@ MonoBehaviour:
   lookXLimit: 80
   RunningFOV: 70
   SpeedToFOV: 4
-  CroughHeight: 0.4
+  CroughHeight: 0.2
   gravity: 20
   timeToRunning: 2
   canMove: 1
