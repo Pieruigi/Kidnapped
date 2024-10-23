@@ -1,4 +1,5 @@
 using EvolveGames;
+using JetBrains.Annotations;
 using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
@@ -21,13 +22,13 @@ namespace Kidnapped
         GameObject puckPrefab;
 
         [SerializeField]
+        List<Transform> puckTargets;
+
+        [SerializeField]
         List<Transform> patrolPoints;
 
         [SerializeField]
         PlayerWalkInTrigger puckGetInTrigger;
-
-        [SerializeField]
-        Transform puckGetInTarget;
 
         [SerializeField]
         Transform puckFirstDestination;
@@ -44,14 +45,24 @@ namespace Kidnapped
         [SerializeField]
         GameObject jarInteractorPrefab;
 
+        [SerializeField]
+        PlayerWalkInTrigger exitTrigger;
+
+        [SerializeField]
+        GameObject originalKitchen;
+
+        [SerializeField]
+        GameObject abandonedKitchen;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
 
-        GameObject puck;
+        List<GameObject> pucks = new List<GameObject>();
         GameObject jar;
         GameObject jarInteractor;
         int jarIndex = 0;
+        int puckIndex = 0;
 
         int state;
 
@@ -81,11 +92,40 @@ namespace Kidnapped
         private void OnEnable()
         {
             puckGetInTrigger.OnEnter += HandleOnPuckGetInTrigger;
+            exitTrigger.OnEnter += HandleOnExitTrigger;
         }
 
         private void OnDisable()
         {
             puckGetInTrigger.OnEnter -= HandleOnPuckGetInTrigger;
+            exitTrigger.OnEnter -= HandleOnExitTrigger;
+        }
+
+        private void HandleOnExitTrigger(PlayerWalkInTrigger arg0)
+        {
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerOnce(OnExitFlicker);
+        }
+
+        private void OnExitFlicker()
+        {
+            // Disable the trigger
+            exitTrigger.gameObject.SetActive(false);
+            // Destroy all killers
+            foreach (var puck in pucks)
+                Destroy(puck);
+            // Clear list
+            pucks.Clear();
+            // Hide the original kitchen
+            originalKitchen.SetActive(false);
+            // Show the old abandoned 
+            abandonedKitchen.SetActive(true);
+
+            // Set the completed state
+            Init(completedState.ToString());
+
+            // Save game
+            SaveManager.Instance.SaveGame();
         }
 
         void SpawnJar(int index)
@@ -112,13 +152,16 @@ namespace Kidnapped
             FlashlightFlickerController.Instance.FlickerOnce(OnJarFlicker);
         }
 
-        private void OnJarFlicker()
+        private async void OnJarFlicker()
         {
             // Destroy the interactor
             Destroy(jarInteractor);
 
             // Destroy the jar object
             Destroy(jar);
+
+
+           
 
             // Update index 
             jarIndex++;
@@ -127,12 +170,41 @@ namespace Kidnapped
             {
                 // Spawn the next jar
                 SpawnJar(jarIndex);
+
+                if (jarIndex % 2 == 0)
+                {
+                    puckIndex++;
+
+                    if (puckIndex == 2)
+                    {
+                        externalDoor.Open();
+                    }
+
+                    await Task.Delay(1000);
+
+                    // Spawn new killer
+                    SpawnKiller(puckIndex);
+
+                    if (puckIndex == 2)
+                    {
+                        await Task.Delay(1000);
+                        externalDoor.Close();
+                    }
+
+                }
+                    
+                
             }
             else
             {
                 // Completed
+                // Open the door
+                externalDoor.Open();
+                // Enable the exit trigger
+                exitTrigger.gameObject.SetActive(true);
 
             }
+
         }
 
         private async void HandleOnPuckGetInTrigger(PlayerWalkInTrigger trigger)
@@ -141,7 +213,21 @@ namespace Kidnapped
             trigger.gameObject.SetActive(false);
 
             // Instantiate puck
-            puck = Instantiate(puckPrefab, puckGetInTarget.position, puckGetInTarget.rotation);
+            SpawnKiller(puckIndex);
+            // Add some delay
+            await Task.Delay(1000);
+            // Slam the door
+            externalDoor.Close();
+
+        }
+
+        void SpawnKiller(int index)
+        {
+            Vector3 position = puckTargets[puckIndex].position;
+            Quaternion rotation = puckTargets[puckIndex].rotation;
+
+            // Instantiate puck
+            var puck = Instantiate(puckPrefab, position, rotation);
             // Set the evil material
             puck.GetComponent<EvilMaterialSetter>().SetEvil();
             // Get script controller
@@ -150,13 +236,13 @@ namespace Kidnapped
             ctrl.OnKillingPlayer += HandleOnKillingPlayer;
             // Set patrol points
             ctrl.SetPatrolPoints(patrolPoints);
-            // Force the first destination to reach
-            ctrl.ForceDestination(puckFirstDestination.position, false);
-            // Add some delay
-            await Task.Delay(500);
-            // Slam the door
-            externalDoor.Close();
-
+            // Force the destination to reach the first time we spawn a killer
+            if(puckIndex == 0)
+                ctrl.ForceDestination(puckFirstDestination.position, false);
+            else
+                ctrl.ForceDestination(PlayerController.Instance.transform.position, false);
+            // Add to the list
+            pucks.Add(puck);
         }
 
         void HandleOnKillingPlayer(ScaryBoyHunter killer)
@@ -211,11 +297,16 @@ namespace Kidnapped
             // Set state
             state = int.Parse(data);
 
+            // Default
+            // Disable the exit trigger
+            exitTrigger.gameObject.SetActive(false);
+
             // Set default values
             if(state == readyState)
             {
                 // Spawn the first jar    
                 SpawnJar(0);
+
             }
         }
 

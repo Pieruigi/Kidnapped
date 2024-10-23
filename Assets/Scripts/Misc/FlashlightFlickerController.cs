@@ -181,7 +181,7 @@ namespace Kidnapped
 
         }
 
-        public void FlickerAndWatch(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
+        public void FlickerAndWatch(UnityAction onLightOffBeforeCallback = null, UnityAction onLightOffAfterCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
         {
             if (flickering)
                 return;
@@ -199,12 +199,12 @@ namespace Kidnapped
                             //.Join(handLight.DOIntensity(0, FlickerDuration / 2))
                             //.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             //.Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
-                            .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
+                            .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffBeforeCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             .AppendInterval(onDuration)
-                            .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); })) // Di nuovo spegnimento
+                            .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffAfterCallback?.Invoke(); })) // Di nuovo spegnimento
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2)) // Di nuovo spegnimento
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); }))
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione veloce
@@ -232,6 +232,8 @@ namespace Kidnapped
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccendiamo velocemente
                           
         }
+
+       
 
         public void Play_BKP(UnityAction onLightOffCallback = null, UnityAction onLightOnCallback = null, UnityAction onCompleteCallback = null)
         {

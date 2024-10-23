@@ -210,11 +210,12 @@ namespace Kidnapped
                 }
                 else
                 {
-                    Debug.Log("AAAAAAAAAAAAAAAAAAAA");
                     // Set completed and save the game
                     state = completedState;
                     // Set the next gameplay controller
                     dormsGameplay.SetReady();
+                    // Disable the kitchen door activator containing the abandoned kitchen door ( it's easier to do it here )
+                    kitchenDoor.SetActive(false);
                     // Save game
                     SaveManager.Instance.SaveGame();
                 }

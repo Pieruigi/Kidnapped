@@ -399,7 +399,7 @@ namespace Kidnapped
 
             // Start the flickering
             await Task.Delay(400);
-            FlashlightFlickerController.Instance.FlickerAndWatch(HandleOnLightOff);
+            FlashlightFlickerController.Instance.FlickerAndWatch(HandleOnLightOffBefore, HandleOnLightOffAfter);
 
             // Some delay
             await Task.Delay(3);
@@ -411,20 +411,36 @@ namespace Kidnapped
 
         
 
-        private void HandleOnLightOff()
+        private void HandleOnLightOffBefore()
         {
-            if(lightOffCount == 0)
-            {
+            //if(lightOffCount == 0)
+            //{
                 girl.transform.position = girlTarget2.position;
                 girl.transform.rotation = girlTarget2.rotation;
                 girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
-            }
-            else if(lightOffCount == 1)
-            {
-                girl.SetActive(false);
-            }
+            //}
+            //else if(lightOffCount == 1)
+            //{
+            //    girl.SetActive(false);
+            //}
 
-            lightOffCount++;
+            //lightOffCount++;
+        }
+
+        private void HandleOnLightOffAfter()
+        {
+            //if (lightOffCount == 0)
+            //{
+            //    girl.transform.position = girlTarget2.position;
+            //    girl.transform.rotation = girlTarget2.rotation;
+            //    girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
+            //}
+            //else if (lightOffCount == 1)
+            //{
+                girl.SetActive(false);
+            //}
+
+            //lightOffCount++;
         }
 
         private void HandleOnSlamTriggerEnter(PlayerWalkInTrigger trigger)
