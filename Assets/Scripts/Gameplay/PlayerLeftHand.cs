@@ -21,6 +21,8 @@ namespace Kidnapped
 
         public void PlayIdleAnimation()
         {
+            if (!animator)
+                return;
             if (animator.GetBool(clueParamName))
                 animator.SetBool(clueParamName, false);
         }

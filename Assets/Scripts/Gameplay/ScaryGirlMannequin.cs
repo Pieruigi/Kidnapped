@@ -10,7 +10,7 @@ using UnityEngine.AI;
 
 namespace Kidnapped
 {
-    public class MannequinController : MonoBehaviour
+    public class ScaryGirlMannequin : MonoBehaviour
     {
         [System.Serializable]
         private class KillingPoseInfo
@@ -76,9 +76,12 @@ namespace Kidnapped
         string typeParam = "Type";
         string speedParam = "Speed";
         string killParam = "Kill";
+        string agonyParam = "Agony";
 
-        int walkAnimCount = 3;
+        int walkAnimCount = 2;
         int killAnimCount = 2;
+
+        bool logic = false;
 
         private void Awake()
         {
@@ -99,6 +102,8 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
+            if(!logic) return;
+
             if (PlayerController.Instance.IsDying)
             {
                 //agent.ResetPath();
@@ -141,16 +146,7 @@ namespace Kidnapped
             
         }
 
-        void SetRandomWalkAnimation()
-        {
-            int type = UnityEngine.Random.Range(0, walkAnimCount);
-            animator.SetInteger(typeParam, type);
-            if (type == 2) // Crawling
-            {
-                agent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
-            }
-            animator.SetTrigger(walkParam);
-        }
+       
 
         bool CheckForMovement()
         {
@@ -261,6 +257,34 @@ namespace Kidnapped
         {
             GameManager.Instance.FadeOutAndReloadAfterDeath();
         }
+
+        void SetRandomWalkAnimation()
+        {
+            int type = UnityEngine.Random.Range(0, walkAnimCount);
+            animator.SetInteger(typeParam, type);
+            if (type == 2) // Crawling
+            {
+                agent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+            }
+            animator.SetTrigger(walkParam);
+        }
+
+        public void Reset()
+        {
+            logic = true;
+            agent.enabled = true;
+            SetRandomWalkAnimation();
+        }
+
+
+        public void SetAgonyState()
+        {
+            logic = false;
+            agent.enabled = false;
+            animator.SetTrigger(agonyParam);
+
+        }
+
     }
 
 }

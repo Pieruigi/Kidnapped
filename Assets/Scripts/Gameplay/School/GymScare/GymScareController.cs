@@ -1,3 +1,4 @@
+using EvolveGames;
 using Kidnapped.SaveSystem;
 using System;
 using System.Collections;
@@ -53,22 +54,38 @@ namespace Kidnapped
         GameObject[] gyms;
 
         [SerializeField]
-        ScaryGroup[] scaryGroups;
+        GameObject[] scaryGroups;
+
+        [SerializeField]
+        GameObject scaryGroupBallPrefab;
+
+        [SerializeField]
+        GameObject lilithPrefab;
+
+        [SerializeField]
+        int lilithPool = 6;
 
         [SerializeField]
         InTheFog inTheFogController;
 
 
         int scaryIndex = 0;
+#if UNITY_EDITOR
         int state = 0;
-
+#else
+        int state = 0;
+#endif
         GameObject brokenMannequin;
+
+        List<GameObject> liliths = new List<GameObject>();
+        GameObject scaryGroupBall;
+
         
         private void Awake()
         {
             string data = SaveManager.GetCachedValue(code);
             if (string.IsNullOrEmpty(data))
-                data = "0";
+                data = state.ToString();
                 
             Init(data);
         }
@@ -82,7 +99,11 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                FlashlightFlickerController.Instance.    FlickerToDarkeness(HandleOnLightOffBall, HandleOnLightCompleteBall);
+                //FlickerAndWatch(onLightOffCallback: OnLightOff);
+            }
         }
 
         private void OnEnable()
@@ -148,8 +169,6 @@ namespace Kidnapped
             if (state > 0)
                 return;
 
-            state = 10;
-
             SetDoorBlock();
 
             ballTrigger.enabled = true;
@@ -163,7 +182,7 @@ namespace Kidnapped
         public async Task LaunchTheBall()
         {
             // Update state
-            state = 20;
+            state = 100;
 
             // Launch the ball against the wall
             ballTrigger.enabled = false;
@@ -186,15 +205,68 @@ namespace Kidnapped
             // Just wait for a while and then flicker the flashlight out and start the new section
             await Task.Delay(2500);
 
+     
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightComplete);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightCompleteBall);
 
 
             
         }
 
-        void HandleOnInteraction(ObjectInteractor interactor)
+        void HandleOnLightOffBall(float duration)
         {
+            // Switch to modern school
+            gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
+            gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
+
+            // Init scary index 
+            scaryIndex = 0;
+
+            // Spawn Lilith pool
+            SpawnLilithPool();
+
+            // Spawn ball
+            scaryGroupBall = Instantiate(scaryGroupBallPrefab);
+
+            // Activate the first scary group
+            ActivateScaryGroup(scaryIndex);
+        }
+
+        void SpawnLilithPool()
+        {
+            // Spawn liliths
+            for (int i = 0; i < lilithPool; i++)
+            {
+                var l = Instantiate(lilithPrefab);
+                l.SetActive(false);
+                l.GetComponent<EvilMaterialSetter>().SetEvil();
+                liliths.Add(l);
+            }
+        }
+
+        void HandleOnLightCompleteBall()
+        {
+            state = 100;
+
+            // Save state
+            SaveManager.Instance.SaveGame();
+        }
+
+        async void HandleOnInteraction(ObjectInteractor interactor)
+        {
+            // Stop liliths
+            foreach(var l in liliths)
+                l.GetComponent<ScaryGirlMannequin>().SetAgonyState();
+            
+            // Enable ball physics
+            Rigidbody rb = scaryGroupBall.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+            // Compute force direction
+            Vector3 hDir = Vector3.ProjectOnPlane(rb.position - PlayerController.Instance.transform.position, Vector3.up);
+            rb.AddForce(hDir.normalized * 4f + Vector3.up * 5.5f, ForceMode.VelocityChange);
+           
+            await Task.Delay(3000);
+
             //state = 40;
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
@@ -202,31 +274,85 @@ namespace Kidnapped
             Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightComplete);
         }
 
+        void ActivateScaryGroup(int index)
+        {
+            // Activate the next scary group
+            scaryGroups[index].SetActive(true);
+
+            // Register interaction callback
+            var interactor = scaryGroups[index].GetComponentInChildren<ObjectInteractor>();
+            interactor.OnInteraction += HandleOnInteraction;
+
+            // Disable the ball rigidbody
+            Rigidbody brb = scaryGroupBall.GetComponent<Rigidbody>();
+            brb.isKinematic = true;
+            brb.velocity = Vector3.zero;
+            brb.angularVelocity = Vector3.zero;
+
+            // Move the ball in the interactor
+            scaryGroupBall.transform.position = interactor.transform.position;
+
+            // Get the spawn point container
+            Transform spawnPoints = scaryGroups[index].transform.Find("SpawnPoints");
+
+            // Deactivate Lilith all
+            foreach (var l in liliths)
+                l.SetActive(false);
+            
+            // Activate needed liliths
+            for(int i=0; i<spawnPoints.childCount;i++)
+            {
+                // Set lilith position
+                liliths[i].transform.position = spawnPoints.GetChild(i).position;
+                liliths[i].transform.rotation = spawnPoints.GetChild(i).rotation;
+
+                // Activate lilith
+                //liliths[i].SetActive(true);
+
+                // Activate logic
+                liliths[i].GetComponent<ScaryGirlMannequin>().Reset();
+
+            }
+            
+        }
+
+        
+
         private void HandleOnLightOff(float duration)
         {
-            switch (state)
-            {
-                case 20:
-                    // Switch to modern school
-                    gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
-                    gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
 
-                    // Create first scary group
-                    scaryIndex = 0;
-                    scaryGroups[scaryIndex].Create();
-                    // Get the target and set the callback
-                    scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction += HandleOnInteraction;
-                    break;
-                case 30:
-                    // Switch to abandoned school
-                    gyms[0].GetComponent<SimpleActivator>().Init(true.ToString());
-                    gyms[1].GetComponent<SimpleActivator>().Init(false.ToString());
-                    // remove scary group
-                    scaryIndex = 0;
-                    scaryGroups[scaryIndex].Release();
-                    // Reset the door block
-                    ResetDoorBlock();
-                    break;
+            // Deactivate the current scary group
+            scaryGroups[scaryIndex].SetActive(false);
+
+            // Update the scary index
+            scaryIndex++;
+
+            // Any other group?
+            if(scaryIndex < scaryGroups.Length)
+            {
+                ActivateScaryGroup(scaryIndex);
+
+            }
+            else // Completed
+            {
+                // Unspawn liliths
+                foreach(var l in liliths)
+                    Destroy(l);
+                // Clear list
+                liliths.Clear();
+
+                // Remove the scary ball
+                Destroy(scaryGroupBall);
+
+                // Switch to abandoned school
+                gyms[0].GetComponent<SimpleActivator>().Init(true.ToString());
+                gyms[1].GetComponent<SimpleActivator>().Init(false.ToString());
+
+                // Update state 
+                state = 200;
+
+                // Reset blocks
+                ResetDoorBlock();
             }
 
             
@@ -236,34 +362,23 @@ namespace Kidnapped
 
         private void HandleOnLightComplete()
         {
-            switch(state) 
-            { 
-                case 20:
-                    // Set the new state
-                    state = 30;
+            if (scaryIndex < scaryGroups.Length)
+                return;
 
-                    // Save state
-                    SaveManager.Instance.SaveGame();
-                    break;
-                case 30:
-                    // Update state
-                    state = 40; // Complete
-                    // Set in the fog controller ready
-                    inTheFogController.SetReady();
-                    // Save
-                    SaveManager.Instance.SaveGame();
-                    break;
-            
-            }
-
+            // Update state
+            state = 200; // Complete
+                         // Set in the fog controller ready
+            inTheFogController.SetReady();
+            // Save
+            SaveManager.Instance.SaveGame();
            
         }
 
         void DisableScaryGroupAll()
         {
-            foreach(var group in scaryGroups)
+            foreach (var group in scaryGroups)
             {
-                group.Release();
+                group.SetActive(false);
             }
         }
 
@@ -291,23 +406,26 @@ namespace Kidnapped
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             rb.isKinematic = true;
             DisableScaryGroupAll();
+            
 
-            if (state == 30) // Step to save ( the cat freaking out )
+            if (state == 100) // Step to save ( the cat freaking out )
             {
-                //doorTrigger.enabled = false;
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
+                // Init scary index
                 scaryIndex = 0;
-                scaryGroups[scaryIndex].Create();
-                scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction += HandleOnInteraction;
+                // Spawn Lilith pool
+                SpawnLilithPool();
+                // Spawn ball
+                scaryGroupBall = Instantiate(scaryGroupBallPrefab);
+                // Activate the first scary group
+                ActivateScaryGroup(scaryIndex);
             }
             
-            if(state == 40) // Dummy target touched
+            if(state == 200) // Dummy target touched
             {
-                //doorTrigger.enabled = false;
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
-                //ResetDoorBlock();
             }
         }
         #endregion

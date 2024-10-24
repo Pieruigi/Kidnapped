@@ -58,7 +58,7 @@ namespace Kidnapped
 
         float GetLightIntensity()
         {
-            if (_light.enabled)
+            if (_light.enabled && _light.gameObject.activeInHierarchy)
                 return _light.intensity;
 
             return 0;

@@ -60,11 +60,11 @@ namespace Kidnapped
         void Update()
         {
 #if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.G)) 
-            {
-                FlickerToDarkeness();
-                //FlickerAndWatch(onLightOffCallback: OnLightOff);
-            }
+            //if(Input.GetKeyDown(KeyCode.G)) 
+            //{
+            //    FlickerToDarkeness();
+            //    //FlickerAndWatch(onLightOffCallback: OnLightOff);
+            //}
 
 #endif
             //CheckRandomFlicker();
