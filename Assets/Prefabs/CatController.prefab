@@ -3877,7 +3877,7 @@ GameObject:
   - component: {fileID: 8408461381060851322}
   - component: {fileID: 8035007682343718344}
   - component: {fileID: 269064431295186311}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CatController
   m_TagString: Cat
   m_Icon: {fileID: 0}

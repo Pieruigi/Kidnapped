@@ -17,6 +17,15 @@ namespace Kidnapped
     public class EnterTheSchoolController : MonoBehaviour, ISavable
     {
         [SerializeField]
+        GameObject lilithPrefab;
+
+        [SerializeField]
+        PlayerWalkInAndLookTrigger lilithFirstLookTrigger;
+
+        [SerializeField]
+        Transform lilithFirstLookTarget;
+        
+        [SerializeField]
         MMF_Player lockerPlayer;
 
         [SerializeField]
@@ -73,7 +82,7 @@ namespace Kidnapped
         float nextLockerMinTime = 2;
         float nextLockerMaxTime = 5;
         bool lockerIsPlaying = false;
-
+        GameObject lilithFirstLook;
 
 
         private void Awake()
@@ -142,6 +151,7 @@ namespace Kidnapped
             chipsInteractor.OnInteraction += HandleOnChipsInteraction;
             tableTrigger.OnEnter += HandleOnTableTriggerEnter;
             scaryEvilTrigger.OnEnter += HandleOnScaryTriggerEnter;
+            lilithFirstLookTrigger.OnEnter += HandleOnLilithFirstLookTriggerEnter;
         }
 
         private void OnDisable()
@@ -151,6 +161,25 @@ namespace Kidnapped
             chipsInteractor.OnInteraction -= HandleOnChipsInteraction;
             tableTrigger.OnEnter -= HandleOnTableTriggerEnter;
             scaryEvilTrigger.OnEnter -= HandleOnScaryTriggerEnter;
+            lilithFirstLookTrigger.OnEnter -= HandleOnLilithFirstLookTriggerEnter;
+        }
+
+        private async void HandleOnLilithFirstLookTriggerEnter()
+        {
+            // Deactivate the trigger
+            lilithFirstLookTrigger.gameObject.SetActive(false);
+
+            // Lilith starts walking
+            lilithFirstLook.GetComponentInChildren<Animator>().SetTrigger("Walk");
+
+            // Remove school main block
+            mainBlock.gameObject.SetActive(false);
+
+            // Add some delay
+            await Task.Delay(5000);
+
+            // Remove Lilith
+            Destroy(lilithFirstLook);
         }
 
         private async void HandleOnScaryTriggerEnter(PlayerWalkInTrigger trigger)
@@ -222,6 +251,21 @@ namespace Kidnapped
             kitchenLight.SetActive(true);
         }
 
+        void CreateLilithFirstLook()
+        {
+            // Instantiate
+            lilithFirstLook = Instantiate(lilithPrefab);
+
+            // Set position and rotation
+            lilithFirstLook.transform.position = lilithFirstLookTarget.position;
+            lilithFirstLook.transform.rotation = lilithFirstLookTarget.rotation;
+
+            // Set evil
+            lilithFirstLook.GetComponent<EvilMaterialSetter>().SetEvil();
+            
+        }
+
+
         #region save system
         [Header("SaveSystem")]
         [SerializeField]
@@ -239,12 +283,17 @@ namespace Kidnapped
         public void Init(string data)
         {
             Debug.Log("Init entrance:"+state);
+            // Default
             playLocker = true;
             nextLockerTime = UnityEngine.Random.Range(nextLockerMinTime, nextLockerMaxTime);
             brokenJar.SetActive(false);
             kitchenLight.SetActive(false);
+            // Create Lilith in the gym
+            CreateLilithFirstLook();
 
+            
             state = int.Parse(data);
+
 
             if(state == 20)
             {
@@ -256,6 +305,7 @@ namespace Kidnapped
                 corridorBlock.gameObject.SetActive(false);
                 tableObject.transform.position = tableTarget.transform.position;
                 tableObject.transform.rotation = tableTarget.transform.rotation;
+                lilithFirstLookTrigger.gameObject.SetActive(false);
             }
         }
         #endregion

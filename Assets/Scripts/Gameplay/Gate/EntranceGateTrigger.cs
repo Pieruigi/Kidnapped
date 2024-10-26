@@ -20,6 +20,9 @@ namespace Kidnapped
         MMF_Player[] lockedPlayers;
 
         [SerializeField]
+        Light lampLight;
+
+        [SerializeField]
         Transform leftDoor;
 
         [SerializeField]
@@ -61,9 +64,26 @@ namespace Kidnapped
         [SerializeField]
         GameObject catDeactivator;
 
+        [SerializeField]
+        PlayerWalkInTrigger catScreamingTrigger;
+
+        [SerializeField]
+        AudioSource leavesCrunchAudioSource;
+
+        [SerializeField]
+        AudioSource catScreamingAudioSource;
 
         [SerializeField]
         Teleport teleport;
+
+        [SerializeField]
+        GameObject trainBlock;
+
+        [SerializeField]
+        AudioSource rocksFallAudioSource;
+
+        [SerializeField]
+        AudioSource gateOpenAudioSource;
 
         bool isOpen = false;
         bool isInside = false;
@@ -71,7 +91,7 @@ namespace Kidnapped
         float leftEulerDefault, rightEulerDefault;
 
         float openAngle = 90;
-        float openTime = 3;
+        float openTime = 2;
         float closeTime = .25f;
 
         /// <summary>
@@ -130,6 +150,11 @@ namespace Kidnapped
                                         {
                                             state = 1;
                                             FreeLeftTunnel();
+                                            // Light lamp
+                                            LightLamp();
+                                            // Activate the cat screaming trigger
+                                            catScreamingTrigger.gameObject.SetActive(true);
+                                           
                                         }
                                     }
                                 }
@@ -165,28 +190,58 @@ namespace Kidnapped
         {
             teleport.OnLightOn += HandleOnLightOn;
             teleport.OnLightOff += HandleOnLightOff;
+            catScreamingTrigger.OnEnter += HandleOnCatScreamingTrigger;
         }
 
         private void OnDisable()
         {
             teleport.OnLightOn -= HandleOnLightOn;
             teleport.OnLightOff -= HandleOnLightOff;
+            catScreamingTrigger.OnEnter -= HandleOnCatScreamingTrigger;
+        }
+
+        private void HandleOnCatScreamingTrigger(PlayerWalkInTrigger arg0)
+        {
+            // Deactivate the trigger
+            catScreamingTrigger.gameObject.SetActive(false);
+
+            // Play crunch
+            leavesCrunchAudioSource.Play();
+
+            // Play cat delayed
+            catScreamingAudioSource.PlayDelayed(.5f);
+        }
+
+        void LightLamp()
+        {
+            //Utility.SwitchLightOn(lampLight, true);
         }
 
         private void HandleOnLightOff()
         {
+            if(state == 1)
+            {
+                // Play rocks audio
+                rocksFallAudioSource.Play();
+            }
+
         }
 
         private void HandleOnLightOn()
         {
             state = 2;
-            
+
+            // Disable lamp light
+            //Utility.SwitchLightOn(lampLight, false);
+
             // Block the right tunnel behind, so we can exit to come back to the car
             BlockRightTunnelBehind();
             // Black the left tunnel
             BlockLeftTunnel();
             // Wreckage the car
             DestroyCar();
+            // Remove train block
+            trainBlock.SetActive(false);
 
         }
 
@@ -250,13 +305,17 @@ namespace Kidnapped
         {
             if (isOpen)
                 return;
-          
+
             isOpen = true;
+            // Play audio
+            gateOpenAudioSource.Play();
+            // Rotate 
             Vector3 leftEndValue = leftDoor.eulerAngles + Vector3.up * openAngle;
             leftDoor.DORotate(leftEndValue, openTime, RotateMode.Fast);
             Vector3 rightEndValue = rightDoor.eulerAngles - Vector3.up * openAngle;
             rightDoor.DORotate(rightEndValue, openTime, RotateMode.Fast);
             _collider.enabled = false;
+
         }
 
         void DisableOthers(GameObject[] others)
@@ -343,6 +402,8 @@ namespace Kidnapped
             wreckage.SetActive(false);
             catActivator.SetActive(false);
             catDeactivator.SetActive(false);
+            Utility.SwitchLightOn(lampLight, false);
+            catScreamingTrigger.gameObject.SetActive(false);
 
             state = int.Parse(data);
             if(state == 3)
@@ -351,6 +412,7 @@ namespace Kidnapped
                 BlockLeftTunnel();
                 car.SetActive(false);
                 wreckage.SetActive(true);
+                trainBlock.SetActive(false);
             }
         }
         #endregion

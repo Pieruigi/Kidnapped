@@ -307,7 +307,7 @@ namespace Kidnapped
                 liliths[i].transform.rotation = spawnPoints.GetChild(i).rotation;
 
                 // Activate lilith
-                //liliths[i].SetActive(true);
+                liliths[i].SetActive(true);
 
                 // Activate logic
                 liliths[i].GetComponent<ScaryGirlMannequin>().Reset();
@@ -362,16 +362,13 @@ namespace Kidnapped
 
         private void HandleOnLightComplete()
         {
-            if (scaryIndex < scaryGroups.Length)
-                return;
-
-            // Update state
-            state = 200; // Complete
-                         // Set in the fog controller ready
-            inTheFogController.SetReady();
-            // Save
-            SaveManager.Instance.SaveGame();
-           
+            if(state == 200)
+            {
+                // Set in the fog controller ready
+                inTheFogController.SetReady();
+                // Save
+                SaveManager.Instance.SaveGame();
+            }
         }
 
         void DisableScaryGroupAll()
