@@ -35,7 +35,10 @@ namespace Kidnapped
         PlayerWalkInTrigger lockerWalkInTrigger;
 
         [SerializeField]
-        ObjectInteractor chipsInteractor;
+        PlayerWalkInAndLookTrigger lockerLookTrigger;
+
+        [SerializeField]
+        GameObject lockerJar;
 
         [SerializeField]
         SimpleActivator kitchenFree;
@@ -55,12 +58,7 @@ namespace Kidnapped
         [SerializeField]
         Transform tableTarget;
 
-        [SerializeField]
-        GameObject jar;
-
-        [SerializeField]
-        GameObject brokenJar;
-
+        
         [SerializeField]
         GameObject kitchenLight;
 
@@ -75,6 +73,12 @@ namespace Kidnapped
 
         [SerializeField]
         SimpleActivator scaryEvil;
+
+        [SerializeField]
+        AudioSource openingKitchenAudioSource;
+
+        [SerializeField]
+        AudioSource draggingTableAudioSource;
 
         int state = 0;
 
@@ -156,29 +160,34 @@ namespace Kidnapped
         {
             lockerWalkInTrigger.OnEnter += HandleOnLockerTriggerEnter;
             lockerWalkInTrigger.OnExit += HandleOnLockerTriggerExit;
-            chipsInteractor.OnInteraction += HandleOnChipsInteraction;
             tableTrigger.OnEnter += HandleOnTableTriggerEnter;
             scaryEvilTrigger.OnEnter += HandleOnScaryTriggerEnter;
             lilithFirstLookTrigger.OnEnter += HandleOnLilithFirstLookTriggerEnter;
+            lockerLookTrigger.OnEnter += HandleOnLockerLookTrigger;
         }
 
         private void OnDisable()
         {
             lockerWalkInTrigger.OnEnter -= HandleOnLockerTriggerEnter;
             lockerWalkInTrigger.OnExit += HandleOnLockerTriggerExit;
-            chipsInteractor.OnInteraction -= HandleOnChipsInteraction;
             tableTrigger.OnEnter -= HandleOnTableTriggerEnter;
             scaryEvilTrigger.OnEnter -= HandleOnScaryTriggerEnter;
             lilithFirstLookTrigger.OnEnter -= HandleOnLilithFirstLookTriggerEnter;
+            lockerLookTrigger.OnEnter -= HandleOnLockerLookTrigger;
         }
+
+       
 
         private async void HandleOnLilithFirstLookTriggerEnter()
         {
-            // Play stinger
-            AudioManager.Instance.PlayStinger(1);
-
+           
             // Deactivate the trigger
             lilithFirstLookTrigger.gameObject.SetActive(false);
+
+            await Task.Delay(1000);
+
+            // Play stinger
+            AudioManager.Instance.PlayStinger(0);
 
             // Lilith starts walking
             lilithFirstLook.GetComponentInChildren<Animator>().SetTrigger("Run");
@@ -198,14 +207,14 @@ namespace Kidnapped
             state = 20;
             
             scaryEvilTrigger.gameObject.SetActive(false);
-            scaryEvil.GetComponent<EvilMaterialSetter>().SetNormal();
+            //scaryEvil.GetComponent<EvilMaterialSetter>().SetNormal();
             scaryEvil.transform.position = scaryEvilTarget.transform.position;
             scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
             scaryEvil.Init(true.ToString());
-            scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Run");
+            scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Walk");
 
             // Play stinger 
-            AudioManager.Instance.PlayStinger(2, 0.5f);
+            AudioManager.Instance.PlayStinger(1, 0.5f);
 
             await Task.Delay(3000);
             scaryEvil.Init(false.ToString());
@@ -217,10 +226,12 @@ namespace Kidnapped
         private async void HandleOnTableTriggerEnter(PlayerWalkInTrigger trigger)
         {
             
-            float time = 0.15f;
+            float time = 0.9f;
             tableObject.transform.DOMove(tableTarget.position, time);
             tableObject.transform.DORotate(tableTarget.eulerAngles, time);
             tableTrigger.gameObject.SetActive(false);
+            // Play audio
+            draggingTableAudioSource.Play();
 
             await Task.Delay(1000);
             SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "check_the_rules"));
@@ -243,9 +254,11 @@ namespace Kidnapped
             
         }
 
-        void HandleOnChipsInteraction(ObjectInteractor interactor)
+        private void HandleOnLockerLookTrigger()
         {
-            //Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerAndWatch(OnFlickerLightOff);
+            // Disable trigger
+            lockerLookTrigger.gameObject.SetActive(false);
+            // Flicker
             Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerOnce(OnFlickerLightOff);
         }
 
@@ -255,14 +268,14 @@ namespace Kidnapped
                 return;
 
             state = 10;
+            playLocker = true;
             lockerWalkInTrigger.gameObject.SetActive(false);
-            chipsInteractor.gameObject.SetActive(false);
             kitchenBlock.Init(false.ToString());
             kitchenFree.Init(true.ToString());
             mainBlock.Init(true.ToString());
-            jar.SetActive(false);
-            brokenJar.SetActive(true);
+            lockerJar.SetActive(false);
             kitchenLight.SetActive(true);
+            openingKitchenAudioSource.Play();
         }
 
         void CreateLilithFirstLook()
@@ -302,7 +315,6 @@ namespace Kidnapped
             // Default
             playLocker = true;
             nextLockerTime = UnityEngine.Random.Range(nextLockerMinTime, nextLockerMaxTime);
-            brokenJar.SetActive(false);
             kitchenLight.SetActive(false);
             // Create Lilith in the gym
             CreateLilithFirstLook();
@@ -316,12 +328,12 @@ namespace Kidnapped
                 lockerWalkInTrigger.gameObject.SetActive(false);
                 tableTrigger.gameObject.SetActive(false);
                 scaryEvilTrigger.gameObject.SetActive(false);
-                jar.gameObject.SetActive(false);
-                brokenJar.gameObject.SetActive(true);
                 corridorBlock.gameObject.SetActive(false);
                 tableObject.transform.position = tableTarget.transform.position;
                 tableObject.transform.rotation = tableTarget.transform.rotation;
                 lilithFirstLookTrigger.gameObject.SetActive(false);
+                lockerJar.SetActive(false);
+                lockerLookTrigger.gameObject.SetActive(false);
             }
         }
         #endregion

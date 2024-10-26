@@ -99,6 +99,9 @@ namespace Kidnapped.SaveSystem
             
             foreach (var savable in savables)
             {
+                if (savable == null)
+                    continue;
+                
                 // Get the interface
                 ISavable s = savable.GetComponent<ISavable>();
                 // Get the key

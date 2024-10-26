@@ -130,16 +130,19 @@ namespace Kidnapped
                     if (!isOpen)
                     {
 
-                        // You can try to open it, but its closed
-                        if (Input.GetKeyDown(KeyBindings.InteractionKey))
+                        RaycastHit hit;
+                        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, GameplaySettings.InteractionDistance))
                         {
-
-                            RaycastHit hit;
-                            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, GameplaySettings.InteractionDistance))
+                            if (hit.collider == _collider)
                             {
-                                if (hit.collider == _collider)
+                                Debug.Log("The gate is closed");
+                                // Left hand
+                                PlayerLeftHand.Instance.PlayClueAnimation();
+
+                                // You can try to open it, but its closed
+                                if (Input.GetKeyDown(KeyBindings.InteractionKey))
                                 {
-                                    Debug.Log("The gate is closed");
+                                    PlayerLeftHand.Instance.PlayTouchAnimation();
                                     // Call feel
                                     foreach (var player in lockedPlayers)
                                     {
@@ -154,14 +157,24 @@ namespace Kidnapped
                                             LightLamp();
                                             // Activate the cat screaming trigger
                                             catScreamingTrigger.gameObject.SetActive(true);
-                                           
+
                                         }
                                     }
+
                                 }
 
+                               
                             }
-
+                            else
+                            {
+                                PlayerLeftHand.Instance.PlayIdleAnimation();
+                            }
                         }
+                        else
+                        {
+                            PlayerLeftHand.Instance.PlayIdleAnimation();
+                        }
+
 
 
                     }
@@ -209,7 +222,7 @@ namespace Kidnapped
             leavesCrunchAudioSource.Play();
 
             // Play cat delayed
-            catScreamingAudioSource.PlayDelayed(.5f);
+            catScreamingAudioSource.PlayDelayed(.25f);
         }
 
         void LightLamp()
@@ -294,6 +307,9 @@ namespace Kidnapped
             Vector3 rightEndValue = rightDoor.eulerAngles + Vector3.up * openAngle;
             rightDoor.DORotate(rightEndValue, closeTime, RotateMode.Fast);
             closeAudioSource.Play();
+
+            // Cat screaming
+            CatController.Instance.Scream();
 
             // Block tunnels again
             BlockLeftTunnel();

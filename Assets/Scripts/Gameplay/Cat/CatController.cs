@@ -16,6 +16,9 @@ namespace Kidnapped
         [SerializeField]
         CatScaredAndRunWay scaredAndRunAway;
 
+        [SerializeField]
+        AudioSource screamAudioSource;
+
         int state = 0;
 
         protected override void Awake()
@@ -70,6 +73,14 @@ namespace Kidnapped
             transform.rotation = rotation;
 
             ScaredAndRunAway(destination, jumpDisabled);
+        }
+
+        public void Scream(float delay = 0)
+        {
+            if(delay > 0)
+                screamAudioSource.PlayDelayed(delay);
+            else
+                screamAudioSource.Play();
         }
 
         #region save system

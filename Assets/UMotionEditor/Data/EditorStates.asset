@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneralStates:
     LoadedProjectGUID:
-      valueInternal: 50cf02ce84a54644999f72ecadd9ec37
+      valueInternal: 
     RecentlyOpenedProjectPath:
       valueInternal: Assets\Animations\UMotion\Ventriloquist
     RecentlyOpenedProjectGUIDsList:
