@@ -22,6 +22,8 @@ namespace Kidnapped
         {
             base.Awake();
             string data = SaveManager.GetCachedValue(code);
+            if (string.IsNullOrEmpty(data))
+                data = 0.ToString();
             Init(data);
         }
 

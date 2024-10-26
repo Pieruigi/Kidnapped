@@ -29,6 +29,9 @@ namespace Kidnapped
         MMF_Player lockerPlayer;
 
         [SerializeField]
+        AudioSource lockerAudioSource;
+
+        [SerializeField]
         PlayerWalkInTrigger lockerWalkInTrigger;
 
         [SerializeField]
@@ -128,7 +131,12 @@ namespace Kidnapped
                     {
                         nextLockerTime -= Time.deltaTime;
                         if (nextLockerTime < 0)
+                        {
                             lockerPlayer.PlayFeedbacks();
+                            // Play audio
+                            lockerAudioSource.PlayDelayed(0.25f);
+                        }
+                            
                     }
                     
 
@@ -166,11 +174,14 @@ namespace Kidnapped
 
         private async void HandleOnLilithFirstLookTriggerEnter()
         {
+            // Play stinger
+            AudioManager.Instance.PlayStinger(1);
+
             // Deactivate the trigger
             lilithFirstLookTrigger.gameObject.SetActive(false);
 
             // Lilith starts walking
-            lilithFirstLook.GetComponentInChildren<Animator>().SetTrigger("Walk");
+            lilithFirstLook.GetComponentInChildren<Animator>().SetTrigger("Run");
 
             // Remove school main block
             mainBlock.gameObject.SetActive(false);
@@ -191,7 +202,10 @@ namespace Kidnapped
             scaryEvil.transform.position = scaryEvilTarget.transform.position;
             scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
             scaryEvil.Init(true.ToString());
-            scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Walk");
+            scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Run");
+
+            // Play stinger 
+            AudioManager.Instance.PlayStinger(2, 0.5f);
 
             await Task.Delay(3000);
             scaryEvil.Init(false.ToString());
@@ -262,7 +276,9 @@ namespace Kidnapped
 
             // Set evil
             lilithFirstLook.GetComponent<EvilMaterialSetter>().SetEvil();
-            
+
+            // Activate
+            lilithFirstLook.SetActive(true);
         }
 
 

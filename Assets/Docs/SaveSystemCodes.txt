@@ -4,7 +4,7 @@ fadeIn: fade_id		(bool:playOnStart)
 fadeout: fade_out	(bool:playOnStart)
 cat:cat (int:state[deactivated=0|stand=1|help=2], vector3:position, quaternion:rotation ) 
 moonController: moon_controller (float:strength)
-
+audio manager: audio_manager
 
 // {Id}: the object id
 cutScenes: cut_{Id}  (bool:playOnStart)
@@ -54,6 +54,7 @@ first floor door1: floor1_door1
 spoiatoio floor door1: floor1_door2
 porta piano 1: floor1_door3
 dorms_doors: dorms_ext_door1, dorms_ext_door2, dorms_ext_door3, dorms_ext_door4, dorms_f1_door1, dorms_f1_door2, dorms_f1_door3
+original kitchen external door: okitch_ext_door
 
 
 /// Blocks ( bool:active )

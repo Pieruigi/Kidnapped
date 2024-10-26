@@ -25,7 +25,14 @@ namespace Kidnapped.SaveSystem
             savables = new List<GameObject>();
             foreach (var l in list)
                 savables.Add(l.gameObject);
-            
+
+#if UNITY_EDITOR
+            foreach (var l in list)
+            {
+                if (string.IsNullOrEmpty(l.GetComponent<ISavable>().GetCode()))
+                    Debug.LogError($"[SaveManager - ISavable with no code found: {l.name}");
+            }
+#endif
         }
 
         private void Update()
