@@ -99,11 +99,7 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                FlashlightFlickerController.Instance.    FlickerToDarkeness(HandleOnLightOffBall, HandleOnLightCompleteBall);
-                //FlickerAndWatch(onLightOffCallback: OnLightOff);
-            }
+
         }
 
         private void OnEnable()

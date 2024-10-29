@@ -234,9 +234,11 @@ namespace Kidnapped
             draggingTableAudioSource.Play();
 
             await Task.Delay(1000);
-            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "check_the_rules"));
+            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "check_the_rules"));
+            VoiceManager.Instance.Talk(Speaker.Lilith, 0);
             await Task.Delay(3000);
-            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "mmmph"));
+            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "mmmph"));
+            VoiceManager.Instance.Talk(Speaker.Puck, 0);
             await Task.Delay(1000);
             kitchenLight.SetActive(false);
             SubtitleUI.Instance.Hide();

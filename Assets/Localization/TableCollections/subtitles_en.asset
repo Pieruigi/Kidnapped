@@ -25,8 +25,7 @@ MonoBehaviour:
       m_Items:
       - rid: 4135661488566173721
   - m_Id: 4478964482150400
-    m_Localized: <color=red>Don't event think it, it's my turn to play! Check the
-      rules.</color>
+    m_Localized: <color=red>Don't you dare. It's my turn.</color>
     m_Metadata:
       m_Items: []
   - m_Id: 4479365705076736
@@ -43,6 +42,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 9961625958977536
     m_Localized: <color=blue>Not so fast, you need to find the menu first!!!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17979993544499200
+    m_Localized: No, this can't be happening!
     m_Metadata:
       m_Items: []
   references:

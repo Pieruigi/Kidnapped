@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: kitchen_pass_needed
     m_Metadata:
       m_Items: []
+  - m_Id: 17979993544499200
+    m_Key: Sarah_impossible
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

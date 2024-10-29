@@ -85,6 +85,9 @@ namespace Kidnapped
         [SerializeField]
         AudioSource gateOpenAudioSource;
 
+        [SerializeField]
+        PlayerWalkInTrigger voiceTrigger;
+
         bool isOpen = false;
         bool isInside = false;
 
@@ -204,6 +207,7 @@ namespace Kidnapped
             teleport.OnLightOn += HandleOnLightOn;
             teleport.OnLightOff += HandleOnLightOff;
             catScreamingTrigger.OnEnter += HandleOnCatScreamingTrigger;
+            voiceTrigger.OnEnter += HandleOnVoiceTrigger;
         }
 
         private void OnDisable()
@@ -211,6 +215,12 @@ namespace Kidnapped
             teleport.OnLightOn -= HandleOnLightOn;
             teleport.OnLightOff -= HandleOnLightOff;
             catScreamingTrigger.OnEnter -= HandleOnCatScreamingTrigger;
+            voiceTrigger.OnEnter -= HandleOnVoiceTrigger;
+        }
+
+        private void HandleOnVoiceTrigger(PlayerWalkInTrigger arg0)
+        {
+            VoiceManager.Instance.Talk(Speaker.Sarah, 1);
         }
 
         private void HandleOnCatScreamingTrigger(PlayerWalkInTrigger arg0)
@@ -255,6 +265,9 @@ namespace Kidnapped
             DestroyCar();
             // Remove train block
             trainBlock.SetActive(false);
+            // Activate the voice trigger
+            voiceTrigger.gameObject.SetActive(true);
+
 
         }
 
@@ -420,6 +433,7 @@ namespace Kidnapped
             catDeactivator.SetActive(false);
             Utility.SwitchLightOn(lampLight, false);
             catScreamingTrigger.gameObject.SetActive(false);
+            voiceTrigger.gameObject.SetActive(false);
 
             state = int.Parse(data);
             if(state == 3)

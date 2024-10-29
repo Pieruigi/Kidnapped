@@ -60,11 +60,11 @@ namespace Kidnapped
         void Update()
         {
 #if UNITY_EDITOR
-            //if(Input.GetKeyDown(KeyCode.G)) 
-            //{
-            //    FlickerToDarkeness();
-            //    //FlickerAndWatch(onLightOffCallback: OnLightOff);
-            //}
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                FlickerToDarkeness();
+                //FlickerAndWatch(onLightOffCallback: OnLightOff);
+            }
 
 #endif
             //CheckRandomFlicker();
@@ -138,6 +138,59 @@ namespace Kidnapped
         }
 
 
+
+        public void __FlickerToDarkeness(UnityAction<float> onLightOffCallback = null, /*UnityAction onLightOnCallback = null, */UnityAction onCompleteCallback = null)
+        {
+            if (flickering)
+                return;
+
+            flickering = true;
+
+            ResetRandomFlicker();
+
+            //float flickerDuration = 0.1f;
+            //float offDuration = .2f;
+            Sequence flickerSequence = DOTween.Sequence();
+
+            var glitch1 = transform.parent.parent.GetComponentInChildren<CameraFilterPack_FX_Glitch1>();
+            var glitch3 = transform.parent.parent.GetComponentInChildren<CameraFilterPack_FX_Glitch3>();
+
+            flickerSequence.Append(DOTween.To(() => glitch1.Glitch, x => glitch1.Glitch = x, 1, 0.5f));
+            flickerSequence.Join(DOTween.To(() => glitch3._Glitch, x => glitch3._Glitch = x, 1, 0.5f));
+            flickerSequence.AppendInterval(0.25f);
+            flickerSequence.Append(DOTween.To(() => glitch1.Glitch, x => glitch1.Glitch = x, 0, 0.5f));
+            flickerSequence.Join(DOTween.To(() => glitch3._Glitch, x => glitch3._Glitch = x, 0, 0.5f));
+
+            flickerSequence.OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); });
+
+            //// Primo flicker veloce prima dello spegnimento
+            //flickerSequence.Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2))
+            //               .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+            //               .Append(_light.DOIntensity(defaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
+            //               .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione veloce
+
+
+            //// Spegniamo la torcia per 0.2 o 0.3 secondi
+            //flickerSequence.Append(_light.DOIntensity(0, 0.01f).OnComplete(() => { onLightOffCallback?.Invoke(OffDuration); })) // Spegni subito la torcia
+            //               .Join(handLight.DOIntensity(0, 0.01f))
+            //               .AppendInterval(OffDuration); // Rimane spenta per offDuration
+
+            //// Un altro flicker veloce per la riaccensione
+            //flickerSequence.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)/*.OnStart(() => { onLightOnCallback?.Invoke(); })*/)  // Riaccendi con flicker
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
+            //               .Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
+            //               .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccensione finale
+            //               .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione finale          
+
+            //flickerSequence.OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); });
+
+
+        }
 
         public void FlickerToDarkeness(UnityAction<float> onLightOffCallback = null, /*UnityAction onLightOnCallback = null, */UnityAction onCompleteCallback = null)
         {
