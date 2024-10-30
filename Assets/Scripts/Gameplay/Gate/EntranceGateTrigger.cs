@@ -220,7 +220,7 @@ namespace Kidnapped
 
         private void HandleOnVoiceTrigger(PlayerWalkInTrigger arg0)
         {
-            VoiceManager.Instance.Talk(Speaker.Sarah, 1);
+            //VoiceManager.Instance.Talk(Speaker.Sarah, 1);
         }
 
         private void HandleOnCatScreamingTrigger(PlayerWalkInTrigger arg0)

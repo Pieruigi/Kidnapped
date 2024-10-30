@@ -55,6 +55,9 @@ namespace Kidnapped
         [SerializeField]
         GymIsLockedController gymIsLockedController;
 
+        [SerializeField]
+        AudioSource blockAudioSource;
+
         int state = 0;
 
         int finalState = 100;
@@ -167,15 +170,22 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBlockTrigger(PlayerWalkInTrigger trigger)
+        private async void HandleOnBlockTrigger(PlayerWalkInTrigger trigger)
         {
             // Deactivate the trigger
             blockTrigger.gameObject.SetActive(false);
+
+            // Play sound
+            blockAudioSource.Play();
+
+            // Add some delay 
+            await Task.Delay(200);
 
             // Move the furniture to block the path
             float time = .5f;
             roomBlock.transform.DOMove(blockTransform.position, time);
             roomBlock.transform.DORotate(blockTransform.eulerAngles, time);
+            
             // Activate the board trigger
             bellsTrigger.gameObject.SetActive(true);
         }
