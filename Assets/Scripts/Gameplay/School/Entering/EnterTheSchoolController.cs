@@ -318,8 +318,7 @@ namespace Kidnapped
             playLocker = true;
             nextLockerTime = UnityEngine.Random.Range(nextLockerMinTime, nextLockerMaxTime);
             kitchenLight.SetActive(false);
-            // Create Lilith in the gym
-            CreateLilithFirstLook();
+            
 
             
             state = int.Parse(data);
@@ -336,6 +335,11 @@ namespace Kidnapped
                 lilithFirstLookTrigger.gameObject.SetActive(false);
                 lockerJar.SetActive(false);
                 lockerLookTrigger.gameObject.SetActive(false);
+            }
+            else if(state == 0)
+            {
+                // Create Lilith in the gym
+                CreateLilithFirstLook();
             }
         }
         #endregion

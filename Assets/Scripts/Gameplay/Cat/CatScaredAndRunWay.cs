@@ -1,3 +1,4 @@
+using Kidnapped;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,9 @@ public class CatScaredAndRunWay : MonoBehaviour
 
     private void OnEnable()
     {
-        //rb.isKinematic = false;
+        // Play sound
+        CatController.Instance.Scream();
+
         // Play scared animation
         if(!JumpDisabled)
         {

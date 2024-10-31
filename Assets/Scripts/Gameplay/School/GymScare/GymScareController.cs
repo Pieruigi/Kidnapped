@@ -203,7 +203,7 @@ namespace Kidnapped
 
      
             // Flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnLightCompleteBall);
+            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOffBall, HandleOnLightCompleteBall);
 
 
             

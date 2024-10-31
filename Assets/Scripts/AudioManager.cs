@@ -18,6 +18,8 @@ namespace Kidnapped
         List<AudioSource> ambients;
 
         
+        [SerializeField]
+        List<AudioSource> flashlightFlickers;
 
         int currentAmbience = -1;
         //int currentMusic = -1;
@@ -46,6 +48,10 @@ namespace Kidnapped
             ambients[index].Play();
         }
 
+        public void PlayFlashlightFlicker(int index)
+        {
+            flashlightFlickers[index].Play();    
+        }
 
         #region save system
         [Header("SaveSystem")]

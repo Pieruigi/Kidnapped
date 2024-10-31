@@ -69,7 +69,7 @@ namespace Kidnapped
             Debug.Log($"Activating ball, target:{target}");
             isActive = true;
             rb.isKinematic = true;
-            transform.position = target.position + Vector3.up * 1.3f;
+            transform.position = target.position;
             rb.isKinematic = false;
             //rb.position = target.position + Vector3.up * 1.3f ;
             rb.velocity = Vector3.zero;

@@ -19,6 +19,12 @@ namespace Kidnapped
         [SerializeField]
         AudioSource screamAudioSource;
 
+        [SerializeField]
+        AudioSource meowAudioSource;
+
+        [SerializeField]
+        List<AudioClip> meowAudioClips;
+
         int state = 0;
 
         protected override void Awake()
@@ -72,6 +78,8 @@ namespace Kidnapped
             transform.position = position;
             transform.rotation = rotation;
 
+
+
             ScaredAndRunAway(destination, jumpDisabled);
         }
 
@@ -81,6 +89,12 @@ namespace Kidnapped
                 screamAudioSource.PlayDelayed(delay);
             else
                 screamAudioSource.Play();
+        }
+
+        public void Meow()
+        {
+            meowAudioSource.clip = meowAudioClips[Random.Range(0, meowAudioClips.Count)];
+            meowAudioSource.Play();
         }
 
         #region save system
