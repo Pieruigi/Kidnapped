@@ -110,6 +110,11 @@ namespace Kidnapped
             // Deactivate trigger
             ballTrigger.gameObject.SetActive(false);
 
+            // Play sound
+            blockAudioSource.Play();
+
+            await Task.Delay(200);
+
             // Remove entrance block
             float time = .5f;
             roomBlock.transform.DOMove(blockFreeTransform.position, time);
@@ -133,8 +138,8 @@ namespace Kidnapped
             await Task.Delay(3000);
 
             // Let the girl say something
-            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_stupid"), true);
-
+            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_stupid"), true);
+            VoiceManager.Instance.Talk(Speaker.Lilith, 2);
         }
 
         private async void HandleOnPuzzleSolved()
@@ -148,8 +153,8 @@ namespace Kidnapped
             await Task.Delay(3000);
 
             // Let the girl say something
-            SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_smart"), true);
-
+            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_smart"), true);
+            VoiceManager.Instance.Talk(Speaker.Lilith, 1);
 
         }
 

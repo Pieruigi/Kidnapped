@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5217959101042688
-    m_Localized: <color=red>Veramente? E' troppo difficile per te?</color>
+    m_Localized: <color=red>E' un po' troppo per te?</color>
     m_Metadata:
       m_Items: []
   - m_Id: 5218602998009856
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9961625958977536
-    m_Localized: "<color=blue>Non cos\xEC in fretta, devi trovare il menu prima</color>"
+    m_Localized: "<color=blue>Non cos\xEC in fretta.</color>"
     m_Metadata:
       m_Items: []
   - m_Id: 17979993544499200

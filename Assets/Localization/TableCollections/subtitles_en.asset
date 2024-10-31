@@ -33,15 +33,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5217959101042688
-    m_Localized: <color=red>Really! Is this puzzle to much for you?</color>
+    m_Localized: <color=red>A bit too much for you?</color>
     m_Metadata:
       m_Items: []
   - m_Id: 5218602998009856
-    m_Localized: <color=red>Ah! You are so smart!</color>
+    m_Localized: <color=red>You are so smart!</color>
     m_Metadata:
       m_Items: []
   - m_Id: 9961625958977536
-    m_Localized: <color=blue>Not so fast, you need to find the menu first!!!</color>
+    m_Localized: <color=blue>Not so fast.</color>
     m_Metadata:
       m_Items: []
   - m_Id: 17979993544499200

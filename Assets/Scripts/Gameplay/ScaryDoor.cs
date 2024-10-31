@@ -30,6 +30,9 @@ namespace Kidnapped
         AudioSource lockedAudioSource;
 
         [SerializeField]
+        AudioSource openAudioSource;
+
+        [SerializeField]
         Collider _collider;
 
         [SerializeField]
@@ -109,25 +112,7 @@ namespace Kidnapped
             }
 
 
-            //if (Input.GetKeyDown(KeyBindings.InteractionKey))
-            //{
-            //    RaycastHit hit;
-            //    Debug.Log("Raycast");
-            //    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
-            //    {
-            //        Debug.Log($"Hit:{hit.collider}");
-            //        if (hit.collider == _collider)
-            //        {
-            //            lockedFx.PlayFeedbacks();
-            //            if(lockedAudioSource)
-            //                lockedAudioSource.Play();
-            //            OnLocked?.Invoke(this);
-            //        }
-            //    }
-            //}
-
-
-            
+          
         }
 
         private void OnTriggerEnter(Collider other)
@@ -155,7 +140,8 @@ namespace Kidnapped
             if(!closed) return;
             closed = false;
             openFx.PlayFeedbacks();
-            
+            if(openAudioSource)
+                openAudioSource.Play();
         }
 
         public void Close()

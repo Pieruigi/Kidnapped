@@ -2,6 +2,7 @@ using Kidnapped.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization.Settings;
@@ -9,7 +10,7 @@ using UnityEngine.Localization.Settings;
 namespace Kidnapped
 {
     
-    public enum Speaker { Sarah, Lilith, Puck }
+    public enum Speaker { Lilith, Puck }
 
     public class VoiceManager : Singleton<VoiceManager>
     {
@@ -88,17 +89,18 @@ namespace Kidnapped
         }
 
         
-        public void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null)
+        public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null)
         {
             ClipData clipData = clipCollections.Find(c => c.speaker == speaker).clips[index];
             AudioClip clip = clipData.clip;
             AudioSource source = sources[(int)speaker];
 
-            callbacks[speaker] = (false, OnCompleteCallback);
+            callbacks[speaker] = (true, OnCompleteCallback);
 
             source.clip = clip;
             source.Play();
 
+            await Task.Delay(800);
             // Call subtitle manager
             SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(clipData.subtitleTableName, clipData.subtitleTextKey));
         }

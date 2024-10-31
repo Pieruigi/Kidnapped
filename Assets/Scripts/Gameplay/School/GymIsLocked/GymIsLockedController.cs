@@ -15,6 +15,7 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInTrigger ballTrigger;
 
+     
         [SerializeField]
         GameObject ball;
 
@@ -360,6 +361,9 @@ namespace Kidnapped
             // Set animation
             girl.GetComponentInChildren<Animator>().SetTrigger("RunScary");
 
+            // Play stinger
+            AudioManager.Instance.PlayStinger(1);
+
             // Add some delay
             await Task.Delay(1200);
 
@@ -396,6 +400,9 @@ namespace Kidnapped
             girl.GetComponent<EvilMaterialSetter>().SetNormal();
             //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
             girl.transform.DOMoveY(0.140f, 0.05f, false);
+
+            // Play stinger
+            AudioManager.Instance.PlayStinger(1);
 
             // Start the flickering
             await Task.Delay(400);
@@ -457,7 +464,7 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
+        private async void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             ballTrigger.gameObject.SetActive(false);
@@ -468,6 +475,15 @@ namespace Kidnapped
             Vector3 dir = ballTarget.position - rb.position;
             rb.AddForce(dir.normalized * 10, ForceMode.VelocityChange);
 
+            // Play audio
+            var source = rb.GetComponentInChildren<AudioSource>();
+            source.Play();
+
+            await Task.Delay(500);
+            source.Play();
+
+            await Task.Delay(200);
+            source.Play();
         }
 
         public void SetWorkingState()
