@@ -194,10 +194,14 @@ namespace Kidnapped
             // Activate the cat deactivation trigger
             catDeactivator.SetActive(true);
 
+            // Play ball sound
+            PlayBallBounceAudio();
+
             await Task.Delay(500);
 
             CatController.Instance.ScaredAndRunAway(catDestination.position);
 
+           
             // Just wait for a while and then flicker the flashlight out and start the new section
             await Task.Delay(2500);
 
@@ -209,8 +213,20 @@ namespace Kidnapped
             
         }
 
+        async void PlayBallBounceAudio()
+        {
+            AudioSource bas = ball.GetComponentInChildren<AudioSource>();
+            await Task.Delay(350);
+            bas.Play();
+            await Task.Delay(800);
+            bas.Play();
+        }
+
         void HandleOnLightOffBall(float duration)
         {
+            // Play new ambience
+            AudioManager.Instance.PlayAmbience(1);
+
             // Switch to modern school
             gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
             gyms[1].GetComponent<SimpleActivator>().Init(true.ToString());
@@ -331,6 +347,9 @@ namespace Kidnapped
             }
             else // Completed
             {
+                // Reset ambience sound
+                AudioManager.Instance.PlayAmbience(0);
+
                 // Unspawn liliths
                 foreach(var l in liliths)
                     Destroy(l);

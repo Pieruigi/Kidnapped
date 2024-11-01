@@ -54,6 +54,9 @@ public class CatScaredAndRunWay : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!CatController.Instance)
+            return;
+
         // Play sound
         CatController.Instance.Scream();
 

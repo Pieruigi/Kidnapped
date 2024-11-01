@@ -8,6 +8,7 @@ namespace Kidnapped
     {
         public static string Player = "Player";
         public static string Cat = "Cat";
+        public static string KillingPlane = "Killing Plane";
     }
 
     public class Layers

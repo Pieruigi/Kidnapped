@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -59,6 +60,8 @@ namespace Kidnapped
         [SerializeField]
         KillingPoseInfo[] killingInfos;
 
+        Transform killingPlane;
+
         bool canMove = false;
         NavMeshAgent agent;
         float currentRange;
@@ -96,6 +99,7 @@ namespace Kidnapped
         {
             lastTargetPosition = PlayerController.Instance.transform.position;
             playerCC = PlayerController.Instance.GetComponent<CharacterController>();
+            
             SetRandomWalkAnimation();
         }
 
@@ -209,12 +213,14 @@ namespace Kidnapped
             // Stop the player from moving and receiving input
             PlayerController.Instance.PlayerInputEnabled = false;
 
-            //// Set fov
-            //Camera.main.fieldOfView = 25;
+            // Hide player hands
+            PlayerController.Instance.HideHandAll();
 
-            //// Put something in front of the camera to scare the player
-            //Vector3 position = Camera.main.transform.position;
-            //Quaternion rotation = Camera.main.transform.rotation;
+            // Get killing plane
+            killingPlane = GameObject.FindGameObjectWithTag(Tags.KillingPlane).transform;
+
+            // Move the player on the killing plane
+            PlayerController.Instance.ForcePositionAndRotation(killingPlane.position, killingPlane.rotation);
 
             // Disable agent
             agent.enabled = false;
@@ -253,8 +259,10 @@ namespace Kidnapped
             //root.SetActive(false);
         }
 
-        void HandleOnFlickerComplete()
+        async void HandleOnFlickerComplete()
         {
+            await Task.Delay(1000);
+            // Reload
             GameManager.Instance.FadeOutAndReloadAfterDeath();
         }
 

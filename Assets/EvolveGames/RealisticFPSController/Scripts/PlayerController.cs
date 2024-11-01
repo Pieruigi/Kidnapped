@@ -253,6 +253,15 @@ namespace EvolveGames
             characterController.enabled = true;
         }
 
+        public void HideHandAll()
+        {
+            // Get hand roots
+            var roots = transform.parent.GetComponentsInChildren<FPSHandRotator>();
+            foreach (var root in roots)
+            {
+                root.gameObject.SetActive(false);
+            }
+        }
 
         #region save system
         [Header("SaveSystem")]

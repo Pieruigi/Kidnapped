@@ -44,6 +44,9 @@ namespace Kidnapped
 
         public void PlayAmbience(int index)
         {
+            if(currentAmbience >= 0)
+                ambients[index].Stop();
+
             currentAmbience = index;
             ambients[index].Play();
         }
