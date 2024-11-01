@@ -2,25 +2,37 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree1BrunchesOld
   m_Shader: {fileID: 10606, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AmbientOcclusionGSmoothnessA:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 4292251d0d72da94989a8f5a1906c553, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlossMap:
@@ -31,6 +43,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: ed2ecf3f75efccf4c875d2af2edbb30d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ShadowOffset:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,18 +59,50 @@ Material:
         m_Texture: {fileID: 2800000, guid: 3d8c113655900e04da7dffaf8d0a3e63, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AO: 2.4
+    - _AmbientOcclusionPower: 1
+    - _BackFaceMirrorNormal: 0
+    - _BaseLight: 0.35
+    - _ColorNoiseSpread: 50
+    - _Cull: 2
     - _Cutoff: 0.80597013
+    - _Drag: 1
+    - _Gloss: 0
+    - _InitialBend: 1
+    - _Occlusion: 7.5
+    - _Opasity: 1
+    - _ScaleNormal: 0
     - _ShadowStrength: 1
     - _Shininess: 0.7931344
+    - _ShiverDirectionality: 0.5
+    - _ShiverDrag: 0.05
+    - _SmoothnessPower: 0
+    - _Spec: 0
+    - _SpecularPower: 0
+    - _Speed: 1
     - _SquashAmount: 1
+    - _Stiffness: 1
+    - _TouchReactActive: 0
     - _TranslucencyViewDependency: 0.7
+    - _WindNormalInfluence: 0
+    - _WindQuality: 0
+    - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DryColor: {r: 0.8676471, g: 0.818369, b: 0.6124567, a: 1}
+    - _HealthyColor: {r: 1, g: 0.9735294, b: 0.9338235, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
     - _TranslucencyColor: {r: 0.21994632, g: 0.23134327, b: 0.12948318, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6
