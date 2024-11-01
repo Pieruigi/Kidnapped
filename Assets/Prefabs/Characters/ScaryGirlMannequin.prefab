@@ -94,6 +94,7 @@ MonoBehaviour:
     cameraEulers: {x: 0, y: 0, z: 0}
     characterPosition: {x: -0.06, y: -1.242, z: 1.061}
     characterEulers: {x: 12.58, y: -141.1, z: 9.968}
+    killerLightPrefab: {fileID: 7108765782066203230, guid: 114f02f39654dcb4e8174af0aaa36210, type: 3}
 --- !u!114 &7079530148662040985
 MonoBehaviour:
   m_ObjectHideFlags: 0

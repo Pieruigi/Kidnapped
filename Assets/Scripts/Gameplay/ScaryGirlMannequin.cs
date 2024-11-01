@@ -13,23 +13,6 @@ namespace Kidnapped
 {
     public class ScaryGirlMannequin : MonoBehaviour
     {
-        [System.Serializable]
-        private class KillingPoseInfo
-        {
-            
-            [SerializeField]
-            public float cameraFov;
-
-            [SerializeField]
-            public Vector3 cameraEulers;
-
-            [SerializeField]
-            public Vector3 characterPosition;
-
-            [SerializeField]
-            public Vector3 characterEulers;
-        }
-   
         [SerializeField]
         float crouchRange = 2f;
 
@@ -57,17 +40,12 @@ namespace Kidnapped
         [SerializeField]
         GameObject character;
 
-        [SerializeField]
-        KillingPoseInfo[] killingInfos;
-
-        Transform killingPlane;
-
         bool canMove = false;
         NavMeshAgent agent;
         float currentRange;
 
 
-        Vector3 lastTargetPosition;
+        //Vector3 lastTargetPosition;
 
         DateTime lastCheckTime;
         float checkTime = .1f;
@@ -82,9 +60,9 @@ namespace Kidnapped
         string agonyParam = "Agony";
 
         int walkAnimCount = 2;
-        int killAnimCount = 2;
-
+        
         bool logic = false;
+
 
         private void Awake()
         {
@@ -97,7 +75,7 @@ namespace Kidnapped
         // Start is called before the first frame update
         void Start()
         {
-            lastTargetPosition = PlayerController.Instance.transform.position;
+            //lastTargetPosition = PlayerController.Instance.transform.position;
             playerCC = PlayerController.Instance.GetComponent<CharacterController>();
             
             SetRandomWalkAnimation();
@@ -120,7 +98,7 @@ namespace Kidnapped
             {
                 currentRange = GetSpottedRange();
                 canMove = CheckForMovement();
-                lastTargetPosition = PlayerController.Instance.transform.position;
+                //lastTargetPosition = PlayerController.Instance.transform.position;
             }
 
             
@@ -195,75 +173,9 @@ namespace Kidnapped
         void KillThePlayer()
         {
             Debug.Log("Killing the player");
-           
-            // Avoid to get killed by more than one mannequin
-            if (PlayerController.Instance.IsDying)
-                return;
 
-            PlayerController.Instance.IsDying = true;
-            PlayerController.Instance.InteractionDisabled = true;
+            KillManager.Instance.Kill(KillManager.Killer.Lilith);
 
-            // Flicker off the flashlight
-            Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerToDarkeness(HandleOnLightOff, HandleOnFlickerComplete);
-        }
-
-       
-        void HandleOnLightOff(float duration)
-        {
-            // Stop the player from moving and receiving input
-            PlayerController.Instance.PlayerInputEnabled = false;
-
-            // Hide player hands
-            PlayerController.Instance.HideHandAll();
-
-            // Get killing plane
-            killingPlane = GameObject.FindGameObjectWithTag(Tags.KillingPlane).transform;
-
-            // Move the player on the killing plane
-            PlayerController.Instance.ForcePositionAndRotation(killingPlane.position, killingPlane.rotation);
-
-            // Disable agent
-            agent.enabled = false;
-
-            // Change to evil material
-            evilRenderer.material = evilMaterial;
-
-            // Switch to killing pose
-            int type = UnityEngine.Random.Range(0, killAnimCount);
-            type = 0;
-            animator.SetInteger(typeParam, type);
-            animator.SetTrigger(killParam);
-
-            // Get the killing pose info
-            KillingPoseInfo info = killingInfos[type];
-
-            // Move the character under the camera
-            character.transform.parent = Camera.main.transform;
-
-            // Set position and rotation
-            character.transform.localPosition = info.characterPosition;
-            character.transform.localEulerAngles = info.characterEulers;
-
-            // Set camera
-            Camera.main.fieldOfView = info.cameraFov;
-            Camera.main.transform.GetChild(0).GetComponent<Camera>().fieldOfView = info.cameraFov;
-            Camera.main.transform.localEulerAngles = info.cameraEulers;
-
-            //// Choose a random killing heads
-            //GameObject kh = killingHeads[UnityEngine.Random.Range(0, killingHeads.Length)];
-            //kh.transform.parent = Camera.main.transform;
-            //kh.transform.localPosition = Vector3.zero;
-            //kh.transform.localRotation = Quaternion.identity;
-            //kh.SetActive(true);
-
-            //root.SetActive(false);
-        }
-
-        async void HandleOnFlickerComplete()
-        {
-            await Task.Delay(1000);
-            // Reload
-            GameManager.Instance.FadeOutAndReloadAfterDeath();
         }
 
         void SetRandomWalkAnimation()

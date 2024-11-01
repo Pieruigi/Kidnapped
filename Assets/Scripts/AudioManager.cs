@@ -21,6 +21,9 @@ namespace Kidnapped
         [SerializeField]
         List<AudioSource> flashlightFlickers;
 
+        [SerializeField]
+        List<AudioSource> killers;
+
         int currentAmbience = -1;
         //int currentMusic = -1;
 
@@ -51,9 +54,28 @@ namespace Kidnapped
             ambients[index].Play();
         }
 
+        public void StopAmbience()
+        {
+            if (currentAmbience < 0)
+                return;
+
+            ambients[currentAmbience].Stop();
+            currentAmbience = -1;
+
+        }
+
         public void PlayFlashlightFlicker(int index)
         {
             flashlightFlickers[index].Play();    
+        }
+
+        public void PlayKiller(int index, float time = 0, float delay = 0)
+        {
+            killers[index].time = time;
+            if (delay > 0)
+                killers[index].PlayDelayed(delay);
+            else 
+                killers[index].Play();
         }
 
         #region save system

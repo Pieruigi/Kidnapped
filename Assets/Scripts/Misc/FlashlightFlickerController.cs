@@ -142,7 +142,7 @@ namespace Kidnapped
 
        
 
-        public void FlickerToDarkeness(UnityAction<float> onLightOffCallback = null, /*UnityAction onLightOnCallback = null, */UnityAction onCompleteCallback = null)
+        public void FlickerToDarkeness(UnityAction<float> onLightOffCallback = null, /*UnityAction onLightOnCallback = null, */UnityAction onCompleteCallback = null, float offDuration = OffDuration)
         {
             if (flickering)
                 return;
@@ -169,9 +169,9 @@ namespace Kidnapped
 
 
             // Spegniamo la torcia per 0.2 o 0.3 secondi
-            flickerSequence.Append(_light.DOIntensity(0, 0.01f).OnComplete(() => { onLightOffCallback?.Invoke(OffDuration); })) // Spegni subito la torcia
+            flickerSequence.Append(_light.DOIntensity(0, 0.01f).OnComplete(() => { onLightOffCallback?.Invoke(offDuration); })) // Spegni subito la torcia
                            .Join(handLight.DOIntensity(0, 0.01f))
-                           .AppendInterval(OffDuration); // Rimane spenta per offDuration
+                           .AppendInterval(offDuration); // Rimane spenta per offDuration
 
             // Un altro flicker veloce per la riaccensione
             flickerSequence.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)/*.OnStart(() => { onLightOnCallback?.Invoke(); })*/)  // Riaccendi con flicker
