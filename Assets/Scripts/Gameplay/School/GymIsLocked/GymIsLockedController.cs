@@ -95,6 +95,11 @@ namespace Kidnapped
         [SerializeField]
         GameObject gymBlock;
 
+        [SerializeField]
+        PlayerWalkInTrigger dialogTrigger;
+
+        [SerializeField]
+        DialogController dialogController;
 
         int lightOffCount = 0;
        
@@ -143,6 +148,7 @@ namespace Kidnapped
             bouncingBallMovingStep3.OnEnter += HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep4Trigger.OnEnter += HandleOnScaryDoorStep4TriggerEnter;
             lockerConjuringTrigger.OnEnter += HandleOnLockerConjuringTrigger;
+            dialogTrigger.OnEnter += HandleOnDialogTriggerEnter;
         }
 
         private void OnDisable()
@@ -158,6 +164,16 @@ namespace Kidnapped
             bouncingBallMovingStep3.OnEnter -= HandleOnBouncingBallMovingTriggerEnter;
             scaryDoorStep4Trigger.OnEnter -= HandleOnScaryDoorStep4TriggerEnter;
             lockerConjuringTrigger.OnEnter -= HandleOnLockerConjuringTrigger;
+            dialogTrigger.OnEnter -= HandleOnDialogTriggerEnter;
+        }
+
+        private void HandleOnDialogTriggerEnter(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            dialogTrigger.gameObject.SetActive(false);
+
+            // Play dialog
+            dialogController.Play();
         }
 
         // When the player enter the bathroom and walk towards the shower
@@ -208,8 +224,13 @@ namespace Kidnapped
             gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
             // Set final state
             state = finalState;
+
+            // Activate the dialog trigger
+            dialogTrigger.gameObject.SetActive(true);
+
             // Save game
             SaveManager.Instance.SaveGame();
+         
         }
 
        
@@ -316,6 +337,9 @@ namespace Kidnapped
                     bouncingBallActivationStep1.gameObject.SetActive(false);
                     bouncingBallMovingStep1.gameObject.SetActive(true);
                     bouncingBallController.MoveToNextStep();
+
+                    // Girls don't play basketball
+                    //VoiceManager.Instance.Talk(Speaker.Puck, 5);
                     break;
             }
         }
@@ -336,6 +360,8 @@ namespace Kidnapped
                     bouncingBallController.MoveToNextStep();
                     // Activate the scary door trigger
                     scaryDoorStep3Trigger.gameObject.SetActive(true);
+
+                    
                     break;
             }
         }
@@ -424,34 +450,20 @@ namespace Kidnapped
 
         private void HandleOnLightOffBefore()
         {
-            //if(lightOffCount == 0)
-            //{
-                girl.transform.position = girlTarget2.position;
-                girl.transform.rotation = girlTarget2.rotation;
-                girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
-            //}
-            //else if(lightOffCount == 1)
-            //{
-            //    girl.SetActive(false);
-            //}
-
-            //lightOffCount++;
+            girl.transform.position = girlTarget2.position;
+            girl.transform.rotation = girlTarget2.rotation;
+            girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
+           
         }
 
-        private void HandleOnLightOffAfter()
+        private async void HandleOnLightOffAfter()
         {
-            //if (lightOffCount == 0)
-            //{
-            //    girl.transform.position = girlTarget2.position;
-            //    girl.transform.rotation = girlTarget2.rotation;
-            //    girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
-            //}
-            //else if (lightOffCount == 1)
-            //{
-                girl.SetActive(false);
-            //}
+            girl.SetActive(false);
 
-            //lightOffCount++;
+            await Task.Delay(1000);
+
+            VoiceManager.Instance.Talk(Speaker.Puck, 4);
+           
         }
 
         private void HandleOnSlamTriggerEnter(PlayerWalkInTrigger trigger)

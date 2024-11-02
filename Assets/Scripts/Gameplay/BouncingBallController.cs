@@ -43,7 +43,8 @@ namespace Kidnapped
             [SerializeField]
             public float moveLifeTime;
 
-          
+            [SerializeField]
+            public bool resetVelocity = false;
 
         }
 
@@ -106,7 +107,7 @@ namespace Kidnapped
             if (steps[step].moveDelay > 0)
                 await Task.Delay(System.TimeSpan.FromSeconds(steps[step].moveDelay));
             // Move the ball 
-            ball.MoveToDestination(steps[step].destination.position, steps[step].forceMagnitude, steps[step].impulse);
+            ball.MoveToDestination(steps[step].destination.position, steps[step].forceMagnitude, steps[step].impulse, steps[step].resetVelocity);
             // Add some delay
             if (steps[step].moveLifeTime > 0)
             {

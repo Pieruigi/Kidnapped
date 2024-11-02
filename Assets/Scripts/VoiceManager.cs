@@ -66,6 +66,8 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
+            List<Speaker> toStopKeys = new List<Speaker>();
+            
             foreach(var key in callbacks.Keys)
             {
                 // Skip the current source if is not playing
@@ -78,14 +80,25 @@ namespace Kidnapped
                     if (callbacks[key].Item2 != null)
                         callbacks[key].Item2.Invoke(key);
 
+                    toStopKeys.Add(key); 
+
                     // Reset
-                    callbacks[key] = (false, null);
+                    //callbacks[key] = (false, null);
 
                     // Hide subtitle
                     SubtitleUI.Instance.Hide();
                 }
 
             }
+
+            // Collections can't be modified in the foreach loop
+            foreach(var key in toStopKeys)
+            {
+                // Reset
+                callbacks[key] = (false, null);
+            }
+
+            toStopKeys.Clear();
         }
 
         

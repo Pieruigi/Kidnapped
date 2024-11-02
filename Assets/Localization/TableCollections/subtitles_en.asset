@@ -48,6 +48,47 @@ MonoBehaviour:
     m_Localized: No, this can't be happening!
     m_Metadata:
       m_Items: []
+  - m_Id: 19302215139762176
+    m_Localized: <color=blue>Hey, those are my bells!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19302455318192128
+    m_Localized: <color=red>Yep, who actually plays with bells? No surprise they
+      called you Weirdo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19302872777269248
+    m_Localized: <color=blue>I'm not a weirdo!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19314985780420608
+    m_Localized: <color=blue>I used to play better though!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19317822103003136
+    m_Localized: <color=blue>All you care about is going to the gym, huh?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19319366651256832
+    m_Localized: <color=blue>Girls don't play basketball... even you were weird to
+      them.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19333598507737088
+    m_Localized: <color=red>Remember that time Ted and his gang drenched you under
+      the shower?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19342031604719616
+    m_Localized: <color=blue>The water was ice cold... I was stuck at home for three
+      days.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19344949833670656
+    m_Localized: <color=red>Me too! Three days of suspension for breaking Ted's nose
+      with a basketball.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

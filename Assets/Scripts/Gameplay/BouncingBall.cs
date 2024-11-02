@@ -89,8 +89,11 @@ namespace Kidnapped
             gameObject.SetActive(false);
         }
 
-        public void MoveToDestination(Vector3 destination, float forceMagnitude, bool impulse)
+        public void MoveToDestination(Vector3 destination, float forceMagnitude, bool impulse, bool resetVelocity = false)
         {
+            if (resetVelocity)
+                rb.velocity = Vector3.zero;
+
             applyConstantForce = !impulse;
             this.forceMagnitude = forceMagnitude;
             Vector3 direction = destination - rb.position;

@@ -48,6 +48,46 @@ MonoBehaviour:
     m_Localized: "No, questo \xE8 impossibile!"
     m_Metadata:
       m_Items: []
+  - m_Id: 19302215139762176
+    m_Localized: <color=blue>Hey, quelle sono le mie campane!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19302455318192128
+    m_Localized: "<color=red>Gi\xE0, chi mai suonerebbe delle campane? Ovvio che
+      ti chiamassero Strambo.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19302872777269248
+    m_Localized: <color=blue>I'm not strambo!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19314985780420608
+    m_Localized: <color=blue>Comunque io le suonavo meglio!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19317822103003136
+    m_Localized: <color=blue>Ti importa solo andare in palestra, huh?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19319366651256832
+    m_Localized: <color=blue>Le ragazze non giocano a basket, anche tu eri strana
+      per loro.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19333598507737088
+    m_Localized: <color=red>Ricordi quella volta che Ted e i suoi amici ti hanno
+      inzuppato sotto la doccia?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19342031604719616
+    m_Localized: <color=blue>L'acqua era gelata... sono rimasto a casa tre giorni.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19344949833670656
+    m_Localized: <color=red>Anche io! Tre giorni di sospensione per aver rotto il
+      naso a Ted con una palla da basket.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

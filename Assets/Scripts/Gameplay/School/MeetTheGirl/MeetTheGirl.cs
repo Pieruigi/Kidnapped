@@ -58,6 +58,12 @@ namespace Kidnapped
         [SerializeField]
         AudioSource blockAudioSource;
 
+        [SerializeField]
+        DialogController dialogController;
+
+        [SerializeField]
+        PlayerWalkInTrigger dialogTrigger;
+
         int state = 0;
 
         int finalState = 100;
@@ -90,6 +96,7 @@ namespace Kidnapped
             puzzleController.OnSolved += HandleOnPuzzleSolved;
             puzzleController.OnFailed += HandleOnPuzzleFailed;
             ballTrigger.OnEnter += HandleOnBallTriggerEnter;
+            dialogTrigger.OnEnter += HandleOnDialogTriggerEnter;
         }
 
         
@@ -103,6 +110,16 @@ namespace Kidnapped
             puzzleController.OnSolved -= HandleOnPuzzleSolved;
             puzzleController.OnFailed -= HandleOnPuzzleFailed;
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
+            dialogTrigger.OnEnter -= HandleOnDialogTriggerEnter;
+        }
+
+        private void HandleOnDialogTriggerEnter(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            dialogTrigger.gameObject.SetActive(false);
+
+            // Talk
+            dialogController.Play();
         }
 
         private async void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
@@ -152,10 +169,13 @@ namespace Kidnapped
 
             await Task.Delay(3000);
 
-            // Let the girl say something
-            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_smart"), true);
+            // You are so smart
             VoiceManager.Instance.Talk(Speaker.Lilith, 1);
 
+            await Task.Delay(7000);
+
+            // I used to play better
+            VoiceManager.Instance.Talk(Speaker.Puck, 3);
         }
 
         private async void HandleOnBoardTrigger(PlayerWalkInTrigger trigger)
@@ -267,6 +287,7 @@ namespace Kidnapped
             {
                 girlToRoomTrigger.gameObject.SetActive(false);
                 preblockTrigger.gameObject.SetActive(false);
+                dialogTrigger.gameObject.SetActive(false);
             }
         }
         #endregion
