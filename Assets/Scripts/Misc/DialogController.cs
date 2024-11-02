@@ -50,7 +50,8 @@ namespace Kidnapped
                 callback?.Invoke();
                 return; // No more talk
             }
-                
+
+            Debug.Log($"TEST - {arg0} completed");
 
             currentIndex++;
             Talk();

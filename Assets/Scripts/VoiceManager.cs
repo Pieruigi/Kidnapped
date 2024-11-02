@@ -51,7 +51,7 @@ namespace Kidnapped
         {
             base.Awake();
             // Init dictionary
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 callbacks.Add((Speaker)i, (false, null));
             }
@@ -66,7 +66,8 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            List<Speaker> toStopKeys = new List<Speaker>();
+            List<Speaker> toUpdateKeys = new List<Speaker>();
+            
             
             foreach(var key in callbacks.Keys)
             {
@@ -75,12 +76,11 @@ namespace Kidnapped
                     continue;
 
                 
+                
                 if (!sources[(int)key].isPlaying)
                 {
-                    if (callbacks[key].Item2 != null)
-                        callbacks[key].Item2.Invoke(key);
 
-                    toStopKeys.Add(key); 
+                    toUpdateKeys.Add(key); 
 
                     // Reset
                     //callbacks[key] = (false, null);
@@ -92,18 +92,22 @@ namespace Kidnapped
             }
 
             // Collections can't be modified in the foreach loop
-            foreach(var key in toStopKeys)
+            foreach (var key in toUpdateKeys)
             {
+                //if (callbacks[key].Item2 != null)
+                callbacks[key].Item2?.Invoke(key);
                 // Reset
                 callbacks[key] = (false, null);
+                //Debug.Log($"TEST - Update key {key}");
             }
 
-            toStopKeys.Clear();
+            
         }
 
         
         public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null)
         {
+          
             ClipData clipData = clipCollections.Find(c => c.speaker == speaker).clips[index];
             AudioClip clip = clipData.clip;
             AudioSource source = sources[(int)speaker];
