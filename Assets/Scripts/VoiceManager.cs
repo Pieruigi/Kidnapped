@@ -104,9 +104,11 @@ namespace Kidnapped
             
         }
 
-        
-        public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null)
+
+        public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null, float delay = 0)
         {
+            if(delay > 0) 
+                await Task.Delay(TimeSpan.FromSeconds(delay));
           
             ClipData clipData = clipCollections.Find(c => c.speaker == speaker).clips[index];
             AudioClip clip = clipData.clip;

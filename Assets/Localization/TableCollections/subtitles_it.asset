@@ -58,7 +58,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19302872777269248
-    m_Localized: <color=blue>I'm not strambo!</color>
+    m_Localized: <color=blue>Non sono uno strambo!</color>
     m_Metadata:
       m_Items: []
   - m_Id: 19314985780420608
@@ -102,6 +102,33 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 19686219860975616
     m_Localized: "<color=blue>Non pi\xF9 ormai...</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19765737879543808
+    m_Localized: <color=red>A quale ragazzino piace cucinare? Ovvio ti chiamassero
+      Strambo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19766125877829632
+    m_Localized: <color=blue>Non chiamarmi in quel modo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19771882350354432
+    m_Localized: "<color=red>Non ho mai capito perch\xE9 dipinessi quei manichini
+      a scuola.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772215659110400
+    m_Localized: "<color=red>Forse \xE8 meglio che non dica nulla.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772432387186688
+    m_Localized: <color=blue>Per dargli un'anima.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19785240814329856
+    m_Localized: "<color=red>Dove lo hai portato? Quello non \xE8 un cancello...
+      Strambo.</color>"
     m_Metadata:
       m_Items: []
   references:

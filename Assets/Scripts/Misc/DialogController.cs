@@ -45,16 +45,14 @@ namespace Kidnapped
 
         private void HandleOnSentenceComplete(Speaker arg0)
         {
-            if (currentIndex >= sentences.Count)
-            {
-                callback?.Invoke();
-                return; // No more talk
-            }
-
             Debug.Log($"TEST - {arg0} completed");
 
             currentIndex++;
-            Talk();
+
+            if (currentIndex >= sentences.Count)
+                callback?.Invoke();
+            else
+                Talk();
         }
 
         async void Talk()
@@ -70,8 +68,11 @@ namespace Kidnapped
 
 
 
-        public void Play(UnityAction OnCompletedCallback = null)
+        public async void Play(UnityAction OnCompletedCallback = null, float delay = 0)
         {
+            if(delay > 0)
+                await Task.Delay(TimeSpan.FromSeconds(delay));
+
             // Set callback
             callback = OnCompletedCallback;
 

@@ -105,6 +105,32 @@ MonoBehaviour:
     m_Localized: <color=blue>Not anymore...</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 19765737879543808
+    m_Localized: <color=red>What kind of child likes cooking? No wonder they called
+      you Weirdo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19766125877829632
+    m_Localized: <color=blue>Don't call me that.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19771882350354432
+    m_Localized: <color=red>I never nderstood why you painted those mannequins at
+      school.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772215659110400
+    m_Localized: <color=red>Maybe I'd better not say anithing.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772432387186688
+    m_Localized: <color=blue>To give them a soul.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19785240814329856
+    m_Localized: <color=red>Where did you lead him? That's not a gate... Weirdo.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

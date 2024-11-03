@@ -37,6 +37,17 @@ namespace Kidnapped
         [SerializeField]
         GameObject carWreckageTarget;
 
+        [SerializeField]
+        DialogController kitchenDialogController;
+
+        [SerializeField]
+        DialogController mannequinsDialogController;
+
+        [SerializeField]
+        PlayerWalkInTrigger brothersDialogTrigger;
+
+        [SerializeField]
+        DialogController brothersDialogController;
         
         int state = 0;
 
@@ -70,6 +81,7 @@ namespace Kidnapped
         private void OnEnable()
         {
             kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked += HandleOnKitchenDoorLocked;
+            brothersDialogTrigger.OnEnter += HandleOnBrothersDialogTrigger;
 
         }
 
@@ -77,9 +89,20 @@ namespace Kidnapped
         {
             if(kitchenDoor)
                 kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked -= HandleOnKitchenDoorLocked;
+
+            brothersDialogTrigger.OnEnter -= HandleOnBrothersDialogTrigger;
         }
 
-        private void HandleOnKitchenDoorLocked(ScaryDoor door)
+        private void HandleOnBrothersDialogTrigger(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            brothersDialogTrigger.gameObject.SetActive(false);
+
+            // Play dialog
+            brothersDialogController.Play();
+        }
+
+        private async void HandleOnKitchenDoorLocked(ScaryDoor door)
         {
             if (state != readyState)
                 return;
@@ -89,12 +112,17 @@ namespace Kidnapped
                 doorLocked = true;
 
                 // Puck says something here
-                SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);
+                //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);
 
                 // Activate some trigger group
                 ActivateTeleportGroup(currentTeleportIndex);
                 //teleportGroups[currentTeleportIndex].SetActive(true);
 
+                // Add some delay
+                await Task.Delay(2000);
+
+                // Talk
+                kitchenDialogController.Play();
 
             }
         }
@@ -120,7 +148,7 @@ namespace Kidnapped
                 PlayerWalkInTwoWayTrigger trigger = g.GetComponentInChildren<PlayerWalkInTwoWayTrigger>();
                 
                 if (trigger)
-                    trigger.OnExit += HandleOnTeleportTwoWaysTriggerOnExit;
+                    trigger.OnEnter += HandleOnTeleportTwoWaysTriggerOnEnter;
             }
             
 
@@ -134,7 +162,7 @@ namespace Kidnapped
             GameObject g = teleportGroups[index];
             PlayerWalkInTwoWayTrigger trigger = g.GetComponentInChildren<PlayerWalkInTwoWayTrigger>();
             if (trigger)
-                trigger.OnExit -= HandleOnTeleportTwoWaysTriggerOnExit;
+                trigger.OnEnter -= HandleOnTeleportTwoWaysTriggerOnEnter;
             
             
             g.SetActive(false);
@@ -147,7 +175,7 @@ namespace Kidnapped
             FlashlightFlickerController.Instance.FlickerOnce(HandleOnLightOffCallback);
         }
 
-        private void HandleOnTeleportTwoWaysTriggerOnExit(bool fromBehind)
+        private void HandleOnTeleportTwoWaysTriggerOnEnter(bool fromBehind)
         {
             Debug.Log($"Getting out trigger");
 
@@ -155,12 +183,16 @@ namespace Kidnapped
             if (!fromBehind)
                 return;
 
+          
+            VoiceManager.Instance.Talk(Speaker.Lilith, 11, HandleOnLilithFenceTalk, 1f);
 
+        }
 
+        private void HandleOnLilithFenceTalk(Speaker speaker)
+        {
+            VoiceManager.Instance.Talk(Speaker.Puck, 11);
             // Flashlight flickering
             FlashlightFlickerController.Instance.FlickerOnce(HandleOnLightOffCallback);
-
-
         }
 
         private async void HandleOnLightOffCallback()
@@ -173,6 +205,8 @@ namespace Kidnapped
 
                 if (currentTeleportIndex == 1)
                 {
+                    //VoiceManager.Instance.Talk(Speaker.Puck, 11);
+
                     // Deactivate player input
                     PlayerController.Instance.PlayerInputEnabled = false;
 
@@ -184,6 +218,8 @@ namespace Kidnapped
                 }
                 else if (currentTeleportIndex == 0)
                 {
+                    // Start next dialog 
+                    mannequinsDialogController.Play(delay:2);
 
                     // Save the old position and rotation
                     carWreckagePositionDefault = carWreckage.transform.position;
@@ -191,6 +227,8 @@ namespace Kidnapped
                     // Move the wreckage
                     carWreckage.transform.position = carWreckageTarget.transform.position;
                     carWreckage.transform.rotation = carWreckageTarget.transform.rotation;
+
+                    
                 }
 
                 // Move the player
@@ -216,6 +254,9 @@ namespace Kidnapped
                     dormsGameplay.SetReady();
                     // Disable the kitchen door activator containing the abandoned kitchen door ( it's easier to do it here )
                     kitchenDoor.SetActive(false);
+                    // Enable brothers dialog trigger
+                    brothersDialogTrigger.gameObject.SetActive(true);
+
                     // Save game
                     SaveManager.Instance.SaveGame();
                 }
@@ -264,10 +305,14 @@ namespace Kidnapped
             FlashlightFlickerController.Instance.FlickerToDarkeness(HandleOnFlickerToDarkness);
         }
 
-        void HandleOnFlickerToDarkness(float duration)
+        async void HandleOnFlickerToDarkness(float duration)
         {
             // Disable Puck
             boy.SetActive(false);
+
+            // Add some delay
+            await Task.Delay(1500);
+
             // Open the booth door
             boothDoor.Open();
         }
