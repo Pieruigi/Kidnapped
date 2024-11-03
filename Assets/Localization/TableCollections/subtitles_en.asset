@@ -89,6 +89,22 @@ MonoBehaviour:
       with a basketball.</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 19684638432206848
+    m_Localized: <color=red>Why did you scare Jinx?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19684857391652864
+    m_Localized: <color=blue>It's just a stray.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19685086593589248
+    m_Localized: <color=red>He's my cat.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19686219860975616
+    m_Localized: <color=blue>Not anymore...</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

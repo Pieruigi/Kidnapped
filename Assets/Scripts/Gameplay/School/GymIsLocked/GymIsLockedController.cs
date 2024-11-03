@@ -101,6 +101,9 @@ namespace Kidnapped
         [SerializeField]
         DialogController dialogController;
 
+        [SerializeField]
+        AudioSource ballHitAudioSource;
+
         int lightOffCount = 0;
        
 
@@ -292,6 +295,8 @@ namespace Kidnapped
                 case 3:
                     // Disable trigger
                     bouncingBallMovingStep3.gameObject.SetActive(false);
+                    // Play ball hit clip
+                    ballHitAudioSource.Play();
                     // Move ball
                     bouncingBallController.Move();
                     // Play stinger

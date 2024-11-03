@@ -79,6 +79,22 @@ MonoBehaviour:
     m_Key: suspended
     m_Metadata:
       m_Items: []
+  - m_Id: 19684638432206848
+    m_Key: cat_scared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19684857391652864
+    m_Key: stray
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19685086593589248
+    m_Key: my_cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19686219860975616
+    m_Key: not_anymore
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

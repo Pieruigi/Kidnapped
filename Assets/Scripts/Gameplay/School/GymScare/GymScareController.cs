@@ -68,6 +68,12 @@ namespace Kidnapped
         [SerializeField]
         InTheFog inTheFogController;
 
+        [SerializeField]
+        PlayerWalkInTrigger dialogTrigger;
+
+        [SerializeField]
+        DialogController dialogController;
+
 
         int scaryIndex = 0;
 #if UNITY_EDITOR
@@ -107,6 +113,7 @@ namespace Kidnapped
             ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnBallTriggerEnter;
             doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter += HandleOnDoorTriggerEnter;
             doorStateTrigger.OnExit += HandleOnDoorStateTriggerExit;
+            dialogTrigger.OnEnter += HandleOnDialogTriggerEnter;
         }
 
         private void OnDisable()
@@ -114,6 +121,16 @@ namespace Kidnapped
             ballTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnBallTriggerEnter;
             doorTrigger.GetComponent<PlayerWalkInTrigger>().OnEnter -= HandleOnDoorTriggerEnter;
             doorStateTrigger.OnExit -= HandleOnDoorStateTriggerExit;
+            dialogTrigger.OnEnter -= HandleOnDialogTriggerEnter;
+        }
+
+        private void HandleOnDialogTriggerEnter(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            dialogTrigger.gameObject.SetActive(false);
+
+            // Play dialog
+            dialogController.Play();
         }
 
         private void HandleOnDoorStateTriggerExit(bool fromBehind)
@@ -381,6 +398,8 @@ namespace Kidnapped
             {
                 // Set in the fog controller ready
                 inTheFogController.SetReady();
+                // Enable dialog trigger 
+                dialogTrigger.gameObject.SetActive(true);
                 // Save
                 SaveManager.Instance.SaveGame();
             }

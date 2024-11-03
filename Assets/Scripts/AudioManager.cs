@@ -47,11 +47,12 @@ namespace Kidnapped
 
         public void PlayAmbience(int index)
         {
-            if(currentAmbience >= 0)
-                ambients[index].Stop();
+            //if(currentAmbience >= 0)
+            //    ambients[currentAmbience].Stop();
+            StopAmbience();
 
             currentAmbience = index;
-            ambients[index].Play();
+            ambients[currentAmbience].Play();
         }
 
         public void StopAmbience()

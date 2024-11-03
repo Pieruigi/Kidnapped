@@ -25,6 +25,7 @@ kitchenDoorActivator: broken_kitchen_door
 kitchenDoor: kitchen_door
 booth_door: booth_door
 dialog activator after the gymIsLocked gameplay: dialog_1
+dialog activator after the gymScare gameplay: dialog_2
 
 /// CUT SCENES
 fadeIn: fade_in

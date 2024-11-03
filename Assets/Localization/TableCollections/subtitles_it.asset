@@ -88,6 +88,22 @@ MonoBehaviour:
       naso a Ted con una palla da basket.</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 19684638432206848
+    m_Localized: "<color=red>Perch\xE9 hai spaventato Jinx?</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19684857391652864
+    m_Localized: <color=blue>E' solo un randagio.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19685086593589248
+    m_Localized: <color=red>E' il mio gatto.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19686219860975616
+    m_Localized: "<color=blue>Non pi\xF9 ormai...</color>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
