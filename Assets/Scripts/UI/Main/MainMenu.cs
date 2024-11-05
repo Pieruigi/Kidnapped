@@ -21,7 +21,7 @@ namespace Kidnapped.UI
         {
             continueButton.onClick.AddListener(LoadSavedGame);
             newGameButton.onClick.AddListener(StartNewGame);
-
+            exitButton.onClick.AddListener(QuitGame);
         }
 
         // Start is called before the first frame update
@@ -56,7 +56,12 @@ namespace Kidnapped.UI
 
         void StartNewGame()
         {
-            GameManager.Instance.StartNewGame();
+            PopUpManager.Instance.ShowPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
+        }
+
+        void QuitGame()
+        {
+            PopUpManager.Instance.ShowPopUp("quit_msg", () => { Application.Quit(); }, () => { });
         }
     }
 

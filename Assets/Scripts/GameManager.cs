@@ -20,7 +20,7 @@ namespace Kidnapped
         protected override void Awake()
         {
             base.Awake();
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+            
         }
 
         public async void FadeOutAndReloadAfterDeath()
@@ -43,6 +43,7 @@ namespace Kidnapped
 
         public void StartNewGame()
         {
+            Debug.Log("Starting a new game...");
             if(SaveManager.Instance.SaveGameExists())
                 SaveManager.Instance.DeleteSaveGame();
 
