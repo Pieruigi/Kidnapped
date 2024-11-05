@@ -1,4 +1,5 @@
 using EvolveGames;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,20 +20,30 @@ namespace Kidnapped.SaveSystem
 
         string fileName = "save.txt";
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            SceneManager.sceneLoaded += HandleOnSceneLoaded;
+        }
+
+      
+
         private void Start()
         {
-            var list = new List<MonoBehaviour>(FindObjectsOfType<MonoBehaviour>(true)).Where(m=>m is ISavable);
-            savables = new List<GameObject>();
-            foreach (var l in list)
-                savables.Add(l.gameObject);
+//#if UNITY_EDITOR
+//            var list = new List<MonoBehaviour>(FindObjectsOfType<MonoBehaviour>(true)).Where(m=>m is ISavable);
+//            savables = new List<GameObject>();
+//            foreach (var l in list)
+//                savables.Add(l.gameObject);
 
-#if UNITY_EDITOR
-            foreach (var l in list)
-            {
-                if (string.IsNullOrEmpty(l.GetComponent<ISavable>().GetCode()))
-                    Debug.LogError($"[SaveManager - ISavable with no code found: {l.name}");
-            }
-#endif
+
+//            foreach (var l in list)
+//            {
+//                if (string.IsNullOrEmpty(l.GetComponent<ISavable>().GetCode()))
+//                    Debug.LogError($"[SaveManager - ISavable with no code found: {l.name}");
+//            }
+//#endif
         }
 
         private void Update()
@@ -44,27 +55,24 @@ namespace Kidnapped.SaveSystem
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
-                LoadGame();
+                GameManager.Instance.LoadSavedGame();
             }
 #endif
         }
 
-        
 
-      
+        private void HandleOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            savables.Clear();
+            if (GameManager.Instance.IsGameScene())
+            {
+                var list = new List<MonoBehaviour>(FindObjectsOfType<MonoBehaviour>(true)).Where(m => m is ISavable);
+                savables = new List<GameObject>();
+                foreach (var l in list)
+                    savables.Add(l.gameObject);
+            }
+        }
 
-        //void InitSavables()
-        //{
-        //    foreach (var savable in savables)
-        //    {
-        //        ISavable s = savable.GetComponent<ISavable>();
-        //        // Get the code
-        //        string code = s.GetCode();
-        //        // Look for the code in the dictionary
-        //        if (data.ContainsKey(code))
-        //            s.Init(data[code]);
-        //    }
-        //}
 
         void WriteToFile()
         {
@@ -120,12 +128,25 @@ namespace Kidnapped.SaveSystem
         {
             ReadFromFile();
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 
         }
 
+        public bool SaveGameExists()
+        {
+            return System.IO.File.Exists(System.IO.Path.Combine(Application.persistentDataPath, fileName));
+        }
+
+        public void DeleteSaveGame()
+        {
+            if (SaveGameExists())
+                System.IO.File.Delete(System.IO.Path.Combine(Application.persistentDataPath, fileName));
+        }
+
         #region utilities
+
+
         public static string GetCachedValue(string key)
         {
             if (!data.ContainsKey(key))

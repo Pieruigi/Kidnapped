@@ -13,7 +13,8 @@ namespace Kidnapped
 {
     public class GameManager : Singleton<GameManager>
     {
-
+        int mainSceneIndex = 0;
+        int gameSceneIndex = 1;
 
 
         protected override void Awake()
@@ -31,7 +32,26 @@ namespace Kidnapped
             await Task.Delay(3000);
 
             SaveManager.Instance.LoadGame();
+            SceneManager.LoadScene(gameSceneIndex);
+        }
 
+        public void LoadSavedGame()
+        {
+            SaveManager.Instance.LoadGame();
+            SceneManager.LoadScene(gameSceneIndex);
+        }
+
+        public void StartNewGame()
+        {
+            if(SaveManager.Instance.SaveGameExists())
+                SaveManager.Instance.DeleteSaveGame();
+
+            SceneManager.LoadScene(gameSceneIndex);
+        }
+
+        public bool IsGameScene()
+        {
+            return SceneManager.GetActiveScene().buildIndex == gameSceneIndex;
         }
 
     }
