@@ -6,19 +6,23 @@ using UnityEngine.UI;
 
 namespace Kidnapped.UI
 {
-    public class MainMenu : MonoBehaviour
+    public class MainMenu : BaseMenu
     {
-        [SerializeField]
+        //[SerializeField]
         Button continueButton;
 
-        [SerializeField]
+        //[SerializeField]
         Button newGameButton;
 
-        [SerializeField]
+        //[SerializeField]
+        Button optionsButton;
+
+        //[SerializeField]
         Button exitButton;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             continueButton.onClick.AddListener(LoadSavedGame);
             newGameButton.onClick.AddListener(StartNewGame);
             exitButton.onClick.AddListener(QuitGame);
@@ -27,7 +31,7 @@ namespace Kidnapped.UI
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame
@@ -58,6 +62,8 @@ namespace Kidnapped.UI
         {
             PopUpManager.Instance.ShowPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
         }
+
+        
 
         void QuitGame()
         {

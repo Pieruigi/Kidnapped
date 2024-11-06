@@ -10,6 +10,9 @@ namespace Kidnapped
     public class Launcher : MonoBehaviour
     {
         [SerializeField]
+        BaseMenu mainMenu;
+
+        [SerializeField]
         GameObject splashPage;
 
         [SerializeField]
@@ -17,22 +20,22 @@ namespace Kidnapped
 
         static bool skip = false;
 
-        MenuContainer menu;
-
+       
         // Start is called before the first frame update
         void Start()
         {
-            menu = FindObjectOfType<MenuContainer>();
             HidePageAll();
             if (!skip)
             {
+                // Set skip true
                 skip = true;
+                // Show splash scene 
                 ShowPages();
             }
             else
             {
-                
-                menu.ShowMenu(0);
+                // Show the main menu
+                mainMenu.Open();
             }
         }
 
@@ -79,7 +82,8 @@ namespace Kidnapped
             ShowAutoSaveHintPage();
             await Task.Delay(4000);
             HideAutoSaveHintPage();
-            menu.ShowMenu(0);
+            // Show main menu
+            mainMenu.Open();
         }
     }
 

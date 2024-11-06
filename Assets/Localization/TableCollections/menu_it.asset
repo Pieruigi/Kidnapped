@@ -51,6 +51,30 @@ MonoBehaviour:
       il PC quando vedi questa icona.
     m_Metadata:
       m_Items: []
+  - m_Id: 382026008535040
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382188202270720
+    m_Localized: Grafica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382388090216448
+    m_Localized: Indietro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382514791751680
+    m_Localized: Salva
+    m_Metadata:
+      m_Items: []
+  - m_Id: 385600646062080
+    m_Localized: Impostazioni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 398482108620800
+    m_Localized: Hai modifiche non salvate. Vuoi continuare?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

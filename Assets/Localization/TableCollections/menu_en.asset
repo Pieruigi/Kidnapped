@@ -51,6 +51,30 @@ MonoBehaviour:
       see this icon.
     m_Metadata:
       m_Items: []
+  - m_Id: 382026008535040
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382188202270720
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382388090216448
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382514791751680
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 385600646062080
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 398482108620800
+    m_Localized: You have unapplied changes. Do you want to continue?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

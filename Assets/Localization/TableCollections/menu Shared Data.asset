@@ -47,6 +47,30 @@ MonoBehaviour:
     m_Key: save_hint
     m_Metadata:
       m_Items: []
+  - m_Id: 382026008535040
+    m_Key: audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382188202270720
+    m_Key: graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382388090216448
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382514791751680
+    m_Key: save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 385600646062080
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 398482108620800
+    m_Key: unapplied_changes
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
