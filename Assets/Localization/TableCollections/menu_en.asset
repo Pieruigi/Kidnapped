@@ -46,6 +46,11 @@ MonoBehaviour:
     m_Localized: Quit the game?
     m_Metadata:
       m_Items: []
+  - m_Id: 325330389213184
+    m_Localized: This game uses an autosave system. Do not turn off the PC when you
+      see this icon.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: quit_msg
     m_Metadata:
       m_Items: []
+  - m_Id: 325330389213184
+    m_Key: save_hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

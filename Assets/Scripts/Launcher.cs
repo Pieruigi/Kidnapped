@@ -72,12 +72,12 @@ namespace Kidnapped
         async void ShowPages()
         {
             ShowSplashPage();
-            await Task.Delay(3000);
+            await Task.Delay(1);
             // Hide splash page
             HideSplashPage();
             // Show auto save page
             ShowAutoSaveHintPage();
-            await Task.Delay(2000);
+            await Task.Delay(4000);
             HideAutoSaveHintPage();
             menu.ShowMenu(0);
         }
