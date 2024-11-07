@@ -75,6 +75,10 @@ MonoBehaviour:
     m_Localized: Hai modifiche non salvate. Vuoi continuare?
     m_Metadata:
       m_Items: []
+  - m_Id: 728686744084480
+    m_Localized: Volume Generale
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

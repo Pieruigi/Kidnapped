@@ -10,7 +10,10 @@ namespace Kidnapped
     public class Launcher : MonoBehaviour
     {
         [SerializeField]
-        BaseMenu mainMenu;
+        PageManager pageManager;
+
+        [SerializeField]
+        GameObject mainMenu;
 
         [SerializeField]
         GameObject splashPage;
@@ -35,7 +38,8 @@ namespace Kidnapped
             else
             {
                 // Show the main menu
-                mainMenu.Open();
+                pageManager.Open(mainMenu.gameObject);
+                //mainMenu.Open();
             }
         }
 
@@ -83,7 +87,8 @@ namespace Kidnapped
             await Task.Delay(4000);
             HideAutoSaveHintPage();
             // Show main menu
-            mainMenu.Open();
+            //mainMenu.Open();
+            pageManager.Open(mainMenu.gameObject);
         }
     }
 

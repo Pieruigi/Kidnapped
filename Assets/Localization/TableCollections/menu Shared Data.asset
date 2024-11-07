@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: unapplied_changes
     m_Metadata:
       m_Items: []
+  - m_Id: 728686744084480
+    m_Key: global_volume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

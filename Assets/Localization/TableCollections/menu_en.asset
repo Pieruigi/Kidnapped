@@ -75,6 +75,10 @@ MonoBehaviour:
     m_Localized: You have unapplied changes. Do you want to continue?
     m_Metadata:
       m_Items: []
+  - m_Id: 728686744084480
+    m_Localized: Global Volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
