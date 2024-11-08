@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Kidnapped.UI
 {
-    public class AudioSettings : MonoBehaviour
+    public class AudioMenu : MonoBehaviour
     {
         [SerializeField]
         Button applyButton;
@@ -17,53 +17,35 @@ namespace Kidnapped.UI
         [SerializeField]
         SliderSelector globalVolumeSelector;
 
-        string globalVolumeKeyName = "GlobalVolume";
-        string globalVolumeParamName = "GlobalVolume";
-
         int globalVolume = 100;
         int globalVolumeNew = 100;
         #endregion
-
-        [SerializeField]
-        AudioMixer audioMixer;
 
         string volumeTextFormat = "{0}%";
 
         private void Awake()
         {
-            
+            RegisterCallbacks();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            RegisterCallbacks();
-            Init();
         }
-                
-      
-        private void Init()
+
+        private void OnEnable()
         {
-            //
-            // Set up global volume
-            //
-            // Read stored value if any
-            if (PlayerPrefs.HasKey(globalVolumeKeyName))
-                globalVolume = PlayerPrefs.GetInt(globalVolumeKeyName);
-            // Store the current global volume
+            // Set local global volume
+            globalVolume = SettingsManager.Instance.GlobalVolume;
             globalVolumeNew = globalVolume;
-            // Set selector
-            globalVolumeSelector.SetSliderValue(globalVolume);
-            SetVolumeText(globalVolumeSelector, globalVolume);
-            // Set the audio mixer
-            Debug.Log("Setting mixer");
-            SetAudioMixerVolume(globalVolumeParamName, globalVolumeNew);
-
-
-            // Update apply button
+            // Set global volume slider
+            globalVolumeSelector.SetSliderValue(globalVolumeNew);
+            // Set text
+            SetVolumeText(globalVolumeSelector, globalVolumeNew);
+            // Update the apply button
             UpdateApplyButton();
         }
-         
+ 
 
         void RegisterCallbacks()
         {
@@ -76,8 +58,8 @@ namespace Kidnapped.UI
         {
             globalVolumeNew = (int)value;
             SetVolumeText(globalVolumeSelector, value);
-            // Set audio mixer
-            SetAudioMixerVolume(globalVolumeParamName, globalVolumeNew);
+            // Update settings
+            SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew);
             // Update apply button
             UpdateApplyButton();
         }
@@ -93,21 +75,15 @@ namespace Kidnapped.UI
             return (globalVolume == globalVolumeNew);
         }
 
-        void SetAudioMixerVolume(string paramName, float value)
-        {
-            audioMixer.SetFloat(paramName, Mathf.Log10(value/100) * 20);
-        }
-
         void RevertChanges()
         {
             ///
             /// Global volume
             /// 
             globalVolumeNew = globalVolume;
-            SetAudioMixerVolume(globalVolumeParamName, globalVolumeNew);
-            SetVolumeText(globalVolumeSelector, globalVolumeNew);
-            globalVolumeSelector.SetSliderValue(globalVolumeNew);
-            
+            SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew);
+            //SetVolumeText(globalVolumeSelector, globalVolumeNew);
+            //globalVolumeSelector.SetSliderValue(globalVolumeNew);
             
             // Update apply button
             UpdateApplyButton();
@@ -127,7 +103,7 @@ namespace Kidnapped.UI
             if(globalVolume != globalVolumeNew)
             {
                 globalVolume = globalVolumeNew;
-                PlayerPrefs.SetInt(globalVolumeParamName, globalVolumeNew);
+                SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew);
             }
 
             // Save all

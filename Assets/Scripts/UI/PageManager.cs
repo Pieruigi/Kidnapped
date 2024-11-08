@@ -29,7 +29,7 @@ namespace Kidnapped.UI
                 CanvasGroup cg = transform.GetChild(i).GetComponent<CanvasGroup>();
                 cg.alpha = 0;
                 cg.blocksRaycasts = false;
-                //cg.gameObject.SetActive(false);
+                cg.gameObject.SetActive(false);
             }
         }
 
@@ -39,13 +39,13 @@ namespace Kidnapped.UI
             if(pages.Count > 0)
                 current = pages[pages.Count - 1];
 
-            //page.SetActive(true);
+            page.SetActive(true);
             CanvasGroup newC = page.GetComponent<CanvasGroup>();
             DOTween.To(() => newC.alpha, x => newC.alpha = x, 1f, .2f).onComplete += () => { newC.blocksRaycasts = true; };
             if (current)
             {
                 var currC = current.GetComponent<CanvasGroup>();
-                DOTween.To(() => currC.alpha, x => currC.alpha = x, 0f, .2f).onComplete += () => { currC.blocksRaycasts = false; /*currC.gameObject.SetActive(false);*/ };
+                DOTween.To(() => currC.alpha, x => currC.alpha = x, 0f, .2f).onComplete += () => { currC.blocksRaycasts = false; currC.gameObject.SetActive(false); };
             }
             
             pages.Add(page);
@@ -59,13 +59,13 @@ namespace Kidnapped.UI
 
             GameObject current = pages[pages.Count-1];
             var currC = current.GetComponent<CanvasGroup>();
-            DOTween.To(() => currC.alpha, x => currC.alpha = x, 0f, .2f).onComplete += () => { currC.blocksRaycasts = false; /*currC.gameObject.SetActive(false);*/ };
+            DOTween.To(() => currC.alpha, x => currC.alpha = x, 0f, .2f).onComplete += () => { currC.blocksRaycasts = false; currC.gameObject.SetActive(false); };
             pages.Remove(current);
 
             if (pages.Count > 0)
             {
                 CanvasGroup newC = pages[pages.Count-1].GetComponent<CanvasGroup>();
-                //newC.gameObject.SetActive(true);
+                newC.gameObject.SetActive(true);
                 DOTween.To(() => newC.alpha, x => newC.alpha = x, 1f, .2f).onComplete += () => { newC.blocksRaycasts = true; };
             }
 
