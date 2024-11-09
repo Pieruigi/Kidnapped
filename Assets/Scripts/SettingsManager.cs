@@ -23,16 +23,24 @@ namespace Kidnapped
 
         #region graphics
         /// <summary>
-        /// Resolution
+        /// Refresh rate
         /// </summary>
-        int resolutionIndex = -1; // The current resolution 
-        public int ResolutionIndex
+        int refreshRate = -1; // Unlimited
+        public int RefreshRate
         {
-            get { return resolutionIndex; }
+            get { return refreshRate; }
         }
-        List<Resolution> resolutions; // All the available resolutions
-        string resolutionKeyName = "ResolutionIndex";
+        string refreshRateKeyName = "RefreshRate";
 
+        /// <summary>
+        /// VSync
+        /// </summary>
+        int vSync = 0; // Disabled
+        public int VSync
+        {
+            get { return vSync; }
+        }
+        string vSyncKeyName = "VSync";
         #endregion
 
         // Start is called before the first frame update
@@ -42,13 +50,7 @@ namespace Kidnapped
             InitGraphics();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-      
+         
 
         #region audio
         void InitAudio()
@@ -74,80 +76,39 @@ namespace Kidnapped
         #endregion
 
         #region graphics
-        void DebugResolutions()
-        {
-            foreach (var resolution in resolutions)
-                Debug.Log($"[SettingsManager - Resolution:{resolution}]");
-        }
         void InitGraphics()
         {
-            // 
-            // Resolution
             //
-            // Get all the available resolutions
-            resolutions = Screen.resolutions.ToList();
-            DebugResolutions();
-            // Load from player prefs
-            if (PlayerPrefs.HasKey(resolutionKeyName))
-            {
-                resolutionIndex = PlayerPrefs.GetInt(resolutionKeyName);
-            }
-            else
-            {
-                // Set the current screen resolution as default
-                var resolution = Screen.currentResolution;
-                Debug.Log($"[SettingsManager - Current resolution:{resolution}");
-                resolutionIndex = resolutions.FindIndex(r=>r.width == resolution.width && r.height == resolution.height && 
-                                                        r.refreshRateRatio.numerator == resolution.refreshRateRatio.numerator && 
-                                                        r.refreshRateRatio.denominator == resolution.refreshRateRatio.denominator);
-                if(resolutionIndex < 0)
-                    resolutionIndex = resolutions.FindIndex(r=>r.width == 1024 && r.height == 768);
-            }
+            // Refresh rate
+            //
+            if(PlayerPrefs.HasKey(refreshRateKeyName))
+                refreshRate = PlayerPrefs.GetInt(refreshRateKeyName);
+            // Set the refresh rate
+            UpdateRefreshRate(refreshRate);
 
-            // Apply resolution
-            Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, FullScreenMode.FullScreenWindow, resolutions[resolutionIndex].refreshRateRatio); 
-        }
-
-        public Resolution GetCurrentResolution()
-        {
-            return resolutions[resolutionIndex];
+            //
+            // VSync
+            //
+            if(PlayerPrefs.HasKey(vSyncKeyName))
+                vSync = PlayerPrefs.GetInt(vSyncKeyName);
+            // Update vSync
+            UpdateVSync(vSync);
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Resolution> GetAvailableResolutionsWithTheCurrentRefreshRate()
+        public void UpdateRefreshRate(int value)
         {
-            
-            var refreshRateRatio = resolutions[resolutionIndex].refreshRateRatio;
-
-            return resolutions.FindAll(r=>r.refreshRateRatio.Equals(refreshRateRatio));
+            this.refreshRate = value;
+            // Set the refresh rate
+            Application.targetFrameRate = value;
+            // Save value
+            PlayerPrefs.SetInt(refreshRateKeyName, value);
         }
-
-        /// <summary>
-        /// We only apply resolution
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public void ApplyResolution(int width, int height, FullScreenMode fullScreenMode)
+      
+        public void UpdateVSync(int value)
         {
-            Debug.Log($"[SettingsManager - Applying new resolution:{width}x{height}");
-            // Try to keep the same frame rate if possible
-            var index = resolutions.FindIndex(r=>r.width == width && r.height == height && r.refreshRateRatio.Equals(resolutions[resolutionIndex].refreshRateRatio));
-            if(index < 0)
-            {
-                // Probably the current refresh rate doesn't support the resolution we are trying to set
-                index = resolutions.FindLastIndex(r => r.width == width && r.height == height); // This should be the one with the highest refresh rate
-            }
-            if(index < 0)
-            {
-                Debug.LogWarning($"[SettingsManager - No resolution found:{width}x{height}");
-                return;
-            }
-            // Set the new resolution index
-            resolutionIndex = index;
-            Screen.SetResolution(width, height, FullScreenMode.MaximizedWindow, resolutions[index].refreshRateRatio);
+            vSync = value;
+            QualitySettings.vSyncCount = value;
+            PlayerPrefs.SetInt(vSyncKeyName, value);
         }
 
         #endregion

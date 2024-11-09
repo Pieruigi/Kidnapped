@@ -79,6 +79,22 @@ MonoBehaviour:
     m_Key: resolution
     m_Metadata:
       m_Items: []
+  - m_Id: 1377866370031616
+    m_Key: fullscreen_mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1468544781426688
+    m_Key: refresh_rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1494538535870464
+    m_Key: rr_unlimited
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1500520594841600
+    m_Key: v_sync
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

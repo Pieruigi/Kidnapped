@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 namespace Kidnapped.UI
@@ -20,8 +23,34 @@ namespace Kidnapped.UI
         string resolutionFormat = "{0}x{1}";
         #endregion
 
+        #region full screen mode
+        [SerializeField]
+        DropSelector fullScreenModeSelector;
+
+        int fullScreenModeOptionId;
+        int fullScreenModeOptionIdNew;
+        #endregion
+
+        #region refresh rate
+        [SerializeField]
+        DropSelector refreshRateSelector;
+        int refreshRateOptionId;
+        int refreshRateOptionIdNew;
+        //RefreshRate refreshRateRatio;
+        //RefreshRate refreshRateRatioNew;
+        List<RefreshRate> refreshRateList = new List<RefreshRate>();
+        #endregion
+
+        #region vSync
+        [SerializeField]
+        ToggleSelector vSyncSelector;
+        int vSync;
+        int vSyncNew;
+        #endregion
+
         private void Awake()
         {
+            Debug.Log(59.9468.ToString("F1", CultureInfo.InvariantCulture));
             RegisterCallbacks();
         }
 
@@ -47,20 +76,71 @@ namespace Kidnapped.UI
             // Resolution
             //
             // Update selector option list
-            var resolutions = SettingsManager.Instance.GetAvailableResolutionsWithTheCurrentRefreshRate();
+            // Get all the resolutions
+            List<Resolution> resolutions = Screen.resolutions.ToList();
+            // Create the resolution option list
             List<string> options = new List<string>();
             foreach (var resolution in resolutions)
             {
-                options.Add(ResolutionToString(resolution));
+                if(!options.Contains(ResolutionToString(resolution)))
+                    options.Add(ResolutionToString(resolution));
             }
+            // Initialize the selector
             resolutionSelector.InitializeOptionList(options);
-            // Get the current resolution
-            var currentResolution = SettingsManager.Instance.GetCurrentResolution();
-            resolutionOptionId = options.FindIndex(r => r.Equals(ResolutionToString(currentResolution)));
+            // Get the current resolution string
+            string currentResolutionString = ResolutionToString(new Resolution() { width = Screen.width, height = Screen.height });
+            // Get the current option id
+            resolutionOptionId = options.FindIndex(r=>currentResolutionString.Equals(r));
             resolutionOptionIdNew = resolutionOptionId;
-            // Set the selector value
+            // Set the current option id
             resolutionSelector.SetCurrentOptionId(resolutionOptionIdNew);
 
+            //
+            // Full screen mode
+            //
+            // Get the current full screen mode from the settings manager
+            fullScreenModeOptionId = (int)Screen.fullScreenMode;
+            fullScreenModeOptionIdNew = fullScreenModeOptionId;
+            // Create the option list
+            options.Clear();
+            options.Add(FullScreenMode.ExclusiveFullScreen.ToString());
+            options.Add(FullScreenMode.FullScreenWindow.ToString());
+            options.Add(FullScreenMode.MaximizedWindow.ToString());
+            options.Add(FullScreenMode.Windowed.ToString());
+            // Initialize selector
+            fullScreenModeSelector.InitializeOptionList(options);
+            // Set current value
+            fullScreenModeSelector.SetCurrentOptionId(fullScreenModeOptionId);
+
+            ///
+            /// Refresh rate ratio
+            /// 
+            //refreshRateRatio = Screen.currentResolution.refreshRateRatio;
+            //refreshRateRatioNew = refreshRateRatio;
+            // Init the refresh rate data
+            options.Clear();
+            options.Add(30.ToString());
+            options.Add(60.ToString());
+            options.Add(120.ToString());
+            options.Add(LocalizationSettings.StringDatabase.GetLocalizedString("menu", "rr_unlimited"));
+            // Init the selector options
+            refreshRateSelector.InitializeOptionList(options);
+            // Get current refresh rate option id 
+            string v = SettingsManager.Instance.RefreshRate.ToString();
+            if ("-1".Equals(v))
+                v = LocalizationSettings.StringDatabase.GetLocalizedString("menu", "rr_unlimited");
+            refreshRateSelector.TryGetOptionIdByValue(v, out refreshRateOptionId);
+            refreshRateOptionIdNew = refreshRateOptionId;
+            // Init the selector value
+            refreshRateSelector.SetCurrentOptionId(refreshRateOptionId);
+
+            ///
+            /// VSync
+            /// 
+            vSync = SettingsManager.Instance.VSync;
+            vSyncNew = vSync;
+            // Init the selector
+            vSyncSelector.SetIsOn(vSync == 0 ? false : true);
 
             // Update apply button
             UpdateApplyButton();
@@ -70,8 +150,17 @@ namespace Kidnapped.UI
         void RegisterCallbacks()
         {
             resolutionSelector.RegisterCallback(HandleOnResolutionChanged);
+            fullScreenModeSelector.RegisterCallback(HandleOnFullScreenModeChanged);
+            refreshRateSelector.RegisterCallback(HandleOnRefreshRateChanged);
+            vSyncSelector.RegisterCallback(HandleOnVSyncChanged);
         }
 
+        
+
+        #endregion
+
+
+        #region resolution
         string ResolutionToString(Resolution resolution)
         {
             return string.Format(resolutionFormat, resolution.width, resolution.height);
@@ -85,31 +174,60 @@ namespace Kidnapped.UI
 
         void ApplyChanges()
         {
-            if(resolutionOptionId != resolutionOptionIdNew) 
+            if(resolutionOptionId != resolutionOptionIdNew || fullScreenModeOptionId != fullScreenModeOptionIdNew) 
             {
-                // Apply resolution
-                var res = StringToResolution(resolutionSelector.GetCurrentOptionValue());
-                SettingsManager.Instance.ApplyResolution(res.width, res.height, FullScreenMode.MaximizedWindow);
+                // Create a resolution object
+                var r = StringToResolution(resolutionSelector.GetCurrentOptionValue());
+                
+                // Set resolution
+                Screen.SetResolution(r.width, r.height, (FullScreenMode)fullScreenModeOptionIdNew);
+
+                // Update current values
+                resolutionOptionId = resolutionOptionIdNew;
+                fullScreenModeOptionId = fullScreenModeOptionIdNew;
+            }
+
+            if(refreshRateOptionId != refreshRateOptionIdNew)
+            {
+                string rrStr = refreshRateSelector.GetCurrentOptionValue();
+                int rr = -1;
+                if (!int.TryParse(rrStr, out rr))
+                    rr = -1; // Unlimited
+
+                SettingsManager.Instance.UpdateRefreshRate(rr);
+                refreshRateOptionId = refreshRateOptionIdNew;
+            }
+
+            if(vSync != vSyncNew)
+            {
+                vSync = vSyncNew;
+                SettingsManager.Instance.UpdateVSync(vSync);
             }
 
             // Update the apply button
             UpdateApplyButton();
 
-            // Save all
-            PlayerPrefs.Save();
         }
 
         bool NothingChanged()
         {
-            return (resolutionOptionId == resolutionOptionIdNew);
+            return (resolutionOptionId == resolutionOptionIdNew && fullScreenModeOptionId == fullScreenModeOptionIdNew && refreshRateOptionId == refreshRateOptionIdNew &&
+                    vSync == vSyncNew);
         }
 
         void RevertChanges()
         {
             if(resolutionOptionId != resolutionOptionIdNew)
-            {
                 resolutionOptionIdNew = resolutionOptionId;
-            }
+            
+            if (fullScreenModeOptionId != fullScreenModeOptionIdNew)
+                fullScreenModeOptionIdNew = fullScreenModeOptionId;
+
+            if(refreshRateOptionId != refreshRateOptionIdNew)
+                refreshRateOptionIdNew = refreshRateOptionId;
+
+            if (vSync != vSyncNew)
+                vSyncNew = vSync;
         }
 
         void UpdateApplyButton()
@@ -143,17 +261,41 @@ namespace Kidnapped.UI
 
         #endregion
 
-        #region resolution
+        #region callbacks
         private void HandleOnResolutionChanged(int optionId)
         {
             Debug.Log($"Resolution changed, optionId:{optionId}");
             resolutionOptionIdNew = optionId;
 
-
             // Update apply button
             UpdateApplyButton() ;
         }
+
+        private void HandleOnFullScreenModeChanged(int optionId)
+        {
+            fullScreenModeOptionIdNew = optionId;
+
+            // Update apply button
+            UpdateApplyButton();
+        }
+
+        private void HandleOnRefreshRateChanged(int optionId)
+        {
+            refreshRateOptionIdNew = optionId;
+
+            // Update apply button
+            UpdateApplyButton();
+        }
+
+        private void HandleOnVSyncChanged(bool isOn)
+        {
+            vSyncNew = !isOn ? 0 : 1;
+
+            UpdateApplyButton();
+        }
         #endregion
+
+
     }
 
 }

@@ -22,6 +22,7 @@ namespace Kidnapped
         float pitch = 0;
         private float moveSpeed = 5f;
         float mouseSensitivity = 50;
+        bool running = false;
 
         private void Awake()
         {
@@ -73,18 +74,25 @@ namespace Kidnapped
                 pitch = Mathf.Clamp(pitch, -90, 90);
                 transform.eulerAngles = new Vector3(pitch, yaw, 0);
 
+                running = false;
+
+                if (Input.GetKey(KeyCode.LeftShift))
+                    running = true;
+                
+
+
                 if (Input.GetKey(KeyCode.W))
-                    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                    transform.position += transform.forward * (running ? 3*moveSpeed:moveSpeed) * Time.deltaTime;
                 if (Input.GetKey(KeyCode.S))
-                    transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+                    transform.position -= transform.forward * (running ? 3 * moveSpeed : moveSpeed) * Time.deltaTime;
                 if (Input.GetKey(KeyCode.A))
-                    transform.position -= transform.right * moveSpeed * Time.deltaTime;
+                    transform.position -= transform.right * (running ? 3 * moveSpeed : moveSpeed) * Time.deltaTime;
                 if (Input.GetKey(KeyCode.D))
-                    transform.position += transform.right * moveSpeed * Time.deltaTime;
+                    transform.position += transform.right * (running ? 3 * moveSpeed : moveSpeed) * Time.deltaTime;
                 if (Input.GetKey(KeyCode.Q))
-                    transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+                    transform.position += Vector3.up * (running ? 3 * moveSpeed : moveSpeed) * Time.deltaTime;
                 if (Input.GetKey(KeyCode.E))
-                    transform.position -= Vector3.up * moveSpeed * Time.deltaTime;
+                    transform.position -= Vector3.up * (running ? 3 * moveSpeed : moveSpeed) * Time.deltaTime;
 
                 
 

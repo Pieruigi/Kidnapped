@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -46,6 +47,15 @@ namespace Kidnapped.UI
         public string GetCurrentOptionValue()
         {
             return dropdown.options[dropdown.value].text;
+        }
+
+        public bool TryGetOptionIdByValue(string value, out int id)
+        {
+            id = dropdown.options.ToList().FindIndex(o => o.text.Equals(value));
+            if (id < 0)
+                return false;
+
+            return true;
         }
     }
 

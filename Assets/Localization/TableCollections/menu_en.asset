@@ -83,6 +83,22 @@ MonoBehaviour:
     m_Localized: Resolution
     m_Metadata:
       m_Items: []
+  - m_Id: 1377866370031616
+    m_Localized: Fullscreen Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1468544781426688
+    m_Localized: Refresh Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1494538535870464
+    m_Localized: Unlimited
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1500520594841600
+    m_Localized: VSync
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
