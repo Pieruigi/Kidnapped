@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Localization.Editor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization.Components;
-using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 namespace Kidnapped.UI

@@ -35,6 +35,9 @@ namespace Kidnapped.UI
 
         private void OnEnable()
         {
+            if (!SettingsManager.Instance)
+                return;
+
             // Set local global volume
             globalVolume = SettingsManager.Instance.GlobalVolume;
             globalVolumeNew = globalVolume;
