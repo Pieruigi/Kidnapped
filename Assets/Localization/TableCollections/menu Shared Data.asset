@@ -123,6 +123,30 @@ MonoBehaviour:
     m_Key: ultra
     m_Metadata:
       m_Items: []
+  - m_Id: 1726407915380736
+    m_Key: off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1727582890926080
+    m_Key: none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1777757072171008
+    m_Key: controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1816726551961600
+    m_Key: mouse_sens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1836331701936128
+    m_Key: invert_y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1842886430203904
+    m_Key: key_mapping
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

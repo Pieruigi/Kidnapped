@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Kidnapped
 {
     public class SettingsManager : Singleton<SettingsManager>
     {
+        public static UnityAction<int> OnAntialiasingChanged;
+        public static UnityAction<float> OnMouseSensitivityChanged;
+        public static UnityAction<bool> OnMouseYAxisInvertedChanged;
+
         #region audio
         [SerializeField]
         AudioMixer audioMixer;
@@ -42,7 +48,41 @@ namespace Kidnapped
         }
         string vSyncKeyName = "VSync";
 
-       
+        /// <summary>
+        /// Antialiasing
+        /// 0: None
+        /// 1: FXAA
+        /// 2: SMAA
+        /// 3: TXAA
+        /// </summary>
+        int antialiasing = 3; // TAA
+        public int Antialiasing
+        {
+            get { return antialiasing; }
+        }
+        string antialiasingKeyName = "Antialiasing";
+        #endregion
+
+        #region controls
+        /// <summary>
+        /// Mouse sensitivity
+        /// </summary>
+        float mouseSensitivity = 5.5f;
+        public float MouseSensitivity
+        {
+            get { return mouseSensitivity; }
+        }
+        string mouseSensitivityKeyName = "MouseSensitivity";
+
+        /// <summary>
+        /// Invert Y axis
+        /// </summary>
+        int yAxisInverted = 0; 
+        public bool MouseInvertedY
+        {
+            get { return yAxisInverted != 0; }
+        }
+        string yAxisInvertedKeyName = "InvertedY";
         #endregion
 
         // Start is called before the first frame update
@@ -50,7 +90,7 @@ namespace Kidnapped
         {
             InitAudio();
             InitGraphics();
-
+            InitControls();
             DebugResolutions();
         }
 
@@ -58,11 +98,13 @@ namespace Kidnapped
         {
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                QualitySettings.SetQualityLevel(0);
+                //QualitySettings.SetQualityLevel(0);
+                UpdateAntialiasing(0);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                QualitySettings.SetQualityLevel(5);
+                //QualitySettings.SetQualityLevel(5);
+                UpdateAntialiasing(3);
             }
         }
 
@@ -115,6 +157,13 @@ namespace Kidnapped
                 vSync = PlayerPrefs.GetInt(vSyncKeyName);
             // Update vSync
             UpdateVSync(vSync);
+
+            // 
+            // Antialiasing
+            //
+            if(PlayerPrefs.HasKey(antialiasingKeyName))
+                antialiasing = PlayerPrefs.GetInt(antialiasingKeyName);
+            UpdateAntialiasing(antialiasing);
         }
         
         public void SaveRefreshRatePlayerPrefs(float value)
@@ -138,8 +187,48 @@ namespace Kidnapped
             Screen.SetResolution(width, height, fullScreenMode, new UnityEngine.RefreshRate() { numerator = (uint)refreshRate, denominator = 1});    
         }
 
-        
+        public void UpdateAntialiasing(int antialiasing)
+        {
+            this.antialiasing = antialiasing;
+            PlayerPrefs.SetInt(antialiasingKeyName, antialiasing);
+            PlayerPrefs.Save();
+            OnAntialiasingChanged?.Invoke(antialiasing);
+        }
 
+        #endregion
+
+        #region controls
+        void InitControls()
+        {
+            ///
+            /// Mouse sensitivity
+            /// 
+            if(PlayerPrefs.HasKey(mouseSensitivityKeyName))
+                mouseSensitivity = PlayerPrefs.GetFloat(mouseSensitivityKeyName);
+
+            ///
+            /// Y axis
+            /// 
+            if(PlayerPrefs.HasKey(yAxisInvertedKeyName))
+                yAxisInverted = PlayerPrefs.GetInt(yAxisInvertedKeyName);
+        }
+
+        public void UpdateMouseSensitivity(float sensitivity)
+        {
+            mouseSensitivity = sensitivity;
+            PlayerPrefs.SetFloat(mouseSensitivityKeyName, mouseSensitivity);
+            PlayerPrefs.Save();
+            OnMouseSensitivityChanged?.Invoke(sensitivity);
+        }
+
+        public void UpdateInvertedAxisY(bool inverted)
+        {
+            yAxisInverted = inverted ? 1 : 0;
+            PlayerPrefs.SetInt(yAxisInvertedKeyName, yAxisInverted);
+            PlayerPrefs.Save();
+            OnMouseYAxisInvertedChanged?.Invoke(inverted);
+            
+        }
         #endregion
     }
 

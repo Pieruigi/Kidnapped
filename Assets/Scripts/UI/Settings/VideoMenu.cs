@@ -52,9 +52,16 @@ namespace Kidnapped.UI
         int qualityOptionIdNew;
         #endregion
 
+        #region antialiasing
+        [SerializeField]
+        DropSelector antialiasingSelector;
+        int antialiasingOptionId;
+        int antialiasingOptionIdNew;
+        #endregion
+
         private void Awake()
         {
-            Debug.Log(59.9468.ToString("F1", CultureInfo.InvariantCulture));
+            
             RegisterCallbacks();
         }
 
@@ -166,6 +173,9 @@ namespace Kidnapped.UI
             ///
             /// Quality
             /// 
+            // Set current quality
+            qualityOptionId = QualitySettings.GetQualityLevel();
+            qualityOptionIdNew = qualityOptionId;
             // Create the option list
             options.Clear();
             for(int i=0; i<QualitySettings.names.Length; i++)
@@ -173,8 +183,24 @@ namespace Kidnapped.UI
             // Init the selector option list
             qualitySelector.InitializeOptionList(options);
             // Set the current quality id
-            qualitySelector.SetCurrentOptionId(QualitySettings.GetQualityLevel());
-            Debug.Log($"Current quality level:{QualitySettings.GetQualityLevel()}");
+            qualitySelector.SetCurrentOptionId(qualityOptionId);
+            Debug.Log($"Current quality level:{qualityOptionId}");
+
+            ///
+            /// Antialiasing
+            /// 
+            // Get current value
+            antialiasingOptionId = SettingsManager.Instance.Antialiasing;
+            antialiasingOptionIdNew = antialiasingOptionId;
+            // Set option list
+            options.Clear();
+            options.Add(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, "none"));
+            options.Add("FXAA");
+            options.Add("SMAA");
+            options.Add("TAA");
+            // Init selector
+            antialiasingSelector.InitializeOptionList(options);
+            antialiasingSelector.SetCurrentOptionId(antialiasingOptionId);
 
             // Update apply button
             UpdateApplyButton();
@@ -187,8 +213,11 @@ namespace Kidnapped.UI
             fullScreenModeSelector.RegisterCallback(HandleOnFullScreenModeChanged);
             refreshRateSelector.RegisterCallback(HandleOnRefreshRateChanged);
             vSyncSelector.RegisterCallback(HandleOnVSyncChanged);
+            qualitySelector.RegisterCallback(HandleOnQualityChanged);
+            antialiasingSelector.RegisterCallback(HandleOnAntialiasingChanged);
+
         }
-               
+
         string GetQualityKeyName(int qualityId)
         {
             string ret = "";
@@ -231,6 +260,7 @@ namespace Kidnapped.UI
         {
             if(resolutionOptionId != resolutionOptionIdNew || fullScreenModeOptionId != fullScreenModeOptionIdNew || refreshRateOptionId != refreshRateOptionIdNew) 
             {
+                Debug.Log($"Updating resolution...");
                 // Get the refresh rate
                 string rrStr = refreshRateSelector.GetCurrentOptionValue();
                 int rr = -1;
@@ -255,8 +285,24 @@ namespace Kidnapped.UI
 
             if(vSync != vSyncNew)
             {
+                Debug.Log($"Updating vsync:{vSyncNew}");
                 vSync = vSyncNew;
                 SettingsManager.Instance.UpdateVSync(vSync);
+            }
+
+            if(qualityOptionId != qualityOptionIdNew)
+            {
+                Debug.Log($"Updating quality:{qualityOptionId}");
+                qualityOptionId = qualityOptionIdNew;
+                QualitySettings.SetQualityLevel(qualityOptionId);
+                // Vsync will be overriden by quality settings so we must update it again
+                SettingsManager.Instance.UpdateVSync(vSync);
+            }
+
+            if(antialiasingOptionId != antialiasingOptionIdNew)
+            {
+                antialiasingOptionId = antialiasingOptionIdNew;
+                SettingsManager.Instance.UpdateAntialiasing(antialiasingOptionId);
             }
 
             // Update the apply button
@@ -268,7 +314,7 @@ namespace Kidnapped.UI
         {
             return (resolutionOptionId == resolutionOptionIdNew && fullScreenModeOptionId == fullScreenModeOptionIdNew && 
                     (refreshRateOptionId == refreshRateOptionIdNew || fullScreenModeOptionId != (int)FullScreenMode.ExclusiveFullScreen) && 
-                    vSync == vSyncNew && qualityOptionId == qualityOptionIdNew);
+                    vSync == vSyncNew && qualityOptionId == qualityOptionIdNew && antialiasingOptionId == antialiasingOptionIdNew);
 
         }
 
@@ -285,6 +331,12 @@ namespace Kidnapped.UI
 
             if (vSync != vSyncNew)
                 vSyncNew = vSync;
+
+            if(qualityOptionId != qualityOptionIdNew)
+                qualityOptionIdNew = qualityOptionId;
+
+            if(antialiasingOptionId != antialiasingOptionIdNew)
+                antialiasingOptionIdNew = antialiasingOptionId;
         }
 
         void UpdateApplyButton()
@@ -367,6 +419,20 @@ namespace Kidnapped.UI
         private void HandleOnVSyncChanged(bool isOn)
         {
             vSyncNew = !isOn ? 0 : 1;
+
+            UpdateApplyButton();
+        }
+
+        private void HandleOnQualityChanged(int optionId)
+        {
+            qualityOptionIdNew = optionId;
+
+            UpdateApplyButton();
+        }
+
+        private void HandleOnAntialiasingChanged(int optionId)
+        {
+            antialiasingOptionIdNew = optionId; 
 
             UpdateApplyButton();
         }

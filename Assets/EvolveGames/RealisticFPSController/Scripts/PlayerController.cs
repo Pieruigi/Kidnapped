@@ -1,7 +1,10 @@
 ﻿//by EvolveGames
+using Kidnapped;
 using Kidnapped.SaveSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 
 namespace EvolveGames
@@ -16,7 +19,7 @@ namespace EvolveGames
         [Range(0.1f, 5)] public float CroughSpeed = 1.0f;
         [SerializeField, Range(2, 20)] float RuningSpeed = 4.0f;
         [SerializeField, Range(0, 20)] float jumpSpeed = 6.0f;
-        [SerializeField, Range(0.5f, 10)] float lookSpeed = 2.0f;
+        [SerializeField, Range(1f, 10)] float lookSpeed = 2.0f;
         [SerializeField, Range(10, 120)] float lookXLimit = 80.0f;
         [Space(20)]
         [Header("Advance")]
@@ -79,7 +82,7 @@ namespace EvolveGames
         public bool HasFlashlight { get; set; } = false;
 
         Animator animator;
-
+        bool invertedMouseY = false;
 
         
 
@@ -160,7 +163,7 @@ namespace EvolveGames
 
             if (Cursor.lockState == CursorLockMode.Locked && canMove)
             {
-                Lookvertical = -Input.GetAxis("Mouse Y");
+                Lookvertical = Input.GetAxis("Mouse Y") * (invertedMouseY ? 1 : -1);
                 Lookhorizontal = Input.GetAxis("Mouse X");
 
                 rotationX += Lookvertical * lookSpeed;
@@ -199,6 +202,35 @@ namespace EvolveGames
             }
 
             animator.SetFloat("Speed", characterController.velocity.magnitude);
+        }
+
+        private void OnEnable()
+        {
+            SetLookSpeed(SettingsManager.Instance.MouseSensitivity);
+            HandleOnMouseYAxisInvertedChanged(SettingsManager.Instance.MouseInvertedY);
+            SettingsManager.OnMouseSensitivityChanged += HandleOnMouseSensitivityChanged;
+            SettingsManager.OnMouseYAxisInvertedChanged += HandleOnMouseYAxisInvertedChanged;
+        }
+
+        private void OnDisable()
+        {
+            SettingsManager.OnMouseSensitivityChanged -= HandleOnMouseSensitivityChanged;
+            SettingsManager.OnMouseYAxisInvertedChanged -= HandleOnMouseYAxisInvertedChanged;
+        }
+
+        private void HandleOnMouseYAxisInvertedChanged(bool inverted)
+        {
+            invertedMouseY = inverted;
+        }
+
+        private void HandleOnMouseSensitivityChanged(float sensitivity)
+        {
+            SetLookSpeed(sensitivity);
+        }
+
+        void SetLookSpeed(float mouseSensitivity)
+        {
+            lookSpeed = mouseSensitivity * .5f;
         }
 
         private void OnTriggerEnter(Collider other)
