@@ -110,7 +110,7 @@ namespace Kidnapped.UI
             }
 
             // Save all
-            PlayerPrefs.Save();
+            //PlayerPrefs.Save();
         }
 
         public void Back()

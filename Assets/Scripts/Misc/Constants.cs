@@ -31,5 +31,6 @@ namespace Kidnapped
     public class  LocalizationTables
     {
         public static string Subtitles = "subtitles";
+        public static string Menu = "menu";
     }
 }

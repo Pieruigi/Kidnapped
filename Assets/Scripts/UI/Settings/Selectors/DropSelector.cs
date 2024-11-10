@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Kidnapped.UI
 {
@@ -12,6 +13,14 @@ namespace Kidnapped.UI
     {
         [SerializeField]
         TMP_Dropdown dropdown;
+
+        [SerializeField]
+        Image arrow;
+
+        public int OptionCount
+        {
+            get { return dropdown.options.Count; }
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -56,6 +65,16 @@ namespace Kidnapped.UI
                 return false;
 
             return true;
+        }
+
+        public void SetInteractable(bool value)
+        {
+            dropdown.interactable = value;
+
+            // Set text and arrow colors
+            Color c = value ? dropdown.colors.normalColor : dropdown.colors.disabledColor;
+            arrow.color = c;            
+            dropdown.captionText.color = c;
         }
     }
 

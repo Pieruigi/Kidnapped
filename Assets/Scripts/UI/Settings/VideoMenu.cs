@@ -36,9 +36,6 @@ namespace Kidnapped.UI
         DropSelector refreshRateSelector;
         int refreshRateOptionId;
         int refreshRateOptionIdNew;
-        //RefreshRate refreshRateRatio;
-        //RefreshRate refreshRateRatioNew;
-        List<RefreshRate> refreshRateList = new List<RefreshRate>();
         #endregion
 
         #region vSync
@@ -46,6 +43,13 @@ namespace Kidnapped.UI
         ToggleSelector vSyncSelector;
         int vSync;
         int vSyncNew;
+        #endregion
+
+        #region quality
+        [SerializeField]
+        DropSelector qualitySelector;
+        int qualityOptionId;
+        int qualityOptionIdNew;
         #endregion
 
         private void Awake()
@@ -100,12 +104,14 @@ namespace Kidnapped.UI
             //
             // Get the current full screen mode from the settings manager
             fullScreenModeOptionId = (int)Screen.fullScreenMode;
+            if (fullScreenModeOptionId == 3)
+                fullScreenModeOptionId = 2; // The option 2 (windowedFullscreen) is only available on macOS, so there is one fewer option in the list
             fullScreenModeOptionIdNew = fullScreenModeOptionId;
             // Create the option list
             options.Clear();
             options.Add(FullScreenMode.ExclusiveFullScreen.ToString());
             options.Add(FullScreenMode.FullScreenWindow.ToString());
-            options.Add(FullScreenMode.MaximizedWindow.ToString());
+            //options.Add(FullScreenMode.MaximizedWindow.ToString());
             options.Add(FullScreenMode.Windowed.ToString());
             // Initialize selector
             fullScreenModeSelector.InitializeOptionList(options);
@@ -122,17 +128,32 @@ namespace Kidnapped.UI
             options.Add(30.ToString());
             options.Add(60.ToString());
             options.Add(120.ToString());
-            options.Add(LocalizationSettings.StringDatabase.GetLocalizedString("menu", "rr_unlimited"));
+            options.Add(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, "rr_unlimited"));
             // Init the selector options
             refreshRateSelector.InitializeOptionList(options);
             // Get current refresh rate option id 
             string v = SettingsManager.Instance.RefreshRate.ToString();
             if ("-1".Equals(v))
-                v = LocalizationSettings.StringDatabase.GetLocalizedString("menu", "rr_unlimited");
+                v = LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, "rr_unlimited");
             refreshRateSelector.TryGetOptionIdByValue(v, out refreshRateOptionId);
             refreshRateOptionIdNew = refreshRateOptionId;
             // Init the selector value
             refreshRateSelector.SetCurrentOptionId(refreshRateOptionId);
+            // Set interactivity
+            if(fullScreenModeOptionId != (int)FullScreenMode.ExclusiveFullScreen)
+            {
+                refreshRateSelector.SetInteractable(false);
+                // Reset value to unlimited
+                refreshRateOptionId = refreshRateSelector.OptionCount - 1;
+                refreshRateOptionIdNew = refreshRateOptionId;
+                refreshRateSelector.SetCurrentOptionId(refreshRateOptionId);
+
+            }
+            else
+            {
+                refreshRateSelector.SetInteractable(true);
+            }
+                
 
             ///
             /// VSync
@@ -141,6 +162,19 @@ namespace Kidnapped.UI
             vSyncNew = vSync;
             // Init the selector
             vSyncSelector.SetIsOn(vSync == 0 ? false : true);
+
+            ///
+            /// Quality
+            /// 
+            // Create the option list
+            options.Clear();
+            for(int i=0; i<QualitySettings.names.Length; i++)
+                options.Add(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, GetQualityKeyName(i)));
+            // Init the selector option list
+            qualitySelector.InitializeOptionList(options);
+            // Set the current quality id
+            qualitySelector.SetCurrentOptionId(QualitySettings.GetQualityLevel());
+            Debug.Log($"Current quality level:{QualitySettings.GetQualityLevel()}");
 
             // Update apply button
             UpdateApplyButton();
@@ -154,13 +188,34 @@ namespace Kidnapped.UI
             refreshRateSelector.RegisterCallback(HandleOnRefreshRateChanged);
             vSyncSelector.RegisterCallback(HandleOnVSyncChanged);
         }
-
-        
-
-        #endregion
-
-
-        #region resolution
+               
+        string GetQualityKeyName(int qualityId)
+        {
+            string ret = "";
+            switch(qualityId)
+            {
+                case 0:
+                    ret = "very_low";
+                    break;
+                case 1:
+                    ret = "low";
+                    break;
+                case 2:
+                    ret = "medium";
+                    break;
+                case 3:
+                    ret = "high";
+                    break;
+                case 4:
+                    ret = "very_high";
+                    break;
+                case 5:
+                    ret = "ultra";
+                    break;
+            }
+            return ret;
+        }
+       
         string ResolutionToString(Resolution resolution)
         {
             return string.Format(resolutionFormat, resolution.width, resolution.height);
@@ -174,27 +229,27 @@ namespace Kidnapped.UI
 
         void ApplyChanges()
         {
-            if(resolutionOptionId != resolutionOptionIdNew || fullScreenModeOptionId != fullScreenModeOptionIdNew) 
+            if(resolutionOptionId != resolutionOptionIdNew || fullScreenModeOptionId != fullScreenModeOptionIdNew || refreshRateOptionId != refreshRateOptionIdNew) 
             {
-                // Create a resolution object
-                var r = StringToResolution(resolutionSelector.GetCurrentOptionValue());
-                
-                // Set resolution
-                Screen.SetResolution(r.width, r.height, (FullScreenMode)fullScreenModeOptionIdNew);
-
-                // Update current values
-                resolutionOptionId = resolutionOptionIdNew;
-                fullScreenModeOptionId = fullScreenModeOptionIdNew;
-            }
-
-            if(refreshRateOptionId != refreshRateOptionIdNew)
-            {
+                // Get the refresh rate
                 string rrStr = refreshRateSelector.GetCurrentOptionValue();
                 int rr = -1;
                 if (!int.TryParse(rrStr, out rr))
                     rr = -1; // Unlimited
 
-                SettingsManager.Instance.UpdateRefreshRate(rr);
+                // Create a resolution object
+                var r = StringToResolution(resolutionSelector.GetCurrentOptionValue());
+                
+                // Set resolution
+                //Screen.SetResolution(r.width, r.height, (FullScreenMode)fullScreenModeOptionIdNew);
+                SettingsManager.Instance.SaveRefreshRatePlayerPrefs(rr);
+                int fs = fullScreenModeOptionIdNew;
+                if (fs == 2) fs = 3; // The fullscreen mode 2 (for macOS only) is not in the list and the windowed mode (windows) has id 3
+                SettingsManager.Instance.UpdateResolution(r.width, r.height, (FullScreenMode)fs, rr);
+
+                // Update current values
+                resolutionOptionId = resolutionOptionIdNew;
+                fullScreenModeOptionId = fullScreenModeOptionIdNew;
                 refreshRateOptionId = refreshRateOptionIdNew;
             }
 
@@ -211,8 +266,10 @@ namespace Kidnapped.UI
 
         bool NothingChanged()
         {
-            return (resolutionOptionId == resolutionOptionIdNew && fullScreenModeOptionId == fullScreenModeOptionIdNew && refreshRateOptionId == refreshRateOptionIdNew &&
-                    vSync == vSyncNew);
+            return (resolutionOptionId == resolutionOptionIdNew && fullScreenModeOptionId == fullScreenModeOptionIdNew && 
+                    (refreshRateOptionId == refreshRateOptionIdNew || fullScreenModeOptionId != (int)FullScreenMode.ExclusiveFullScreen) && 
+                    vSync == vSyncNew && qualityOptionId == qualityOptionIdNew);
+
         }
 
         void RevertChanges()
@@ -274,6 +331,26 @@ namespace Kidnapped.UI
         private void HandleOnFullScreenModeChanged(int optionId)
         {
             fullScreenModeOptionIdNew = optionId;
+
+            if (fullScreenModeOptionIdNew != (int)FullScreenMode.ExclusiveFullScreen)
+            {
+                refreshRateSelector.SetInteractable(false);
+                // Set unlimited refresh rate
+                refreshRateOptionId = refreshRateSelector.OptionCount-1; 
+                refreshRateOptionIdNew = refreshRateOptionId;
+                refreshRateSelector.SetCurrentOptionId(refreshRateOptionId);
+            }
+            else
+            {
+                // Set the refresh rate selector interactable
+                refreshRateSelector.SetInteractable(true);
+                // Set unlimited
+                refreshRateOptionId = refreshRateSelector.OptionCount-1; 
+                refreshRateOptionIdNew = refreshRateOptionId;
+                refreshRateSelector.SetCurrentOptionId(refreshRateOptionId);
+                
+            }
+                
 
             // Update apply button
             UpdateApplyButton();

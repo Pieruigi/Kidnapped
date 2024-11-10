@@ -99,6 +99,34 @@ MonoBehaviour:
     m_Localized: VSync
     m_Metadata:
       m_Items: []
+  - m_Id: 1673651959668736
+    m_Localized: "Qualit\xE0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1673720209383424
+    m_Localized: Molto Bassa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1673827445153792
+    m_Localized: Bassa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1673874605907968
+    m_Localized: Media
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1673926854352896
+    m_Localized: Alta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1673991366942720
+    m_Localized: Molto Alta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1674056613535744
+    m_Localized: Ultra
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
