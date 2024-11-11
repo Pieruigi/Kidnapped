@@ -6,12 +6,14 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Kidnapped.SaveSystem
 {
     public class SaveManager : Singleton<SaveManager>
     {
+        public static UnityAction OnGameSaved;
 
         static Dictionary<string, string> data = new Dictionary<string, string>();
 
@@ -122,6 +124,8 @@ namespace Kidnapped.SaveSystem
             }
 
             WriteToFile();
+
+            OnGameSaved?.Invoke();
         }
 
         public void LoadGame()

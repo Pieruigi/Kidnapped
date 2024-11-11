@@ -59,7 +59,10 @@ namespace Kidnapped.UI
 
         public void StartNewGame()
         {
-            PopUpManager.Instance.ShowActionPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
+            if(SaveManager.Instance.SaveGameExists())
+                PopUpManager.Instance.ShowActionPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
+            else
+                GameManager.Instance.StartNewGame();
         }
 
         

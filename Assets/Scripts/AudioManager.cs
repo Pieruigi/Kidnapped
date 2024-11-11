@@ -1,14 +1,19 @@
 using Kidnapped.SaveSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Kidnapped
 {
     public class AudioManager : Singleton<AudioManager>, ISavable
     {
         public static UnityAction<int> OnAmbienceCompleted;
+
+        [SerializeField]
+        AudioSource mainMenuAudioSource;
 
         [SerializeField]
         List<AudioSource> stingers;
@@ -29,12 +34,35 @@ namespace Kidnapped
         protected override void Awake()
         {
             base.Awake();
+            //ReadCacheAndInit();
+            mainMenuAudioSource.Play(); // We are in the main scene for sure
+            SceneManager.sceneLoaded += HandleOnSceneLoaded;
+        }
+
+        private void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if(!GameManager.Instance.IsGameScene())
+            {
+                StopAmbience();
+                mainMenuAudioSource.Play();
+            }
+            else
+            {
+                mainMenuAudioSource.Stop();
+                ReadCacheAndInit();
+            }
+        }
+
+        
+        void ReadCacheAndInit()
+        {
             string data = SaveManager.GetCachedValue(code);
             if (string.IsNullOrEmpty(data))
                 data = "-1";
 
             Init(data);
         }
+
 
         public void PlayStinger(int index, float delay = 0)
         {

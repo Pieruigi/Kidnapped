@@ -79,7 +79,7 @@ namespace Kidnapped
         async void ShowPages()
         {
             ShowSplashPage();
-            await Task.Delay(1);
+            await Task.Delay(3000);
             // Hide splash page
             HideSplashPage();
             // Show auto save page
