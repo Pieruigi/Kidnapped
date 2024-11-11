@@ -19,6 +19,9 @@ namespace Kidnapped.UI
         Button noButton;
 
         [SerializeField]
+        Button okButton;
+
+        [SerializeField]
         TMP_Text textField;
 
         LocalizeStringEvent locText;
@@ -62,15 +65,43 @@ namespace Kidnapped.UI
             noButton.onClick.RemoveAllListeners();
         }
 
-        public void ShowPopUp(string key, UnityAction onYesButtonClicked, UnityAction onNoButtonClicked)
+        void HideAllButtons()
+        {
+            yesButton.gameObject.SetActive(false);
+            noButton.gameObject.SetActive(false);
+            okButton.gameObject.SetActive(false);
+        }
+
+        public void ShowActionPopUp(string key, UnityAction onYesButtonClicked, UnityAction onNoButtonClicked)
         {
             if (IsVisible())
                 return;
 
             RemoveAllListeners();
 
+            HideAllButtons();
+
+            yesButton.gameObject.SetActive(true);
             yesButton.onClick.AddListener(() => { onYesButtonClicked?.Invoke(); Hide(); });
+            noButton.gameObject.SetActive(true);
             noButton.onClick.AddListener(() => { onNoButtonClicked?.Invoke(); Hide(); });
+
+            locText.SetEntry(key);
+
+            Show();
+        }
+
+        public void ShowInfoPopUp(string key)
+        {
+            if (IsVisible())
+                return;
+
+            RemoveAllListeners();
+
+            HideAllButtons();
+
+            okButton.gameObject.SetActive(true);
+            okButton.onClick.AddListener(() => { Hide(); });
 
             locText.SetEntry(key);
 

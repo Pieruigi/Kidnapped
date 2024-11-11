@@ -59,14 +59,14 @@ namespace Kidnapped.UI
 
         public void StartNewGame()
         {
-            PopUpManager.Instance.ShowPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
+            PopUpManager.Instance.ShowActionPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
         }
 
         
 
         public void QuitGame()
         {
-            PopUpManager.Instance.ShowPopUp("quit_msg", () => { Application.Quit(); }, () => { });
+            PopUpManager.Instance.ShowActionPopUp("quit_msg", () => { Application.Quit(); }, () => { });
         }
     }
 

@@ -147,6 +147,42 @@ MonoBehaviour:
     m_Key: key_mapping
     m_Metadata:
       m_Items: []
+  - m_Id: 2133329659338752
+    m_Key: interaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2133452099461120
+    m_Key: flashlight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2133519099273216
+    m_Key: move_forward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2133965218029568
+    m_Key: move_back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2134109057490944
+    m_Key: move_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2134256810237952
+    m_Key: move_right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2134311155834880
+    m_Key: run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2134369414717440
+    m_Key: crouch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2146070486884352
+    m_Key: no_key_map
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

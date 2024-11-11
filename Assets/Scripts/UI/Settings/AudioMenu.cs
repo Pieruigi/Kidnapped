@@ -116,7 +116,7 @@ namespace Kidnapped.UI
         public void Back()
         {
             if (!NothingChanged())
-                PopUpManager.Instance.ShowPopUp("unapplied_changes", () => 
+                PopUpManager.Instance.ShowActionPopUp("unapplied_changes", () => 
                 {
                     // We don't apply changes
                     RevertChanges(); 
