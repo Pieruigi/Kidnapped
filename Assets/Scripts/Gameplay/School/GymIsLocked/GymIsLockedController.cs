@@ -104,6 +104,9 @@ namespace Kidnapped
         [SerializeField]
         AudioSource ballHitAudioSource;
 
+        [SerializeField]
+        Light firstFloorBallLight;
+
         int lightOffCount = 0;
        
 
@@ -269,16 +272,21 @@ namespace Kidnapped
 
         }
 
-        private void HandleOnBouncingBallMovingStepOneTriggerEnter()
+        private async void HandleOnBouncingBallMovingStepOneTriggerEnter()
         {
             switch (bouncingBallController.Step)
             {
                 case 1:
-                // Disable trigger
-                bouncingBallMovingStep1.gameObject.SetActive(false);
-                // Move ball
-                bouncingBallController.Move();
-                break;
+                    // Disable trigger
+                    bouncingBallMovingStep1.gameObject.SetActive(false);
+                    // Move ball
+                    bouncingBallController.Move();
+                    // Add some delay
+                    await Task.Delay(5000);
+                    // Deactivate light
+                    Utility.SwitchLightOn(firstFloorBallLight, false);
+                    
+                    break;
             }
         }
 
@@ -343,8 +351,9 @@ namespace Kidnapped
                     bouncingBallMovingStep1.gameObject.SetActive(true);
                     bouncingBallController.MoveToNextStep();
 
-                    // Girls don't play basketball
-                    //VoiceManager.Instance.Talk(Speaker.Puck, 5);
+                    // Activate first floor light
+                    Utility.SwitchLightOn(firstFloorBallLight, true);
+
                     break;
             }
         }
@@ -541,6 +550,7 @@ namespace Kidnapped
             scaryDoorStep3Trigger.gameObject.SetActive(false);
             scaryDoorStep4Trigger.gameObject.SetActive(false);
             lockerConjuringTrigger.gameObject.SetActive(false);
+            Utility.SwitchLightOn(firstFloorBallLight, false);
             
             switch (state)
             {

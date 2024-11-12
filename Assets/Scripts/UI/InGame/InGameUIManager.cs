@@ -29,25 +29,35 @@ namespace Kidnapped.UI
             {
                 if(!menuUnavailable && !pageManager.IsOpen) 
                 {
+                    
                     pageManager.Open(mainMenu);
                 }
             }
         }
 
-        //private void OnEnable()
-        //{
-        //    pageManager.OnClosed += HandleOnMenuClosed;
-        //}
+        private void OnEnable()
+        {
+            pageManager.OnClosed += HandleOnMenuClosed;
+            pageManager.OnOpened += HandleOnMenuOpened;
+        }
 
-        //private void OnDisable()
-        //{
-        //    pageManager.OnClosed -= HandleOnMenuClosed;
-        //}
+        private void OnDisable()
+        {
+            pageManager.OnClosed -= HandleOnMenuClosed;
+            pageManager.OnOpened -= HandleOnMenuOpened;
+        }
 
-        //private void HandleOnMenuClosed()
-        //{
-            
-        //}
+        private void HandleOnMenuClosed()
+        {
+            Time.timeScale = 1f;
+            Utility.SetCursorVisible(false);
+        }
+
+        private void HandleOnMenuOpened()
+        {
+            Time.timeScale = 0f;
+            Utility.SetCursorVisible(true);
+        }
 
         public void SetMenuAvailable(bool value)
         {

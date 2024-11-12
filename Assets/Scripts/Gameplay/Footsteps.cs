@@ -1,3 +1,4 @@
+using EvolveGames;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,15 @@ namespace Kidnapped
         [SerializeField]
         List<ClipData> clipDataList;
 
+        float defaultVolume;
+        float runMul = 1.5f;
+        float crouchMul = 0.5f;
+
+        private void Awake()
+        {
+            defaultVolume = audioSource.volume;
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -32,11 +42,27 @@ namespace Kidnapped
         void Update()
         {
             
-            
         }
 
         public void PlayFootstep()
         {
+            // Check player state (walk, crouch or run)
+            if(!PlayerController.Instance.IsCrouching && !PlayerController.Instance.IsRunning)
+            {
+                audioSource.volume = defaultVolume;
+            }
+            else
+            {
+                if(PlayerController.Instance.IsRunning)
+                {
+                    audioSource.volume = defaultVolume * runMul;
+                }
+                else
+                {
+                    audioSource.volume = defaultVolume * crouchMul;
+                }
+            }
+
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 1f, Vector3.down, out hit, 1f))
             {

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kidnapped.UI
 {
@@ -9,6 +10,9 @@ namespace Kidnapped.UI
     {
         [SerializeField]
         AudioSource mainAudioSource;
+
+        [SerializeField]
+        Image bar;
 
         // Start is called before the first frame update
         void Start()
@@ -24,22 +28,26 @@ namespace Kidnapped.UI
 
         private void OnEnable()
         {
-            GameManager.OnSceneLoadingCompleted += HandleOnSceneLoadingCompleted;   
+            GameManager.OnSceneLoadingCompleted += HandleOnSceneLoadingCompleted;
+            GameManager.OnSceneLoadingProgress += HandleOnSceneLoadingProgress;
+            bar.fillAmount = 0;
         }
         
         private void OnDisable()
         {
             GameManager.OnSceneLoadingCompleted -= HandleOnSceneLoadingCompleted;
+            GameManager.OnSceneLoadingProgress -= HandleOnSceneLoadingProgress;
         }
 
         void HandleOnSceneLoadingProgress(float progress)
         {
-
+            bar.fillAmount = progress;
         }
 
         void HandleOnSceneLoadingCompleted()
         {
-            DOTween.To(() => mainAudioSource.volume, x => mainAudioSource.volume = x, 0, 2f);
+            bar.fillAmount = 1f;
+            DOTween.To(() => mainAudioSource.volume, x => mainAudioSource.volume = x, 0, 1f);
         }
     }
 

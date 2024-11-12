@@ -55,14 +55,21 @@ namespace Kidnapped.UI
         public void LoadSavedGame()
         {
             GameManager.Instance.LoadSavedGame();
+            GetComponentInParent<PageManager>().Back();
         }
 
         public void StartNewGame()
         {
-            if(SaveManager.Instance.SaveGameExists())
-                PopUpManager.Instance.ShowActionPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); }, () => { });
+            if (SaveManager.Instance.SaveGameExists())
+            {
+                PopUpManager.Instance.ShowActionPopUp("new_game_msg", () => { GameManager.Instance.StartNewGame(); GetComponentInParent<PageManager>().Back(); }, () => { });
+            }
             else
+            {
                 GameManager.Instance.StartNewGame();
+                GetComponentInParent<PageManager>().Back();
+            }
+                
         }
 
         

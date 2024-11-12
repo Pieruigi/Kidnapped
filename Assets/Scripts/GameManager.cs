@@ -24,10 +24,53 @@ namespace Kidnapped
         protected override void Awake()
         {
             base.Awake();
-          
+            SceneManager.sceneLoaded += HandleOnSceneLoaded;
         }
 
-     
+        void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            //if (scene.buildIndex == gameSceneIndex) 
+            //{ 
+            //    // Activate the game scene
+            //    SceneManager.SetActiveScene(scene); 
+            //    // Unload the main scene
+            //    SceneManager.UnloadSceneAsync(mainSceneIndex); 
+            //}
+        }
+
+        async void LoadGameSceneAsync()
+        {
+            // Call loading event
+            OnSceneLoadingStarted?.Invoke();
+
+            await Task.Delay(500);
+
+            // Load scene async
+            float progress = 0;
+            var op = SceneManager.LoadSceneAsync(gameSceneIndex/*, LoadSceneMode.Additive*/);
+            // We take some time to fade music out when scene is almost loaded, so we don't activate it
+            op.allowSceneActivation = false;
+
+            // When allowSceneActivation loading stops at 90% and wait for the allowSceneActivation to be true
+            while (op.progress < .9f)
+            {
+                if (progress != op.progress)
+                {
+                    progress = op.progress;
+                    OnSceneLoadingProgress?.Invoke(progress); // Send progress event
+                }
+                await Task.Delay(100);
+            }
+
+            // At this point we consider loading completed, even if we are still at 90%.
+            OnSceneLoadingCompleted?.Invoke();
+
+            // Just give some time to do some loading stuff
+            await Task.Delay(2000);
+
+            // Ok, complete loading
+            op.allowSceneActivation = true;
+        }
 
         public async void FadeOutAndReloadAfterDeath()
         {
@@ -44,35 +87,23 @@ namespace Kidnapped
         public void LoadSavedGame()
         {
             SaveManager.Instance.LoadGame();
-            SceneManager.LoadScene(gameSceneIndex);
+            //SceneManager.LoadScene(gameSceneIndex);
+
+            LoadGameSceneAsync();
         }
 
-        public async void StartNewGame()
+        public void StartNewGame()
         {
-            Debug.Log("Starting a new game...");
-            OnSceneLoadingStarted?.Invoke();
-
+            // Remove old save game if any
             if(SaveManager.Instance.SaveGameExists())
                 SaveManager.Instance.DeleteSaveGame();
 
-            float progress = 0;
-            var op = SceneManager.LoadSceneAsync(gameSceneIndex);
-            op.allowSceneActivation = false;
+            // Clear cache
+            SaveManager.Instance.ClearCache();
 
-            while (op.progress < .9f)
-            {
-                if (progress != op.progress)
-                {
-                    progress = op.progress;
-                    OnSceneLoadingProgress?.Invoke(progress);
-                }
-                await Task.Delay(100);
-            }
+            LoadGameSceneAsync();
+            
 
-            OnSceneLoadingCompleted?.Invoke();
-
-            await Task.Delay(3000);
-            op.allowSceneActivation = true;
         }
 
         public bool IsGameScene()

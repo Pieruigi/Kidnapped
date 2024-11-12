@@ -136,6 +136,7 @@ namespace Kidnapped.SaveSystem
 
 
         }
+            
 
         public bool SaveGameExists()
         {
@@ -146,6 +147,11 @@ namespace Kidnapped.SaveSystem
         {
             if (SaveGameExists())
                 System.IO.File.Delete(System.IO.Path.Combine(Application.persistentDataPath, fileName));
+        }
+
+        public void ClearCache()
+        {
+            data.Clear();
         }
 
         #region utilities

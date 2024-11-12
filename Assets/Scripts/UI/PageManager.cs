@@ -9,8 +9,8 @@ namespace Kidnapped.UI
 {
     public class PageManager : MonoBehaviour
     {
-        //public UnityAction OnOpened;
-        //public UnityAction OnClosed;
+        public UnityAction OnOpened;
+        public UnityAction OnClosed;
 
         List<GameObject> pages = new List<GameObject>();
 
@@ -63,9 +63,8 @@ namespace Kidnapped.UI
 
             // First page, just opened
             if (pages.Count == 1)
-            {
-                Utility.SetCursorVisible(true);
-            }
+                OnOpened?.Invoke();
+          
         }
 
         public void Back()
@@ -87,7 +86,7 @@ namespace Kidnapped.UI
             else
             {
                 // Closed
-                Utility.SetCursorVisible(false);
+                OnClosed?.Invoke();
             }
             
         }

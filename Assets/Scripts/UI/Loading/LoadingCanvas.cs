@@ -46,7 +46,7 @@ namespace Kidnapped.UI
             panel.SetActive(true);
             // Show panel
 
-            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1f, .2f);
+            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1f, .0f);
         }
     }
 

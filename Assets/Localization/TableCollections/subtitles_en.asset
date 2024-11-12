@@ -132,8 +132,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22999398024257536
-    m_Localized: November 4th, 2008.\n A dark, fog-laden night.\n You have no idea
-      where you're headed.
+    m_Localized: 'November 4th, 2008.
+
+      The night is dark, wrapped in fog...
+
+      and
+      you have no idea where you''re going.'
     m_Metadata:
       m_Items: []
   references:
