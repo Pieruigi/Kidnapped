@@ -202,7 +202,7 @@ namespace Kidnapped
             // Add some delay
             await Task.Delay(200);
             // Play stinger
-            AudioManager.Instance.PlayStinger(1);
+            GameSceneAudioManager.Instance.PlayStinger(1);
             // Activate Lilith
             girl.transform.position = lockerRoomGirlTarget.transform.position;
             girl.transform.rotation = lockerRoomGirlTarget.transform.rotation;
@@ -300,7 +300,7 @@ namespace Kidnapped
                     // Move ball
                     bouncingBallController.Move();
                     // Play stinger
-                    AudioManager.Instance.PlayStinger(2);
+                    GameSceneAudioManager.Instance.PlayStinger(2);
                     // Add some delay
                     await Task.Delay(350);
                     // Flicker
@@ -397,7 +397,7 @@ namespace Kidnapped
             girl.GetComponentInChildren<Animator>().SetTrigger("RunScary");
 
             // Play stinger
-            AudioManager.Instance.PlayStinger(1);
+            GameSceneAudioManager.Instance.PlayStinger(1);
 
             // Add some delay
             await Task.Delay(1200);
@@ -437,7 +437,7 @@ namespace Kidnapped
             girl.transform.DOMoveY(0.140f, 0.05f, false);
 
             // Play stinger
-            AudioManager.Instance.PlayStinger(1);
+            GameSceneAudioManager.Instance.PlayStinger(1);
 
             // Start the flickering
             await Task.Delay(400);

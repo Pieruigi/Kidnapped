@@ -36,6 +36,21 @@ namespace Kidnapped
                 al.enabled = value;
         }
 
+        public static void SetCursorVisible(bool value)
+        {
+            if (value)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            
+        }
+
     }
     
 }

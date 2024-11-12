@@ -242,7 +242,7 @@ namespace Kidnapped
         void HandleOnLightOffBall(float duration)
         {
             // Play new ambience
-            AudioManager.Instance.PlayAmbience(1);
+            GameSceneAudioManager.Instance.PlayAmbience(1);
 
             // Switch to modern school
             gyms[0].GetComponent<SimpleActivator>().Init(false.ToString());
@@ -365,7 +365,7 @@ namespace Kidnapped
             else // Completed
             {
                 // Reset ambience sound
-                AudioManager.Instance.PlayAmbience(0);
+                GameSceneAudioManager.Instance.PlayAmbience(0);
 
                 // Unspawn liliths
                 foreach(var l in liliths)

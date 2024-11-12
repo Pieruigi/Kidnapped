@@ -104,8 +104,9 @@ namespace EvolveGames
             characterController = GetComponent<CharacterController>();
             if (Items == null && GetComponent<ItemChange>()) Items = GetComponent<ItemChange>();
             cam = GetComponentInChildren<Camera>();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            Utility.SetCursorVisible(false);
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
             InstallCroughHeight = characterController.height;
             InstallCameraMovement = Camera.localPosition;
             InstallFOV = cam.fieldOfView;

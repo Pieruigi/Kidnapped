@@ -184,7 +184,7 @@ namespace Kidnapped
             await Task.Delay(1000);
 
             // Play stinger
-            AudioManager.Instance.PlayStinger(0);
+            GameSceneAudioManager.Instance.PlayStinger(0);
 
             // Lilith starts walking
             lilithFirstLook.GetComponentInChildren<Animator>().SetTrigger("Run");
@@ -211,7 +211,7 @@ namespace Kidnapped
             scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Walk");
 
             // Play stinger 
-            AudioManager.Instance.PlayStinger(1, 0.5f);
+            GameSceneAudioManager.Instance.PlayStinger(1, 0.5f);
 
             await Task.Delay(3000);
             scaryEvil.Init(false.ToString());

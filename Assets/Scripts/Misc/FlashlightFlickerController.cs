@@ -149,7 +149,7 @@ namespace Kidnapped
 
             flickering = true;
 
-            AudioManager.Instance.PlayFlashlightFlicker(0);
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(0);
 
             ResetRandomFlicker();
 
@@ -193,7 +193,7 @@ namespace Kidnapped
 
             flickering = true;
 
-            AudioManager.Instance.PlayFlashlightFlicker(0);
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(0);
 
             Sequence flickerSequence = DOTween.Sequence();
 
@@ -226,7 +226,7 @@ namespace Kidnapped
 
             flickering = true;
 
-            AudioManager.Instance.PlayFlashlightFlicker(1);
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(1);
 
             Sequence flickerSequence = DOTween.Sequence();
 

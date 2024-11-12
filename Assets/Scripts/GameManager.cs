@@ -13,6 +13,10 @@ namespace Kidnapped
 {
     public class GameManager : Singleton<GameManager>
     {
+        public static UnityAction OnSceneLoadingStarted;
+        public static UnityAction<float> OnSceneLoadingProgress;
+        public static UnityAction OnSceneLoadingCompleted;
+
         int mainSceneIndex = 0;
         int gameSceneIndex = 1;
 
@@ -20,8 +24,10 @@ namespace Kidnapped
         protected override void Awake()
         {
             base.Awake();
-            
+          
         }
+
+     
 
         public async void FadeOutAndReloadAfterDeath()
         {
@@ -41,18 +47,42 @@ namespace Kidnapped
             SceneManager.LoadScene(gameSceneIndex);
         }
 
-        public void StartNewGame()
+        public async void StartNewGame()
         {
             Debug.Log("Starting a new game...");
+            OnSceneLoadingStarted?.Invoke();
+
             if(SaveManager.Instance.SaveGameExists())
                 SaveManager.Instance.DeleteSaveGame();
 
-            SceneManager.LoadScene(gameSceneIndex);
+            float progress = 0;
+            var op = SceneManager.LoadSceneAsync(gameSceneIndex);
+            op.allowSceneActivation = false;
+
+            while (op.progress < .9f)
+            {
+                if (progress != op.progress)
+                {
+                    progress = op.progress;
+                    OnSceneLoadingProgress?.Invoke(progress);
+                }
+                await Task.Delay(100);
+            }
+
+            OnSceneLoadingCompleted?.Invoke();
+
+            await Task.Delay(3000);
+            op.allowSceneActivation = true;
         }
 
         public bool IsGameScene()
         {
             return SceneManager.GetActiveScene().buildIndex == gameSceneIndex;
+        }
+
+        public void ReturnToMainScene()
+        {
+            SceneManager.LoadScene(mainSceneIndex);
         }
 
     }

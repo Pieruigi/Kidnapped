@@ -131,6 +131,11 @@ MonoBehaviour:
     m_Localized: <color=red>Where did you lead him? That's not a gate... Weirdo.</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 22999398024257536
+    m_Localized: November 4th, 2008.\n A dark, fog-laden night.\n You have no idea
+      where you're headed.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

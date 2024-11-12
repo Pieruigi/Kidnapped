@@ -3,24 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kidnapped.UI
 {
     public class PageManager : MonoBehaviour
     {
+        //public UnityAction OnOpened;
+        //public UnityAction OnClosed;
+
         List<GameObject> pages = new List<GameObject>();
+
+        public bool IsOpen { get {  return pages.Count > 0; } }
+
+        public GameObject CurrentPage 
+        { 
+            get 
+            {
+                if (!IsOpen)
+                    return null;
+                return pages[pages.Count-1]; 
+            } 
+        }
 
         // Start is called before the first frame update
         void Start()
         {
             HideAllPages();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+               
 
         void HideAllPages()
         {
@@ -49,7 +60,12 @@ namespace Kidnapped.UI
             }
             
             pages.Add(page);
-  
+
+            // First page, just opened
+            if (pages.Count == 1)
+            {
+                Utility.SetCursorVisible(true);
+            }
         }
 
         public void Back()
@@ -68,8 +84,12 @@ namespace Kidnapped.UI
                 newC.gameObject.SetActive(true);
                 DOTween.To(() => newC.alpha, x => newC.alpha = x, 1f, .2f).onComplete += () => { newC.blocksRaycasts = true; };
             }
-
-
+            else
+            {
+                // Closed
+                Utility.SetCursorVisible(false);
+            }
+            
         }
     }
 

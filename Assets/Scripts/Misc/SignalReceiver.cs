@@ -49,6 +49,16 @@ namespace Kidnapped
         {
             SubtitleUI.Instance.Hide();
         }
+
+        public void SetGameMenuAvailable()
+        {
+            InGameUIManager.Instance.SetMenuAvailable(true);
+        }
+
+        public void SetGameMenuUnavailable()
+        {
+            InGameUIManager.Instance.SetMenuAvailable(false);
+        }
     }
 
 }

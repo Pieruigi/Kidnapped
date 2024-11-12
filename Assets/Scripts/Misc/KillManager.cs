@@ -144,7 +144,7 @@ namespace Kidnapped
             PlayerController.Instance.ForcePositionAndRotation(transform.position, transform.rotation);
             
             // Stop audio 
-            AudioManager.Instance.StopAmbience();
+            GameSceneAudioManager.Instance.StopAmbience();
 
             await Task.Delay(TimeSpan.FromSeconds(offDuration));
 
@@ -172,7 +172,7 @@ namespace Kidnapped
             anim.SetTrigger("Kill");
 
             // Play sound
-            AudioManager.Instance.PlayKiller(info.killerSoundIndex, time:info.killerSoundTime);
+            GameSceneAudioManager.Instance.PlayKiller(info.killerSoundIndex, time:info.killerSoundTime);
 
             // Set camera
             Camera.main.fieldOfView = info.cameraFov;

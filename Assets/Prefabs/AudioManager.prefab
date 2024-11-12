@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53e18e4cc67f594aa2416fd28a895cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
+  persistent: 0
   mainMenuAudioSource: {fileID: 8178616959403522534}
   stingers:
   - {fileID: 7849800084384023244}
