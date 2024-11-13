@@ -140,6 +140,10 @@ MonoBehaviour:
       you have no idea where you''re going.'
     m_Metadata:
       m_Items: []
+  - m_Id: 23358859853684736
+    m_Localized: <color=red>Why don't you leave Jinx alone...</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

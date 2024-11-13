@@ -123,6 +123,10 @@ MonoBehaviour:
     m_Key: foggy_night
     m_Metadata:
       m_Items: []
+  - m_Id: 23358859853684736
+    m_Key: K101
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

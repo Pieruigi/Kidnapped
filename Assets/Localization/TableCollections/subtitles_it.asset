@@ -136,6 +136,10 @@ MonoBehaviour:
       non hai idea di dove tu stia andando."
     m_Metadata:
       m_Items: []
+  - m_Id: 23358859853684736
+    m_Localized: "<color=red>Perch\xE9 non lasci in pace Jinx...</color>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

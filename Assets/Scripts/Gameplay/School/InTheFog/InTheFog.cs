@@ -48,6 +48,12 @@ namespace Kidnapped
 
         [SerializeField]
         DialogController brothersDialogController;
+
+        [SerializeField]
+        PlayerWalkInTrigger catScreamingTrigger;
+
+        [SerializeField]
+        AudioSource catScreamingAudioSource;
         
         int state = 0;
 
@@ -82,7 +88,7 @@ namespace Kidnapped
         {
             kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked += HandleOnKitchenDoorLocked;
             brothersDialogTrigger.OnEnter += HandleOnBrothersDialogTrigger;
-
+            catScreamingTrigger.OnEnter += HandleOnCatScreamingTrigger;
         }
 
         private void OnDisable()
@@ -91,6 +97,17 @@ namespace Kidnapped
                 kitchenDoor.GetComponentInChildren<ScaryDoor>().OnLocked -= HandleOnKitchenDoorLocked;
 
             brothersDialogTrigger.OnEnter -= HandleOnBrothersDialogTrigger;
+            catScreamingTrigger.OnEnter -= HandleOnCatScreamingTrigger;
+        }
+
+        private void HandleOnCatScreamingTrigger(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            catScreamingTrigger.gameObject.SetActive(false);
+            // Play audio
+            catScreamingAudioSource.Play();
+
+            VoiceManager.Instance.Talk(Speaker.Lilith, 12, delay: 3f);
         }
 
         private void HandleOnBrothersDialogTrigger(PlayerWalkInTrigger arg0)
