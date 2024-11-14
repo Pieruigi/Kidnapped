@@ -18,6 +18,15 @@ namespace Kidnapped
         [SerializeField]
         GameObject poseGroupPrefab;
 
+        [SerializeField]
+        AudioSource poseAudioSource;
+
+        [SerializeField]
+        List<AudioClip> poseClips;
+
+        [SerializeField]
+        AudioSource solvedSource;
+
         GameObject poseGroup;
 
         bool ready = false;
@@ -80,6 +89,13 @@ namespace Kidnapped
             Destroy(poseGroup);
         }
 
+        void PlayPoseClip()
+        {
+            var clip = poseClips[UnityEngine.Random.Range(0, poseClips.Count)];
+            poseAudioSource.clip = clip;
+            poseAudioSource.Play();
+        }
+
         private async void HandleOnInteraction(ObjectInteractor interactor)
         {
             // Get interactor index
@@ -102,6 +118,9 @@ namespace Kidnapped
             animator.SetInteger(typeParamName, currV+1);
             animator.SetTrigger(poseParamName);
 
+            // Play clip
+            PlayPoseClip();
+
             // Check for puzzle solution
             if (IsSolved())
             {
@@ -112,6 +131,9 @@ namespace Kidnapped
 
                 // Add some delay
                 await Task.Delay(1000);
+
+                // Play solved audio source
+                solvedSource.Play();
 
                 // Sit down
                 for (int i = 0; i < animCount; i++)

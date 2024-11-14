@@ -1,3 +1,4 @@
+using EvolveGames;
 using Kidnapped;
 using Kidnapped.SaveSystem;
 using MoreMountains.Feedbacks;
@@ -72,6 +73,9 @@ namespace Kidnapped
         {
 
             if (!inside || !closed) // We can only tigger the locked fx
+                return;
+
+            if (PlayerController.Instance.InteractionDisabled)
                 return;
 
             if ((DateTime.Now - lastInteractionTime).TotalSeconds < 1f)

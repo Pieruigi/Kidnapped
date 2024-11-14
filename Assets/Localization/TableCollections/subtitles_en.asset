@@ -144,6 +144,39 @@ MonoBehaviour:
     m_Localized: <color=red>Why don't you leave Jinx alone...</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 23385470917402624
+    m_Localized: <color=red>You know I'm just teasing you, right, little brother?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23394382500585472
+    m_Localized: <color=blue>I know, but I can't help it! You know how much I hate
+      that nickname.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23395570663022592
+    m_Localized: <color=red>Everyone knew! That's why they kept calling you that.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23398773051875328
+    m_Localized: <color=blue>But it's not fair.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23401720422850560
+    m_Localized: <color=red>A lot of things aren't fair, little brother.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23411065764175872
+    m_Localized: <color=red>Wow, you really do have an immagination.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23411309990109184
+    m_Localized: "<color=red>Touch\xE9.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23412327704420352
+    m_Localized: <color=blue>Well, yeah! I read a lot. Unlike some people.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

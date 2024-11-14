@@ -63,24 +63,6 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                CloseDoor();
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                LockDoor();
-            }
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                OpenDoor();
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                UnlockDoor();
-            }
-#endif
 
             // If the player is too far return
             if (Vector3.Distance(Camera.main.transform.position, distanceChecker.position) > interactiondDistance)

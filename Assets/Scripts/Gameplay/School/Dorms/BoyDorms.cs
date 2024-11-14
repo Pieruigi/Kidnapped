@@ -37,10 +37,23 @@ namespace Kidnapped
         PlayerWalkInAndLookTrigger ventriloquistSportRoomTrigger;
 
         [SerializeField]
+        AudioSource sportRoomAudioSource;
+
+        [SerializeField]
+        AudioSource sportRoomMoanAudioSource;
+
+        [SerializeField]
         VentriloquistPuzzle ventriloquistPuzzle;
 
         [SerializeField]
+        PlayerWalkInTrigger puzzleDialogTrigger;
+
+        [SerializeField]
+        DialogController puzzleDialogController;
+
+        [SerializeField]
         PlayerWalkInTrigger bellTrigger;
+
 
         [SerializeField]
         AudioSource bellAudioSource;
@@ -147,6 +160,7 @@ namespace Kidnapped
             ventriloquistPuzzle.OnPuzzleSolved += HandleOnVentriloquistPuzzleSolved;
             bellTrigger.OnExit += HandleOnBellTrigger;
             kitchenPuzzle.OnPuzzleSolved += HandleOnKitchenPuzzleSolved;
+            puzzleDialogTrigger.OnEnter += HandleOnPuzzleDialogTrigger;
         }
 
         private void OnDisable()
@@ -157,6 +171,17 @@ namespace Kidnapped
             ventriloquistPuzzle.OnPuzzleSolved -= HandleOnVentriloquistPuzzleSolved;
             bellTrigger.OnExit -= HandleOnBellTrigger;
             kitchenPuzzle.OnPuzzleSolved -= HandleOnKitchenPuzzleSolved;
+            puzzleDialogTrigger.OnEnter -= HandleOnPuzzleDialogTrigger;
+        }
+
+        private void HandleOnPuzzleDialogTrigger(PlayerWalkInTrigger arg0)
+        {
+            // Deactivate trigger
+            arg0.gameObject.SetActive(false);
+            // Play dialog
+            puzzleDialogController.Play(() => { PlayerController.Instance.InteractionDisabled = false; });
+            // Avoid the player to interact with dummies while children are talking
+            PlayerController.Instance.InteractionDisabled = true;
         }
 
         private void HandleOnKitchenPuzzleSolved()
@@ -371,6 +396,10 @@ namespace Kidnapped
            
             // Flicker
             FlashlightFlickerController.Instance.FlickerToDarkeness(OnSportRoomFlicker);
+
+            // Play audio
+            sportRoomAudioSource.Play();
+
             // Open sports room door
             internalDoors[1].Open();
         }
@@ -381,6 +410,8 @@ namespace Kidnapped
             ventriloquistLockerRoomTrigger.gameObject.SetActive(false);
             // Set animation
             ventriloquistAnimator.SetTrigger("HangedEnd");
+            // Scream
+            GameSceneAudioManager.Instance.PlayStinger(3);
             // Flicker
             FlashlightFlickerController.Instance.FlickerToDarkeness(OnLockerRoomFlicker);
             
@@ -401,6 +432,8 @@ namespace Kidnapped
             ventriloquist.transform.rotation = ventriloquistTargets[1].transform.rotation;
             // Set animation
             ventriloquistAnimator.SetTrigger("Basketed");
+            // Play audio
+            sportRoomMoanAudioSource.Play();
             
         }
 
@@ -418,12 +451,12 @@ namespace Kidnapped
 
             // Enable the ventriloquist puzzle
             ventriloquistPuzzle.StartPuzzle();
-            //// Set position and rotation
-            //ventriloquist.transform.position = ventriloquistTargets[1].transform.position;
-            //ventriloquist.transform.rotation = ventriloquistTargets[1].transform.rotation;
-            //// Set animation
-            //ventriloquistAnimator.SetTrigger("Basketed");
 
+            // Stop ventriloquist moan
+            sportRoomMoanAudioSource.Stop();
+
+            // Activate dialog trigger
+            puzzleDialogTrigger.gameObject.SetActive(true);
         }
 
         private void HandleOnEntranceCloseTriggerEnter(PlayerWalkInTrigger trigger)
@@ -476,9 +509,11 @@ namespace Kidnapped
             Utility.SwitchLightOn(kitchenLight, false);
             // Disable the kitchen puzzle
             kitchenPuzzle.gameObject.SetActive(false);
+            // No puzzle dialog
+            puzzleDialogTrigger.gameObject.SetActive(false);
 
 
-            if(state == readyState)
+            if (state == readyState)
             {
                 // Activate the ventriloquist
                 ventriloquist = Instantiate(ventriloquistPrefab);

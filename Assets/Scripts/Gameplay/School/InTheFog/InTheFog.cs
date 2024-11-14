@@ -207,7 +207,7 @@ namespace Kidnapped
 
         private void HandleOnLilithFenceTalk(Speaker speaker)
         {
-            VoiceManager.Instance.Talk(Speaker.Puck, 11);
+            VoiceManager.Instance.Talk(Speaker.Puck, 11, volumeMultiplier: 1.5f);
             // Flashlight flickering
             FlashlightFlickerController.Instance.FlickerOnce(HandleOnLightOffCallback);
         }

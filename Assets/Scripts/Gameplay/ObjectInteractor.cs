@@ -37,6 +37,9 @@ namespace Kidnapped
             if (!noActivationTrigger && !inside)
                 return;
 
+            if (PlayerController.Instance.InteractionDisabled)
+                return;
+
             if ((System.DateTime.Now - lastInteractionTime).TotalSeconds < interactionCooldown)
                 return;
 
@@ -83,7 +86,8 @@ namespace Kidnapped
 
         private void OnDisable()
         {
-            PlayerLeftHand.Instance.PlayIdleAnimation();
+            if(PlayerLeftHand.Instance)
+                PlayerLeftHand.Instance.PlayIdleAnimation();
         }
 
         private void OnTriggerEnter(Collider other)

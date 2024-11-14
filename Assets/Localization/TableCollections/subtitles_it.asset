@@ -140,6 +140,40 @@ MonoBehaviour:
     m_Localized: "<color=red>Perch\xE9 non lasci in pace Jinx...</color>"
     m_Metadata:
       m_Items: []
+  - m_Id: 23385470917402624
+    m_Localized: <color=red>Sai che ti sto solo prendendo in giro, vero, fratellino?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23394382500585472
+    m_Localized: <color=blue>Lo so, ma non posso farci nulla. Sai quanto odio quel
+      nomignolo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23395570663022592
+    m_Localized: <color=red>Tutti lo sapevano. Per questo continuavano a chiamarti
+      in quel modo.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23398773051875328
+    m_Localized: "<color=blue>Ma non \xE8 giusto.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23401720422850560
+    m_Localized: <color=red>Tante cose non sono giuste, fratellino.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23411065764175872
+    m_Localized: <color=red>Wow, hai davvero una forte immaginazione.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23411309990109184
+    m_Localized: "<color=red>Touch\xE9.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23412327704420352
+    m_Localized: <color=blue>Beh, ovvio! Io leggo molto. A differenza di certe persone.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

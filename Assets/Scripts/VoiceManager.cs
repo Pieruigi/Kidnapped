@@ -47,6 +47,8 @@ namespace Kidnapped
 
         Dictionary<Speaker, (bool, UnityAction<Speaker>)> callbacks = new Dictionary<Speaker, (bool, UnityAction<Speaker>)>();
 
+        List<float> defaultVolumes = new List<float>();
+
         protected override void Awake()
         {
             base.Awake();
@@ -54,6 +56,8 @@ namespace Kidnapped
             for (int i = 0; i < 2; i++)
             {
                 callbacks.Add((Speaker)i, (false, null));
+                // Set default volume for each source
+                defaultVolumes.Add(sources[i].volume);
             }
         }
         
@@ -87,6 +91,7 @@ namespace Kidnapped
 
                     // Hide subtitle
                     SubtitleUI.Instance.Hide();
+
                 }
 
             }
@@ -105,7 +110,7 @@ namespace Kidnapped
         }
 
 
-        public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null, float delay = 0)
+        public async void Talk(Speaker speaker, int index, UnityAction<Speaker> OnCompleteCallback = null, float delay = 0, float volumeMultiplier = 1f)
         {
             if(delay > 0) 
                 await Task.Delay(TimeSpan.FromSeconds(delay));
@@ -113,6 +118,9 @@ namespace Kidnapped
             ClipData clipData = clipCollections.Find(c => c.speaker == speaker).clips[index];
             AudioClip clip = clipData.clip;
             AudioSource source = sources[(int)speaker];
+
+            // Adjust volume
+            source.volume = defaultVolumes[(int)speaker] * volumeMultiplier;
 
             callbacks[speaker] = (true, OnCompleteCallback);
 

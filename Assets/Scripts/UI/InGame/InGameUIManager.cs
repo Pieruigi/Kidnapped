@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Kidnapped.UI
 {
     public class InGameUIManager : Singleton<InGameUIManager>
     {
+        
         [SerializeField]
         PageManager pageManager;
 
