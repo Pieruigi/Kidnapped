@@ -83,6 +83,9 @@ namespace Kidnapped
         DormsKitchenPuzzle kitchenPuzzle;
 
         [SerializeField]
+        AudioSource kitchenChorusAudioSource;
+
+        [SerializeField]
         BoyDormsMannequin finalSection;
 
         [SerializeField]
@@ -201,7 +204,10 @@ namespace Kidnapped
             // Set this to completed
             Init(completedState.ToString());
 
-            dialogs[2].Play(OnCompletedCallback: () => { internalDoors[2].Open(); /*SaveManager.Instance.SaveGame();*/ });
+            // Stop chorus
+            kitchenChorusAudioSource.Stop();
+
+            dialogs[2].Play(OnCompletedCallback: () => { internalDoors[2].Open(); SaveManager.Instance.SaveGame(); });
 
             
         }
@@ -262,7 +268,7 @@ namespace Kidnapped
                     dialogs[0].Play();
 
                     // Add some delay
-                    await Task.Delay(28000);
+                    await Task.Delay(19000);
 
                     // Since the player is free to move around the room, before we spawn the hooked dummies, we need to make sure they don't collide. For this reason
                     // we let the update to choose when to spawn the dummies.
@@ -341,7 +347,7 @@ namespace Kidnapped
                     dialogs[1].Play();
 
                     // Add some delay
-                    await Task.Delay(20500);
+                    await Task.Delay(14500);
 
                     // Update step
                     hookStep++;
@@ -364,7 +370,10 @@ namespace Kidnapped
 
                     // Switch the light on
                     Utility.SwitchLightOn(kitchenLight, true);
-                    
+
+                    // Start
+                    kitchenChorusAudioSource.Play();
+
                     // Init the kitchen puzzle
                     kitchenPuzzle.Init(mannequinGroup, kitchenLight);
 
