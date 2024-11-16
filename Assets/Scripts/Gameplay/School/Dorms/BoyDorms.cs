@@ -84,6 +84,9 @@ namespace Kidnapped
 
         [SerializeField]
         BoyDormsMannequin finalSection;
+
+        [SerializeField]
+        List<DialogController> dialogs;
         
 
         const int notReadyState = 0;
@@ -114,22 +117,22 @@ namespace Kidnapped
 #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                //bellTrigger.gameObject.SetActive(true);
+                ////bellTrigger.gameObject.SetActive(true);
 
 
-                // Start kitchen puzzle
-                mannequinGroup = Instantiate(mannequinGroupPrefab);
-                mannequinGroup.transform.position = mannequinGroupTarget.position;
-                mannequinGroup.transform.rotation = mannequinGroupTarget.rotation;
-                mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
-                Utility.SwitchLightOn(kitchenLight, true);
-                
-                PlayerController.Instance.ForcePositionAndRotation(mannequinGroupTarget);
-                kitchenPuzzle.Init(mannequinGroup, kitchenLight);
-                kitchenPuzzle.gameObject.SetActive(true);
-                bellTrigger.gameObject.SetActive(false);
+                //// Start kitchen puzzle
+                //mannequinGroup = Instantiate(mannequinGroupPrefab);
+                //mannequinGroup.transform.position = mannequinGroupTarget.position;
+                //mannequinGroup.transform.rotation = mannequinGroupTarget.rotation;
+                //mannequinGroup.transform.Find("Female").gameObject.SetActive(false);
+                //Utility.SwitchLightOn(kitchenLight, true);
 
+                //PlayerController.Instance.ForcePositionAndRotation(mannequinGroupTarget);
+                //kitchenPuzzle.Init(mannequinGroup, kitchenLight);
+                //kitchenPuzzle.gameObject.SetActive(true);
+                //bellTrigger.gameObject.SetActive(false);
 
+                dialogs[1].Play();
                 
 
             }
@@ -190,7 +193,7 @@ namespace Kidnapped
             Destroy(mannequinGroup);
 
             // Open the kitchen door
-            internalDoors[2].Open();
+            //internalDoors[2].Open();
 
             // Set the final section ready
             finalSection.SetReady();
@@ -198,8 +201,9 @@ namespace Kidnapped
             // Set this to completed
             Init(completedState.ToString());
 
-            // Save game
-            SaveManager.Instance.SaveGame();
+            dialogs[2].Play(OnCompletedCallback: () => { internalDoors[2].Open(); /*SaveManager.Instance.SaveGame();*/ });
+
+            
         }
 
         private async void HandleOnBellTrigger(PlayerWalkInTrigger trigger)
@@ -254,8 +258,11 @@ namespace Kidnapped
                     // Slam kitchen door
                     internalDoors[2].Close();
 
+                    // First talk
+                    dialogs[0].Play();
+
                     // Add some delay
-                    await Task.Delay(12000);
+                    await Task.Delay(28000);
 
                     // Since the player is free to move around the room, before we spawn the hooked dummies, we need to make sure they don't collide. For this reason
                     // we let the update to choose when to spawn the dummies.
@@ -330,8 +337,11 @@ namespace Kidnapped
                     // Switch the light off
                     Utility.SwitchLightOn(kitchenLight, false);
 
+                    // Second talk
+                    dialogs[1].Play();
+
                     // Add some delay
-                    await Task.Delay(14000);
+                    await Task.Delay(20500);
 
                     // Update step
                     hookStep++;

@@ -79,8 +79,10 @@ namespace Kidnapped
                 if (callbacks[key].Item1 == false)
                     continue;
 
-                
-                
+                if (callbacks[key].Item1)
+                    Debug.Log($"TEST - {key} is talking");
+
+                // Is talking
                 if (!sources[(int)key].isPlaying)
                 {
 
@@ -99,11 +101,15 @@ namespace Kidnapped
             // Collections can't be modified in the foreach loop
             foreach (var key in toUpdateKeys)
             {
-                //if (callbacks[key].Item2 != null)
-                callbacks[key].Item2?.Invoke(key);
-                // Reset
+                // We must store the callback to call it after the reset. If we call it before we reset the tuple, then the upcoming reset
+                // will erase the new callback eventually.
+                var callback = callbacks[key].Item2;
+// Reset
                 callbacks[key] = (false, null);
-                //Debug.Log($"TEST - Update key {key}");
+
+                // Callback
+                callback?.Invoke(key);
+                Debug.Log($"TEST - Update key {key}, callbacks:{callbacks[key]}");
             }
 
             
@@ -123,6 +129,8 @@ namespace Kidnapped
             source.volume = defaultVolumes[(int)speaker] * volumeMultiplier;
 
             callbacks[speaker] = (true, OnCompleteCallback);
+
+            Debug.Log($"TEST - {speaker} start talkingkey, callbacks:{callbacks[speaker]}");
 
             source.clip = clip;
             source.Play();

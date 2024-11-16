@@ -177,6 +177,60 @@ MonoBehaviour:
     m_Localized: <color=blue>Well, yeah! I read a lot. Unlike some people.</color>
     m_Metadata:
       m_Items: []
+  - m_Id: 24338891761770496
+    m_Localized: <color=red>That's awful...</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24339654235906048
+    m_Localized: <color=blue>I was sitting at the table when Ted and his friends
+      walked in.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24340095019507712
+    m_Localized: <color=blue>They started calling me stupid names, then they grabbed
+      me and hoisted me up onto a hook.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24340834060066816
+    m_Localized: <color=blue>They pulled food from the carts and started throwing
+      it at me.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24341318950969344
+    m_Localized: <color=blue>Everyone was laughing at me.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24379246175576064
+    m_Localized: <color=red>Why didn't you ever tell me?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24379452468224000
+    m_Localized: <color=red>It wans't because of you. It was because of that idiot
+      and his friends.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24379903704031232
+    m_Localized: <color=red>And I'd do it again to protect you.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24380181169823744
+    m_Localized: <color=blue>I didn't want you to get suspended again because of
+      me.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24382216330010624
+    m_Localized: <color=blue>Exactly.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24389202350170112
+    m_Localized: <color=blue>Hearing that nickname so much, I completely forgot my
+      real name.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24389621474385920
+    m_Localized: <color=red>I never forgot it, Puck.</color>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
