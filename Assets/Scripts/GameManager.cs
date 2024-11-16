@@ -25,6 +25,10 @@ namespace Kidnapped
         {
             base.Awake();
             SceneManager.sceneLoaded += HandleOnSceneLoaded;
+
+#if UNITY_EDITOR
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0]; // en
+#endif
         }
 
         void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)

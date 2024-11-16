@@ -22,6 +22,12 @@ namespace Kidnapped
         [SerializeField]
         GameObject ventriloquistPrefab;
 
+        [SerializeField]
+        AudioSource interactionAudioSource;
+
+        [SerializeField]
+        AudioSource failedAudioSource;
+
         GameObject mannequinGroup;
         Light kitchenLight;
         GameObject symbolGroup;
@@ -113,6 +119,9 @@ namespace Kidnapped
 
         private async void HandleOnSymbolInteraction(ObjectInteractor interactor)
         {
+            // Play audio source
+            interactionAudioSource.Play();
+
             // Store the last symbol we interacted with
             lastInteractor = interactor;
             // Disable all interactors
@@ -193,8 +202,11 @@ namespace Kidnapped
             Animator animator = ventriloquist.GetComponentInChildren<Animator>();
             animator.SetTrigger("HugToMannequin");
 
+            // Play audio
+            failedAudioSource.PlayDelayed(.7f);
+
             // Wait a little more
-            await Task.Delay(1500);
+            await Task.Delay(1800);
 
 
             // Flicker
