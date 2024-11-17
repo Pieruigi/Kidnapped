@@ -106,7 +106,9 @@ namespace Kidnapped.SaveSystem
 
         public void SaveGame()
         {
-            
+#if UNITY_EDITOR
+            return;
+#endif
             foreach (var savable in savables)
             {
                 if (savable == null)

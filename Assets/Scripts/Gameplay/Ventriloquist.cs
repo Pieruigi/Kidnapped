@@ -7,11 +7,15 @@ namespace Kidnapped
 {
     public class Ventriloquist : MonoBehaviour
     {
+
         [SerializeField]
         Animator animator;
 
         [SerializeField]
         float maxAngle;
+
+        [SerializeField]
+        AudioSource laughAudioSource;
 
         //[SerializeField]
         //GameObject leftEye;
@@ -126,6 +130,11 @@ namespace Kidnapped
 
         }
 
+        public void Laugh()
+        {
+            if(laughAudioSource)
+                laughAudioSource.Play();
+        }
         
     }
 

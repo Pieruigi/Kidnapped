@@ -32,6 +32,9 @@ namespace Kidnapped
         AudioSource scaryMannequinAudioSource;
 
         [SerializeField]
+        AudioSource scaryMannequinDestroyAudioSource;
+
+        [SerializeField]
         GameObject puck;
 
         [SerializeField]
@@ -54,6 +57,9 @@ namespace Kidnapped
 
         [SerializeField]
         Transform jarTarget;
+
+        [SerializeField]
+        AudioSource jarAudioSource;
 
         [SerializeField]
         GameObject bloodyFloorPrefab;
@@ -119,6 +125,8 @@ namespace Kidnapped
 
         private void HandleOnJarInteractor(ObjectInteractor arg0)
         {
+            // Play sound
+            jarAudioSource.Play();
             // Flicker
             FlashlightFlickerController.Instance.FlickerToDarkeness(OnJarInteractionFlicker);
             // Start rotating the jar
@@ -127,6 +135,9 @@ namespace Kidnapped
 
         private void OnJarInteractionFlicker(float duration)
         {
+            // Change ambient
+            GameSceneAudioManager.Instance.PlayAmbience(2);
+
             // Destroy the jar
             Destroy(jar);
 
@@ -210,6 +221,9 @@ namespace Kidnapped
 
             // Add some delay
             await Task.Delay(500);
+
+            // Play destroy clip
+            scaryMannequinDestroyAudioSource.Play();
 
             // Activate physics
             Rigidbody rb = scaryMannequinHead.GetComponent<Rigidbody>();

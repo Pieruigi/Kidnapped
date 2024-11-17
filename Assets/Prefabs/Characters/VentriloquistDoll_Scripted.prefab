@@ -213,7 +213,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1049674586156863463
+--- !u!1 &971939429002074049
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,104 +221,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 779144286674448297}
-  - component: {fileID: 2204170840052875763}
-  - component: {fileID: 7630959309047558732}
-  - component: {fileID: 4871932354015327882}
-  - component: {fileID: 6383425389228014350}
-  - component: {fileID: 3511642913774373028}
-  - component: {fileID: 6697869632446127583}
+  - component: {fileID: 8361830663496761152}
+  - component: {fileID: 7207775501544724927}
   m_Layer: 0
-  m_Name: VentriloquistDoll_Scripted
+  m_Name: Laugh Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &779144286674448297
+--- !u!4 &8361830663496761152
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
+  m_GameObject: {fileID: 971939429002074049}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 75.665, y: 1.53, z: 44.381}
-  m_LocalScale: {x: 0.100000024, y: 0.1, z: 0.100000024}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1157970181257059645}
-  - {fileID: 4960255242765492066}
-  - {fileID: 6962123466945962529}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &2204170840052875763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68af2a822f6f3c44d966eb2f5b7c609b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animatedEyes:
-  - {fileID: 2721191697621157242}
-  - {fileID: 7219743443421586005}
-  scriptedEyes:
-  - {fileID: 4615977041684456589}
-  - {fileID: 1073441058750376661}
-  useScriptedEyes: 0
-  target: {fileID: 0}
---- !u!114 &7630959309047558732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e951db234fa9064a8df83fee645c671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4871932354015327882}
-  maxAngle: 90
---- !u!95 &4871932354015327882
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cc80a12251a28f34cb6d161b9ffa076b, type: 3}
-  m_Controller: {fileID: 9100000, guid: b35092cbe48797c4ab700587ead917a4, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!82 &6383425389228014350
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 9.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 779144286674448297}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7207775501544724927
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049674586156863463}
+  m_GameObject: {fileID: 971939429002074049}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5297646171189157697, guid: ddf5a6efa92933447ba575586723a9f8, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 9e2f88b3190633e4eb199b8fed8f53b4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -329,9 +266,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -364,7 +301,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -404,7 +341,46 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3511642913774373028
+--- !u!1 &1049674586156863463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779144286674448297}
+  - component: {fileID: 2204170840052875763}
+  - component: {fileID: 7630959309047558732}
+  - component: {fileID: 4871932354015327882}
+  - component: {fileID: 6697869632446127583}
+  m_Layer: 0
+  m_Name: VentriloquistDoll_Scripted
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &779144286674448297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049674586156863463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 75.665, y: 1.53, z: 44.381}
+  m_LocalScale: {x: 0.100000024, y: 0.1, z: 0.100000024}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1157970181257059645}
+  - {fileID: 4960255242765492066}
+  - {fileID: 6962123466945962529}
+  - {fileID: 8361830663496761152}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &2204170840052875763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,14 +389,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1049674586156863463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca1fb9070857b5e4991309d31b15e286, type: 3}
+  m_Script: {fileID: 11500000, guid: 68af2a822f6f3c44d966eb2f5b7c609b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 8300000, guid: c9a97597896d97846bddb96a65a1848d, type: 3}
-  - {fileID: 8300000, guid: 9e2f88b3190633e4eb199b8fed8f53b4, type: 3}
-  - {fileID: 8300000, guid: b5aeb056851aa494d8004023e0d555f9, type: 3}
-  - {fileID: 8300000, guid: 4b3b68d2e5b2a764198594015e631109, type: 3}
+  animatedEyes:
+  - {fileID: 2721191697621157242}
+  - {fileID: 7219743443421586005}
+  scriptedEyes:
+  - {fileID: 4615977041684456589}
+  - {fileID: 1073441058750376661}
+  useScriptedEyes: 0
+  target: {fileID: 0}
+--- !u!114 &7630959309047558732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049674586156863463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e951db234fa9064a8df83fee645c671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4871932354015327882}
+  maxAngle: 90
+  laughAudioSource: {fileID: 7207775501544724927}
+--- !u!95 &4871932354015327882
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049674586156863463}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: cc80a12251a28f34cb6d161b9ffa076b, type: 3}
+  m_Controller: {fileID: 9100000, guid: b35092cbe48797c4ab700587ead917a4, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!135 &6697869632446127583
 SphereCollider:
   m_ObjectHideFlags: 0
