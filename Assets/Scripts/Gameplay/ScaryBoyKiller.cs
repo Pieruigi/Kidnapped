@@ -74,8 +74,11 @@ namespace Kidnapped
         
         void EnterKillingState()
         {
+            
             // Flicker and watch
             FlashlightFlickerController.Instance.FlickerOnce(OnLightOff, OnFlickerCompleted);
+
+
 
             state = _State.Killing;
         }
@@ -90,6 +93,9 @@ namespace Kidnapped
 
         private void OnLightOff()
         {
+            // Play audio form a specific time
+            GameSceneAudioManager.Instance.PlayKiller(1, time:2.2f);
+
             // Set pose
             animator.SetTrigger(killAnimParam);
             // Disable input

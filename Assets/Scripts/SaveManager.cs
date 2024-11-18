@@ -107,7 +107,7 @@ namespace Kidnapped.SaveSystem
         public void SaveGame()
         {
 #if UNITY_EDITOR
-            return;
+            //return;
 #endif
             foreach (var savable in savables)
             {
@@ -125,6 +125,7 @@ namespace Kidnapped.SaveSystem
                 data[code] = s.GetData();
             }
 
+            Debug.Log("saving file");
             WriteToFile();
 
             OnGameSaved?.Invoke();

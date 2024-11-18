@@ -46,6 +46,9 @@ namespace Kidnapped
         GameObject jarInteractorPrefab;
 
         [SerializeField]
+        AudioSource squishEyesAudioSource;
+
+        [SerializeField]
         PlayerWalkInTrigger exitTrigger;
 
         [SerializeField]
@@ -53,6 +56,9 @@ namespace Kidnapped
 
         [SerializeField]
         GameObject abandonedKitchen;
+
+        [SerializeField]
+        FindingPuckBedroom findingPuckBedroom;
 
         const int notReadyState = 0;
         const int readyState = 100;
@@ -107,7 +113,7 @@ namespace Kidnapped
             FlashlightFlickerController.Instance.FlickerOnce(OnExitFlicker);
         }
 
-        private void OnExitFlicker()
+        private async void OnExitFlicker()
         {
             // Disable the trigger
             exitTrigger.gameObject.SetActive(false);
@@ -121,8 +127,19 @@ namespace Kidnapped
             // Show the old abandoned 
             abandonedKitchen.SetActive(true);
 
+            // Reset ambience sound
+            GameSceneAudioManager.Instance.PlayAmbience(0);
+
             // Set the completed state
             Init(completedState.ToString());
+
+            // Set next gameplay step ready
+            findingPuckBedroom.SetReadyState();
+
+            // Set demo block
+            DemoManager.Instance.ActivateBlock();
+
+            await Task.Delay(1000);
 
             // Save game
             SaveManager.Instance.SaveGame();
@@ -148,6 +165,9 @@ namespace Kidnapped
 
         private void HandleOnJarInteraction(ObjectInteractor intractor)
         {
+            // Squish
+            squishEyesAudioSource.Play();
+
             // Flicker
             FlashlightFlickerController.Instance.FlickerOnce(OnJarFlicker);
         }

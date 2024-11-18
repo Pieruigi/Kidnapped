@@ -85,6 +85,9 @@ namespace Kidnapped
         [SerializeField]
         KitchenHunt kitchenHunt;
 
+        [SerializeField]
+        GameObject schoolEntranceBlock;
+
         const int notReadyState = 0;
         const int readyState = 100;
         const int completedState = 200;
@@ -170,21 +173,26 @@ namespace Kidnapped
         private void HandleOnBloodyFloor()
         {
             // Flicker
-            FlashlightFlickerController.Instance.FlickerToDarkeness();
+            FlashlightFlickerController.Instance.FlickerToDarkeness(OnBloodyFloorFlickerCallback);
 
-            // Load school kitchen
-            
+        }
+
+        private async void OnBloodyFloorFlickerCallback(float duration)
+        {
+            // Change ambient
+            GameSceneAudioManager.Instance.PlayAmbience(3);
+
             // Set completed state
             Init(completedState.ToString());
-
-            // Player can crouch again
-            PlayerController.Instance.CanCrouch = true;
 
             // Disable the school abandoned kitchen
             abandonedSchoolKitchen.Init(false.ToString());
 
             // Enable the school original kitchen
             originalSchoolKitchen.Init(true.ToString());
+
+            // Block school entrance
+            schoolEntranceBlock.SetActive(true);
 
             // Init the new gameplay part
             kitchenHunt.SetReady();
@@ -195,10 +203,17 @@ namespace Kidnapped
             // Move the player in the school kitchen
             PlayerController.Instance.ForcePositionAndRotation(schoolKitchenPlayerTarget.position, schoolKitchenPlayerTarget.rotation);
 
+            // Player can crouch again
+            PlayerController.Instance.CanCrouch = true;
+
+            await Task.Delay(1000);
+
             // Save game
-            //SaveManager.Instance.SaveGame();
+            SaveManager.Instance.SaveGame();
 
         }
+
+
 
         private async void HandleOnLookTriggerEnter()
         {

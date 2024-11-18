@@ -43,6 +43,7 @@ gym is locked: floor1_part3
 in the fog: ext_part1
 boy_dorms: boy_dorms_part1
 kitchen_hunt: kitchen_hunt
+findingPuckBedroom: puck_bedroom
 
 /// Environment
 OriginalGym: old_gym (bool:active)
