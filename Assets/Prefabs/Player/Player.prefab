@@ -3919,6 +3919,7 @@ MonoBehaviour:
   handsLight: {fileID: 8088289134047017302}
   clickAudioSource: {fileID: 2627564857612263191}
   flashIntensity: 4.5
+  animator: {fileID: 6493296811193311184}
 --- !u!114 &3275363002940392728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8748,6 +8749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1132560000200109576}
+  - component: {fileID: 6493296811193311184}
   m_Layer: 0
   m_Name: Arms_Flashlight
   m_TagString: Untagged
@@ -8772,6 +8774,27 @@ Transform:
   - {fileID: 8819176095874656140}
   m_Father: {fileID: 4729525384917674865}
   m_LocalEulerAnglesHint: {x: -9.202, y: -14.175, z: 2.31}
+--- !u!95 &6493296811193311184
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768882278042405137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7e5f1c0d1f0bdcc4ebffd81875b8080b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8800532217646662193
 GameObject:
   m_ObjectHideFlags: 0

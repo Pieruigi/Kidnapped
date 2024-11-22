@@ -24,6 +24,10 @@ namespace Kidnapped
 
         [SerializeField]
         float flashIntensity = 4.5f;
+
+        [SerializeField]
+        Animator animator;
+
         public float LightIntensity { get { return flashIntensity; } }
        
         bool isOn = false;
@@ -35,7 +39,8 @@ namespace Kidnapped
 
         Animation anims;
         FlashlightFlickerController flickerOff;
- 
+
+        string animationParamName = "LightOn";
         
         protected override void Awake()
         {
@@ -104,7 +109,13 @@ namespace Kidnapped
         {
             if (isOn) return;
             isOn = true;
+
+            // Set animation
+            if (animator.GetBool(animationParamName) != isOn)
+                animator.SetBool(animationParamName, isOn);
+
             EnableLights();
+
             clickAudioSource.Play();
             OnSwitchedOn?.Invoke();
         }
@@ -112,7 +123,13 @@ namespace Kidnapped
         {
             if(!isOn) return;
             isOn = false;
+            
+            // Set animation
+            if (animator.GetBool(animationParamName) != isOn)
+                animator.SetBool(animationParamName, isOn);
+
             DisableLights();
+
             clickAudioSource.Play();
             OnSwitchedOff?.Invoke();
         }
