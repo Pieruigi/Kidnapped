@@ -1,0 +1,2 @@
+Quando faccio il backing devo ricordarmi di disattivare la cucina vecchia perché altrimenti la navmesh si interrompe all'entrata.
+La porta della cucina nuova è invece impostata per non essere un ostacolo.
