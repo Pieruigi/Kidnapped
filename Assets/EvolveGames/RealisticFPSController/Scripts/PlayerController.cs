@@ -123,6 +123,11 @@ namespace EvolveGames
                 PlayerInputEnabled = !PlayerInputEnabled;
             }
 
+            if (Input.GetKeyDown(KeyCode.M)) 
+            {
+                transform.parent.position = new Vector3(-37f, 1.7f, 141f);
+            }
+
             //RuningSpeed = 40;
 #endif
 

@@ -1,4 +1,5 @@
 using Kidnapped.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,10 +23,11 @@ namespace Kidnapped
         GameObject autoSaveHintPage;
 
         [SerializeField]
-        GameObject languageSelection;
+        GameObject languageSelectionPage;
 
         static bool skip = false;
 
+        bool languageSelected = false;
        
         // Start is called before the first frame update
         void Start()
@@ -52,6 +54,30 @@ namespace Kidnapped
 
         }
 
+        private void OnEnable()
+        {
+            SettingsManager.OnLanguageSelected += HandleOnLaguageSelected;
+        }
+
+        private void OnDisable()
+        {
+            SettingsManager.OnLanguageSelected -= HandleOnLaguageSelected;
+        }
+
+        private async void HandleOnLaguageSelected(int language)
+        {
+            // We activate the autosave hint page to let the system load text in the selected language
+            ShowAutoSaveHintPage();
+            // Add some delay
+            await Task.Delay(500);
+            // Hide language selection page
+            HideLanguageSelectionPage();
+            
+            await Task.Delay(4000);
+            HideAutoSaveHintPage();
+            // Show main menu
+            pageManager.Open(mainMenu.gameObject);
+        }
 
         void HidePageAll()
         {
@@ -79,14 +105,14 @@ namespace Kidnapped
             splashPage.SetActive(true);
         }
 
-        void ShowLanguageSelection()
+        void ShowLanguageSelectionPage()
         {
-            languageSelection.SetActive(true);
+            languageSelectionPage.SetActive(true);
         }
 
-        void HideLanguageSelection()
+        void HideLanguageSelectionPage()
         {
-            languageSelection.SetActive(false);
+            languageSelectionPage.SetActive(false);
         }
 
         async void ShowPages()
@@ -97,17 +123,8 @@ namespace Kidnapped
             HideSplashPage();
 
             // Show language selection
-            ShowLanguageSelection();
-
-            return;
-
-            // Show auto save page
-            ShowAutoSaveHintPage();
-            await Task.Delay(4000);
-            HideAutoSaveHintPage();
-            // Show main menu
-            //mainMenu.Open();
-            pageManager.Open(mainMenu.gameObject);
+            ShowLanguageSelectionPage();
+           
         }
     }
 

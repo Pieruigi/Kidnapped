@@ -14,6 +14,7 @@ namespace Kidnapped
         public static UnityAction<int> OnAntialiasingChanged;
         public static UnityAction<float> OnMouseSensitivityChanged;
         public static UnityAction<bool> OnMouseYAxisInvertedChanged;
+        public static UnityAction<int> OnLanguageSelected;
 
         #region audio
         [SerializeField]
@@ -139,6 +140,12 @@ namespace Kidnapped
             {
                 Debug.Log($"{r.width}x{r.height} @ {r.refreshRateRatio.value}({r.refreshRateRatio.numerator}/{r.refreshRateRatio.denominator})");
             }
+        }
+
+        public void SetLanguage(int language)
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[language];
+            OnLanguageSelected?.Invoke(language);
         }
 
         #region audio

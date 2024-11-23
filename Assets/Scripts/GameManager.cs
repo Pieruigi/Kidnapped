@@ -16,7 +16,7 @@ namespace Kidnapped
         public static UnityAction OnSceneLoadingStarted;
         public static UnityAction<float> OnSceneLoadingProgress;
         public static UnityAction OnSceneLoadingCompleted;
-
+       
         int mainSceneIndex = 0;
         int gameSceneIndex = 1;
 
@@ -27,13 +27,13 @@ namespace Kidnapped
             SceneManager.sceneLoaded += HandleOnSceneLoaded;
 
 #if UNITY_EDITOR
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0]; // en
+            //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0]; // en
 
-            foreach(var loc in LocalizationSettings.AvailableLocales.Locales)
-            {
-                Debug.Log($"Locale - {loc.LocaleName}");
-            }
-            Utility.GetSupportedLanguageCodes();
+            //foreach(var loc in LocalizationSettings.AvailableLocales.Locales)
+            //{
+            //    Debug.Log($"Locale - {loc.LocaleName}");
+            //}
+            //Utility.GetSupportedLanguageCodes();
 #endif
         }
 
@@ -125,6 +125,7 @@ namespace Kidnapped
         {
             SceneManager.LoadScene(mainSceneIndex);
         }
+
 
     }
 

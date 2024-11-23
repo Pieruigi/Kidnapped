@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,22 +14,24 @@ namespace Kidnapped.UI
         [SerializeField]
         Language _language = Language.English;
 
-        
         private void Awake()
         {
-            GetComponent<Button>().onClick.AddListener(() => { LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[(int)_language]; });
+            GetComponent<Button>().onClick.AddListener(() => { SettingsManager.Instance.SetLanguage((int)_language); });
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
-
+            SettingsManager.OnLanguageSelected += HandleOnLanguageSelected;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDisable()
         {
+            SettingsManager.OnLanguageSelected -= HandleOnLanguageSelected;
+        }
 
+        private void HandleOnLanguageSelected(int language)
+        {
+            GetComponent<Button>().interactable = false;
         }
     }
 
