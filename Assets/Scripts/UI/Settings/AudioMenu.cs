@@ -21,6 +21,15 @@ namespace Kidnapped.UI
         int globalVolumeNew = 100;
         #endregion
 
+        #region subtitles on/off
+        [SerializeField]
+        ToggleSelector subtitlesOnOffSelector;
+
+        bool subtitlesOnOff = false;
+        bool subtitlesOnOffNew = false;
+
+        #endregion
+
         string volumeTextFormat = "{0}%";
 
         private void Awake()
@@ -38,13 +47,24 @@ namespace Kidnapped.UI
             if (!SettingsManager.Instance)
                 return;
 
-            // Set local global volume
+            //
+            // Set global volume
+            //
             globalVolume = SettingsManager.Instance.GlobalVolume;
             globalVolumeNew = globalVolume;
             // Set global volume slider
             globalVolumeSelector.SetSliderValue(globalVolumeNew);
             // Set text
             SetVolumeText(globalVolumeSelector, globalVolumeNew);
+
+            //
+            // Set subtitles on/off
+            //
+            subtitlesOnOff = SettingsManager.Instance.SubtitlesOn;
+            subtitlesOnOffNew = subtitlesOnOff;
+            // Set selector
+            subtitlesOnOffSelector.SetIsOn(subtitlesOnOff);
+
             // Update the apply button
             UpdateApplyButton();
         }
@@ -54,9 +74,18 @@ namespace Kidnapped.UI
         {
             // Global volume
             globalVolumeSelector.RegisterOnValueChangedCallback(HandleOnGlobalVolumeValueChanged);
+            // Subtitles on/off
+            subtitlesOnOffSelector.RegisterCallback(HandleOnSubtitlesOnOffChanged);
         }
 
-        
+        private void HandleOnSubtitlesOnOffChanged(bool isOn)
+        {
+            // Set new value
+            subtitlesOnOffNew = isOn;
+            // Update apply button
+            UpdateApplyButton();
+        }
+
         private void HandleOnGlobalVolumeValueChanged(float value)
         {
             globalVolumeNew = (int)value;
@@ -75,7 +104,7 @@ namespace Kidnapped.UI
         
         bool NothingChanged()
         {
-            return (globalVolume == globalVolumeNew);
+            return (globalVolume == globalVolumeNew && subtitlesOnOff == subtitlesOnOffNew);
         }
 
         void RevertChanges()
@@ -84,10 +113,13 @@ namespace Kidnapped.UI
             /// Global volume
             /// 
             globalVolumeNew = globalVolume;
-            SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew);
-            //SetVolumeText(globalVolumeSelector, globalVolumeNew);
-            //globalVolumeSelector.SetSliderValue(globalVolumeNew);
+            SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew); // We want to hear volume changes ( we can always reset them back )
             
+            //
+            // Subtitles on/off
+            //
+            subtitlesOnOffNew = subtitlesOnOff;
+           
             // Update apply button
             UpdateApplyButton();
         }
@@ -109,8 +141,12 @@ namespace Kidnapped.UI
                 SettingsManager.Instance.UpdateGlobalVolume(globalVolumeNew);
             }
 
-            // Save all
-            //PlayerPrefs.Save();
+            if(subtitlesOnOff != subtitlesOnOffNew)
+            {
+                subtitlesOnOff = subtitlesOnOffNew;
+                SettingsManager.Instance.UpdateSubtitlesOnOff(subtitlesOnOffNew ? 1 : 0);
+            }
+
         }
 
         public void Back()

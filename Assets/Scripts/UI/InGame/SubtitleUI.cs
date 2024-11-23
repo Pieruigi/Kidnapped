@@ -35,6 +35,9 @@ namespace Kidnapped.UI
 
         public async void Show(string text, bool autoHide = false)
         {
+            if (!SettingsManager.Instance.SubtitlesOn)
+                return;
+            
             if(!bg.gameObject.activeSelf)
                 bg.gameObject.SetActive(true);
             textField.text = text;

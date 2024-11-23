@@ -28,6 +28,11 @@ namespace Kidnapped
 
 #if UNITY_EDITOR
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0]; // en
+
+            foreach(var loc in LocalizationSettings.AvailableLocales.Locales)
+            {
+                Debug.Log($"Locale - {loc.LocaleName}");
+            }
 #endif
         }
 

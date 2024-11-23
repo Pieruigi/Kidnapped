@@ -18,6 +18,9 @@ namespace Kidnapped
         [SerializeField]
         AudioMixer audioMixer;
 
+        //
+        // Global volume
+        //
         int globalVolume = 100;
         public int GlobalVolume
         {
@@ -25,6 +28,17 @@ namespace Kidnapped
         }
         string globalVolumeKeyName = "GlobalVolume";
         string globalVolumeParamName = "GlobalVolume";
+
+        //
+        // Subtitles on/off
+        //
+        int subtitlesOnOff;
+        string subtitlesOnOffKeyName = "SubtitlesOn";
+        public bool SubtitlesOn
+        {
+            get { return subtitlesOnOff > 0; }
+        }
+
         #endregion
 
         #region graphics
@@ -123,6 +137,10 @@ namespace Kidnapped
             if (PlayerPrefs.HasKey(globalVolumeKeyName))
                 globalVolume = PlayerPrefs.GetInt(globalVolumeKeyName);
             SetAudioMixerVolume(globalVolumeParamName, globalVolume);
+
+            // Subtitles on/off
+            if(PlayerPrefs.HasKey(subtitlesOnOffKeyName))
+                subtitlesOnOff = PlayerPrefs.GetInt(subtitlesOnOffKeyName);
         }
 
         void SetAudioMixerVolume(string paramName, float value)
@@ -135,6 +153,13 @@ namespace Kidnapped
             globalVolume = newValue;
             SetAudioMixerVolume(globalVolumeParamName, globalVolume);
             PlayerPrefs.SetInt(globalVolumeKeyName, globalVolume);
+            PlayerPrefs.Save();
+        }
+
+        public void UpdateSubtitlesOnOff(int newValue)
+        {
+            subtitlesOnOff = newValue;
+            PlayerPrefs.SetInt(subtitlesOnOffKeyName, subtitlesOnOff);
             PlayerPrefs.Save();
         }
         #endregion

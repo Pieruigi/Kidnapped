@@ -187,6 +187,10 @@ MonoBehaviour:
     m_Localized: "Sar\xE0 possibile cambiare i controlli nel prossimo aggiornamento."
     m_Metadata:
       m_Items: []
+  - m_Id: 6465446059433984
+    m_Localized: Sottotitoli
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

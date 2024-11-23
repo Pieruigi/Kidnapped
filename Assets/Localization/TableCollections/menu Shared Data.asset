@@ -183,6 +183,10 @@ MonoBehaviour:
     m_Key: no_key_map
     m_Metadata:
       m_Items: []
+  - m_Id: 6465446059433984
+    m_Key: subtitles_on_off
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
