@@ -33,6 +33,7 @@ namespace Kidnapped
             {
                 Debug.Log($"Locale - {loc.LocaleName}");
             }
+            Utility.GetSupportedLanguageCodes();
 #endif
         }
 

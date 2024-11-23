@@ -2,6 +2,7 @@ using Aura2API;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Kidnapped
 {
@@ -51,6 +52,16 @@ namespace Kidnapped
             
         }
 
+        public static List<string> GetSupportedLanguageCodes()
+        {
+            List<string> codes = new List<string>();
+            foreach (var locale in LocalizationSettings.AvailableLocales.Locales)
+                codes.Add(locale.LocaleName.Substring(locale.LocaleName.IndexOf("(")+1, 2));
+
+            //foreach (var code in codes)
+            //    Debug.Log($"'{code}'");
+            return codes;
+        }
     }
     
 }

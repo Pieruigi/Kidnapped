@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering.PostProcessing;
 
 namespace Kidnapped
@@ -38,6 +39,16 @@ namespace Kidnapped
         {
             get { return subtitlesOnOff > 0; }
         }
+
+        ////
+        //// Language
+        ////
+        //int localeId;
+        //string localeIdKeyName = "Locale";
+        //int LocaleId
+        //{
+        //    get { return localeId; }
+        //}
 
         #endregion
 
@@ -105,7 +116,7 @@ namespace Kidnapped
             InitAudio();
             InitGraphics();
             InitControls();
-            DebugResolutions();
+            //DebugResolutions();
         }
 
         private void Update()
@@ -141,6 +152,12 @@ namespace Kidnapped
             // Subtitles on/off
             if(PlayerPrefs.HasKey(subtitlesOnOffKeyName))
                 subtitlesOnOff = PlayerPrefs.GetInt(subtitlesOnOffKeyName);
+
+            // Language
+            //if(PlayerPrefs.HasKey(localeIdKeyName))
+            //    localeId = PlayerPrefs.GetInt(localeIdKeyName);
+            //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeId];
+
         }
 
         void SetAudioMixerVolume(string paramName, float value)
@@ -162,6 +179,14 @@ namespace Kidnapped
             PlayerPrefs.SetInt(subtitlesOnOffKeyName, subtitlesOnOff);
             PlayerPrefs.Save();
         }
+
+        //public void UpdateLocale(int newValue)
+        //{
+        //    localeId = newValue;
+        //    LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeId];
+        //    PlayerPrefs.SetInt(localeIdKeyName, localeId);
+        //    PlayerPrefs.Save();
+        //}
         #endregion
 
         #region graphics

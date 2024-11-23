@@ -187,6 +187,10 @@ MonoBehaviour:
     m_Key: subtitles_on_off
     m_Metadata:
       m_Items: []
+  - m_Id: 6482808745746432
+    m_Key: locale_en
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

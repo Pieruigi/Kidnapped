@@ -191,6 +191,10 @@ MonoBehaviour:
     m_Localized: Sottotitoli
     m_Metadata:
       m_Items: []
+  - m_Id: 6482808745746432
+    m_Localized: Inglese
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

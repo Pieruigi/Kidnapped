@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-String-Tables-German (de)
+  m_Name: Localization-String-Tables-Spanish
   m_EditorClassIdentifier: 
-  m_GroupName: Localization-String-Tables-German (de)
+  m_GroupName: Localization-String-Tables-Spanish
   m_Data:
     m_SerializedData: []
-  m_GUID: ef62aa089286210418973d204d97415e
+  m_GUID: b8f98997c186c3846956cd9d570e96eb
   m_SerializeEntries:
-  - m_GUID: 951779c9d03841c4892c41ff28ca1906
-    m_Address: subtitles_de
+  - m_GUID: 80e4e242f27be384dab96c825023e095
+    m_Address: menu_es
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-de
+    - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 29ffd8687282ca44eae6279a8fcbb520, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 290cfb237c7587c40abb5b01088a8d95, type: 2}
-    - {fileID: 11400000, guid: 71b96f36da8be9841af72cfa8a33a156, type: 2}
+    - {fileID: 11400000, guid: 820ec99206e7baf48a24d314a707293e, type: 2}
+    - {fileID: 11400000, guid: e17aa5255ac3e03408437fcc28e9c7f7, type: 2}

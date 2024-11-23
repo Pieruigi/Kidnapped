@@ -21,6 +21,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject autoSaveHintPage;
 
+        [SerializeField]
+        GameObject languageSelection;
+
         static bool skip = false;
 
        
@@ -76,12 +79,28 @@ namespace Kidnapped
             splashPage.SetActive(true);
         }
 
+        void ShowLanguageSelection()
+        {
+            languageSelection.SetActive(true);
+        }
+
+        void HideLanguageSelection()
+        {
+            languageSelection.SetActive(false);
+        }
+
         async void ShowPages()
         {
             ShowSplashPage();
             await Task.Delay(3000);
             // Hide splash page
             HideSplashPage();
+
+            // Show language selection
+            ShowLanguageSelection();
+
+            return;
+
             // Show auto save page
             ShowAutoSaveHintPage();
             await Task.Delay(4000);

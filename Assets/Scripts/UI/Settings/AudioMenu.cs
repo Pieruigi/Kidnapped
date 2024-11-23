@@ -27,9 +27,9 @@ namespace Kidnapped.UI
 
         bool subtitlesOnOff = false;
         bool subtitlesOnOffNew = false;
-
         #endregion
 
+       
         string volumeTextFormat = "{0}%";
 
         private void Awake()
