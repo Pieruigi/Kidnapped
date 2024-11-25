@@ -83,6 +83,7 @@ namespace Kidnapped
         {
             HideSplashPage();
             HideAutoSaveHintPage();
+            HideLanguageSelectionPage();
         }
 
         void HideAutoSaveHintPage()

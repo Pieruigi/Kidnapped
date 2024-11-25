@@ -9,7 +9,10 @@ namespace Kidnapped
     public class CameraFxManager : MonoBehaviour
     {
         [SerializeField]
-        CameraFilterPack_TV_Horror horrorFx;
+        CameraFilterPack_Film_Grain filmGrainFx;
+
+        [SerializeField]
+        CameraFilterPack_TV_Artefact artefactFx;
 
        
         private void Awake()
@@ -29,20 +32,22 @@ namespace Kidnapped
 #if UNITY_EDITOR
             if(Input.GetKeyDown(KeyCode.Alpha1)) 
             {
-                EnableHorrorFx();
+                //EnableHorrorFx();
             }
 #endif
         }
 
         void DisableFxAll()
         {
-            horrorFx.enabled = false;
+            filmGrainFx.enabled = false;
+            artefactFx.enabled = false;
         }
 
-        void EnableHorrorFx()
+
+        public void ShowFilmGrainFx()
         {
             DisableFxAll();
-            horrorFx.enabled = true;
+            filmGrainFx.enabled = true;
         }
     }
 

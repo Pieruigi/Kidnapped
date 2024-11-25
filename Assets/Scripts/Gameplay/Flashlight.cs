@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using VLB;
 
 namespace Kidnapped
 {
@@ -18,6 +19,7 @@ namespace Kidnapped
 
         [SerializeField]
         Light handsLight;
+              
 
         [SerializeField]
         AudioSource clickAudioSource;
