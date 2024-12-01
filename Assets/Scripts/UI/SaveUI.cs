@@ -41,12 +41,12 @@ namespace Kidnapped.UI
 
         private void OnEnable()
         {
-            SaveManager.OnGameSaved += HandleOnGameSaved; // TODO: remove comment
+            //SaveManager.OnGameSaved += HandleOnGameSaved; // TODO: remove comment
         }
 
         private void OnDisable()
         {
-            SaveManager.OnGameSaved -= HandleOnGameSaved; // TODO: remove comment
+            //SaveManager.OnGameSaved -= HandleOnGameSaved; // TODO: remove comment
         }
 
         private void HandleOnGameSaved()

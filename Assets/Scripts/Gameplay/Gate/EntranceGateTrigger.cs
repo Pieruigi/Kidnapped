@@ -88,6 +88,9 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInTrigger voiceTrigger;
 
+        [SerializeField]
+        List<Collider> catCollidersToIgnore;
+
         bool isOpen = false;
         bool isInside = false;
 
@@ -123,8 +126,6 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            
-
 
             if (state == 0 || state == 1 || state == 3)
             {
@@ -195,6 +196,9 @@ namespace Kidnapped
                         // Activate the cat trigger
                         catActivator.SetActive(true);
                         catDeactivator.SetActive(true);
+                        // Disable collision between cat and gate
+                        foreach(var coll in catCollidersToIgnore)
+                            Physics.IgnoreCollision(CatController.Instance.GetComponent<Collider>(), coll, true);
                     }
                         
                 }

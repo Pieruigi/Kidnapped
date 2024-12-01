@@ -17,6 +17,7 @@ public class CatScaredAndRunWay : MonoBehaviour
     float elapsed = 0;
     float runTime = .75f;
     float rotationTime = .75f;
+    float maxSpeed = 6f;
 
     public bool JumpDisabled { get; set; } = false;
 
@@ -50,6 +51,14 @@ public class CatScaredAndRunWay : MonoBehaviour
             
             rb.AddForce(dir.normalized * moveForce, ForceMode.Acceleration);
         }
+
+        // Clamp max speed
+        if(rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+            
+
     }
 
     private void OnEnable()
