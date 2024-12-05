@@ -17,7 +17,7 @@ namespace Kidnapped
        
         private void Awake()
         {
-            DisableFxAll();
+            //DisableFxAll();
         }
 
         // Start is called before the first frame update

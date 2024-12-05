@@ -46,6 +46,7 @@ namespace Kidnapped
         {
             if (playOnEnter)
             {
+                Debug.Log($"BUG - IsPlayOnEnter:{gameObject.name}");
                 Play();
             }
             else
@@ -58,7 +59,7 @@ namespace Kidnapped
 
         private void Update()
         {
-            
+  
         }
 
         private void OnEnable()

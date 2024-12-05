@@ -28,7 +28,7 @@ namespace Kidnapped.UI
 
         public void QuitGame()
         {
-            PopUpManager.Instance.ShowActionPopUp("quit_msg", () => { GameManager.Instance.ReturnToMainScene(); }, () => { });
+            PopUpManager.Instance.ShowActionPopUp("quit_msg", () => { Time.timeScale = 1f; GameManager.Instance.ReturnToMainScene(); }, () => { });
         }
     }
 
