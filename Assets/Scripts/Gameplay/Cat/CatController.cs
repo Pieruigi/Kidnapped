@@ -27,6 +27,8 @@ namespace Kidnapped
 
         int state = 0;
 
+
+
         protected override void Awake()
         {
             base.Awake();
@@ -36,8 +38,7 @@ namespace Kidnapped
             Init(data);
         }
 
-
-
+       
         public void ResetAll()
         {
             cat.SetActive(false);
@@ -97,7 +98,11 @@ namespace Kidnapped
             meowAudioSource.Play();
         }
 
-
+        public void SetMute(bool value)
+        {
+            meowAudioSource.enabled = value;
+            screamAudioSource.enabled = value;
+        }
 
         #region save system
         [Header("Save System")]

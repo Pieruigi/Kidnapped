@@ -1240,7 +1240,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ee872a24c30ba5749b8a6f33fa7e0f27, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -4214,10 +4214,8 @@ MonoBehaviour:
   animator: {fileID: 5833310128403537271}
   triggers:
   - Lick
-  - Eat
   - Hit
   - Meow
-  - Attack
   - Attack2
 --- !u!114 &8408461381060851322
 MonoBehaviour:

@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Kidnapped
 {
@@ -91,6 +92,7 @@ namespace Kidnapped
         [SerializeField]
         List<Collider> catCollidersToIgnore;
 
+
         bool isOpen = false;
         bool isInside = false;
 
@@ -120,12 +122,13 @@ namespace Kidnapped
         // Start is called before the first frame update
         void Start()
         {
-            
+           
         }
 
         // Update is called once per frame
         void Update()
         {
+
 
             if (state == 0 || state == 1 || state == 3)
             {
@@ -139,7 +142,6 @@ namespace Kidnapped
                         {
                             if (hit.collider == _collider)
                             {
-                                Debug.Log("The gate is closed");
                                 // Left hand
                                 PlayerLeftHand.Instance.PlayClueAnimation();
 
@@ -196,6 +198,10 @@ namespace Kidnapped
                         // Activate the cat trigger
                         catActivator.SetActive(true);
                         catDeactivator.SetActive(true);
+
+                        // Set mute
+                        //CatController.Instance.SetMute(true);
+
                         // Disable collision between cat and gate
                         foreach(var coll in catCollidersToIgnore)
                             Physics.IgnoreCollision(CatController.Instance.GetComponent<Collider>(), coll, true);
@@ -326,13 +332,18 @@ namespace Kidnapped
             closeAudioSource.Play();
 
             // Cat screaming
-            CatController.Instance.Scream();
+            //CatController.Instance.Scream();
+            //gateCatAudioSource.PlayDelayed(.5f);
 
             // Block tunnels again
             BlockLeftTunnel();
             BlockRightTunnelFront();
             _collider.enabled = true;
+
+            
         }
+
+        
 
         void OpenTheGate()
         {
