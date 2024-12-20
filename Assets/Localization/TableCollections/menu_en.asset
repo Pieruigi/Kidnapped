@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 8d27574a6ac39444cabd0e4f3ba45974, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 5366152611486236674
   m_TableData:
   - m_Id: 132309884928
     m_Localized: New Game
@@ -195,6 +196,16 @@ MonoBehaviour:
     m_Localized: English
     m_Metadata:
       m_Items: []
+  - m_Id: 15256362933018624
+    m_Localized: <b>Thanks for playing the demo of Beneath the Bell!</b>\n\nIf you
+      like the game, please consider adding it to your Steam wishlist!
+    m_Metadata:
+      m_Items:
+      - rid: 5366152611486236674
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5366152611486236674
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00e02fcd94333600

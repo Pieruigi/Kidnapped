@@ -30,6 +30,7 @@ namespace Kidnapped
         public void PlayTouchAnimation()
         {
             animator.SetTrigger(touchParamName);
+            animator.SetBool(clueParamName, false);
         }
     }
 

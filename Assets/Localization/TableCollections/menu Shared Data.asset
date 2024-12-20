@@ -191,6 +191,10 @@ MonoBehaviour:
     m_Key: locale_en
     m_Metadata:
       m_Items: []
+  - m_Id: 15256362933018624
+    m_Key: demo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

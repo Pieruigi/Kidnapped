@@ -1,5 +1,6 @@
 using EvolveGames;
 using Kidnapped.SaveSystem;
+using Kidnapped.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -296,7 +297,6 @@ namespace Kidnapped
            
             await Task.Delay(3000);
 
-            //state = 40;
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
             // Flashlight
@@ -349,7 +349,6 @@ namespace Kidnapped
 
         private void HandleOnLightOff(float duration)
         {
-
             // Deactivate the current scary group
             scaryGroups[scaryIndex].SetActive(false);
 
@@ -394,7 +393,12 @@ namespace Kidnapped
 
         private void HandleOnLightComplete()
         {
-            if(state == 200)
+#if DEMO
+            //DemoUI.Instance.Show();
+            //return;
+#endif
+
+            if (state == 200)
             {
                 // Set in the fog controller ready
                 inTheFogController.SetReady();
