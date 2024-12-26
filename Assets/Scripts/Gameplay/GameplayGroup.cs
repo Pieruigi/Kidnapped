@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Kidnapped
 {
-    public class GameplayGroup : MonoBehaviour
+    public class GameplayGroup : MonoBehaviour, ISavable
     {
         [SerializeField]
         List<GameObject> elements;

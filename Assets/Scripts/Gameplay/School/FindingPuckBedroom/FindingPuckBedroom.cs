@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Kidnapped
 {
-    public class FindingPuckBedroom : MonoBehaviour, ISavable
+    public class FindingPuckBedroom : MonoBehaviour//, ISavable
     {
         [SerializeField]
         PlayerWalkInTrigger jinxInTrigger;
@@ -28,23 +28,23 @@ namespace Kidnapped
         [SerializeField]
         Transform lilithTarget;
 
-        int state = 0;
+        //int state = 0;
 
-        const int notReadyState = 0;
-        const int readyState = 100;
-        const int completedState = 200;
+        //const int notReadyState = 0;
+        //const int readyState = 100;
+        //const int completedState = 200;
 
         GameObject jinx;
         GameObject lilith;
 
-        private void Awake()
-        {
-            var data = SaveManager.GetCachedValue(code);
-            if (string.IsNullOrEmpty(data))
-                data = notReadyState.ToString();
+        //private void Awake()
+        //{
+        //    var data = SaveManager.GetCachedValue(code);
+        //    if (string.IsNullOrEmpty(data))
+        //        data = notReadyState.ToString();
 
-            Init(data);
-        }
+        //    Init(data);
+        //}
 
         // Start is called before the first frame update
         void Start()
@@ -95,10 +95,14 @@ namespace Kidnapped
             GameSceneAudioManager.Instance.PlayStinger(0);
         }
 
-        private void OnFlickerJinxOutAfter()
+        private async void OnFlickerJinxOutAfter()
         {
             // Unspawn Lilith
             Destroy(lilith);
+
+            await Task.Delay(TimeSpan.FromSeconds(2));
+
+            GetComponentInParent<GameplayGroup>().MoveToNextElement();
         }
 
         private void HandleOnJinxInEnter(PlayerWalkInTrigger trigger)
@@ -136,45 +140,45 @@ namespace Kidnapped
     
         
 
-        public void SetReadyState()
-        {
+        //public void SetReadyState()
+        //{
             
-            Init(readyState.ToString());
-        }
+        //    Init(readyState.ToString());
+        //}
 
-        #region save system
-        [Header("SaveSystem")]
-        [SerializeField]
-        string code;
-        public string GetCode()
-        {
-            return code;
-        }
+        //#region save system
+        //[Header("SaveSystem")]
+        //[SerializeField]
+        //string code;
+        //public string GetCode()
+        //{
+        //    return code;
+        //}
 
-        public string GetData()
-        {
-            return state.ToString();
-        }
+        //public string GetData()
+        //{
+        //    return state.ToString();
+        //}
 
-        public void Init(string data)
-        {
-            // Set state
-            state = int.Parse(data);
+        //public void Init(string data)
+        //{
+        //    // Set state
+        //    state = int.Parse(data);
 
-            // Default
-            jinxInTrigger.gameObject.SetActive(false);
-            jinxOutTrigger.gameObject.SetActive(false);
+        //    // Default
+        //    jinxInTrigger.gameObject.SetActive(false);
+        //    jinxOutTrigger.gameObject.SetActive(false);
 
-            // Set default values
-            if (state == readyState)
-            {
-                // Spawn the first jar    
-                jinxInTrigger.gameObject.SetActive(true);
-                jinxOutTrigger.gameObject.SetActive(true);
-            }
-        }
+        //    // Set default values
+        //    if (state == readyState)
+        //    {
+        //        // Spawn the first jar    
+        //        jinxInTrigger.gameObject.SetActive(true);
+        //        jinxOutTrigger.gameObject.SetActive(true);
+        //    }
+        //}
 
-        #endregion
+        //#endregion
     }
 
 }

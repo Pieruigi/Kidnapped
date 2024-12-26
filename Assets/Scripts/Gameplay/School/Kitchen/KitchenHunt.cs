@@ -58,7 +58,7 @@ namespace Kidnapped
         GameObject abandonedKitchen;
 
         [SerializeField]
-        FindingPuckBedroom findingPuckBedroom;
+        GameplayGroup findingPuckBedroom;
 
         const int notReadyState = 0;
         const int readyState = 100;
