@@ -11,13 +11,22 @@ namespace Kidnapped
     public class FindingPuckBedroom : MonoBehaviour, ISavable
     {
         [SerializeField]
-        PlayerWalkInTrigger jinxMiaoTrigger;
+        PlayerWalkInTrigger jinxInTrigger;
+
+        [SerializeField]
+        PlayerWalkInTrigger jinxOutTrigger;
 
         [SerializeField]
         GameObject jinxPrefab;
 
         [SerializeField]
-        Transform[] jinxTargets;
+        Transform jinxTarget;
+
+        [SerializeField]
+        GameObject lilithPrefab;
+
+        [SerializeField]
+        Transform lilithTarget;
 
         int state = 0;
 
@@ -26,10 +35,7 @@ namespace Kidnapped
         const int completedState = 200;
 
         GameObject jinx;
-        SimpleCatController jinxController;
-        int jinxStep = 0;
-
-        
+        GameObject lilith;
 
         private void Awake()
         {
@@ -54,82 +60,81 @@ namespace Kidnapped
 
         private void OnEnable()
         {
-            jinxMiaoTrigger.OnEnter += HandleOnJinxMiaoEnter;
+            jinxInTrigger.OnEnter += HandleOnJinxInEnter;
+            jinxOutTrigger.OnEnter += HandleOnJinxOutEnter;
         }
 
         private void OnDisable()
         {
-            jinxMiaoTrigger.OnEnter -= HandleOnJinxMiaoEnter;
+            jinxInTrigger.OnEnter -= HandleOnJinxInEnter;
+            jinxOutTrigger.OnEnter -= HandleOnJinxOutEnter;
         }
 
-        private void HandleOnJinxMiaoEnter(PlayerWalkInTrigger trigger)
+        private void HandleOnJinxOutEnter(PlayerWalkInTrigger arg0)
+        {
+            // Disable trigger
+            arg0.gameObject.SetActive(false);
+
+            // Flicker
+            FlashlightFlickerController.Instance.FlickerAndWatch(OnFlickerJinxOutBefore, OnFlickerJinxOutAfter, onDuration: 0.5f);
+        }
+
+        private void OnFlickerJinxOutBefore()
+        {
+            // Hide Jinx and show Lilith
+            jinx.gameObject.SetActive(false);
+
+            // Spawn Lilith
+            lilith = Instantiate(lilithPrefab, lilithTarget.position, lilithTarget.rotation);
+
+            lilith.SetActive(true);
+
+            lilith.GetComponentInChildren<Animator>().SetTrigger("Run");
+
+            // Stinger
+            GameSceneAudioManager.Instance.PlayStinger(0);
+        }
+
+        private void OnFlickerJinxOutAfter()
+        {
+            // Unspawn Lilith
+            Destroy(lilith);
+        }
+
+        private void HandleOnJinxInEnter(PlayerWalkInTrigger trigger)
         {
             // Disable trigger
             trigger.gameObject.SetActive(false);
 
             // Flicker once
-            FlashlightFlickerController.Instance.FlickerOnce(onLightOffCallback: HandleOnJinxMeowLightOff);
+            FlashlightFlickerController.Instance.FlickerOnce(onLightOffCallback: HandleOnJinxInLightOff);
 
             
 
             
         }
 
-        private async void HandleOnJinxMeowLightOff()
+        private void HandleOnJinxInLightOff()
         {
-            switch (jinxStep)
-            {
-                case 0: // We spawn Jinx on the corridor
-                    // Show Jinx
-                    SpawnJinx(jinxTargets[0]);
+            // Show Jinx
+            jinx = Instantiate(jinxPrefab, jinxTarget.position, jinxTarget.rotation);
+                    
+            var jinxController = jinx.GetComponentInChildren<SimpleCatController>();
 
-                    // Play Jinx audio
-                    jinxController.PlayMeow(0, delay:.5f);
+            // Play stinger
+            GameSceneAudioManager.Instance.PlayStinger(2);
 
-                    // Move Jinx 
-                    jinxController.Walk();
-
-                    // Await some seconds
-                    await Task.Delay(TimeSpan.FromSeconds(222.5f));
-
-                    // Update step
-                    jinxStep++; // 1
-
-                    FlashlightFlickerController.Instance.FlickerOnce(HandleOnJinxMeowLightOff);
-                    break;
-                case 1: // Hide Jinx in the corridor after a while
-                    jinx.gameObject.SetActive(false);
-
-                    // Play Lilith/Puck dialog
-                    Debug.LogError("Play Lilith Puck dialog");
-                    break;
-            }
-
-            
-
-            
-
-            // 
+            // Move Jinx 
+            jinxController.Run(3);
+                        
+                    
         }
 
-        void SpawnJinx(Transform target)
-        {
-            if (jinx)
-            {
-                // It only disabled
-                jinx.SetActive(true);
-            }
-            else
-            {
-                // Spawn jinx
-                jinx = Instantiate(jinxPrefab);
-            }
-          
-            jinxController = jinx.GetComponent<SimpleCatController>();
 
-            jinx.transform.position = target.position;
-            jinx.transform.rotation = target.rotation;  
-        }
+
+      
+    
+        
 
         public void SetReadyState()
         {
@@ -157,14 +162,15 @@ namespace Kidnapped
             state = int.Parse(data);
 
             // Default
-            jinxMiaoTrigger.gameObject.SetActive(false);
-            
+            jinxInTrigger.gameObject.SetActive(false);
+            jinxOutTrigger.gameObject.SetActive(false);
+
             // Set default values
             if (state == readyState)
             {
                 // Spawn the first jar    
-                jinxMiaoTrigger.gameObject.SetActive(true);
-
+                jinxInTrigger.gameObject.SetActive(true);
+                jinxOutTrigger.gameObject.SetActive(true);
             }
         }
 
