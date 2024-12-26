@@ -212,8 +212,11 @@ namespace EvolveGames
 
         private void OnEnable()
         {
-            SetLookSpeed(SettingsManager.Instance.MouseSensitivity);
-            HandleOnMouseYAxisInvertedChanged(SettingsManager.Instance.MouseInvertedY);
+            if (SettingsManager.Instance)
+            {
+                SetLookSpeed(SettingsManager.Instance.MouseSensitivity);
+                HandleOnMouseYAxisInvertedChanged(SettingsManager.Instance.MouseInvertedY);
+            }
             SettingsManager.OnMouseSensitivityChanged += HandleOnMouseSensitivityChanged;
             SettingsManager.OnMouseYAxisInvertedChanged += HandleOnMouseYAxisInvertedChanged;
         }
