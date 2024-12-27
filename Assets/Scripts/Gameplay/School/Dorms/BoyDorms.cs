@@ -408,10 +408,10 @@ namespace Kidnapped
             SaveManager.Instance.SaveGame();
         }
 
-        private void HandleOnVentriloquistSportRoomTrigger()
+        private void HandleOnVentriloquistSportRoomTrigger(PlayerWalkInAndLookTrigger t)
         {
             // Disable trigger
-            ventriloquistSportRoomTrigger.gameObject.SetActive(false);
+            t.gameObject.SetActive(false);
            
             // Flicker
             FlashlightFlickerController.Instance.FlickerToDarkeness(OnSportRoomFlicker);
@@ -423,7 +423,7 @@ namespace Kidnapped
             internalDoors[1].Open();
         }
 
-        private void HandleOnVentriLockerRoomTrigger()
+        private void HandleOnVentriLockerRoomTrigger(PlayerWalkInAndLookTrigger t)
         {
             // Disable trigger
             ventriloquistLockerRoomTrigger.gameObject.SetActive(false);

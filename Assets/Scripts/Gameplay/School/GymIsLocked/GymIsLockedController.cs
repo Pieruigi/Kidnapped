@@ -272,7 +272,7 @@ namespace Kidnapped
 
         }
 
-        private async void HandleOnBouncingBallMovingStepOneTriggerEnter()
+        private async void HandleOnBouncingBallMovingStepOneTriggerEnter(PlayerWalkInAndLookTrigger t)
         {
             switch (bouncingBallController.Step)
             {
@@ -380,10 +380,10 @@ namespace Kidnapped
             }
         }
 
-        private async void HandleOnKitchenTriggerEnter()
+        private async void HandleOnKitchenTriggerEnter(PlayerWalkInAndLookTrigger t)
         {
             // Disable trigger
-            kitchenConjuringTrigger.gameObject.SetActive(false);
+            t.gameObject.SetActive(false);
 
             // Activate the ball in the kitchen
             ball.SetActive(true);

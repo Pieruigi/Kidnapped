@@ -27,8 +27,9 @@ namespace Kidnapped
         Rigidbody rb;
         Animator animator;
 
-        const float walkSpeedDefault = 1;
-        const float runSpeedDefault = 2;
+        const float walkSpeedDefault = 2;
+        const float runSpeedDefault = 3.5f;
+        const float trotSpeedDefault = 2.5f;
         float moveSpeed = 3;
         bool moving = false;
 
@@ -93,11 +94,26 @@ namespace Kidnapped
             animator.SetTrigger("Run");
         }
 
-        public void Idle(int type = 0)
+        public void Trot(float speed = trotSpeedDefault)
+        {
+            moveSpeed = speed;
+            moving = true;
+            // Adjust animator speed
+            animator.SetFloat("Speed", moveSpeed * .75f);
+            // Play animation
+            animator.SetTrigger("Trot");
+        }
+
+        public void Idle()
         {
             moving = false;
-            animator.SetInteger("Type", type);
             animator.SetTrigger("Idle");
+        }
+
+        public void Lick()
+        {
+            moving = false;
+            animator.SetTrigger("Lick");
         }
 
         public void Rotate(float angle, float duration = 1)

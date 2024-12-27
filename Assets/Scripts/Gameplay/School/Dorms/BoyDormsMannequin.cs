@@ -215,7 +215,7 @@ namespace Kidnapped
 
 
 
-        private async void HandleOnLookTriggerEnter()
+        private async void HandleOnLookTriggerEnter(PlayerWalkInAndLookTrigger t)
         {
             // Play stinger
             scaryMannequinAudioSource.Play();

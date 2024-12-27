@@ -7,7 +7,7 @@ namespace Kidnapped
 {
     public class PlayerWalkInAndLookTrigger : MonoBehaviour
     {
-        public UnityAction OnEnter;
+        public UnityAction<PlayerWalkInAndLookTrigger> OnEnter;
 
         [SerializeField]
         Transform target;
@@ -42,7 +42,7 @@ namespace Kidnapped
             if (IsInView())
             {
                 triggered = true;
-                OnEnter?.Invoke();
+                OnEnter?.Invoke(this);
             }
                 
         }

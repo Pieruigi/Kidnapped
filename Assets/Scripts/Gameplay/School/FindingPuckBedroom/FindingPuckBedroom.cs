@@ -22,30 +22,9 @@ namespace Kidnapped
         [SerializeField]
         Transform jinxTarget;
 
-        [SerializeField]
-        GameObject lilithPrefab;
-
-        [SerializeField]
-        Transform lilithTarget;
-
-        //int state = 0;
-
-        //const int notReadyState = 0;
-        //const int readyState = 100;
-        //const int completedState = 200;
-
+        
         GameObject jinx;
-        GameObject lilith;
-
-        //private void Awake()
-        //{
-        //    var data = SaveManager.GetCachedValue(code);
-        //    if (string.IsNullOrEmpty(data))
-        //        data = notReadyState.ToString();
-
-        //    Init(data);
-        //}
-
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -76,32 +55,20 @@ namespace Kidnapped
             arg0.gameObject.SetActive(false);
 
             // Flicker
-            FlashlightFlickerController.Instance.FlickerAndWatch(OnFlickerJinxOutBefore, OnFlickerJinxOutAfter, onDuration: 0.5f);
+            FlashlightFlickerController.Instance.FlickerOnce(OnFlickerJinxOut);
         }
 
-        private void OnFlickerJinxOutBefore()
+        private async void OnFlickerJinxOut()
         {
             // Hide Jinx and show Lilith
             jinx.gameObject.SetActive(false);
 
-            // Spawn Lilith
-            lilith = Instantiate(lilithPrefab, lilithTarget.position, lilithTarget.rotation);
-
-            lilith.SetActive(true);
-
-            lilith.GetComponentInChildren<Animator>().SetTrigger("Run");
-
             // Stinger
-            GameSceneAudioManager.Instance.PlayStinger(0);
-        }
-
-        private async void OnFlickerJinxOutAfter()
-        {
-            // Unspawn Lilith
-            Destroy(lilith);
+            GameSceneAudioManager.Instance.PlayStinger(2);
 
             await Task.Delay(TimeSpan.FromSeconds(2));
 
+            // Next gameplay element
             GetComponentInParent<GameplayGroup>().MoveToNextElement();
         }
 
@@ -112,10 +79,6 @@ namespace Kidnapped
 
             // Flicker once
             FlashlightFlickerController.Instance.FlickerOnce(onLightOffCallback: HandleOnJinxInLightOff);
-
-            
-
-            
         }
 
         private void HandleOnJinxInLightOff()
@@ -129,56 +92,11 @@ namespace Kidnapped
             GameSceneAudioManager.Instance.PlayStinger(2);
 
             // Move Jinx 
-            jinxController.Run(3);
+            jinxController.Trot();
                         
                     
         }
 
-
-
-      
-    
-        
-
-        //public void SetReadyState()
-        //{
-            
-        //    Init(readyState.ToString());
-        //}
-
-        //#region save system
-        //[Header("SaveSystem")]
-        //[SerializeField]
-        //string code;
-        //public string GetCode()
-        //{
-        //    return code;
-        //}
-
-        //public string GetData()
-        //{
-        //    return state.ToString();
-        //}
-
-        //public void Init(string data)
-        //{
-        //    // Set state
-        //    state = int.Parse(data);
-
-        //    // Default
-        //    jinxInTrigger.gameObject.SetActive(false);
-        //    jinxOutTrigger.gameObject.SetActive(false);
-
-        //    // Set default values
-        //    if (state == readyState)
-        //    {
-        //        // Spawn the first jar    
-        //        jinxInTrigger.gameObject.SetActive(true);
-        //        jinxOutTrigger.gameObject.SetActive(true);
-        //    }
-        //}
-
-        //#endregion
     }
 
 }

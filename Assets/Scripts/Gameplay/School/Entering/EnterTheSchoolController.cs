@@ -175,11 +175,11 @@ namespace Kidnapped
 
        
 
-        private async void HandleOnLilithFirstLookTriggerEnter()
+        private async void HandleOnLilithFirstLookTriggerEnter(PlayerWalkInAndLookTrigger t)
         {
            
             // Deactivate the trigger
-            lilithFirstLookTrigger.gameObject.SetActive(false);
+            t.gameObject.SetActive(false);
 
             await Task.Delay(1000);
 
@@ -253,10 +253,10 @@ namespace Kidnapped
             
         }
 
-        private void HandleOnLockerLookTrigger()
+        private void HandleOnLockerLookTrigger(PlayerWalkInAndLookTrigger t)
         {
             // Disable trigger
-            lockerLookTrigger.gameObject.SetActive(false);
+            t.gameObject.SetActive(false);
             // Flicker
             Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerOnce(OnFlickerLightOff);
         }
