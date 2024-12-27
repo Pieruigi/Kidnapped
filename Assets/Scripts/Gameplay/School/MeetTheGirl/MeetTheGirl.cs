@@ -41,7 +41,7 @@ namespace Kidnapped
         Transform blockTransform;
 
         [SerializeField]
-        PlayerWalkInTrigger bellsTrigger;
+        PlayerWalkInAndLookTrigger bellsTrigger;
 
         [SerializeField]
         List<GameObject> bellInteractors;
@@ -61,14 +61,23 @@ namespace Kidnapped
         [SerializeField]
         DialogController dialogController;
 
-        [SerializeField]
-        PlayerWalkInTrigger dialogTrigger;
+        //[SerializeField]
+        //PlayerWalkInTrigger dialogTrigger;
 
         [SerializeField]
         GameObject jinxPrefab;
 
         [SerializeField]
         Transform jinxTarget;
+
+        [SerializeField]
+        Transform jinxTarget2;
+
+        [SerializeField]
+        GameObject bellsContainer;
+
+        [SerializeField]
+        GameObject toHideOnBells;
 
         GameObject jinx;
 
@@ -92,7 +101,10 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.T))
+                PlayerController.Instance.ForcePositionAndRotation(blockTrigger.transform.position, Quaternion.identity);   
+#endif
         }
 
         private void OnEnable()
@@ -104,7 +116,7 @@ namespace Kidnapped
             puzzleController.OnSolved += HandleOnPuzzleSolved;
             puzzleController.OnFailed += HandleOnPuzzleFailed;
             ballTrigger.OnEnter += HandleOnBallTriggerEnter;
-            dialogTrigger.OnEnter += HandleOnDialogTriggerEnter;
+            //dialogTrigger.OnEnter += HandleOnDialogTriggerEnter;
         }
 
         
@@ -118,17 +130,17 @@ namespace Kidnapped
             puzzleController.OnSolved -= HandleOnPuzzleSolved;
             puzzleController.OnFailed -= HandleOnPuzzleFailed;
             ballTrigger.OnEnter -= HandleOnBallTriggerEnter;
-            dialogTrigger.OnEnter -= HandleOnDialogTriggerEnter;
+            //dialogTrigger.OnEnter -= HandleOnDialogTriggerEnter;
         }
 
-        private void HandleOnDialogTriggerEnter(PlayerWalkInTrigger arg0)
-        {
-            // Disable trigger
-            dialogTrigger.gameObject.SetActive(false);
+        //private void HandleOnDialogTriggerEnter(PlayerWalkInTrigger arg0)
+        //{
+        //    // Disable trigger
+        //    dialogTrigger.gameObject.SetActive(false);
 
-            // Talk
-            dialogController.Play();
-        }
+        //    // Talk
+        //    dialogController.Play();
+        //}
 
         private async void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
         {
@@ -186,21 +198,36 @@ namespace Kidnapped
             VoiceManager.Instance.Talk(Speaker.Puck, 3);
         }
 
-        private async void HandleOnBoardTrigger(PlayerWalkInTrigger trigger)
+        private void HandleOnBoardTrigger(PlayerWalkInAndLookTrigger trigger)
         {
+
+            FlashlightFlickerController.Instance.FlickerToDarkeness(HandleOnFlickerToBells);
+
+        }
+
+        private void HandleOnFlickerToBells(float arg0)
+        {
+            toHideOnBells.SetActive(false);
+
+            // Talk
+            dialogController.Play();
+
+            // Unspawn Jinx
+            Destroy(jinx);
+
+            bellsContainer.SetActive(true);
             // Deactivate the trigger
             bellsTrigger.gameObject.SetActive(false);
             // Enable interacors
             SetBellInteractorsEnable(true);
             // Reset false the big bell interactor because we play it by script the first time
-            bellInteractors[0].SetActive(false); // The big bell
+            //bellInteractors[0].SetActive(false); // The big bell
             // Play 
-            bellInteractors[0].transform.parent.GetComponentInChildren<BellController>().Play();
+            //bellInteractors[0].transform.parent.GetComponentInChildren<BellController>().Play();
             // Wait or the bell to complete
-            await Task.Delay(13000);
+            //await Task.Delay(13000);
             // Set interaction enable
             bellInteractors[0].SetActive(true); // The big bell
-
         }
 
         private async void HandleOnBlockTrigger(PlayerWalkInTrigger trigger)
@@ -230,7 +257,7 @@ namespace Kidnapped
             // Just activate the block trigger
             blockTrigger.gameObject.SetActive(true);
 
-            FlashlightFlickerController.Instance.FlickerOnce(() => { Destroy(jinx); });
+            FlashlightFlickerController.Instance.FlickerOnce(() => { jinx.transform.position = jinxTarget2.position; jinx.transform.rotation = jinxTarget2.rotation; });
         }
 
         private async void HandleOnGirlToRoom(PlayerWalkInTrigger trigger)
@@ -292,14 +319,14 @@ namespace Kidnapped
             bellsTrigger.gameObject.SetActive(false); // Commented only for test
             SetBellInteractorsEnable(false);
             ballTrigger.gameObject.SetActive(false);
-            
-            
+            bellsContainer.SetActive(false);
+
 
             if (state == finalState)
             {
                 girlToRoomTrigger.gameObject.SetActive(false);
                 preblockTrigger.gameObject.SetActive(false);
-                dialogTrigger.gameObject.SetActive(false);
+                //dialogTrigger.gameObject.SetActive(false);
             }
             else
             {
