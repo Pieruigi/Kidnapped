@@ -64,6 +64,14 @@ namespace Kidnapped
         [SerializeField]
         PlayerWalkInTrigger dialogTrigger;
 
+        [SerializeField]
+        GameObject jinxPrefab;
+
+        [SerializeField]
+        Transform jinxTarget;
+
+        GameObject jinx;
+
         int state = 0;
 
         int finalState = 100;
@@ -221,6 +229,8 @@ namespace Kidnapped
             preblockTrigger.gameObject.SetActive(false);
             // Just activate the block trigger
             blockTrigger.gameObject.SetActive(true);
+
+            FlashlightFlickerController.Instance.FlickerOnce(() => { Destroy(jinx); });
         }
 
         private async void HandleOnGirlToRoom(PlayerWalkInTrigger trigger)
@@ -281,13 +291,22 @@ namespace Kidnapped
             blockTrigger.gameObject.SetActive(false);
             bellsTrigger.gameObject.SetActive(false); // Commented only for test
             SetBellInteractorsEnable(false);
-            ballTrigger.gameObject.SetActive(false);    
+            ballTrigger.gameObject.SetActive(false);
+            
+            
 
             if (state == finalState)
             {
                 girlToRoomTrigger.gameObject.SetActive(false);
                 preblockTrigger.gameObject.SetActive(false);
                 dialogTrigger.gameObject.SetActive(false);
+            }
+            else
+            {
+                // Jinx
+                jinx = Instantiate(jinxPrefab, jinxTarget.position, jinxTarget.rotation);
+                jinx.gameObject.SetActive(true);
+                jinx.GetComponent<SimpleCatController>().Lick();
             }
         }
         #endregion
