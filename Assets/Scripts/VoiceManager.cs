@@ -79,8 +79,8 @@ namespace Kidnapped
                 if (callbacks[key].Item1 == false)
                     continue;
 
-                if (callbacks[key].Item1)
-                    Debug.Log($"TEST - {key} is talking");
+                //if (callbacks[key].Item1)
+                //    Debug.Log($"TEST - {key} is talking");
 
                 // Is talking
                 if (!sources[(int)key].isPlaying)

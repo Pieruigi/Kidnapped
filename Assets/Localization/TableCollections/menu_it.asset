@@ -203,6 +203,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 5366152611486236675
+  - m_Id: 19128231297802240
+    m_Localized: Premi <b><color=green>{0}</color></b> per abbassarti.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -84,6 +84,8 @@ namespace Kidnapped
         int state = 0;
 
         int finalState = 100;
+        bool puckTalked = false;
+        int failed = 0;
         
         private void Awake()
         {
@@ -101,10 +103,10 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.T))
-                PlayerController.Instance.ForcePositionAndRotation(blockTrigger.transform.position, Quaternion.identity);   
-#endif
+//#if UNITY_EDITOR
+//            if(Input.GetKeyDown(KeyCode.T))
+//                PlayerController.Instance.ForcePositionAndRotation(blockTrigger.transform.position, Quaternion.identity);   
+//#endif
         }
 
         private void OnEnable()
@@ -172,11 +174,39 @@ namespace Kidnapped
 
         private async void HandleOnPuzzleFailed()
         {
-            await Task.Delay(3000);
+            // Disable interacors soon
+            SetBellInteractorsEnable(false);
 
-            // Let the girl say something
-            //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_stupid"), true);
-            VoiceManager.Instance.Talk(Speaker.Lilith, 2);
+            await Task.Delay(5000);
+
+            FlashlightFlickerController.Instance.FlickerToDarkeness(ResetPuzzle);
+
+            failed++;
+
+            if (failed == 2)
+            {
+                await Task.Delay(1000);
+
+                // Let the girl say something
+                //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "so_stupid"), true);
+                VoiceManager.Instance.Talk(Speaker.Lilith, 2);
+            }
+        }
+
+        void ResetPuzzle(float duration)
+        {
+            Debug.Log("Reset puzzle");
+            // Spawn Jinx
+            jinx = Instantiate(jinxPrefab, jinxTarget2.position, jinxTarget2.rotation);
+
+            jinx.GetComponent<SimpleCatController>().Lick();
+
+            bellsContainer.SetActive(false);
+            // Activate trigger
+            bellsTrigger.gameObject.SetActive(true);
+            // Disable interacors
+            //SetBellInteractorsEnable(false); 
+            toHideOnBells.SetActive(true);
         }
 
         private async void HandleOnPuzzleSolved()
@@ -189,13 +219,22 @@ namespace Kidnapped
 
             await Task.Delay(3000);
 
+            FlashlightFlickerController.Instance.FlickerToDarkeness((duration) => {
+                bellsContainer.SetActive(false);
+                // Activate trigger
+                bellsTrigger.gameObject.SetActive(true);
+                // Disable interacors
+                //SetBellInteractorsEnable(false); 
+                toHideOnBells.SetActive(true);
+            });
+
             // You are so smart
             VoiceManager.Instance.Talk(Speaker.Lilith, 1);
 
             await Task.Delay(7000);
 
             // I used to play better
-            VoiceManager.Instance.Talk(Speaker.Puck, 3);
+            //VoiceManager.Instance.Talk(Speaker.Puck, 3);
         }
 
         private void HandleOnBoardTrigger(PlayerWalkInAndLookTrigger trigger)
@@ -209,8 +248,13 @@ namespace Kidnapped
         {
             toHideOnBells.SetActive(false);
 
-            // Talk
-            dialogController.Play();
+            if (!puckTalked)
+            {
+                // Talk
+                puckTalked = true;
+                dialogController.Play();
+            }
+            
 
             // Unspawn Jinx
             Destroy(jinx);
@@ -220,14 +264,8 @@ namespace Kidnapped
             bellsTrigger.gameObject.SetActive(false);
             // Enable interacors
             SetBellInteractorsEnable(true);
-            // Reset false the big bell interactor because we play it by script the first time
-            //bellInteractors[0].SetActive(false); // The big bell
-            // Play 
-            //bellInteractors[0].transform.parent.GetComponentInChildren<BellController>().Play();
-            // Wait or the bell to complete
-            //await Task.Delay(13000);
-            // Set interaction enable
-            bellInteractors[0].SetActive(true); // The big bell
+
+            //bellInteractors[0].SetActive(true); // The big bell
         }
 
         private async void HandleOnBlockTrigger(PlayerWalkInTrigger trigger)
@@ -292,7 +330,8 @@ namespace Kidnapped
         {
             foreach(var interactor in bellInteractors)
             {
-                interactor.SetActive(value);
+                //interactor.SetActive(value);
+                interactor.GetComponent<ObjectInteractor>().SetInteractionEnabled(value);
             }
         }
 

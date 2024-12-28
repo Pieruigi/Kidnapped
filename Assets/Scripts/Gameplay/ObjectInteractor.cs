@@ -108,6 +108,11 @@ namespace Kidnapped
             PlayerLeftHand.Instance.PlayIdleAnimation();
         }
 
+        public void SetInteractionEnabled(bool value)
+        {
+            interactionCollider.enabled=value;
+        }
+
         //public void SetCallback(UnityAction<ObjectInteractor> callback)
         //{
         //    callbacks.Add(callback);

@@ -77,6 +77,9 @@ namespace Kidnapped
         [SerializeField]
         AudioSource draggingTableAudioSource;
 
+        [SerializeField]
+        CrouchHint crouchHint;
+
         int state = 0;
 
         float lockerStopAngle = -110f;
@@ -259,6 +262,9 @@ namespace Kidnapped
             t.gameObject.SetActive(false);
             // Flicker
             Flashlight.Instance.GetComponent<FlashlightFlickerController>().FlickerOnce(OnFlickerLightOff);
+
+            // Enable crouch hint
+            crouchHint.SetEnabled(true);
         }
 
         void OnFlickerLightOff()

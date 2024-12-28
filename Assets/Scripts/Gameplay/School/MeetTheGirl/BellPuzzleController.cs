@@ -16,8 +16,7 @@ namespace Kidnapped
         List<BellController> solution;
 
         int next = 0;
-        int step = 0;
-
+    
         private void OnEnable()
         {
             BellController.OnRing += HandleOnBellRing;
@@ -41,19 +40,14 @@ namespace Kidnapped
             else
                 next = 0;
 
-            step++;
-
             if (next == solution.Count)
             {
                 OnSolved?.Invoke();
             }
             else
             {
-                if (step > 6)
-                {
+                if(next == 0)
                     OnFailed?.Invoke();
-                    step = 0;
-                }
             }
         }
 

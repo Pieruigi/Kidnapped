@@ -59,15 +59,15 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                //FlickerToDarkeness();
-                //FlickerOnce();
-                FlickerAndWatch();
-            }
+//#if UNITY_EDITOR
+//            if (Input.GetKeyDown(KeyCode.G))
+//            {
+//                //FlickerToDarkeness();
+//                //FlickerOnce();
+//                FlickerAndWatch();
+//            }
 
-#endif
+//#endif
             //CheckRandomFlicker();
         }
 
