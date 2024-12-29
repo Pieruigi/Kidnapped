@@ -48,7 +48,6 @@ public class TerrainDetector: MonoBehaviour
     public Texture2D GetTexture(Vector3 position)
     {
         Vector3 terrainCord = ConvertToSplatMapCoordinate(position);
-        Debug.Log($"Coordinates:{terrainCord}");
         int activeTerrainIndex = 0;
         float largestOpacity = 0f;
 

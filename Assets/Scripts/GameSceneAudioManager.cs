@@ -28,14 +28,61 @@ namespace Kidnapped
         int currentAmbience = -1;
         //int currentMusic = -1;
 
+        int oldAmbience = -1;
+        bool switchingAmbience = false;
+
+        float oldVolume = 0;
+        float newVolume = 0;
+
+        float switchTime = 3f;
+        float switchElapsed = 0;
+
+        float[] ambienceVolumes;
+
         protected override void Awake()
         {
             base.Awake();
+            // Store ambience volumes
+            ambienceVolumes = new float[ambients.Count];
+            for(int i = 0; i < ambients.Count; i++)
+            {
+                ambienceVolumes[i] = ambients[i].volume;
+            }
+
             ReadCacheAndInit();
         
         }
 
-       
+        void Update()
+        {
+            if (switchingAmbience)
+            {
+                switchElapsed += Time.deltaTime;
+
+                if(oldAmbience >= 0)
+                {
+                    ambients[oldAmbience].volume = Mathf.Lerp(oldVolume, 0, switchElapsed / switchTime);
+                }
+                
+                ambients[currentAmbience].volume = Mathf.Lerp(0, newVolume, switchElapsed / switchTime);
+
+                if(switchElapsed > switchTime)
+                {
+                    if(oldAmbience >= 0)
+                    {
+                        // Stop the old ambience
+                        ambients[oldAmbience].Stop();
+                        // Reset old ambience volume
+                        ambients[oldAmbience].volume = oldVolume;
+                        // Reset
+                        oldAmbience = -1;
+                    }
+                    
+                    // Stop switching
+                    switchingAmbience = false;
+                }
+            }
+        }
 
         
         void ReadCacheAndInit()
@@ -75,6 +122,34 @@ namespace Kidnapped
 
         }
 
+        public void FadeInAmbient(int newAmbience)
+        {
+            if (newAmbience == currentAmbience || newAmbience == -1)// || currentAmbience == -1)
+                return;
+
+            // The old ambience we must fade out
+            if(currentAmbience >= 0)
+            {
+                oldAmbience = currentAmbience;
+                oldVolume = ambienceVolumes[oldAmbience];
+            }
+            else
+            {
+                oldAmbience = -1;
+            }
+
+            // The new ambience we must fade in
+            currentAmbience = newAmbience;
+            newVolume = ambienceVolumes[currentAmbience];
+            ambients[currentAmbience].volume = 0;
+            if (!ambients[currentAmbience].isPlaying)
+                ambients[currentAmbience].Play();
+
+            // Enable switching
+            switchingAmbience = true;
+            switchElapsed = 0;
+        }
+
         public void PlayFlashlightFlicker(int index)
         {
             flashlightFlickers[index].Play();    
@@ -107,8 +182,15 @@ namespace Kidnapped
         {
             string[] s = data.Split(new char[] { ' ' });
             currentAmbience = int.Parse(s[0]);
+            Debug.Log($"CurrentAmbience:{currentAmbience}");
             if (currentAmbience >= 0)
-                PlayAmbience(currentAmbience);
+            {
+                var newId = currentAmbience;
+                currentAmbience = -1;
+                FadeInAmbient(newId);
+            }
+                
+                //PlayAmbience(currentAmbience);
         }
         #endregion
 

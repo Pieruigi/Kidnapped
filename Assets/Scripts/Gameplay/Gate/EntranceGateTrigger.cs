@@ -451,6 +451,9 @@ namespace Kidnapped
             voiceTrigger.gameObject.SetActive(false);
 
             state = int.Parse(data);
+            if (state == 0)
+                state = 1;
+
             if(state == 3)
             {
                 BlockRightTunnelFront();
@@ -458,6 +461,15 @@ namespace Kidnapped
                 car.SetActive(false);
                 wreckage.SetActive(true);
                 trainBlock.SetActive(false);
+            }
+            else if(state == 1)
+            {
+                //state = 1;
+                FreeLeftTunnel();
+                // Light lamp
+                LightLamp();
+                // Activate the cat screaming trigger
+                catScreamingTrigger.gameObject.SetActive(true);
             }
         }
         #endregion
