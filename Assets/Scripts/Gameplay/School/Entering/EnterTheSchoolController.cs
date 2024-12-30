@@ -80,6 +80,18 @@ namespace Kidnapped
         [SerializeField]
         CrouchHint crouchHint;
 
+        [SerializeField]
+        LightActivator[] toDeactivateLights;
+
+        [SerializeField]
+        LightActivator[] toActivateLights;
+
+        [SerializeField]
+        Light internalCandle;
+
+        [SerializeField]
+        LightActivator lightActivator;
+
         int state = 0;
 
         float lockerStopAngle = -110f;
@@ -195,12 +207,29 @@ namespace Kidnapped
             // Remove school main block
             mainBlock.gameObject.SetActive(false);
 
+            // Deactivate light
+            foreach(var l in toDeactivateLights)
+                l.SetActive(false);
+
+            // Activate
+            foreach (var l in toActivateLights)
+                l.SetActive(true);
+
+            // We do it manually because we must detroy the object after a while
+            //Utility.SwitchLightOn(internalCandle, false);
+            // Remove candle
+            Destroy(internalCandle.transform.parent.gameObject, .5f);
+
             // Add some delay
             await Task.Delay(5000);
 
             // Remove Lilith
             Destroy(lilithFirstLook);
+
+            
         }
+
+        
 
         private async void HandleOnScaryTriggerEnter(PlayerWalkInTrigger trigger)
         {
@@ -281,6 +310,7 @@ namespace Kidnapped
             lockerJar.SetActive(false);
             kitchenLight.SetActive(true);
             openingKitchenAudioSource.Play();
+            lightActivator.SetActive(false);
         }
 
         void CreateLilithFirstLook()
@@ -338,6 +368,7 @@ namespace Kidnapped
                 lilithFirstLookTrigger.gameObject.SetActive(false);
                 lockerJar.SetActive(false);
                 lockerLookTrigger.gameObject.SetActive(false);
+                Destroy(internalCandle.transform.parent.gameObject);
             }
             else if(state == 0)
             {

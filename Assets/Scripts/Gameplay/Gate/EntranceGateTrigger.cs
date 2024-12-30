@@ -92,6 +92,12 @@ namespace Kidnapped
         [SerializeField]
         List<Collider> catCollidersToIgnore;
 
+        [SerializeField]
+        Transform trainBlockTarget2;
+
+        [SerializeField]
+        GameObject lightGroup;
+
 
         bool isOpen = false;
         bool isInside = false;
@@ -273,8 +279,14 @@ namespace Kidnapped
             BlockLeftTunnel();
             // Wreckage the car
             DestroyCar();
-            // Remove train block
-            trainBlock.SetActive(false);
+            // Move train block
+            //trainBlock.SetActive(false);
+            trainBlock.transform.position = trainBlockTarget2.position;
+            trainBlock.transform.rotation = trainBlockTarget2.rotation;
+
+            // Disable lights
+            Destroy(lightGroup);
+
             // Activate the voice trigger
             voiceTrigger.gameObject.SetActive(true);
 
@@ -460,7 +472,10 @@ namespace Kidnapped
                 BlockLeftTunnel();
                 car.SetActive(false);
                 wreckage.SetActive(true);
-                trainBlock.SetActive(false);
+                //trainBlock.SetActive(false);
+                trainBlock.transform.position = trainBlockTarget2.position;
+                trainBlock.transform.rotation = trainBlockTarget2.rotation;
+                Destroy(lightGroup);
             }
             else if(state == 1)
             {
