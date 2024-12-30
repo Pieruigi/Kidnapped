@@ -209,11 +209,11 @@ namespace Kidnapped
 
             // Deactivate light
             foreach(var l in toDeactivateLights)
-                l.SetActive(false);
+                l.SetEnabled(false);
 
             // Activate
             foreach (var l in toActivateLights)
-                l.SetActive(true);
+                l.SetEnabled(true);
 
             // We do it manually because we must detroy the object after a while
             //Utility.SwitchLightOn(internalCandle, false);
@@ -310,7 +310,7 @@ namespace Kidnapped
             lockerJar.SetActive(false);
             kitchenLight.SetActive(true);
             openingKitchenAudioSource.Play();
-            lightActivator.SetActive(false);
+            lightActivator.SetEnabled(false);
         }
 
         void CreateLilithFirstLook()

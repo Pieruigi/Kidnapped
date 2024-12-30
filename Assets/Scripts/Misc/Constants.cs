@@ -22,6 +22,7 @@ namespace Kidnapped
         public static KeyCode InteractionKey = KeyCode.E;
         public static KeyCode FlashlightKey = KeyCode.F;
         public static KeyCode CrouchKey = KeyCode.LeftControl;
+        public static KeyCode SprintKey = KeyCode.LeftShift;
     }
 
     public class GameplaySettings

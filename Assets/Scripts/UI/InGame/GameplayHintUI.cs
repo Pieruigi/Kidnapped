@@ -41,6 +41,10 @@ namespace Kidnapped.UI
                     ret = LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, "hint_crouch");
                     ret = string.Format(ret, KeyBindings.CrouchKey.ToString());
                     break;
+                case 1: // Stealth and sprint
+                    ret = LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Menu, "hint_hunt");
+                    ret = string.Format(ret, KeyBindings.CrouchKey.ToString(), KeyBindings.SprintKey.ToString());
+                    break;
             }
 
             return ret;

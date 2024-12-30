@@ -199,6 +199,10 @@ MonoBehaviour:
     m_Key: hint_crouch
     m_Metadata:
       m_Items: []
+  - m_Id: 19868094376697856
+    m_Key: hint_hunt
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

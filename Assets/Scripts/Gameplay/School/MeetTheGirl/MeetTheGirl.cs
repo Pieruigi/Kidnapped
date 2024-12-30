@@ -79,6 +79,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject toHideOnBells;
 
+        [SerializeField]
+        GameObject internalCandles;
+
         GameObject jinx;
 
         int state = 0;
@@ -103,10 +106,12 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-//#if UNITY_EDITOR
-//            if(Input.GetKeyDown(KeyCode.T))
-//                PlayerController.Instance.ForcePositionAndRotation(blockTrigger.transform.position, Quaternion.identity);   
-//#endif
+#if UNITY_EDITOR
+            //if (Input.GetKeyDown(KeyCode.T))
+            //    PlayerController.Instance.ForcePositionAndRotation(blockTrigger.transform.position, Quaternion.identity);
+            if (Input.GetKeyDown(KeyCode.T))
+                Destroy(internalCandles);
+#endif
         }
 
         private void OnEnable()
@@ -151,6 +156,9 @@ namespace Kidnapped
 
             // Play sound
             blockAudioSource.Play();
+
+            // Destroy candles
+            Destroy(internalCandles);
 
             await Task.Delay(200);
 
@@ -366,6 +374,7 @@ namespace Kidnapped
                 girlToRoomTrigger.gameObject.SetActive(false);
                 preblockTrigger.gameObject.SetActive(false);
                 //dialogTrigger.gameObject.SetActive(false);
+                Destroy(internalCandles);
             }
             else
             {

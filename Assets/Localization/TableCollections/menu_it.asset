@@ -204,7 +204,12 @@ MonoBehaviour:
       m_Items:
       - rid: 5366152611486236675
   - m_Id: 19128231297802240
-    m_Localized: Premi <b><color=green>{0}</color></b> per abbassarti.
+    m_Localized: Premi <b><i><color=grey>{0}</color></i></b> per accucciarti.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19868094376697856
+    m_Localized: Premi <b><i><color=grey>{0}</color></i></b> per non fare rumore.\nPremi
+      <b><i><color=grey>{1}</color></i></b> per correre.\n
     m_Metadata:
       m_Items: []
   references:

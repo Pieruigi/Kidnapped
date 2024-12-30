@@ -33,7 +33,7 @@ namespace Kidnapped
 
         }
 
-        public void SetActive(bool value)
+        public void SetEnabled(bool value)
         {
             Init(value.ToString());
         }

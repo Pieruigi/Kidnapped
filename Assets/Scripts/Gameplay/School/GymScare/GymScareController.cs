@@ -41,6 +41,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject doorBlock;
 
+        [SerializeField]
+        LightActivator externalHintLight;
+
         [Header("Cat")]
         [SerializeField]
         Transform catTarget;
@@ -148,6 +151,8 @@ namespace Kidnapped
 
         private void HandleOnDoorTriggerEnter(PlayerWalkInTrigger trigger)
         {
+            externalHintLight.SetEnabled(false);
+
             SlamTheDoor();
         }
 

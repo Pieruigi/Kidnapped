@@ -203,7 +203,14 @@ MonoBehaviour:
       m_Items:
       - rid: 5366152611486236674
   - m_Id: 19128231297802240
-    m_Localized: Press <b><color=green>{0}</color></b> to crouch.
+    m_Localized: Press <b><i><color=grey>{0}</color></i></b> to crouch.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19868094376697856
+    m_Localized: 'Press <b><i><color=grey>{0}</color></i></b> to move steakth.\nPress
+      <b><i><color=grey>{1}</color></i></b> to sprint.\n
+
+'
     m_Metadata:
       m_Items: []
   references:

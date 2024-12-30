@@ -107,6 +107,23 @@ namespace Kidnapped
         [SerializeField]
         Light firstFloorBallLight;
 
+        [SerializeField]
+        GameObject ballGroupPrefab;
+
+        [SerializeField]
+        Transform ballGroupTarget;
+
+        [SerializeField]
+        GameObject candlePrefab;
+
+        [SerializeField]
+        Transform candleTarget;
+
+        [SerializeField]
+        LightActivator externalHintLight;
+
+
+        GameObject candle;
         int lightOffCount = 0;
        
 
@@ -120,6 +137,8 @@ namespace Kidnapped
         Vector3 showerDoorLocalEulers;
         Vector3 playerOldPosition;
         Quaternion playeroldRotation;
+
+        GameObject ballGroup; 
 
         private void Awake()
         {
@@ -228,6 +247,10 @@ namespace Kidnapped
             // Remove blocks
             schoolBlock.GetComponent<SimpleActivator>().Init(false.ToString());
             gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
+
+            // Activate hint light
+            externalHintLight.SetEnabled(true);
+
             // Set final state
             state = finalState;
 
@@ -427,6 +450,11 @@ namespace Kidnapped
             // Deactivate trigger
             doorTriggerOn = false;
 
+           
+
+            // Destroy ball group
+            Destroy(ballGroup);
+
             // Add some delay
             await Task.Delay(500);
 
@@ -474,24 +502,44 @@ namespace Kidnapped
         {
             girl.SetActive(false);
 
+            Destroy(candle);
+
             await Task.Delay(1000);
 
             VoiceManager.Instance.Talk(Speaker.Puck, 4);
            
         }
 
-        private void HandleOnSlamTriggerEnter(PlayerWalkInTrigger trigger)
+        private async void HandleOnSlamTriggerEnter(PlayerWalkInTrigger trigger)
         {
             // Deacivate trigger
             slamTrigger.gameObject.SetActive(false);
 
-            // Play audio
-            slamAudio.Play();
+            
+
+            GameSceneAudioManager.Instance.PlayStinger(2);
+            
+            var rbs = ballGroup.GetComponentsInChildren<Rigidbody>();
+            foreach (Rigidbody rb in rbs)
+            {
+                rb.isKinematic = false;
+            }
 
             // Set the door trigger on ( now if we try to open the door something will be triggered )
             doorTriggerOn = true;
 
+            ball.SetActive(false);
 
+            await Task.Delay(500);
+
+            FlashlightFlickerController.Instance.FlickerToDarkeness((d) => 
+            { 
+                Destroy(ballGroup); 
+            });
+
+            await Task.Delay(1000);
+
+            slamAudio.Play();
         }
 
         private async void HandleOnBallTriggerEnter(PlayerWalkInTrigger trigger)
@@ -557,6 +605,12 @@ namespace Kidnapped
                 case workingState:
                     ballTrigger.gameObject.SetActive(true);
                     slamTrigger.gameObject.SetActive(true);
+                    ballGroup = Instantiate(ballGroupPrefab, ballGroupTarget.position, ballGroupTarget.rotation);
+
+                    // Spawn candle
+                    candle = Instantiate(candlePrefab, candleTarget.position, candleTarget.rotation);
+
+                 
                     break;
 
                 case finalState:
