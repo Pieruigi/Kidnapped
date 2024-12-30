@@ -61,6 +61,9 @@ namespace Kidnapped
         GameObject[] scaryGroups;
 
         [SerializeField]
+        Light[] scaryCandles;
+
+        [SerializeField]
         GameObject scaryGroupBallPrefab;
 
         [SerializeField]
@@ -78,6 +81,8 @@ namespace Kidnapped
         [SerializeField]
         DialogController dialogController;
 
+        Vector3 scaryBallRotSpeedMin = Vector3.one * 10;
+        Vector3 scaryBallRotSpeedMax = Vector3.one * 20;
 
         int scaryIndex = 0;
 #if UNITY_EDITOR
@@ -263,8 +268,18 @@ namespace Kidnapped
             // Spawn ball
             scaryGroupBall = Instantiate(scaryGroupBallPrefab);
 
+            scaryGroupBall.AddComponent<RandomRotator>().SetSpeedMinAndMax(scaryBallRotSpeedMin, scaryBallRotSpeedMax);
+
             // Activate the first scary group
             ActivateScaryGroup(scaryIndex);
+
+            ShowHints();
+        }
+
+        async void ShowHints()
+        {
+            await Task.Delay(1000);
+            GameplayHintUI.Instance.ShowHint(1); // Stealth and sprint
         }
 
         void SpawnLilithPool()
@@ -301,6 +316,8 @@ namespace Kidnapped
             rb.AddForce(hDir.normalized * 4f + Vector3.up * 5.5f, ForceMode.VelocityChange);
            
             await Task.Delay(3000);
+
+            Utility.SwitchLightOn(scaryCandles[scaryIndex], false);
 
             scaryGroups[scaryIndex].GetComponentInChildren<ObjectInteractor>().OnInteraction -= HandleOnInteraction;
 
@@ -458,8 +475,13 @@ namespace Kidnapped
                 SpawnLilithPool();
                 // Spawn ball
                 scaryGroupBall = Instantiate(scaryGroupBallPrefab);
+
+                scaryGroupBall.AddComponent<RandomRotator>().SetSpeedMinAndMax(scaryBallRotSpeedMin, scaryBallRotSpeedMax);
+
                 // Activate the first scary group
                 ActivateScaryGroup(scaryIndex);
+
+                ShowHints();
             }
             
             if(state == 200) // Dummy target touched

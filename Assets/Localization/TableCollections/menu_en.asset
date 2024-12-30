@@ -207,8 +207,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19868094376697856
-    m_Localized: 'Press <b><i><color=grey>{0}</color></i></b> to move steakth.\nPress
-      <b><i><color=grey>{1}</color></i></b> to sprint.\n
+    m_Localized: 'Press <b><i><color=grey>{0}</color></i></b> to move silently.
+
+
+      Press
+      <b><i><color=grey>{1}</color></i></b> to sprint.
 
 '
     m_Metadata:

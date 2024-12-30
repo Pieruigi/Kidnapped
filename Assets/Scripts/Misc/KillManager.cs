@@ -62,6 +62,13 @@ namespace Kidnapped
         KillingInfo info;
         Killer killer;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            // We only want the killing pose two for lilith
+            lilithKillingInfos.RemoveAt(0);
+        }
+
         // Start is called before the first frame update
         void Start()
         {

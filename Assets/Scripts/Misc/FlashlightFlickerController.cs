@@ -1,8 +1,10 @@
 using DG.Tweening;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Kidnapped
 {
@@ -27,6 +29,17 @@ namespace Kidnapped
 
         [SerializeField]
         Material skybox;
+
+        [SerializeField]
+        CanvasGroup fader;
+
+        [SerializeField]
+        CameraFilterPack_TV_Artefact fx;
+
+        Vector2 colorizationRange = new Vector2(-10f, .4f);
+        Vector2 parasiteRange = new Vector2(-10f, 10f);
+        Vector2 noiseRange = new Vector2(-10f, -.85f);
+
 
         bool flickering = false;
         public bool Flickering {  get { return flickering; } }
@@ -59,15 +72,15 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-//#if UNITY_EDITOR
-//            if (Input.GetKeyDown(KeyCode.G))
-//            {
-//                //FlickerToDarkeness();
-//                //FlickerOnce();
-//                FlickerAndWatch();
-//            }
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                FlickerToDarkeness();
+                //FlickerOnce();
+                //FlickerAndWatch();
+            }
 
-//#endif
+#endif
             //CheckRandomFlicker();
         }
 
@@ -107,38 +120,7 @@ namespace Kidnapped
             lastRandomFlickerTime = System.DateTime.Now;
         }
 
-        //void CheckRandomFlicker()
-        //{
-        //    if (flickering)
-        //        return;
-
-        //    if (randomFlickerSeq == null)
-        //    {
-
-        //        if ((System.DateTime.Now - lastRandomFlickerTime).TotalSeconds > randomFlickerTime)
-        //        {
-        //            lastRandomFlickerTime = System.DateTime.Now;
-        //            randomFlickerSeq = DOTween.Sequence();
-        //            int count = UnityEngine.Random.Range(1, 3);
-        //            for(int i=0; i<count; i++)
-        //            {
-        //                float ratio = UnityEngine.Random.Range(.6f, .8f);
-        //                float time = Random.Range(0.1f, .16f);
-        //                randomFlickerSeq.Append(_light.DOIntensity(defaultIntensity * ratio, time));
-        //                randomFlickerSeq.Join(handLight.DOIntensity(handsLightDefaultIntensity * ratio, time));
-        //                if (i == count - 1)
-        //                    randomFlickerSeq.Append(_light.DOIntensity(defaultIntensity, time).OnComplete(ResetRandomFlicker));
-        //                else
-        //                    randomFlickerSeq.Append(_light.DOIntensity(defaultIntensity, time));
-        //                randomFlickerSeq.Join(handLight.DOIntensity(handsLightDefaultIntensity, time));
-        //            }
-                    
-        //        }
-        //    }
-
-        //}
-
-
+  
 
        
 
@@ -153,6 +135,154 @@ namespace Kidnapped
 
             ResetRandomFlicker();
 
+            var moonLightIntensity = moonLight.intensity;
+
+ 
+            fx.enabled = true;
+
+            Sequence flickerSequence = DOTween.Sequence();
+
+            // Primo flicker veloce prima dello spegnimento
+            flickerSequence.Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, .5f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0.7f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f));
+
+            // Spegniamo la torcia per 0.2 o 0.3 secondi
+            flickerSequence.Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 1f, FlickerDuration / 2f).OnComplete(() => { onLightOffCallback?.Invoke(offDuration); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .AppendInterval(offDuration); // Rimane spenta per offDuration
+
+            // Un altro flicker veloce per la riaccensione
+            flickerSequence.Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0.5f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f).OnComplete(() => { flickering = false; fx.enabled = false; onCompleteCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f));
+
+
+        }
+
+    
+
+        public void FlickerAndWatch(UnityAction onLightOffBeforeCallback = null, UnityAction onLightOffAfterCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
+        {
+            if (flickering)
+                return;
+
+            flickering = true;
+
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(0);
+
+            Sequence flickerSequence = DOTween.Sequence();
+
+            fx.enabled = true;
+
+            flickerSequence.Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, .25f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 1f, FlickerDuration / 2f).OnComplete(() => { onLightOffBeforeCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .AppendInterval(onDuration)
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 1f, FlickerDuration / 2f).OnComplete(() => { onLightOffAfterCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f).OnComplete(() => { flickering = false; fx.enabled = false; onCompleteCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f));
+
+
+        }
+
+        
+
+        public void FlickerOnce(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null)
+        {
+            if (flickering)
+                return;
+
+            flickering = true;
+
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(1);
+
+            Sequence flickerSequence = DOTween.Sequence();
+
+            var moonLightIntensity = moonLight.intensity;
+
+            fx.enabled = true;
+
+            flickerSequence.Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, .25f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 1f, FlickerDuration / 2f).OnComplete(() => { onLightOffCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f))
+                           .Append(DOTween.To(() => fx.Fade, x => fx.Fade = x, 0f, FlickerDuration / 2f).OnComplete(() => { flickering = false; fx.enabled = false; onCompleteCallback?.Invoke(); }))
+                           .Join(DOTween.To(() => fx.Colorisation, x => fx.Colorisation = x, Random.Range(colorizationRange.x, colorizationRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Parasite, x => fx.Parasite = x, Random.Range(parasiteRange.x, parasiteRange.y), FlickerDuration / 2f))
+                           .Join(DOTween.To(() => fx.Noise, x => fx.Noise = x, Random.Range(noiseRange.x, noiseRange.y), FlickerDuration / 2f));
+
+        }
+
+
+
+
+        /*************************************************************************************************************/
+
+
+        public void _FlickerToDarkeness(UnityAction<float> onLightOffCallback = null, /*UnityAction onLightOnCallback = null, */UnityAction onCompleteCallback = null, float offDuration = OffDuration)
+        {
+            if (flickering)
+                return;
+
+            flickering = true;
+
+            GameSceneAudioManager.Instance.PlayFlashlightFlicker(0);
+
+            ResetRandomFlicker();
+
+            var moonLightIntensity = moonLight.intensity;
+
             //float flickerDuration = 0.1f;
             //float offDuration = .2f;
             Sequence flickerSequence = DOTween.Sequence();
@@ -160,33 +290,40 @@ namespace Kidnapped
             // Primo flicker veloce prima dello spegnimento
             flickerSequence.Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2))
+                           .Join(fader.DOFade(.5f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+                           .Join(fader.DOFade(0f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity * .3f, FlickerDuration / 2)) // Di nuovo spegnimento
+                           .Join(fader.DOFade(.7f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))
-                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione veloce
-
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccensione veloce
+                           .Join(fader.DOFade(0f, FlickerDuration / 2));
 
             // Spegniamo la torcia per 0.2 o 0.3 secondi
             flickerSequence.Append(_light.DOIntensity(0, 0.01f).OnComplete(() => { onLightOffCallback?.Invoke(offDuration); })) // Spegni subito la torcia
                            .Join(handLight.DOIntensity(0, 0.01f))
+                           .Join(fader.DOFade(1f, 0.01f))
                            .AppendInterval(offDuration); // Rimane spenta per offDuration
 
             // Un altro flicker veloce per la riaccensione
             flickerSequence.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)/*.OnStart(() => { onLightOnCallback?.Invoke(); })*/)  // Riaccendi con flicker
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
+                           .Join(fader.DOFade(0, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity * .5f, FlickerDuration / 2)) // Spegnimento rapido
+                           .Join(fader.DOFade(.5f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccensione finale
-                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione finale          
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccensione finale          
+                           .Join(fader.DOFade(0f, FlickerDuration / 2));
 
             flickerSequence.OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); });
 
 
         }
 
-        public void FlickerAndWatch(UnityAction onLightOffBeforeCallback = null, UnityAction onLightOffAfterCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
+        public void _FlickerAndWatch(UnityAction onLightOffBeforeCallback = null, UnityAction onLightOffAfterCallback = null, UnityAction onCompleteCallback = null, float onDuration = OnDuration)
         {
             if (flickering)
                 return;
@@ -200,26 +337,30 @@ namespace Kidnapped
             // Fast flicker
             flickerSequence.Append(_light.DOIntensity(defaultIntensity * .75f, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity * .75f, FlickerDuration / 2))
+                            .Join(fader.DOFade(.25f, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
-                            //.Append(_light.DOIntensity(0, FlickerDuration / 2))  // Abbassiamo l'intensità della torcia
-                            //.Join(handLight.DOIntensity(0, FlickerDuration / 2))
-                            //.Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
-                            //.Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+                            .Join(fader.DOFade(0f, FlickerDuration / 2))
                             .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffBeforeCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2))
+                            .Join(fader.DOFade(1f, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
                             .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+                            .Join(fader.DOFade(0f, FlickerDuration / 2))
                             .AppendInterval(onDuration)
                             .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffAfterCallback?.Invoke(); })) // Di nuovo spegnimento
                             .Join(handLight.DOIntensity(0, FlickerDuration / 2)) // Di nuovo spegnimento
+                            .Join(fader.DOFade(1f, FlickerDuration / 2))
                             .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); }))
-                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccensione veloce
+                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccensione veloce
+                            .Join(fader.DOFade(0f, FlickerDuration / 2));
 
-          
+
+
         }
 
-        public void FlickerOnce(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null)
+
+        public void _FlickerOnce(UnityAction onLightOffCallback = null, UnityAction onCompleteCallback = null)
         {
             if (flickering)
                 return;
@@ -230,16 +371,23 @@ namespace Kidnapped
 
             Sequence flickerSequence = DOTween.Sequence();
 
+            var moonLightIntensity = moonLight.intensity;
+
             // Fast flicker
             flickerSequence.Append(_light.DOIntensity(defaultIntensity * .75f, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity * .75f, FlickerDuration / 2))
+                           .Join(fader.DOFade(.25f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2))  // Abbassiamo leggermente l'intensità della torcia
                            .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2))
-                           .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); }))  // Abbassiamo l'intensità della torcia
+                           .Join(fader.DOFade(0f, FlickerDuration / 2))
+                           .Append(_light.DOIntensity(0, FlickerDuration / 2).OnComplete(() => { onLightOffCallback?.Invoke(); Debug.Log("AAAAAAAAAAA"); }))  // Abbassiamo l'intensità della torcia
                            .Join(handLight.DOIntensity(0, FlickerDuration / 2))
+                           .Join(fader.DOFade(1f, FlickerDuration / 2))
                            .Append(_light.DOIntensity(defaultIntensity, FlickerDuration / 2).OnComplete(() => { flickering = false; onCompleteCallback?.Invoke(); })) // Riaccendiamo velocemente
-                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)); // Riaccendiamo velocemente
-                          
+                           .Join(handLight.DOIntensity(handsLightDefaultIntensity, FlickerDuration / 2)) // Riaccendiamo velocemente
+                           .Join(fader.DOFade(0f, FlickerDuration / 2));
+
+
         }
 
        
