@@ -81,6 +81,9 @@ namespace Kidnapped
         [SerializeField]
         DialogController dialogController;
 
+        [SerializeField]
+        GameObject mainEntranceBlock;
+
         Vector3 scaryBallRotSpeedMin = Vector3.one * 10;
         Vector3 scaryBallRotSpeedMax = Vector3.one * 20;
 
@@ -274,6 +277,8 @@ namespace Kidnapped
             ActivateScaryGroup(scaryIndex);
 
             ShowHints();
+
+            PlayerController.Instance.CanRunning = true;
         }
 
         async void ShowHints()
@@ -405,7 +410,8 @@ namespace Kidnapped
                 state = 200;
 
                 // Reset blocks
-                ResetDoorBlock();
+                //ResetDoorBlock(); // TODO: remove reset blocks and open the internal door
+                
             }
 
             
@@ -422,7 +428,15 @@ namespace Kidnapped
 
             if (state == 200)
             {
-                // Set in the fog controller ready
+                PlayerController.Instance.CanRunning = false;
+
+                // Set the door open
+                door.Open();
+
+                // Block the main entrance of the school
+                mainEntranceBlock.SetActive(true);
+
+                // Set InTheFog gameplay ready
                 inTheFogController.SetReady();
                 // Enable dialog trigger 
                 dialogTrigger.gameObject.SetActive(true);
@@ -437,6 +451,11 @@ namespace Kidnapped
             {
                 group.SetActive(false);
             }
+        }
+
+        public void SetPatchBlockState()
+        {
+            Init(250.ToString());
         }
 
         #region save system
@@ -464,7 +483,7 @@ namespace Kidnapped
             rb.isKinematic = true;
             DisableScaryGroupAll();
             
-
+            // Original gym settings
             if (state == 100) // Step to save ( the cat freaking out )
             {
                 rb.isKinematic = false;
@@ -482,12 +501,28 @@ namespace Kidnapped
                 ActivateScaryGroup(scaryIndex);
 
                 ShowHints();
+
+                PlayerController.Instance.CanRunning = true;
             }
             
+            // Old gym
             if(state == 200) // Dummy target touched
             {
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
+                doorTrigger.gameObject.SetActive(false);
+                SetDoorBlock();
+            }
+            else
+            {
+                // This state is kind of a patch to remove blocks from the external entrance (used in the third part)
+                if(state == 250) 
+                {
+                    rb.isKinematic = false;
+                    rb.position = ballEnd.position;
+                    doorTrigger.gameObject.SetActive(false);
+                    ResetDoorBlock();
+                }
             }
         }
         #endregion

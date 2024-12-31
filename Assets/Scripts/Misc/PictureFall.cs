@@ -57,7 +57,11 @@ namespace Kidnapped
             state = 2;
 
             rb.isKinematic = false;
+
+            audioSource.PlayDelayed(delay);
         }
+
+        
 
         public void SetReadyState()
         {
@@ -65,6 +69,7 @@ namespace Kidnapped
             trigger.gameObject.SetActive(true);
         }
 
+        [Header("Save System")]
         [SerializeField]
         string code;
         public string GetCode()

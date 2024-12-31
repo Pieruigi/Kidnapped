@@ -204,15 +204,15 @@ MonoBehaviour:
       m_Items:
       - rid: 5366152611486236675
   - m_Id: 19128231297802240
-    m_Localized: Premi <b><i><color=grey>{0}</color></i></b> per accucciarti.
+    m_Localized: Premi <b><i>{0}</i></b> per accucciarti.
     m_Metadata:
       m_Items: []
   - m_Id: 19868094376697856
-    m_Localized: 'Premi <b><i><color=grey>{0}</color></i></b> per muoverti senza
-      far rumore.
+    m_Localized: 'Premi <b><i>{0}</i></b> per muoverti senza far rumore.
 
 
-      Premi <b><i><color=grey>{1}</color></i></b> per correre.'
+      Premi
+      <b><i>{1}</i></b> per correre.'
     m_Metadata:
       m_Items: []
   references:

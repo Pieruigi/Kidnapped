@@ -157,9 +157,8 @@ namespace Kidnapped
             // Play sound
             blockAudioSource.Play();
 
-            // Destroy candles
-            Destroy(internalCandles);
-
+            FlashlightFlickerController.Instance.FlickerOnce(() => { Destroy(internalCandles); });
+           
             await Task.Delay(200);
 
             // Remove entrance block
