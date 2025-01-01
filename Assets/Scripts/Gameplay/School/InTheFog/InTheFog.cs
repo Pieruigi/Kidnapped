@@ -54,6 +54,12 @@ namespace Kidnapped
 
         [SerializeField]
         AudioSource catScreamingAudioSource;
+
+        [SerializeField]
+        LightActivator kitchenHintLight;
+
+        [SerializeField]
+        GameObject entranceBlock;
         
         int state = 0;
 
@@ -127,6 +133,12 @@ namespace Kidnapped
             if (!doorLocked)
             {
                 doorLocked = true;
+
+                // Switch hint light off
+                kitchenHintLight.SetEnabled(false);
+
+                // Remove entrance block
+                entranceBlock.SetActive(false);
 
                 // Puck says something here
                 //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);

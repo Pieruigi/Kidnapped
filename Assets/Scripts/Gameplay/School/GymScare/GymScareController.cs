@@ -84,6 +84,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject mainEntranceBlock;
 
+        [SerializeField]
+        LightActivator kitchenHintLight;
+
         Vector3 scaryBallRotSpeedMin = Vector3.one * 10;
         Vector3 scaryBallRotSpeedMax = Vector3.one * 20;
 
@@ -435,6 +438,9 @@ namespace Kidnapped
 
                 // Block the main entrance of the school
                 mainEntranceBlock.SetActive(true);
+
+                // Activate the hint light closed to the kitchen
+                kitchenHintLight.SetEnabled(true);
 
                 // Set InTheFog gameplay ready
                 inTheFogController.SetReady();
