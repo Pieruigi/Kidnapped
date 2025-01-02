@@ -82,7 +82,12 @@ namespace Kidnapped
         [SerializeField]
         GameObject internalCandles;
 
+        [SerializeField]
+        GameObject corridorPumpkin;
+
         GameObject jinx;
+
+
 
         int state = 0;
 
@@ -224,12 +229,18 @@ namespace Kidnapped
             // Activate the ball trigger
             ballTrigger.gameObject.SetActive(true);
 
+            
+
             await Task.Delay(3000);
 
             FlashlightFlickerController.Instance.FlickerToDarkeness((duration) => {
                 bellsContainer.SetActive(false);
                 // Activate trigger
                 bellsTrigger.gameObject.SetActive(true);
+
+                // Remove the pumpkin in the corridor
+                corridorPumpkin.gameObject.SetActive(false);
+
                 // Disable interacors
                 //SetBellInteractorsEnable(false); 
                 toHideOnBells.SetActive(true);
@@ -370,6 +381,7 @@ namespace Kidnapped
 
             if (state == finalState)
             {
+                corridorPumpkin.gameObject.SetActive(false);
                 girlToRoomTrigger.gameObject.SetActive(false);
                 preblockTrigger.gameObject.SetActive(false);
                 //dialogTrigger.gameObject.SetActive(false);

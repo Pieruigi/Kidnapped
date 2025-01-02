@@ -159,6 +159,8 @@ namespace Kidnapped
 
         private void HandleOnDoorTriggerEnter(PlayerWalkInTrigger trigger)
         {
+            trigger.gameObject.SetActive(false);
+
             externalHintLight.SetEnabled(false);
 
             SlamTheDoor();
