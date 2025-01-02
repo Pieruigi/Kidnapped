@@ -38,7 +38,7 @@ namespace Kidnapped
 
         private async void HandleOnInteraction(ObjectInteractor interactor)
         {
-    
+            //Debug.Log("TEST - handle interaction " + interactor.gameObject.name);
             animator.SetTrigger("Play");
             await Task.Delay(500);
             audioSource.Play();

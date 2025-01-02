@@ -305,7 +305,7 @@ namespace Kidnapped
                     // Move ball
                     bouncingBallController.Move();
                     // Add some delay
-                    await Task.Delay(5000);
+                    await Task.Delay(3500);
                     // Deactivate light
                     Utility.SwitchLightOn(firstFloorBallLight, false);
                     

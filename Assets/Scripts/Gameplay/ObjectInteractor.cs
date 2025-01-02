@@ -49,7 +49,7 @@ namespace Kidnapped
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, layerMask))
             {
-                //Debug.Log($"Hit:{hit.collider.gameObject.name}");
+                //Debug.Log($"TEST - Hit:{hit.collider.gameObject.name}");
                 if (hit.collider == interactionCollider)
                 {
                     // Clue animation
@@ -67,8 +67,10 @@ namespace Kidnapped
                         lastInteractionTime = System.DateTime.Now;
                         OnInteraction?.Invoke(this);
                     }
-
-
+                }
+                else
+                {
+                    PlayerLeftHand.Instance.PlayIdleAnimation();
                 }
             }
             else

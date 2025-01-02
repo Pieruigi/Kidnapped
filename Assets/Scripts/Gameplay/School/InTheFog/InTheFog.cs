@@ -56,7 +56,7 @@ namespace Kidnapped
         AudioSource catScreamingAudioSource;
 
         [SerializeField]
-        LightActivator kitchenHintLight;
+        GameObject kitchenHintGroup;
 
         [SerializeField]
         GameObject entranceBlock;
@@ -134,11 +134,7 @@ namespace Kidnapped
             {
                 doorLocked = true;
 
-                // Switch hint light off
-                kitchenHintLight.SetEnabled(false);
-
-                // Remove entrance block
-                entranceBlock.SetActive(false);
+                FlashlightFlickerController.Instance.FlickerOnce(() => { kitchenHintGroup.SetActive(false); entranceBlock.SetActive(false); });
 
                 // Puck says something here
                 //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);
@@ -384,6 +380,13 @@ namespace Kidnapped
             // Not ready state
             DisableTeleportGroupAll();
             
+            // Disable kitchen hint group
+            kitchenHintGroup.SetActive(false);
+
+            if(state == readyState)
+            {
+                kitchenHintGroup.SetActive(true);
+            }
         }
         #endregion
     }

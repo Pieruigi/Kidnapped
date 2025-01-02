@@ -323,14 +323,14 @@ namespace Kidnapped
             girl.GetComponentInChildren<Animator>().SetTrigger("Run");
             // Wait a while and eventually stop running
             //await Task.Delay(500);
-            PlayerController.Instance.CanRunning = false;
+            //PlayerController.Instance.CanRunning = false;
             // Wait a few seconds
             await Task.Delay(3000);
             // Dectivate girl
             girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
             girl.SetActive(false);
             // You can run again
-            PlayerController.Instance.CanRunning = true;
+            //PlayerController.Instance.CanRunning = true;
         }
 
         void SetBellInteractorsEnable(bool value)

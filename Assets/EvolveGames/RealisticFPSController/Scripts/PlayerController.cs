@@ -147,7 +147,13 @@ namespace EvolveGames
             }
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 right = transform.TransformDirection(Vector3.right);
-            isRunning = !isCrough ? CanRunning ? Input.GetKey(KeyCode.LeftShift) : false : false;
+            isRunning = !isCrough ? CanRunning ? Input.GetKey(KeyBindings.SprintKey) : false : false;
+#if UNITY_EDITOR
+            if (Input.GetKey(KeyCode.LeftAlt))
+            {
+                isRunning = true;
+            }
+#endif
             vertical = canMove ? (isRunning ? RunningValue : WalkingValue) * Input.GetAxis("Vertical") : 0;
             horizontal = canMove ? (isRunning ? RunningValue : WalkingValue) * Input.GetAxis("Horizontal") : 0;
             if (isRunning) RunningValue = Mathf.Lerp(RunningValue, RuningSpeed, timeToRunning * Time.deltaTime);

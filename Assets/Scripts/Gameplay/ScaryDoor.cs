@@ -84,10 +84,10 @@ namespace Kidnapped
             // The only interaction is with closed ( locked ) doors, because you can't open door in the school, they open when you an leave the section you are in.
             // This means that the only interaction we have with closed door will trigger the locked fx.
             RaycastHit hit;
-            Debug.Log("Raycast");
+            //Debug.Log("Raycast");
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
             {
-                Debug.Log($"Hit:{hit.collider}");
+                //Debug.Log($"Hit:{hit.collider}");
                 if (hit.collider == _collider)
                 {
                     // Play left hand clue animation
