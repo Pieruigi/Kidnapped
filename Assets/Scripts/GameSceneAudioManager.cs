@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +26,7 @@ namespace Kidnapped
         [SerializeField]
         List<AudioSource> killers;
 
+    
         int currentAmbience = -1;
         //int currentMusic = -1;
 
@@ -39,6 +41,8 @@ namespace Kidnapped
 
         float[] ambienceVolumes;
 
+
+
         protected override void Awake()
         {
             base.Awake();
@@ -52,6 +56,17 @@ namespace Kidnapped
             ReadCacheAndInit();
         
         }
+
+#if TRAILER
+        private void Start()
+        {
+            var mixer = Resources.Load<AudioMixer>("AudioMixer");
+            Debug.Log("Mixer:"+mixer.name);
+            mixer.SetFloat("MusicVolume", -80);
+            mixer.SetFloat("VoiceVolume", -80);
+            mixer.SetFloat("AmbienceVolume", -80);
+        }
+#endif
 
         void Update()
         {

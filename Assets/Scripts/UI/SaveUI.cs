@@ -39,15 +39,18 @@ namespace Kidnapped.UI
                 saveIcon.SetActive(false);
         }
 
+#if !TRAILER
         private void OnEnable()
         {
-            SaveManager.OnGameSaved += HandleOnGameSaved; // TODO: remove comment
+
+            SaveManager.OnGameSaved += HandleOnGameSaved; 
         }
 
         private void OnDisable()
         {
-            SaveManager.OnGameSaved -= HandleOnGameSaved; // TODO: remove comment
+            SaveManager.OnGameSaved -= HandleOnGameSaved; 
         }
+#endif
 
         private void HandleOnGameSaved()
         {

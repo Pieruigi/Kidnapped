@@ -37,18 +37,20 @@ namespace Kidnapped.UI
         {
             if (!SettingsManager.Instance.SubtitlesOn)
                 return;
-            
+
+#if !TRAILER
             if(!bg.gameObject.activeSelf)
                 bg.gameObject.SetActive(true);
             textField.text = text;
-            
-            if(autoHide)
+#endif            
+            if (autoHide)
             {
                 // Check how many words and calculate half a second for each word
                 int count = text.Split(' ').Length;
                 await Task.Delay(500 * count);
                 Hide();
             }
+
         }
                 
 

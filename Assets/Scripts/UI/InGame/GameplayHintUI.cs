@@ -23,12 +23,6 @@ namespace Kidnapped.UI
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyUp(KeyCode.T))
-            {
-                ShowHint(0);
-            }
-#endif
         }
 
         string GetText(int id)
@@ -58,8 +52,10 @@ namespace Kidnapped.UI
             // Init text
             textField.text = GetText(id);
 
+#if !TRAILER
             // Show
             textField.gameObject.SetActive(true);
+#endif
 
             await Task.Delay(5000);
 

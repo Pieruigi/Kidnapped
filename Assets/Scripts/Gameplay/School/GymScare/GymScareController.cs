@@ -488,6 +488,8 @@ namespace Kidnapped
             // Original gym settings
             if (state == 100) // Step to save ( the cat freaking out )
             {
+                doorTrigger.gameObject.SetActive(false);
+
                 rb.isKinematic = false;
                 rb.position = ballEnd.position;
                 // Init scary index
