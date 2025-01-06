@@ -10,7 +10,7 @@ namespace Kidnapped
         [SerializeField]
         bool activate = false;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             string data = SaveManager.GetCachedValue(code);
             if(string.IsNullOrEmpty(data))
@@ -18,19 +18,7 @@ namespace Kidnapped
             Init(data);
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            //gameObject.SetActive(activate);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-      
+        
         [SerializeField]
         string code;
         public string GetCode()

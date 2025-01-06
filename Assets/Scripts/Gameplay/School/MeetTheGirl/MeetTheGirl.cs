@@ -17,6 +17,9 @@ namespace Kidnapped
         PlayerWalkInTrigger girlToRoomTrigger;
 
         [SerializeField]
+        GameObject girlPrefab;
+
+        //[SerializeField]
         GameObject girl;
 
         [SerializeField]
@@ -320,11 +323,13 @@ namespace Kidnapped
         {
             // Deactivate the trigger
             girlToRoomTrigger.gameObject.SetActive(false);
+            // Spawn Lilith
+            girl = Instantiate(girlPrefab, girlToRoomTarget.position, girlToRoomTarget.rotation);
             // Set material
-            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            girl.GetComponent<EvilMaterialSetter>().SetEvil();
             // Set the girl transform
-            girl.transform.position = girlToRoomTarget.position;
-            girl.transform.rotation = girlToRoomTarget.rotation;
+            //girl.transform.position = girlToRoomTarget.position;
+            //girl.transform.rotation = girlToRoomTarget.rotation;
             // Play sound
             girlToRoomStingerSound.PlayDelayed(.25f);
             // Activate girl
@@ -337,8 +342,10 @@ namespace Kidnapped
 
             FlashlightFlickerController.Instance.FlickerOnce(() =>
             {
-                girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
-                girl.SetActive(false);
+                // Destroy Lilith
+                Destroy(girl);
+                //girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
+                //girl.SetActive(false);
             });
 
             // Wait a few seconds

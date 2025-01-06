@@ -32,6 +32,9 @@ namespace Kidnapped
         ScaryDoor gymDoor;
 
         [SerializeField]
+        GameObject girlPrefab;
+
+        //[SerializeField]
         GameObject girl;
 
         [SerializeField]
@@ -226,8 +229,10 @@ namespace Kidnapped
             // Play stinger
             GameSceneAudioManager.Instance.PlayStinger(1);
             // Activate Lilith
-            girl.transform.position = lockerRoomGirlTarget.transform.position;
-            girl.transform.rotation = lockerRoomGirlTarget.transform.rotation;
+            girl = Instantiate(girlPrefab, lockerRoomGirlTarget.position, lockerRoomGirlTarget.rotation);
+
+            //girl.transform.position = lockerRoomGirlTarget.transform.position;
+            //girl.transform.rotation = lockerRoomGirlTarget.transform.rotation;
             girl.SetActive(true);
             girl.GetComponent<EvilMaterialSetter>().SetEvil();
             girl.GetComponentInChildren<Animator>().SetTrigger("Walk");
@@ -243,7 +248,8 @@ namespace Kidnapped
         void HandleOnFlickerToDarkness(float duration)
         {
             // Deactivate Lilith
-            girl.SetActive(false);
+            Destroy(girl);
+            //girl.SetActive(false);
             // Remove blocks
             schoolBlock.GetComponent<SimpleActivator>().Init(false.ToString());
             gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
@@ -417,14 +423,15 @@ namespace Kidnapped
             ball.transform.position = ballKitchenTarget.transform.position;
             //ballRB.isKinematic = false;
 
-            
+            // Create Lilith
+            girl = Instantiate(girlPrefab, girlKitchenTarget.position, girlKitchenTarget.rotation);
             // Set character transform
-            girl.transform.position = girlKitchenTarget.position;
-            girl.transform.rotation = girlKitchenTarget.rotation;
+            //girl.transform.position = girlKitchenTarget.position;
+            //girl.transform.rotation = girlKitchenTarget.rotation;
             // Activate character
             girl.SetActive(true);
             // Set material
-            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            girl.GetComponent<EvilMaterialSetter>().SetEvil();
             // Set animation
             girl.GetComponentInChildren<Animator>().SetTrigger("RunScary");
 
@@ -435,7 +442,8 @@ namespace Kidnapped
             await Task.Delay(1200);
 
             // Deactivate character
-            girl.SetActive(false);
+            Destroy(girl);
+            //girl.SetActive(false);
 
             // Lilith conjuring
             Debug.Log("Lilith conjuring in the kitchen");
@@ -466,10 +474,12 @@ namespace Kidnapped
 
             // Show Lilith
             Debug.Log($"Setting position:{girlTarget.transform.position}");
-            girl.transform.position = girlTarget.transform.position;
-            girl.transform.rotation = girlTarget.transform.rotation;
+            girl = Instantiate(girlPrefab, girlTarget.position, girlTarget.rotation);
+
+            //girl.transform.position = girlTarget.transform.position;
+            //girl.transform.rotation = girlTarget.transform.rotation;
             girl.SetActive(true);
-            girl.GetComponent<EvilMaterialSetter>().SetNormal();
+            girl.GetComponent<EvilMaterialSetter>().SetEvil();
             //girl.GetComponentInChildren<Animator>().SetTrigger("Pose1");
             girl.transform.DOMoveY(0.140f, 0.05f, false);
 
@@ -500,7 +510,8 @@ namespace Kidnapped
 
         private async void HandleOnLightOffAfter()
         {
-            girl.SetActive(false);
+            Destroy(girl);
+            //girl.SetActive(false);
 
             Destroy(candle);
 
