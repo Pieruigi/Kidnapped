@@ -113,14 +113,14 @@ namespace Kidnapped
         [SerializeField]
         Transform ballGroupTarget;
 
-        [SerializeField]
-        GameObject candlePrefab;
+        //[SerializeField]
+        //GameObject candlePrefab;
 
-        [SerializeField]
-        Transform candleTarget;
+        //[SerializeField]
+        //Transform candleTarget;
 
-        [SerializeField]
-        LightActivator externalHintLight;
+        //[SerializeField]
+        //LightActivator externalHintLight;
 
 
         GameObject candle;
@@ -249,7 +249,7 @@ namespace Kidnapped
             gymBlock.GetComponent<SimpleActivator>().Init(false.ToString());
 
             // Activate hint light
-            externalHintLight.SetEnabled(true);
+            //externalHintLight.SetEnabled(true);
 
             // Set final state
             state = finalState;
@@ -608,7 +608,7 @@ namespace Kidnapped
                     ballGroup = Instantiate(ballGroupPrefab, ballGroupTarget.position, ballGroupTarget.rotation);
 
                     // Spawn candle
-                    candle = Instantiate(candlePrefab, candleTarget.position, candleTarget.rotation);
+                    //candle = Instantiate(candlePrefab, candleTarget.position, candleTarget.rotation);
 
                  
                     break;

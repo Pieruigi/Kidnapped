@@ -80,11 +80,11 @@ namespace Kidnapped
         [SerializeField]
         CrouchHint crouchHint;
 
-        [SerializeField]
-        LightActivator[] toDeactivateLights;
+        //[SerializeField]
+        //LightActivator[] toDeactivateLights;
 
-        [SerializeField]
-        LightActivator[] toActivateLights;
+        //[SerializeField]
+        //LightActivator[] toActivateLights;
 
         [SerializeField]
         Light internalCandle;
@@ -207,13 +207,13 @@ namespace Kidnapped
             // Remove school main block
             mainBlock.gameObject.SetActive(false);
 
-            // Deactivate light
-            foreach(var l in toDeactivateLights)
-                l.SetEnabled(false);
+            //// Deactivate light
+            //foreach(var l in toDeactivateLights)
+            //    l.SetEnabled(false);
 
-            // Activate
-            foreach (var l in toActivateLights)
-                l.SetEnabled(true);
+            //// Activate
+            //foreach (var l in toActivateLights)
+            //    l.SetEnabled(true);
 
             // We do it manually because we must detroy the object after a while
             //Utility.SwitchLightOn(internalCandle, false);

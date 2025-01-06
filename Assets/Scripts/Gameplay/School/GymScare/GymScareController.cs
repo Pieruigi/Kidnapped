@@ -41,8 +41,8 @@ namespace Kidnapped
         [SerializeField]
         GameObject doorBlock;
 
-        [SerializeField]
-        LightActivator externalHintLight;
+        //[SerializeField]
+        //LightActivator externalHintLight;
 
         [Header("Cat")]
         [SerializeField]
@@ -161,7 +161,7 @@ namespace Kidnapped
         {
             trigger.gameObject.SetActive(false);
 
-            externalHintLight.SetEnabled(false);
+            //externalHintLight.SetEnabled(false);
 
             SlamTheDoor();
         }
@@ -280,7 +280,7 @@ namespace Kidnapped
 
             ShowHints();
 
-            PlayerController.Instance.CanRunning = true;
+            //PlayerController.Instance.CanRunning = true;
         }
 
         async void ShowHints()
@@ -430,7 +430,7 @@ namespace Kidnapped
 
             if (state == 200)
             {
-                PlayerController.Instance.CanRunning = false;
+                //PlayerController.Instance.CanRunning = false;
 
                 // Set the door open
                 door.Open();
@@ -506,7 +506,7 @@ namespace Kidnapped
 
                 ShowHints();
 
-                PlayerController.Instance.CanRunning = true;
+                //PlayerController.Instance.CanRunning = true;
             }
             
             // Old gym
