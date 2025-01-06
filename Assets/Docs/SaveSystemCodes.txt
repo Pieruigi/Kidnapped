@@ -67,6 +67,7 @@ Block between first and second floor: stairs_block
 gym external door block: gym_block1, gym_block1_n 
 kitchen entrance block: kit_block, kit_block_n
 meet the girl room block: mtg_block ( TransformSaver )
+Floor 1 corridor block (near the entrance): floor1_block2
 
 
 

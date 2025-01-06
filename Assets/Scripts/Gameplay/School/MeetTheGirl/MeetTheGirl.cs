@@ -332,14 +332,19 @@ namespace Kidnapped
             girl.SetActive(true);
             // Play the run animation
             girl.GetComponentInChildren<Animator>().SetTrigger("Run");
-            // Wait a while and eventually stop running
-            //await Task.Delay(500);
-            //PlayerController.Instance.CanRunning = false;
+            
+            await Task.Delay(2000);
+
+            FlashlightFlickerController.Instance.FlickerOnce(() =>
+            {
+                girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
+                girl.SetActive(false);
+            });
+
             // Wait a few seconds
-            await Task.Delay(3000);
+            
             // Dectivate girl
-            girl.GetComponentInChildren<Animator>().ResetTrigger("Run");
-            girl.SetActive(false);
+            
             // You can run again
             //PlayerController.Instance.CanRunning = true;
         }

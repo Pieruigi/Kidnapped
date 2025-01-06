@@ -89,8 +89,8 @@ namespace Kidnapped
         [SerializeField]
         Light internalCandle;
 
-        [SerializeField]
-        LightActivator lightActivator;
+        //[SerializeField]
+        //LightActivator lightActivator;
 
         int state = 0;
 
@@ -234,7 +234,10 @@ namespace Kidnapped
         private async void HandleOnScaryTriggerEnter(PlayerWalkInTrigger trigger)
         {
             state = 20;
-            
+
+            // Remove corridor block
+            corridorBlock.SetActive(false);
+
             scaryEvilTrigger.gameObject.SetActive(false);
             //scaryEvil.GetComponent<EvilMaterialSetter>().SetNormal();
             scaryEvil.transform.position = scaryEvilTarget.transform.position;
@@ -248,8 +251,7 @@ namespace Kidnapped
             await Task.Delay(3000);
             scaryEvil.Init(false.ToString());
 
-            // Save state 20
-            SaveManager.Instance.SaveGame();
+           
         }
 
         private async void HandleOnTableTriggerEnter(PlayerWalkInTrigger trigger)
@@ -261,7 +263,7 @@ namespace Kidnapped
             tableTrigger.gameObject.SetActive(false);
             // Play audio
             draggingTableAudioSource.Play();
-
+            
             await Task.Delay(1000);
             //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "check_the_rules"));
             VoiceManager.Instance.Talk(Speaker.Lilith, 0);
@@ -271,7 +273,10 @@ namespace Kidnapped
             await Task.Delay(1000);
             kitchenLight.SetActive(false);
             SubtitleUI.Instance.Hide();
-            corridorBlock.SetActive(false);
+
+            await Task.Delay(500);
+            // Save state 20
+            SaveManager.Instance.SaveGame();
         }
 
         private void HandleOnLockerTriggerExit(PlayerWalkInTrigger trigger)
@@ -310,7 +315,7 @@ namespace Kidnapped
             lockerJar.SetActive(false);
             kitchenLight.SetActive(true);
             openingKitchenAudioSource.Play();
-            lightActivator.SetEnabled(false);
+            //lightActivator.SetEnabled(false);
         }
 
         void CreateLilithFirstLook()
@@ -362,7 +367,7 @@ namespace Kidnapped
                 lockerWalkInTrigger.gameObject.SetActive(false);
                 tableTrigger.gameObject.SetActive(false);
                 scaryEvilTrigger.gameObject.SetActive(false);
-                corridorBlock.gameObject.SetActive(false);
+                //corridorBlock.gameObject.SetActive(false);
                 tableObject.transform.position = tableTarget.transform.position;
                 tableObject.transform.rotation = tableTarget.transform.rotation;
                 lilithFirstLookTrigger.gameObject.SetActive(false);

@@ -20,11 +20,13 @@ namespace Kidnapped.SaveSystem
         [SerializeField]
         List<GameObject> savables;
 
-        string fileName = "save.txt";
+        string fileName = "save_v001.txt";
 
         protected override void Awake()
         {
             base.Awake();
+
+            CheckSaveVersion();
 
             SceneManager.sceneLoaded += HandleOnSceneLoaded;
         }
@@ -155,6 +157,38 @@ namespace Kidnapped.SaveSystem
         public void ClearCache()
         {
             data.Clear();
+        }
+
+        public void CheckSaveVersion()
+        {
+            var files = System.IO.Directory.GetFiles(Application.persistentDataPath);
+            Debug.Log("Files.Length:" + files.Length);
+
+            if (files == null || files.Length == 0)
+                return; // No save game found
+
+            int foundIndex = -1;
+            for (int i = 0; i < files.Length && foundIndex < 0; i++)
+            {
+                Debug.Log("Check file:" + files[i].Substring(files[i].LastIndexOf("\\") + 1));
+                if (files[i].Substring(files[i].LastIndexOf("\\")+1).StartsWith("save"))
+                    foundIndex = i;
+            }
+
+            Debug.Log("Found index:" + foundIndex);
+
+            if (foundIndex < 0)
+                return;
+
+            var foundName = files[foundIndex].Substring(files[foundIndex].LastIndexOf("\\") + 1);
+
+            // Check version
+            if (!fileName.Equals(foundName))
+            {
+                // Delete file
+                System.IO.File.Delete(System.IO.Path.Combine(Application.persistentDataPath, foundName));
+            }
+            
         }
 
         #region utilities

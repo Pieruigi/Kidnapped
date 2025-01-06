@@ -63,6 +63,9 @@ namespace Kidnapped
 
         [SerializeField]
         GameObject entranceBlock;
+
+        [SerializeField]
+        GameObject corridorBlock;
         
         int state = 0;
 
@@ -142,6 +145,7 @@ namespace Kidnapped
                 //FlashlightFlickerController.Instance.FlickerOnce(() => { /*kitchenHintGroup.SetActive(false);*/ entranceBlock.SetActive(false); });
 
                 entranceBlock.SetActive(false);
+                corridorBlock.SetActive(true);
 
                 // Puck says something here
                 //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);
