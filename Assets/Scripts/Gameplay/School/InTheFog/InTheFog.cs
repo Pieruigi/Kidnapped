@@ -26,6 +26,8 @@ namespace Kidnapped
         ScaryDoor boothDoor;
 
         [SerializeField]
+        GameObject boyPrefab;
+
         GameObject boy;
 
         [SerializeField]
@@ -66,6 +68,9 @@ namespace Kidnapped
 
         [SerializeField]
         GameObject corridorBlock;
+
+        [SerializeField]
+        TripleStateProcessor scaryMoment;
         
         int state = 0;
 
@@ -146,6 +151,9 @@ namespace Kidnapped
 
                 entranceBlock.SetActive(false);
                 corridorBlock.SetActive(true);
+
+                // Activate scary moment in the building site
+                scaryMoment.SetState(TripleStateProcessor.State.Ready);
 
                 // Puck says something here
                 //SubtitleUI.Instance.Show(LocalizationSettings.StringDatabase.GetLocalizedString(LocalizationTables.Subtitles, "kitchen_pass_needed"), true);
@@ -319,8 +327,9 @@ namespace Kidnapped
                     // We are in the booth, activate Puck
                     // Set position and rotation
                     Transform target = teleportGroups[teleportIndex].transform.Find(boyTargetChildName);
-                    boy.transform.position = target.position;
-                    boy.transform.rotation = target.rotation;
+                    boy = Instantiate(boyPrefab, target.position, target.rotation);
+                    //boy.transform.position = target.position;
+                    //boy.transform.rotation = target.rotation;
                     // Register the animation event handler
                     boy.GetComponentInChildren<AnimationEventDispatcher>().OnAnimationEvent += HandleOnAnimationEvent;
                     // Set evil material
@@ -344,7 +353,8 @@ namespace Kidnapped
         async void HandleOnFlickerToDarkness(float duration)
         {
             // Disable Puck
-            boy.SetActive(false);
+            Destroy(boy);
+            //boy.SetActive(false);
 
             // Add some delay
             await Task.Delay(1500);

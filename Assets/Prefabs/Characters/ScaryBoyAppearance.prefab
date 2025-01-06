@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8428271474992057903}
-  - component: {fileID: -4396525188352008767}
   - component: {fileID: 7196992346260250532}
   - component: {fileID: 3447671818598874352}
   m_Layer: 0
@@ -35,20 +34,6 @@ Transform:
   - {fileID: 7014568286685310531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4396525188352008767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541216791351185748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e56af75aecb99448da367bc4e371df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activate: 0
-  code: scary_boy_appearance
 --- !u!114 &7196992346260250532
 MonoBehaviour:
   m_ObjectHideFlags: 0

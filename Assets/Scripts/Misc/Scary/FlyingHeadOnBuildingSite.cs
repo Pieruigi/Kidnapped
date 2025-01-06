@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,10 +19,7 @@ namespace Kidnapped
         Transform headTarget;
 
         [SerializeField]
-        GameObject headStuckPrefab;
-
-        [SerializeField]
-        Transform headStuckTarget;
+        Transform headCompletedTarget;
 
         [SerializeField]
         GameObject sign;
@@ -29,13 +27,14 @@ namespace Kidnapped
         [SerializeField]
         Transform signTarget;
 
+        
         GameObject head;
 
         protected override void Awake()
         {
             base.Awake();
 
-            var state = GetState();
+            Initialize(GetState());
 
         }
 
@@ -53,29 +52,21 @@ namespace Kidnapped
         {
             trigger.gameObject.SetActive(false);
 
+            await Task.Delay(700);
+
             // Spawn head
             head = Instantiate(headPrefab, headTarget.position, headTarget.rotation);
 
-            // Launch head 
-            var rb = head.GetComponent<Rigidbody>();
-            rb.AddForce(head.transform.forward * 10, ForceMode.VelocityChange);
-            rb.AddTorque(new Vector3(62, 89, 74));
+            head.transform.DORotateQuaternion(headCompletedTarget.rotation, .5f).SetEase(Ease.OutElastic);
 
-            // Wait 
-            await Task.Delay(2000);
+            // Play stinger
+            GameSceneAudioManager.Instance.PlayStinger(1);
 
-            // Flicker
-            FlashlightFlickerController.Instance.FlickerOnce(() =>
-            {
-                // Destroy flying head
-                Destroy(head);
+            // Set the completed state
+            base.SetState(State.Completed);
 
-                // Set the completed state
-                SetState(State.Completed);
-
-                // Show the stuck head
-                Initialize(GetState());
-            });
+            
+            
         }
 
         void Initialize(State state)
@@ -97,11 +88,17 @@ namespace Kidnapped
                     sign.transform.position = signTarget.position;
                     sign.transform.rotation = signTarget.rotation;
                     // Show the stuck head
-                    head = Instantiate(headStuckPrefab, headStuckTarget.position, headStuckTarget.rotation);
+                    head = Instantiate(headPrefab, headCompletedTarget.position, headCompletedTarget.rotation);
                     break;
             }
         }
 
+        public override void SetState(State state)
+        {
+            base.SetState(state);
+
+            Initialize(GetState());
+        }
     }
 
 }

@@ -97,9 +97,10 @@ namespace Kidnapped
                     if (Input.GetKeyDown(KeyBindings.InteractionKey))
                     {
                         PlayerLeftHand.Instance.PlayTouchAnimation();
-                        lockedFx.PlayFeedbacks();
-                        if (lockedAudioSource)
-                            lockedAudioSource.Play();
+                        //lockedFx.PlayFeedbacks();
+                        //if (lockedAudioSource)
+                        //    lockedAudioSource.Play();
+                        PlayLockedFx();
                         OnLocked?.Invoke(this);
                     }
                 }
@@ -136,6 +137,13 @@ namespace Kidnapped
             inside = false;
 
             PlayerLeftHand.Instance.PlayIdleAnimation();
+        }
+
+        public void PlayLockedFx()
+        {
+            lockedFx.PlayFeedbacks();
+            if (lockedAudioSource)
+                lockedAudioSource.Play();
         }
 
         public void Open()

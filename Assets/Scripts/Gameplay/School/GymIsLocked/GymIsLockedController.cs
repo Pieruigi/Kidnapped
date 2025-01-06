@@ -141,7 +141,12 @@ namespace Kidnapped
         Vector3 playerOldPosition;
         Quaternion playeroldRotation;
 
-        GameObject ballGroup; 
+        GameObject ballGroup;
+
+        bool autoSlamDoor = false;
+        float autoSlamTimeDefault = 3;
+        float autoSlamTime;
+        float autoSlamElapsed = 0;
 
         private void Awake()
         {
@@ -160,7 +165,16 @@ namespace Kidnapped
         // Update is called once per frame
         void Update()
         {
-            
+            if (autoSlamDoor)
+            {
+                autoSlamElapsed += Time.deltaTime;
+                if(autoSlamElapsed > autoSlamTime)
+                {
+                    autoSlamElapsed = 0;
+                    SetAutoSlamTime();
+                    gymDoor.PlayLockedFx();
+                }
+            }
         }
 
         private void OnEnable()
@@ -558,6 +572,9 @@ namespace Kidnapped
             // Disable trigger
             ballTrigger.gameObject.SetActive(false);
 
+            // Stop playing the door
+            autoSlamDoor = false;
+
             // Launch the ball
             ball.SetActive(true);
             Rigidbody rb = ball.GetComponent<Rigidbody>();
@@ -573,6 +590,11 @@ namespace Kidnapped
 
             await Task.Delay(200);
             source.Play();
+        }
+
+        void SetAutoSlamTime()
+        {
+            autoSlamTime = UnityEngine.Random.Range(autoSlamTimeDefault, autoSlamTimeDefault * 1.2f);
         }
 
         public void SetWorkingState()
@@ -617,7 +639,9 @@ namespace Kidnapped
                     ballTrigger.gameObject.SetActive(true);
                     slamTrigger.gameObject.SetActive(true);
                     ballGroup = Instantiate(ballGroupPrefab, ballGroupTarget.position, ballGroupTarget.rotation);
-
+                    autoSlamDoor = true;
+                    SetAutoSlamTime();
+                    autoSlamElapsed = 0;
                     // Spawn candle
                     //candle = Instantiate(candlePrefab, candleTarget.position, candleTarget.rotation);
 

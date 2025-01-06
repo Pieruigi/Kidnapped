@@ -69,7 +69,9 @@ namespace Kidnapped
         PlayerWalkInTrigger scaryEvilTrigger;
 
         [SerializeField]
-        SimpleActivator scaryEvil;
+        GameObject scaryBoyPrefab;
+
+        GameObject scaryEvil;
 
         [SerializeField]
         AudioSource openingKitchenAudioSource;
@@ -235,21 +237,28 @@ namespace Kidnapped
         {
             state = 20;
 
+            scaryEvilTrigger.gameObject.SetActive(false);
+
             // Remove corridor block
             corridorBlock.SetActive(false);
 
-            scaryEvilTrigger.gameObject.SetActive(false);
-            //scaryEvil.GetComponent<EvilMaterialSetter>().SetNormal();
-            scaryEvil.transform.position = scaryEvilTarget.transform.position;
-            scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
-            scaryEvil.Init(true.ToString());
+            // Spawn Puck
+            scaryEvil = Instantiate(scaryBoyPrefab, scaryEvilTarget.position, scaryEvilTarget.rotation);
+
+            scaryEvil.GetComponent<EvilMaterialSetter>().SetEvil();
+            //scaryEvil.transform.position = scaryEvilTarget.transform.position;
+            //scaryEvil.transform.rotation = scaryEvilTarget.transform.rotation;
+            //scaryEvil.Init(true.ToString());
             scaryEvil.GetComponentInChildren<Animator>().SetTrigger("Walk");
 
             // Play stinger 
             GameSceneAudioManager.Instance.PlayStinger(1, 0.5f);
 
             await Task.Delay(3000);
-            scaryEvil.Init(false.ToString());
+            
+            Destroy(scaryEvil);
+
+            //scaryEvil.Init(false.ToString());
 
            
         }

@@ -18,11 +18,11 @@ namespace Kidnapped
         {
             string data = SaveManager.GetCachedValue(code);
             if (string.IsNullOrEmpty(data))
-                data = initialState.ToString();
+                data = ((int)initialState).ToString();
             Init(data);
         }
 
-        public void SetState(State state)
+        public virtual void SetState(State state)
         {
             Init(((int)state).ToString());
         }
@@ -43,7 +43,7 @@ namespace Kidnapped
 
         public string GetData()
         {
-            return gameObject.activeSelf.ToString();
+            return state.ToString();
 
         }
 
