@@ -84,6 +84,9 @@ namespace Kidnapped
         [SerializeField]
         GameObject mainEntranceBlock;
 
+        [SerializeField]
+        VentriloquistJumpScareGroundFloor ventriloquistJumpScare;
+
         Vector3 scaryBallRotSpeedMin = Vector3.one * 10;
         Vector3 scaryBallRotSpeedMax = Vector3.one * 20;
 
@@ -234,6 +237,8 @@ namespace Kidnapped
 
             CatController.Instance.ScaredAndRunAway(catDestination.position);
 
+            // Disable ventriloquist jump scare
+            ventriloquistJumpScare.SetNotReady();
            
             // Just wait for a while and then flicker the flashlight out and start the new section
             await Task.Delay(2500);

@@ -43,7 +43,7 @@ namespace Kidnapped
 
         public string GetData()
         {
-            return gameObject.activeSelf.ToString();
+            return state.ToString();
 
         }
 

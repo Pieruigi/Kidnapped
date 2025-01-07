@@ -116,6 +116,9 @@ namespace Kidnapped
         [SerializeField]
         Transform ballGroupTarget;
 
+        [SerializeField]
+        VentriloquistJumpScareGroundFloor ventriloquistJumpScare;
+
         //[SerializeField]
         //GameObject candlePrefab;
 
@@ -427,6 +430,9 @@ namespace Kidnapped
         {
             // Disable trigger
             t.gameObject.SetActive(false);
+
+            // Activate the ventriloquist jump scare
+            ventriloquistJumpScare.SetReady();
 
             // Activate the ball in the kitchen
             ball.SetActive(true);
