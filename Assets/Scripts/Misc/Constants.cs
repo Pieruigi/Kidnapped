@@ -15,6 +15,7 @@ namespace Kidnapped
     {
         public static string Interaction = "Interaction";
         public static string Player = "Player";
+        public static string SightObstacle = "SightObstacle";   
     }
 
     public class KeyBindings

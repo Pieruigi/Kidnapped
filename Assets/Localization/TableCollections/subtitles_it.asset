@@ -132,8 +132,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22999398024257536
-    m_Localized: "4 novembre 2008.\nLa notte \xE8 buia, avvolta dalla nebbia...\ne
-      non hai idea di dove tu stia andando."
+    m_Localized: 'La notte e'' buia, avvolta dalla nebbia e non hai idea di dove
+      tu stia andando.
+
+
+      Qualcosa non va con la tua auto e il motore improvvisamente
+      smette di funzionare.
+
+
+      Davanti a te si erge quella che sembra essere
+      una vecchia scuola abbandonata.'
     m_Metadata:
       m_Items: []
   - m_Id: 23358859853684736

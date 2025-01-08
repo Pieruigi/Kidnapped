@@ -85,7 +85,10 @@ namespace Kidnapped
         GameObject mainEntranceBlock;
 
         [SerializeField]
-        VentriloquistJumpScareGroundFloor ventriloquistJumpScare;
+        GameObject parkTeleportGroup;
+
+        //[SerializeField]
+        //VentriloquistJumpScareGroundFloor ventriloquistJumpScare;
 
         Vector3 scaryBallRotSpeedMin = Vector3.one * 10;
         Vector3 scaryBallRotSpeedMax = Vector3.one * 20;
@@ -238,7 +241,7 @@ namespace Kidnapped
             CatController.Instance.ScaredAndRunAway(catDestination.position);
 
             // Disable ventriloquist jump scare
-            ventriloquistJumpScare.SetNotReady();
+            //ventriloquistJumpScare.SetNotReady();
            
             // Just wait for a while and then flicker the flashlight out and start the new section
             await Task.Delay(2500);
@@ -445,6 +448,10 @@ namespace Kidnapped
 
                 // Set InTheFog gameplay ready
                 inTheFogController.SetReady();
+
+                // Disable park teleport
+                parkTeleportGroup.SetActive(false);
+
                 // Enable dialog trigger 
                 dialogTrigger.gameObject.SetActive(true);
                 // Save

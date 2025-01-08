@@ -139,8 +139,8 @@ namespace Kidnapped
                 case notReady:
                     if (!furniture)
                         furniture = Instantiate(furniturePrefab);
-                    furniture.transform.position = notReadyTarget.position;
-                    furniture.transform.rotation = notReadyTarget.rotation;
+                    furniture.transform.position = readyTarget.position;
+                    furniture.transform.rotation = readyTarget.rotation;
                     trigger.gameObject.SetActive(false);
                     break;
                 case ready:

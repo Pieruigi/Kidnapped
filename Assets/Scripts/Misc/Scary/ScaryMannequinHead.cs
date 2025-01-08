@@ -8,8 +8,8 @@ namespace Kidnapped
 {
     public class ScaryMannequinHead : MonoBehaviour
     {
-        [SerializeField]
-        PlayerWalkInTrigger deactivator;
+        //[SerializeField]
+        //PlayerWalkInTrigger deactivator;
 
         float time = .5f;
         float elapsed = 0;
@@ -46,7 +46,7 @@ namespace Kidnapped
 
         private void OnEnable()
         {
-            deactivator.OnEnter += (duration) => { GetComponentInParent<SimpleActivator>().gameObject.SetActive(false); };
+            //deactivator.OnEnter += (duration) => { GetComponentInParent<SimpleActivator>().gameObject.SetActive(false); };
         }
 
         void Check()

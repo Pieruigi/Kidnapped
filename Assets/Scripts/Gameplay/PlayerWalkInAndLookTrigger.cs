@@ -15,6 +15,7 @@ namespace Kidnapped
         [SerializeField]
         float angleTollerance;
 
+
         bool triggered = false;
 
         // Start is called before the first frame update
@@ -39,6 +40,9 @@ namespace Kidnapped
             if (triggered || !other.CompareTag(Tags.Player))
                 return;
 
+            if (IsBlinded())
+                return;
+
             if (IsInView())
             {
                 triggered = true;
@@ -46,6 +50,20 @@ namespace Kidnapped
             }
                 
         }
+
+        bool IsBlinded()
+        {
+            // Raycast
+            Vector3 dir = target.position - Camera.main.transform.position;
+
+            int mask = LayerMask.GetMask(new string[] { Layers.SightObstacle });
+            if (Physics.Raycast(Camera.main.transform.position, dir.normalized, dir.magnitude, mask))
+                return true;
+
+            return false;
+
+        }
+            
 
         bool IsInView()
         {

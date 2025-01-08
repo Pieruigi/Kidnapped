@@ -115,12 +115,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19771882350354432
-    m_Localized: <color=red>I never nderstood why you painted those mannequins at
+    m_Localized: <color=red>I never understood why you painted those mannequins at
       school.</color>
     m_Metadata:
       m_Items: []
   - m_Id: 19772215659110400
-    m_Localized: <color=red>Maybe I'd better not say anithing.</color>
+    m_Localized: <color=red>Maybe I'd better not say anything.</color>
     m_Metadata:
       m_Items: []
   - m_Id: 19772432387186688
@@ -132,12 +132,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 22999398024257536
-    m_Localized: 'November 4th, 2008.
+    m_Localized: 'The night is dark, wrapped in fog and you have no idea where you''re
+      going.
 
-      The night is dark, wrapped in fog...
 
-      and
-      you have no idea where you''re going.'
+      Something is wrong with your car and the engine suddenly stops
+      working.
+
+
+      In front of you stands what appears to be an old, abandoned
+      school.
+
+'
     m_Metadata:
       m_Items: []
   - m_Id: 23358859853684736

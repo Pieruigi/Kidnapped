@@ -27,6 +27,9 @@ namespace Kidnapped
         [SerializeField]
         Transform signTarget;
 
+        [SerializeField]
+        GameObject block;
+
         
         GameObject head;
 
@@ -65,7 +68,7 @@ namespace Kidnapped
             // Set the completed state
             base.SetState(State.Completed);
 
-            
+            Initialize(GetState());
             
         }
 
@@ -75,12 +78,14 @@ namespace Kidnapped
             {
                 case State.NotReady:
                     trigger.gameObject.SetActive(false);
+                    block.SetActive(false);
                     break;
                 case State.Ready:
                     trigger.gameObject.SetActive(true);
                     // Move sign
                     sign.transform.position = signTarget.position;
                     sign.transform.rotation = signTarget.rotation;
+                    block.SetActive(false);
                     break;
                 case State.Completed:
                     trigger.gameObject.SetActive(false);
@@ -88,7 +93,9 @@ namespace Kidnapped
                     sign.transform.position = signTarget.position;
                     sign.transform.rotation = signTarget.rotation;
                     // Show the stuck head
-                    head = Instantiate(headPrefab, headCompletedTarget.position, headCompletedTarget.rotation);
+                    if(!head)
+                        head = Instantiate(headPrefab, headCompletedTarget.position, headCompletedTarget.rotation);
+                    block.SetActive(false);
                     break;
             }
         }
