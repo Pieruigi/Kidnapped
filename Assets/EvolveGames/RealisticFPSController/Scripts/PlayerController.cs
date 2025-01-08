@@ -118,7 +118,7 @@ namespace EvolveGames
         void Update()
         {
 #if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.P)) 
+            if(Input.GetKeyDown(KeyCode.Tab)) 
             {
                 PlayerInputEnabled = !PlayerInputEnabled;
             }

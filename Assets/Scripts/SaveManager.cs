@@ -20,7 +20,7 @@ namespace Kidnapped.SaveSystem
         [SerializeField]
         List<GameObject> savables;
 
-        string fileName = "save_v0_5.txt"; // Change it with the next update
+        string fileName = "save_v0_6.txt"; // Change it with the next update
 
         protected override void Awake()
         {

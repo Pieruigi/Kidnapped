@@ -116,6 +116,12 @@ namespace Kidnapped
         [SerializeField]
         Transform ballGroupTarget;
 
+        [SerializeField]
+        Collider kitchenWoodCollider;
+
+        [SerializeField]
+        Collider bouncingBallCollider; 
+   
         //[SerializeField]
         //VentriloquistJumpScareGroundFloor ventriloquistJumpScare;
 
@@ -147,7 +153,7 @@ namespace Kidnapped
         GameObject ballGroup;
 
         bool autoSlamDoor = false;
-        float autoSlamTimeDefault = 3;
+        float autoSlamTimeDefault = 1.5f;
         float autoSlamTime;
         float autoSlamElapsed = 0;
 
@@ -638,6 +644,8 @@ namespace Kidnapped
             scaryDoorStep4Trigger.gameObject.SetActive(false);
             lockerConjuringTrigger.gameObject.SetActive(false);
             Utility.SwitchLightOn(firstFloorBallLight, false);
+
+            Physics.IgnoreCollision(kitchenWoodCollider, bouncingBallCollider, true);
             
             switch (state)
             {

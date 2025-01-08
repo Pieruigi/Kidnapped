@@ -216,6 +216,10 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 23095700215554048
+    m_Localized: Press <b><i>P</i></b> to switch pixelation filter on/off.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

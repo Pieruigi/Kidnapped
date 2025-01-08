@@ -215,6 +215,10 @@ MonoBehaviour:
       <b><i>{1}</i></b> per correre.'
     m_Metadata:
       m_Items: []
+  - m_Id: 23095700215554048
+    m_Localized: Premi <b><i>P</i></b> per accendere/spegnere il filtro pixel..
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

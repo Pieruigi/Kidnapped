@@ -85,7 +85,7 @@ namespace Kidnapped
                     // Move sign
                     sign.transform.position = signTarget.position;
                     sign.transform.rotation = signTarget.rotation;
-                    block.SetActive(false);
+                    block.SetActive(true);
                     break;
                 case State.Completed:
                     trigger.gameObject.SetActive(false);

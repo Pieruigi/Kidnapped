@@ -88,6 +88,12 @@ namespace Kidnapped
         [SerializeField]
         GameObject corridorPumpkin;
 
+        [SerializeField]
+        AudioSource jinxAudioSource1;
+
+        [SerializeField]
+        AudioSource jinxAudioSource2;
+
         GameObject jinx;
 
 
@@ -261,6 +267,8 @@ namespace Kidnapped
         private void HandleOnBoardTrigger(PlayerWalkInAndLookTrigger trigger)
         {
 
+            jinxAudioSource2.Play();
+
             FlashlightFlickerController.Instance.FlickerToDarkeness(HandleOnFlickerToBells);
 
         }
@@ -315,6 +323,9 @@ namespace Kidnapped
             preblockTrigger.gameObject.SetActive(false);
             // Just activate the block trigger
             blockTrigger.gameObject.SetActive(true);
+
+            // Audio
+            jinxAudioSource1.Play();
 
             FlashlightFlickerController.Instance.FlickerOnce(() => { jinx.transform.position = jinxTarget2.position; jinx.transform.rotation = jinxTarget2.rotation; });
         }

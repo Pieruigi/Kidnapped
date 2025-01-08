@@ -60,7 +60,7 @@ namespace Kidnapped
             if (activated)
             {
 
-                if (Input.GetKeyDown(KeyCode.P))
+                if (Input.GetKeyDown(KeyCode.Tab))
                 {
                     paused = !paused;
                 }
